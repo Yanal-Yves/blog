@@ -1,0 +1,31 @@
+baseURL = "https://fargialla.com/" # Mettez votre vrai domaine ici
+languageCode = "fr-fr"
+title = "Notes Techniques" # Le nom de votre site en haut à gauche
+theme = "hugo-book"
+
+# Configuration spécifique au thème "Book" pour vos besoins
+[params]
+  # Désactiver le lien vers le code source (puisque c'est un repo perso)
+  BookRepo = ""
+  
+  # Menu gauche large et retractable
+  BookMenuBundle = "/menu"
+  
+  # Active le mode sombre automatique selon les préférences du visiteur
+  BookTheme = "auto" 
+
+  # Format de date français
+  DateFormat = "2 Jan 2006"
+
+  # Permet aux titres longs de ne pas casser le design
+  BookSection = "*"
+
+# Configuration pour que les URLs soient propres
+[server]
+  disableFastRender = true
+
+# Pour que le Markdown pur soit bien interprété
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true # Autorise un peu de HTML dans le markdown si besoin
