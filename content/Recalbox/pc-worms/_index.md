@@ -56,6 +56,7 @@ Utilisez ce contenu temporaire pour `dosbox.bat` :
 
 ```bat
 @echo off
+keyb fr
 imgmount D "Worms.cue" -t iso
 D:
 SETUP.EXE
@@ -67,6 +68,7 @@ Une fois installé, modifiez le fichier `dosbox.bat` avec le script final :
 
 ```bat
 @echo off
+keyb fr
 imgmount D "Worms.cue" -t iso
 C:
 cd WORMS
