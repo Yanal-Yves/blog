@@ -2,7 +2,7 @@
 
 Ce guide explique comment extraire et installer la version CD-ROM originale de **Worms** vendu par **Sold out** sur Recalbox, en préservant les pistes audio (musique d'ambiance) qui sont souvent perdues lors d'une copie standard.
 
-![Boite du jeu Worms Sold Out](Worms-Sold-out.png)
+![Boite du jeu Worms Sold Out](worms-sold-out.jpg)
 
 ## 1. Prérequis (Sous Fedora Linux 43)
 
