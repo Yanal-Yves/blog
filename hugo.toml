@@ -1,4 +1,4 @@
-baseURL = "https://fargialla.com/" # Mettez votre vrai domaine ici
+baseURL = "https://yanal.fargialla.com/"
 languageCode = "fr-fr"
 title = "Notes Techniques" # Le nom de votre site en haut à gauche
 theme = "hugo-book"
