@@ -3,9 +3,9 @@ title: "De SMTP à DMARC (3/8) : SPF (Sender Policy Framework)"
 weight: 3
 ---
 
-Standardisé en 2006 ([RFC 4408](https://www.rfc-editor.org/rfc/rfc4408)), mis à jour en 2014 ([RFC 7208](https://www.rfc-editor.org/rfc/rfc7208)).
-
 # Principe de fonctionnement
+
+Standardisé en 2006 ([RFC 4408](https://www.rfc-editor.org/rfc/rfc4408)), mis à jour en 2014 ([RFC 7208](https://www.rfc-editor.org/rfc/rfc7208)).
 
 Le SPF agit comme un annuaire de confiance. Le propriétaire du domaine `a.com` publie dans son DNS (enregistrement `TXT`) la liste des IPs autorisées à envoyer des e-mails en son nom.  
 Lorsqu'un e-mail arrive, le serveur de réception vérifie l'IP d'envoi par rapport à cette liste. Attention : Le SPF vérifie le domaine indiqué dans le `Return-Path` (l'enveloppe), et non le `From` (l'en-tête visible).

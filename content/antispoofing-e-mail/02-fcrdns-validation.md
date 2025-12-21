@@ -3,9 +3,9 @@ title: "De SMTP à DMARC (2/8) : FCrDNS et validation croisée"
 weight: 2
 ---
 
-Cette technique est apparue comme une bonne pratique dans les années 90.
-
 # Principe de fonctionnement
+
+Cette technique est apparue comme une bonne pratique dans les années 90.
 
 **Le principe de sécurité :** La robustesse de cette technique repose sur la nécessité de contrôler à la fois l'infrastructure IP (Côté Hébergeur) et la zone DNS (Côté Domaine). Un usurpateur ne possédant que l'un des deux accès ne pourra pas valider le test.
 
