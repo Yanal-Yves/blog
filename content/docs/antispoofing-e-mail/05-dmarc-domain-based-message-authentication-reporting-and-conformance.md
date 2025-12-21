@@ -3,8 +3,6 @@ title: "De SMTP à DMARC (5/8) : DMARC (Domain-based Message Authentication)"
 weight: 5
 ---
 
-[toc]
-
 Publié en 2015 ([RFC 7489](https://www.rfc-editor.org/rfc/rfc7489)).
 
 # Le Chef d'Orchestre

@@ -3,8 +3,6 @@ title: "De SMTP à DMARC (4/8) : DKIM (DomainKeys Identified Mail)"
 weight: 4
 ---
 
-[toc]
-
 Standardisé en 2007 ([RFC 4871](https://www.rfc-editor.org/rfc/rfc4871)), mis à jour en 2011 ([RFC 6376](https://www.rfc-editor.org/rfc/rfc6376)).
 
 # Principe de fonctionnement : Le scellé de preuves de la police

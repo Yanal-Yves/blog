@@ -3,8 +3,6 @@ title: "De SMTP à DMARC (1/8) : Architecture et concepts"
 weight: 1
 ---
 
-[toc]
-
 # Introduction
 
 ## Objectif et audience

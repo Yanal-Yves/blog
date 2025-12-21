@@ -3,8 +3,6 @@ title: "De SMTP à DMARC (3/8) : SPF (Sender Policy Framework)"
 weight: 3
 ---
 
-[toc]
-
 Standardisé en 2006 ([RFC 4408](https://www.rfc-editor.org/rfc/rfc4408)), mis à jour en 2014 ([RFC 7208](https://www.rfc-editor.org/rfc/rfc7208)).
 
 # Principe de fonctionnement

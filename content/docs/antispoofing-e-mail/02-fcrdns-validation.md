@@ -3,8 +3,6 @@ title: "De SMTP à DMARC (2/8) : FCrDNS et validation croisée"
 weight: 2
 ---
 
-[toc]
-
 Cette technique est apparue comme une bonne pratique dans les années 90.
 
 # Principe de fonctionnement
