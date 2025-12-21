@@ -13,7 +13,7 @@ Il y a trois types d'utilisateurs du système d'e-mail :
 - Les administrateurs des domaines
 	- Les mainteneurs de l'infrastructure e-mail
 
-Cet article s'adresse aux administrateurs de domaines qui ont besoin de configurer des boîtes e-mail de façon à empêcher l'usurpation d'identité.
+Cette série d'articles s'adresse aux administrateurs de domaines qui ont besoin de configurer des boîtes e-mail de façon à empêcher l'usurpation d'identité.
 
 ## Prérequis
 
@@ -37,7 +37,7 @@ Pour tirer pleinement profit de cet article et sécuriser votre domaine, vous de
 
 # Concepts spécifiques au mail
 
-Tout au long de cet article, on considère un e-mail partant du domaine `a.com` (domaine expéditeur) à destination du domaine `b.com` (domaine de réception). Ex : `alice@a.com` vers `bob@b.com`.  
+Tout au long de cette série d'articles, on considère un e-mail partant du domaine `a.com` (domaine expéditeur) à destination du domaine `b.com` (domaine de réception). Ex : `alice@a.com` vers `bob@b.com`.  
 Dans l'article, on parle d'**ESP**. Un ESP (pour Email Service Provider, ou Fournisseur de Services de Messagerie en français) est une entreprise ou une plateforme qui fournit des services pour aider les particuliers ou, plus couramment, les entreprises à gérer et envoyer des campagnes d'e-mails en masse (e-mail marketing, newsletters, etc.) ou des e-mails transactionnels.  
 Un e-mail transactionnel (ou e-mail de service/système) est un message automatisé et non promotionnel qui est envoyé à un utilisateur suite à une action spécifique que cet utilisateur a initiée sur un site web ou dans une application (ex : le mail qu'on reçoit quand on clique sur "mot de passe oublié").
 
