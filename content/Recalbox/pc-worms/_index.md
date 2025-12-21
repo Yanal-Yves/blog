@@ -16,7 +16,7 @@ sudo dnf install cdrdao gcdmaster
 
 Le CD de Worms est un disque "mixte" : la piste 1 contient les données du jeu, et les pistes suivantes contiennent la musique. Pour que la musique soit lue correctement sous Linux/Recalbox, il faut inverser l'ordre des bits (Byte Swap).
 
-Insérez le CD et lancez cette commande pour créer une image brute :
+Insérez le CD (ne pas monter le disque) et lancez cette commande pour créer une image brute :
 
 ```bash
 cdrdao read-cd --read-raw --datafile Worms.bin --device /dev/sr0 --driver generic-mmc-raw:0x20000 Worms.toc
