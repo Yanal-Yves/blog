@@ -1,0 +1,12 @@
+# Dossier de génération du site (le résultat final)
+/public
+
+# Dossier de cache des ressources (images redimensionnées, css minifié...)
+/resources/_gen
+
+# Fichier de verrouillage temporaire pendant que "hugo serve" tourne
+.hugo_build.lock
+
+# Fichiers système (Mac/Windows) inutiles
+.DS_Store
+Thumbs.db
