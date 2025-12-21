@@ -1,7 +1,9 @@
 baseURL = "https://yanal.fargialla.com/"
 languageCode = "fr-fr"
+defaultContentLanguage = "fr"
 title = "Notes Techniques" # Le nom de votre site en haut à gauche
 theme = "hugo-book"
+enableGitInfo = true # Pour la date automatique
 
 # Configuration spécifique au thème "Book" pour vos besoins
 [params]
