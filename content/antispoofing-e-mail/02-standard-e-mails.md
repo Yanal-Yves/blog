@@ -3,6 +3,8 @@ title: "De SMTP à DMARC (2/8) : Les e-mails standards"
 weight: 2
 ---
 
+Les protocoles anti usurpation que l'on va voir dans les articles suivants sont les murs de votre forteresse, et les emails standards sont les postes de garde. Si vous construisez les murs (SPF/DKIM) mais qu'il n'y a personne dans les postes de garde (postmaster/abuse) pour entendre les alarmes, votre sécurité finira par être contournée ou dégradée sans que vous le sachiez. Commençons par configuré les e-mails standards.
+
 ## 📧 Les boîtes mails standards à créer sur un domaine
 
 La création de certaines boîtes mail est une obligation technique définie par les standards de l'Internet (**RFC**). Ces adresses, appelées **"Role-Based Email Addresses"**, assurent l'interopérabilité et la sécurité.
