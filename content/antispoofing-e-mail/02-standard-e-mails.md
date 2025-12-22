@@ -3,7 +3,7 @@ title: "De SMTP à DMARC (2/9) : Les e-mails standards"
 weight: 2
 ---
 
-Les protocoles anti usurpation que l'on va voir dans les articles suivants sont les murs de votre forteresse, et les emails standards sont les postes de garde. Si vous construisez les murs (SPF/DKIM) mais qu'il n'y a personne dans les postes de garde (postmaster/abuse) pour entendre les alarmes, votre sécurité finira par être contournée ou dégradée sans que vous le sachiez. Commençons par configuré les e-mails standards.
+Les protocoles anti usurpation que l'on va voir dans les articles suivants sont les murs de votre forteresse, et les emails standards sont les postes de garde. Si vous construisez les murs (SPF/DKIM) mais qu'il n'y a personne dans les postes de garde (postmaster/abuse) pour entendre les alarmes, votre sécurité finira par être contournée ou dégradée sans que vous le sachiez. Commençons par configurer les e-mails standards.
 
 ## 📧 Les boîtes mails standards à créer sur un domaine
 
@@ -22,7 +22,7 @@ Créez les alias suivants (redirigés vers votre adresse d'administration) pour 
 - `security@`
 - `webmaster@`
 
-Ces emails permettre de mettre en place des boucles de rétroaction (FBL Feed Back Loop).
+Ces emails permettent de mettre en place des boucles de rétroaction (FBL Feed Back Loop).
 
 **⚠️ Point d'attention sur les redirections :**
 L'adresse finale de destination doit idéalement être hébergée sur le même domaine. Si vous redirigez ces alias vers une boîte externe (ex: Gmail), le mécanisme **SPF** échouera souvent (car [le SPF ne résiste pas à la redirection](/content/antispoofing-e-mail/03-spf-sender-policy-framework.md#le-spf-ne-résiste-pas-au-forward-de-mail)). Dans ce cas de figure, seul le **DKIM** permettra de prouver l'authenticité de l'e-mail transféré.
