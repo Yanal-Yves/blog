@@ -36,25 +36,25 @@ Ces adresses sont critiques. Si elles n'existent pas, vous risquez d'être bloqu
 #### **`abuse@`**
 * **Fonction :** Réception des plaintes (spam, phishing). Utilisée par les FAI et les blacklists pour signaler un problème venant de chez vous.
 * **Référence :**
-    * **RFC 2142 (Section 4) :** Définit `abuse` comme standard pour les comportements abusifs.
+    * **[RFC 2142](https://www.ietf.org/rfc/rfc2142.txt) (Section 4) :** Définit `abuse` comme standard pour les comportements abusifs.
 
 #### **`postmaster@`**
 * **Fonction :** Réception des erreurs de livraison et requêtes techniques entre administrateurs.
 * **Référence :**
-    * **RFC 5321 (Section 4.5.1) :** « Tout système SMTP [...] DOIT supporter la boîte aux lettres réservée "postmaster" ».
-    * **RFC 822 :** Standard historique.
+    * **[RFC 5321](https://www.ietf.org/rfc/rfc5321.txt) (Section 4.5.1) :** « Tout système SMTP [...] DOIT supporter la boîte aux lettres réservée "postmaster" ».
+    * **[RFC 5321](https://www.ietf.org/rfc/rfc822.txt) :** Standard historique.
 
 ---
 
-### 2. Les Standards de Service (RFC 2142)
+### 2. Les Standards de Service ([RFC 2142](https://www.ietf.org/rfc/rfc2142.txt))
 
-La **RFC 2142** uniformise les contacts pour éviter d'avoir à deviner l'adresse du responsable d'un service.
+La **[RFC 2142](https://www.ietf.org/rfc/rfc2142.txt)** uniformise les contacts pour éviter d'avoir à deviner l'adresse du responsable d'un service.
 
-| Adresse | Service | Fonction / Justification (RFC 2142) |
+| Adresse | Service | Fonction / Justification ([RFC 2142](https://www.ietf.org/rfc/rfc2142.txt)) |
 | :--- | :--- | :--- |
 | **`webmaster@`** | HTTP | Pour les problèmes liés au site web (liens brisés, erreurs). |
 | **`hostmaster@`** | DNS | Pour les problèmes liés aux zones DNS et au domaine. |
-| **`security@`** | Sécurité | Signalement de failles (*Responsible Disclosure*, RFC 9116). |
+| **`security@`** | Sécurité | Signalement de failles (*Responsible Disclosure*, [RFC 9116](https://www.ietf.org/rfc/rfc9116.txt)). |
 | **`noc@`** | Réseau | Infrastructure et connectivité (*Network Operations Center*). Concerne surtout les FAI et opérateurs réseaux. |
 
 ---
