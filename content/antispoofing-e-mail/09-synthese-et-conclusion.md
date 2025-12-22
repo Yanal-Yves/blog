@@ -89,6 +89,9 @@ graph TD
 
 ```
 
+Enfin si FCrDNS, SPF, DKIM et DMARC sont les "défenses anti usurpation". Les alias standards sont les "yeux et les oreilles" de cette défense (pour recevoir les plaintes FBL et les rapports d'erreurs).
+
+
 Quelques URL utiles :
 
 - https://postmaster.google.com

@@ -1,3 +1,8 @@
+---
+title: "De SMTP à DMARC (2/8) : Les e-mails standards"
+weight: 2
+---
+
 ## 📧 Les boîtes mails standards à créer sur un domaine
 
 La création de certaines boîtes mail est une obligation technique définie par les standards de l'Internet (**RFC**). Ces adresses, appelées **"Role-Based Email Addresses"**, assurent l'interopérabilité et la sécurité.
@@ -14,6 +19,8 @@ Créez les alias suivants (redirigés vers votre adresse d'administration) pour 
 - `root@`
 - `security@`
 - `webmaster@`
+
+Ces emails permettre de mettre en place des boucles de rétroaction (FBL Feed Back Loop).
 
 **⚠️ Point d'attention sur les redirections :**
 L'adresse finale de destination doit idéalement être hébergée sur le même domaine. Si vous redirigez ces alias vers une boîte externe (ex: Gmail), le mécanisme **SPF** échouera souvent (car [le SPF ne résiste pas à la redirection](/content/antispoofing-e-mail/03-spf-sender-policy-framework.md#le-spf-ne-résiste-pas-au-forward-de-mail)). Dans ce cas de figure, seul le **DKIM** permettra de prouver l'authenticité de l'e-mail transféré.
@@ -61,3 +68,5 @@ Les Autorités de Certification (CA) historiques comme *DigiCert*, *Sectigo*, *G
 * `webmaster@`
 
 > **Note :** Les autorités de certification modernes (ex: Let's Encrypt) se basent sur le protocole [ACME](https://en.wikipedia.org/wiki/Automatic_Certificate_Management_Environment) (validation par fichier HTTP ou entrée DNS) et n'utilisent donc plus ces boîtes e-mails.
+
+Maintenant que votre domaine dispose des boîtes aux lettres réglementaires pour recevoir les alertes, nous allons vérifier si l'infrastructure technique (votre serveur et son IP) est correctement déclarée. C'est l'étape du FCrDNS.
