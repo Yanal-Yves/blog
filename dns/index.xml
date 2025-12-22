@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>DnsDNSes on Notes Techniques</title><link>https://yanal.fargialla.com/dns/</link><description>Recent content in DnsDNSes on Notes Techniques</description><generator>Hugo</generator><language>fr-fr</language><atom:link href="https://yanal.fargialla.com/dns/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>https://yanal.fargialla.com/dns/standard-e-mails/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/dns/standard-e-mails/</guid><description>&lt;h2 id="-les-boîtes-mails-standards-à-créer-sur-un-domaine"&gt;📧 Les boîtes mails standards à créer sur un domaine&lt;a class="anchor" href="#-les-bo%c3%aetes-mails-standards-%c3%a0-cr%c3%a9er-sur-un-domaine"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;La création de certaines boîtes mail est une obligation technique définie par les standards de l&amp;rsquo;Internet (&lt;strong&gt;RFC&lt;/strong&gt;). Ces adresses, appelées &lt;strong&gt;&amp;ldquo;Role-Based Email Addresses&amp;rdquo;&lt;/strong&gt;, assurent l&amp;rsquo;interopérabilité et la sécurité.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="-en-bref-pour-un-domaine-classique-e-mail-et-site-web"&gt;💡 En bref, pour un domaine classique (e-mail et site web)&lt;a class="anchor" href="#-en-bref-pour-un-domaine-classique-e-mail-et-site-web"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Créez les alias suivants (redirigés vers votre adresse d&amp;rsquo;administration) pour être conforme :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;abuse@&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;admin@&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;administrator@&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;hostmaster@&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;postmaster@&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;root@&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;security@&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;webmaster@&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;⚠️ Point d&amp;rsquo;attention sur les redirections :&lt;/strong&gt;
+L&amp;rsquo;adresse finale de destination doit idéalement être hébergée sur le même domaine. Si vous redirigez ces alias vers une boîte externe (ex: Gmail), le mécanisme &lt;strong&gt;SPF&lt;/strong&gt; échouera souvent (car &lt;a href="https://yanal.fargialla.com/content/antispoofing-e-mail/03-spf-sender-policy-framework.md#le-spf-ne-r%c3%a9siste-pas-au-forward-de-mail"&gt;le SPF ne résiste pas à la redirection&lt;/a&gt;). Dans ce cas de figure, seul le &lt;strong&gt;DKIM&lt;/strong&gt; permettra de prouver l&amp;rsquo;authenticité de l&amp;rsquo;e-mail transféré.&lt;/p&gt;</description></item></channel></rss>
