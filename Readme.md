@@ -20,7 +20,7 @@ Pour rédiger des articles et visualiser le rendu sur votre machine avant de pub
 
 ### 1. Prérequis
 * [Git](https://git-scm.com/)
-* [Hugo Extended](https://gohugo.io/installation/) (Version "Extended" recommandée).
+* [Hugo](https://gohugo.io/installation/)
 
 ### 2. Cloner le dépôt
 ```bash
