@@ -1,6 +1,6 @@
 ---
-title: "De SMTP à DMARC (5/8) : DMARC (Domain-based Message Authentication)"
-weight: 5
+title: "De SMTP à DMARC (6/9) : DMARC (Domain-based Message Authentication)"
+weight: 6
 ---
 
 # Le Chef d'Orchestre

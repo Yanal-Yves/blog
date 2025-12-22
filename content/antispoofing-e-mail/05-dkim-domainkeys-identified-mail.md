@@ -1,6 +1,6 @@
 ---
-title: "De SMTP à DMARC (4/8) : DKIM (DomainKeys Identified Mail)"
-weight: 4
+title: "De SMTP à DMARC (5/9) : DKIM (DomainKeys Identified Mail)"
+weight: 5
 ---
 
 # Principe de fonctionnement : Le scellé de preuves de la police

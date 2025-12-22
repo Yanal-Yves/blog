@@ -1,6 +1,6 @@
 ---
-title: "De SMTP à DMARC (7/8) : Parked Domain Locking"
-weight: 7
+title: "De SMTP à DMARC (8/9) : Parked Domain Locking"
+weight: 8
 ---
 
 Un domaine qui n'envoie aucun e-mail doit également configurer SPF, DKIM et DMARC afin de déclarer : "Ce domaine n'envoie jamais d'e-mail. Si vous en recevez un, jetez-le immédiatement.". C'est indispensable pour protéger contre l'usurpation : les pirates pourraient utiliser des domaines "dormants" ou des variations de votre domaine (typosquatting) pour envoyer du phishing, car personne ne les surveille.

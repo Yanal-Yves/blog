@@ -1,6 +1,6 @@
 ---
-title: "De SMTP à DMARC (3/8) : SPF (Sender Policy Framework)"
-weight: 3
+title: "De SMTP à DMARC (4/9) : SPF (Sender Policy Framework)"
+weight: 4
 ---
 
 # Principe de fonctionnement

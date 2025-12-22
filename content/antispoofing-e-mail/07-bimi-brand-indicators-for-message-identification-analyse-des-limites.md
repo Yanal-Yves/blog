@@ -1,6 +1,6 @@
 ---
-title: "De SMTP à DMARC (6/8) : BIMI et analyse des limites"
-weight: 6
+title: "De SMTP à DMARC (7/9) : BIMI et analyse des limites"
+weight: 7
 ---
 
 Dans l'écosystème de la sécurité des e-mails, **BIMI (Brand Indicators for Message Identification)** est souvent présenté comme la prochaine étape logique après la mise en conformité DMARC. L'objectif est de permettre l'affichage d'un logo certifié dans les clients de messagerie pour renforcer la confiance visuelle.

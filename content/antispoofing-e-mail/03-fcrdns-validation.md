@@ -1,6 +1,6 @@
 ---
-title: "De SMTP à DMARC (2/8) : FCrDNS et validation croisée"
-weight: 2
+title: "De SMTP à DMARC (3/9) : FCrDNS et validation croisée"
+weight: 3
 ---
 
 # Principe de fonctionnement
