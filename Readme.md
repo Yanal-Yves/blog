@@ -44,8 +44,8 @@ Le site sera accessible à l'adresse : `http://localhost:1313/`
 
 ### Structure des dossiers
 Les articles se trouvent dans le dossier `content/`.
-* `content/antispoofing-email/` : Série sur les techniques d'anti usurpation d'e-mail.
-* `content/recallbox/` : (À venir) Notes sur le retrogaming.
+* `content/antispoofing-e-mail/` : Série sur les techniques d'anti usurpation d'e-mail.
+* `content/recalbox/` : (À venir) Notes sur le retrogaming.
 
 ### Créer un nouvel article
 Créez un fichier `.md` dans la catégorie souhaitée. Chaque fichier doit commencer par un entête (Front Matter) :

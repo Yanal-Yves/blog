@@ -3,7 +3,7 @@ title: "Les e-mails standards - 2/9"
 weight: 2
 ---
 
-Les protocoles anti usurpation que l'on va voir dans les articles suivants sont les murs de votre forteresse, et les emails standards sont les postes de garde. Si vous construisez les murs (SPF/DKIM) mais qu'il n'y a personne dans les postes de garde (postmaster/abuse) pour entendre les alarmes, votre sécurité finira par être contournée ou dégradée sans que vous le sachiez. Commençons par configurer les e-mails standards.
+Les protocoles anti usurpation que l'on va voir dans les articles suivants sont les murs de votre forteresse, et les e-mails standards sont les postes de garde. Si vous construisez les murs (SPF/DKIM) mais qu'il n'y a personne dans les postes de garde (postmaster/abuse) pour entendre les alarmes, votre sécurité finira par être contournée ou dégradée sans que vous le sachiez. Commençons par configurer les e-mails standards.
 
 La création de certaines boîtes mail est une obligation technique définie par les standards de l'Internet (**RFC**). Ces adresses, appelées **"Role-Based Email Addresses"**, assurent l'interopérabilité et la sécurité.
 
@@ -18,7 +18,7 @@ Créez les alias suivants (redirigés vers votre adresse d'administration) pour 
 - `security@`
 - `webmaster@`
 
-Ces emails permettent de mettre en place des boucles de rétroaction (FBL Feed Back Loop).
+Ces e-mails permettent de mettre en place des boucles de rétroaction (FBL Feed Back Loop).
 
 **⚠️ Point d'attention sur les redirections :**
 L'adresse finale de destination doit idéalement être hébergée sur le même domaine. Si vous redirigez ces alias vers une boîte externe (ex: Gmail), le mécanisme **SPF** échouera souvent (car [le SPF ne résiste pas à la redirection](/content/antispoofing-e-mail/03-spf-sender-policy-framework.md#le-spf-ne-résiste-pas-au-forward-de-mail)). Dans ce cas de figure, seul le **DKIM** permettra de prouver l'authenticité de l'e-mail transféré.
@@ -57,7 +57,7 @@ La **[RFC 2142](https://www.ietf.org/rfc/rfc2142.txt)** uniformise les contacts 
 
 #### 3. Validation SSL/TLS (Certificats)
 
-Les Autorités de Certification (CA) historiques comme *DigiCert*, *Sectigo*, *GlobalSign*, *GeoTrust* ou *ZeroSSL* utilisent ces alias pour la validation par email (appelée "Email-based DCV" - Domain Control Validation) des certificats SSL/TLS. L'autorité de certification envoie un mail contenant un code de validation à l'une des 5 adresses standards ou à l'email indiqué dans le WHOIS (bien que le WHOIS soit souvent masqué par le RGPD aujourd'hui).
+Les Autorités de Certification (CA) historiques comme *DigiCert*, *Sectigo*, *GlobalSign*, *GeoTrust* ou *ZeroSSL* utilisent ces alias pour la validation par email (appelée "Email-based DCV" - Domain Control Validation) des certificats SSL/TLS. L'autorité de certification envoie un mail contenant un code de validation à l'une des 5 adresses standards ou à l'e-mail indiqué dans le WHOIS (bien que le WHOIS soit souvent masqué par le RGPD aujourd'hui).
 
 * `admin@`
 * `administrator@`
