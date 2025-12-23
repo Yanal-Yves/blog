@@ -1,5 +1,5 @@
 ---
-title: "De SMTP à DMARC (2/9) : Les e-mails standards"
+title: "Les e-mails standards - 2/9"
 weight: 2
 ---
 

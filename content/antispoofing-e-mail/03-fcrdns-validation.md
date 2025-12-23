@@ -1,5 +1,5 @@
 ---
-title: "De SMTP à DMARC (3/9) : FCrDNS et validation croisée"
+title: "FCrDNS et validation croisée - 3/9"
 weight: 3
 ---
 

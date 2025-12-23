@@ -1,5 +1,5 @@
 ---
-title: "De SMTP à DMARC (5/9) : DKIM (DomainKeys Identified Mail)"
+title: "DKIM (DomainKeys Identified Mail) - 5/9"
 weight: 5
 ---
 

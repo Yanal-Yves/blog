@@ -1,5 +1,5 @@
 ---
-title: "De SMTP à DMARC (7/9) : BIMI et analyse des limites"
+title: "BIMI et analyse des limites - 7/9"
 weight: 7
 ---
 

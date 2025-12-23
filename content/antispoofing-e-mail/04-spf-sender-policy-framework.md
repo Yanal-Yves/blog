@@ -1,5 +1,5 @@
 ---
-title: "De SMTP à DMARC (4/9) : SPF (Sender Policy Framework)"
+title: "SPF (Sender Policy Framework) - 4/9"
 weight: 4
 ---
 

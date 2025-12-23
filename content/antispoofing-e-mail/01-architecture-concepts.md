@@ -1,5 +1,5 @@
 ---
-title: "De SMTP à DMARC (1/9) : Architecture et concepts"
+title: "Architecture et concepts - 1/9"
 weight: 1
 ---
 

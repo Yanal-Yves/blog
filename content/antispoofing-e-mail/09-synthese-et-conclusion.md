@@ -1,5 +1,5 @@
 ---
-title: "De SMTP à DMARC (9/9) : Synthèse et conclusion"
+title: "Synthèse et conclusion - 9/9"
 weight: 9
 ---
 

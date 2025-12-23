@@ -1,5 +1,5 @@
 ---
-title: "De SMTP à DMARC (6/9) : DMARC (Domain-based Message Authentication)"
+title: "DMARC (Domain-based Message Authentication) - 6/9"
 weight: 6
 ---
 

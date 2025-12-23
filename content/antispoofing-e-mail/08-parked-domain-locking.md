@@ -1,5 +1,5 @@
 ---
-title: "De SMTP à DMARC (8/9) : Parked Domain Locking"
+title: "Parked Domain Locking - 8/9"
 weight: 8
 ---
 
