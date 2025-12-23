@@ -1,0 +1,38 @@
+# Indique qu'il s'agit de la racine du projet
+root = true
+
+# --- Configuration par défaut pour tous les fichiers ---
+[*]
+charset = utf-8
+# Force les fins de ligne de style UNIX (Linux/macOS)
+end_of_line = lf
+# Utilise des espaces au lieu des tabulations
+indent_style = space
+# Taille de l'indentation à 2 espaces
+indent_size = 2
+# Ajoute une ligne vide à la fin du fichier (bonne pratique POSIX)
+insert_final_newline = true
+# Supprime les espaces inutiles en fin de ligne
+trim_trailing_whitespace = true
+
+# --- Spécifique au Markdown (Articles Hugo) ---
+[*.{md,markdown,mdown,mkd}]
+# IMPORTANT : On désactive la suppression des espaces en fin de ligne.
+# En Markdown, deux espaces en fin de ligne créent un saut de ligne (<br>).
+trim_trailing_whitespace = false
+# Optionnel : désactive la limite de longueur de ligne pour laisser l'éditeur gérer le retour à la ligne visuel
+max_line_length = off
+
+# --- Spécifique aux fichiers de configuration Hugo / Front Matter ---
+[*.{yaml,yml,toml,json}]
+indent_size = 2
+
+# --- Spécifique aux Templates Hugo (Go HTML) ---
+[*.html]
+indent_size = 2
+
+# --- Spécifique à Linux (Makefiles) ---
+# Si tu utilises un Makefile pour lancer 'hugo server', il EXIGE des tabulations.
+[{Makefile,makefile,GNUmakefile}]
+indent_style = tab
+indent_size = 2
