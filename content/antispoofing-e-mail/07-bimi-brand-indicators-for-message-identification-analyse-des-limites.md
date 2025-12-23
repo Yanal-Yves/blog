@@ -9,7 +9,7 @@ Cependant, une analyse technique approfondie révèle que ce protocole est plus 
 
 Voici une analyse des trois freins principaux qui rendent l'adoption de BIMI complexe, voire risquée, pour l'Internet ouvert.
 
-# Le risque de sécurité : La vulnérabilité de l'architecture découplée
+## Le risque de sécurité : La vulnérabilité de l'architecture découplée
 Le principal obstacle technique à une implémentation généralisée de BIMI réside dans la séparation des rôles entre le serveur et le client.
 
 Dans la spécification BIMI, la charge de la vérification incombe au MTA (Mail Transfer Agent - le serveur de réception). C'est lui qui doit valider le certificat VMC, vérifier l'alignement DMARC et, en cas de succès, ajouter ou régénérer des en-têtes spécifiques (ex: `BIMI-Location` ou `Authentication-Results`) pour indiquer au client que le logo peut être affiché.
@@ -24,7 +24,7 @@ C'est cette raison technique précise qui pousse les développeurs de **Mozilla 
 
 Pour que cela soit sécurisé, la spécification exige que le MTA **nettoie (strip)** tous les en-têtes BIMI entrants avant de faire ses propres vérifications et d'ajouter son propre en-tête.
 
-## Scénario détaillée
+### Scénario détaillée
 1. **Le rôle du serveur (MTA) dans la spécification BIMI :** Dans la spécification BIMI, c'est le serveur de réception qui fait le gros du travail. Il doit :
 1.1 Vérifier DMARC.
 1.2 Récupérer le certificat VMC (Verified Mark Certificate).
@@ -51,7 +51,7 @@ Pour que Thunderbird puisse l'implémenter de façon sûre, il faudrait soit :
 1. Que Thunderbird fasse lui-même toute la validation BIMI (ce qui est lourd : récupération des certificats VMC, validation crypto, etc., côté client).
 2. Qu'une extension du protocole IMAP soit créée pour certifier que le serveur en amont est "BIMI-Aware".
 
-## Une barrière économique à l'entrée (VMC)
+### Une barrière économique à l'entrée (VMC)
 Contrairement aux protocoles fondamentaux de l'e-mail (SMTP, SPF, DKIM, DMARC) qui sont basés sur la compétence technique et accessibles gratuitement à quiconque possède un nom de domaine, BIMI introduit une barrière financière via le **VMC (Verified Mark Certificate)**.
 
 Pour être conforme à la spécification (telle qu'exigée par Google ou Apple), le domaine doit acquérir un certificat auprès d'une autorité de certification tierce. Ce coût, avoisinant les **1 200 € à 1 500 € par an**, est certes abordable pour une PME, une ETI ou une grande entreprise considérant cela comme une dépense marketing.
@@ -63,7 +63,7 @@ Cependant, ce modèle économique exclut de facto une part importante des acteur
 
 En liant la sécurité visuelle à la capacité de paiement et à la possession d'une marque déposée, BIMI s'éloigne de la philosophie de neutralité du net où la légitimité technique d'un expéditeur (prouvée par DMARC) devrait suffire, indépendamment de sa puissance financière.
 
-# Conclusion
+## Conclusion
 BIMI soulève une question intéressante sur l'évolution des standards Internet. Si l'intention de fournir une validation visuelle est louable, son implémentation actuelle pose un problème de sécurité pour les clients mails universels et introduit une discrimination économique.
 
 Pour l'heure, la recommandation technique la plus robuste reste l'application stricte des standards ouverts : **SPF, DKIM et DMARC (`p=reject` ou `p=quarantine` sur 100% des mails)**. Ces protocoles garantissent la sécurité et la délivrabilité du message pour tous, sans dépendre d'une chaîne de certification payante ni d'une architecture client-serveur propriétaire.

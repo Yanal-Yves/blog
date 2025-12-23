@@ -3,7 +3,7 @@ title: "Synthèse et conclusion - 9/9"
 weight: 9
 ---
 
-# Synthèse et conclusion
+## Synthèse et conclusion
 
 | Mécanisme | Date / RFC | Image | Rôle | Limites Clés |
 | --- | --- | --- | --- | --- |

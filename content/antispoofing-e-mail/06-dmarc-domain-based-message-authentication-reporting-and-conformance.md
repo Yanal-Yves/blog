@@ -3,7 +3,7 @@ title: "DMARC (Domain-based Message Authentication) - 6/9"
 weight: 6
 ---
 
-# Le Chef d'Orchestre
+## Le Chef d'Orchestre
 
 Publié en 2015 ([RFC 7489](https://www.rfc-editor.org/rfc/rfc7489)).
 
@@ -15,7 +15,7 @@ Jusqu'ici, nous avons vu que :
 
 DMARC utilise les résultats de SPF et DKIM et ajoute une règle simple : **Pour que l'e-mail soit valide, le domaine visible par l'utilisateur (le `From`) doit être "aligné" (identique) avec au moins l'un des deux protocoles authentifiés (soit le domaine du SPF, soit le domaine du DKIM)**.
 
-# Les 3 piliers de DMARC
+## Les 3 piliers de DMARC
 
 1.  **L'Alignement (Identifier Alignment) :** DMARC vérifie si le domaine du `From` correspond soit au domaine validé par SPF (celui du `Return-Path`), soit au domaine de la signature DKIM (le tag `d=` du champ d'en-tête `DKIM-Signature`). On appelle "alignement" cette correspondance. C'est ce qui empêche un spammeur d'utiliser par exemple l'infrastructure de Mailjet (SPF valide pour Mailjet) pour envoyer un e-mail avec `From: president@whitehouse.gov`. DMARC échoue car `whitehouse.gov` n'est pas aligné avec `mailjet.com`. C'est ce mécanisme qui empêche enfin le spoofing d'adresse visible.
 2.  **La Politique (Policy) :** DMARC permet au propriétaire du domaine de dire au récepteur quoi faire si la validation échoue. C'est défini par la balise `p=` dans le DNS :
@@ -73,9 +73,9 @@ graph TD
   end
 ```
 
-# Pour aller plus loin
+## Pour aller plus loin
 
-## Note sur le transfert et les Mailing Lists (SRS & ARC)
+### Note sur le transfert et les Mailing Lists (SRS & ARC)
 
 Vous avez peut-être constaté que certains transferts d'e-mails fonctionnent malgré les limitations de SPF. C'est grâce à deux mécanismes gérés par les serveurs intermédiaires (sur lesquels vous n'avez pas la main) :
 1. **SRS (Sender Rewriting Scheme) :** Le serveur de relais réécrit l'enveloppe (Return-Path) pour que le SPF passe avec sa propre IP. Cela corrige le SPF mais casse l'alignement DMARC.

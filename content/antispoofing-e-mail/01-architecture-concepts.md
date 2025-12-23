@@ -3,9 +3,9 @@ title: "Architecture et concepts - 1/9"
 weight: 1
 ---
 
-# Introduction
+## Introduction
 
-## Objectif et audience
+### Objectif et audience
 
 Il y a trois types d'utilisateurs du système d'e-mail :
 - Les utilisateurs des boîtes e-mail
@@ -14,7 +14,7 @@ Il y a trois types d'utilisateurs du système d'e-mail :
 
 Cette série d'articles s'adresse aux administrateurs de domaines qui ont besoin de configurer des boîtes e-mail de façon à empêcher l'usurpation d'identité.
 
-## Prérequis
+### Prérequis
 
 Pour tirer pleinement profit de cet article et sécuriser votre domaine, vous devez :
 1.  **Accès et Environnement**
@@ -30,13 +30,13 @@ Pour tirer pleinement profit de cet article et sécuriser votre domaine, vous de
     - Comprendre la notation CIDR (ex: 192.51.100.0/24) utilisée fréquemment dans les règles SPF pour autoriser des plages d'adresses entières.
   - Avoir une notion basique de la cryptographie asymétrique (clé privée / clé publique), utile pour comprendre le fonctionnement de la signature DKIM.
 
-# Concepts spécifiques au mail
+## Concepts spécifiques au mail
 
 Tout au long de cette série d'articles, on considère un e-mail partant du domaine `a.com` (domaine expéditeur) à destination du domaine `b.com` (domaine de réception). Ex : `alice@a.com` vers `bob@b.com`.  
 Dans l'article, on parle d'**ESP**. Un ESP (pour Email Service Provider, ou Fournisseur de Services de Messagerie en français) est une entreprise ou une plateforme qui fournit des services pour aider les particuliers ou, plus couramment, les entreprises à gérer et envoyer des campagnes d'e-mails en masse (e-mail marketing, newsletters, etc.) ou des e-mails transactionnels.  
 Un e-mail transactionnel (ou e-mail de service/système) est un message automatisé et non promotionnel qui est envoyé à un utilisateur suite à une action spécifique que cet utilisateur a initiée sur un site web ou dans une application (ex : le mail qu'on reçoit quand on clique sur "mot de passe oublié").
 
-## Le protocole d'envoi de mails : SMTP
+### Le protocole d'envoi de mails : SMTP
 
 Le SMTP (Simple Mail Transfer Protocol) est le protocole standard utilisé pour envoyer et transférer le courrier électronique sur internet. Ce protocole sert uniquement à expédier ("push") le message de votre ordinateur vers le serveur, puis de serveur en serveur. Il ne sert pas à récupérer vos e-mails pour les lire. Pour cela, on utilise d'autres protocoles (comme IMAP ou POP) qui agissent comme la clé pour ouvrir votre boîte aux lettres et lire le courrier arrivé.
 
@@ -73,7 +73,7 @@ graph TD
   R2821 -->|Remplacée par| R5321
 ```
 
-## Structure d'un e-mail
+### Structure d'un e-mail
 
 Un e-mail est une chaîne de caractères formatée selon des standards spécifiques (principalement la [RFC 5322 (2008)](https://www.rfc-editor.org/rfc/rfc5322)), contenant un en-tête et un corps de message.  
 L'en-tête contient notamment le `Return-Path` (l'adresse pour les notifications d'erreurs/rebonds non visible pour l'utilisateur) et le `From` (l'adresse affichée à l'utilisateur), mais aussi d'autres champs cruciaux comme le `To` (destinataire affiché) et le `Subject` (objet du message affiché à l'utilisateur), ainsi que des champs techniques invisibles comme le `Message-ID` et des champs d'authentification comme `DKIM-Signature` que nous verrons plus tard. Le `Message-ID` est l'identifiant mondialement unique d'un e-mail et indépendant du serveur qui l'héberge.
@@ -108,13 +108,13 @@ graph TD
 
 Un e-mail peut se décomposer en trois composants techniques :
 
-### L'Enveloppe (The Envelope) - Protocole SMTP
+#### L'Enveloppe (The Envelope) - Protocole SMTP
 
 C'est la partie utilisée par les serveurs pour le transport de l'e-mail. Elle n'est généralement pas visible par l'utilisateur final. Elle est définie par les commandes du protocole SMTP (`MAIL FROM:` et `RCPT TO:`). Elle contient :
 - L'adresse de l'expéditeur de l'enveloppe (`MAIL FROM`) : C'est cette adresse qui est utilisée pour le `Return-Path` dans l'en-tête (une fois l'e-mail reçu). Elle est essentielle pour les mécanismes SPF et la gestion des rebonds.
 - L'adresse du destinataire de l'enveloppe (`RCPT TO`) : L'adresse réelle où l'e-mail doit être livré.
 
-### L'En-tête (The Header) - [RFC 5322](https://www.rfc-editor.org/rfc/rfc5322)
+#### L'En-tête (The Header) - [RFC 5322](https://www.rfc-editor.org/rfc/rfc5322)
 
 C'est un ensemble de champs structurés au début du message.  
 Il contient notamment les champs :
@@ -123,12 +123,12 @@ Il contient notamment les champs :
 - `To`, `Cc`, `Bcc`, `Subject`, `Date`.  
     Il contient également les informations de sécurité ajoutées par le serveur de réception pour indiquer le résultat des vérifications SPF, DKIM et DMARC.
 
-### Le Corps du Message (The Body)
+#### Le Corps du Message (The Body)
 
 C'est le contenu réel de l'e-mail, souvent formaté en texte simple (text/plain) et/ou en HTML (text/html).  
 Il est structuré selon le standard **MIME** (Multipurpose Internet Mail Extensions, **[RFC 2045](https://www.rfc-editor.org/rfc/rfc2045)**), permettant d'inclure des pièces jointes et du HTML.
 
-### Le voyage d'un e-mail
+#### Le voyage d'un e-mail
 
 Pour comprendre le voyage d'un e-mail, il est utile de connaître les acteurs logiciels impliqués :
 1. MUA (Mail User Agent) - Le Client de Messagerie  
@@ -173,7 +173,7 @@ graph TD
 end
 ```
 
-# L'analogie postale
+## L'analogie postale
 
 Bien que les images aient leurs limites, elles permettent de garder de la hauteur sans se perdre dans les détails techniques. Voici les protocoles de sécurité que nous allons voir et leurs images respectives :
 1.  SMTP est le facteur et le camion de livraison : Il prend votre lettre (e-mail) depuis votre boîte aux lettres de départ et la transporte jusqu'au bureau de poste du destinataire.

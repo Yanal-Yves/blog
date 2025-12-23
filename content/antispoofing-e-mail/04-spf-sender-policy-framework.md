@@ -3,7 +3,7 @@ title: "SPF (Sender Policy Framework) - 4/9"
 weight: 4
 ---
 
-# Principe de fonctionnement
+## Principe de fonctionnement
 
 Standardisé en 2006 ([RFC 4408](https://www.rfc-editor.org/rfc/rfc4408)), mis à jour en 2014 ([RFC 7208](https://www.rfc-editor.org/rfc/rfc7208)).
 
@@ -39,7 +39,7 @@ sequenceDiagram
 end
 ```
 
-# Limites : La délégation, Forwarding et intégrité du message
+## Limites
 
 Le SPF présente deux faiblesses majeures :
 1.  **Délégation sophistiquée des ESP et problème d'alignement** : Si `a.com` utilise un ESP comme Mailjet, l'e-mail aura un `Return-Path` chez `mailjet.com` (pour gérer les rebonds) et un `From` chez `a.com`. Le SPF validera l'IP de Mailjet pour le domaine `mailjet.com`. Le SPF passe, mais il ne valide pas que l'expéditeur visible (`a.com`) est légitime, ce qui laisse parfois place à une falsification visuelle pour l'utilisateur. Nous verrons plus tard que DMARC vient pallier ce problème.
@@ -47,11 +47,11 @@ Le SPF présente deux faiblesses majeures :
 3.  **L'intégrité de message** : Si SPF permet de vérifier qu'un mail a été légitimement émis par `a.com`, il ne permet pas de valider que le message n'a pas été modifié lors de son transfert. Il faudra s'appuyer sur DKIM pour confirmer que le message n'a pas été altéré comme nous le verrons plus tard.
 4. **La contrainte technique : La limite des 10 requêtes DNS :** Pour éviter que la vérification SPF ne serve de vecteur d'attaque par déni de service (DoS) sur les infrastructures DNS, l'évaluation d'un enregistrement SPF ne doit pas générer plus de 10 requêtes DNS supplémentaires. 
 
-## Délégation sophistiquée des ESP et problème d'alignement
+### Délégation sophistiquée des ESP et problème d'alignement
 
 Le problème se pose lorsque le propriétaire d'un domaine (`a.com`) délègue l'envoi de ses e-mails à un Fournisseur de Services de Messagerie (ESP) comme Mailjet.
 
-### Le Mécanisme Classique du SPF
+#### Le Mécanisme Classique du SPF
 
 Le SPF fonctionne en vérifiant si l'adresse IP d'envoi est autorisée par le domaine du `Return-Path` (le domaine de l'enveloppe) :
 - Expéditeur : `alice@a.com`
@@ -64,13 +64,13 @@ Le serveur récepteur (`b.com`) effectue la vérification SPF :
 - Il constate que l'IP est bien dans la liste des IPs autorisées par `mailjet.com`.
 - Résultat SPF : `PASS`.
 
-### L'Échec de l'Authentification de l'Utilisateur Final
+#### L'Échec de l'Authentification de l'Utilisateur Final
 
 Le problème est que le SPF a validé la légitimité de Mailjet, mais n'a rien prouvé concernant la légitimité de l'expéditeur : `a.com` :
 - Le serveur récepteur sait que Mailjet a envoyé l'e-mail.
 - Le serveur récepteur ne vérifie pas que l'utilisateur qui a configuré le `From` en `alice@a.com` est effectivement légitime pour émettre un e-mail de `a.com`.
 
-### Le Contournement du Problème
+#### Le Contournement du Problème
 
 C'est là que le SPF seul montre ses limites en matière d'anti-usurpation (anti-spoofing) :  
 Une personne mal intentionnée (un spammeur) pourrait :
@@ -82,7 +82,7 @@ Une personne mal intentionnée (un spammeur) pourrait :
     Le SPF est donc aveugle à cette délégation sophistiquée : il voit juste que le `Return-Path` est bien géré.  
     C'est précisément pour remédier à ce manque d'alignement du domaine visible (`From`) que le protocole **DMARC** a été créé. DMARC exige que le domaine du `Return-Path` (vérifié par SPF) soit aligné avec le domaine du `From` (ou que le domaine de la signature DKIM soit aligné avec le domaine du `From` comme nous le verrons plus tard).
 
-## Le SPF ne résiste pas au forward d'e-mail
+### Le SPF ne résiste pas au forward d'e-mail
 
 Le transfert (forward) d'e-mail est le talon d'Achille du SPF.  
 Imaginons qu'Alice (`a.com`) envoie un e-mail à Bob (`b.com`).  
@@ -93,7 +93,7 @@ Le problème : Du point de vue du serveur `c.com`, l'e-mail provient de l'adress
 Le serveur `c.com` va vérifier le SPF : "Est-ce que l'IP de Bob (`b.com`) est autorisée à envoyer des e-mails pour le domaine `a.com` ?" La réponse est NON. Le SPF échoue. C'est pourquoi le SPF seul ne permet pas, dans le cas du forward d'e-mail, de garantir la légitimité de l'e-mail d'Alice `a.com` aux yeux du serveur d'e-mail de `c.com`.  
 Dans ce cas, il faudra utiliser un autre protocole DKIM pour valider l'authenticité de l'e-mail.
 
-## La contrainte technique : La limite des 10 requêtes DNS
+### La contrainte technique : La limite des 10 requêtes DNS
 
 Pour éviter que la vérification SPF ne serve de vecteur d'attaque par déni de service (DoS) sur les infrastructures DNS, la [RFC 7208 impose une limite stricte : l'évaluation d'un enregistrement SPF ne doit pas générer plus de 10 requêtes DNS supplémentaires.](https://datatracker.ietf.org/doc/html/rfc7208#section-4.6.4) 
 

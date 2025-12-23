@@ -3,7 +3,7 @@ title: "DKIM (DomainKeys Identified Mail) - 5/9"
 weight: 5
 ---
 
-# Principe de fonctionnement : Le scellé de preuves de la police
+## Principe de fonctionnement : Le scellé de preuves de la police
 
 Standardisé en 2007 ([RFC 4871](https://www.rfc-editor.org/rfc/rfc4871)), mis à jour en 2011 ([RFC 6376](https://www.rfc-editor.org/rfc/rfc6376)).
 
@@ -63,17 +63,17 @@ graph TD
   end
 ```
 
-# Résistance au Forwarding
+## Résistance au Forwarding
 
 Contrairement au SPF, DKIM résiste au transfert d'e-mail (forwarding) : En effet, la signature est attachée au corps du message et aux en-têtes, tant que le serveur de transfert ne modifie pas le contenu (ce qu'il ne doit pas faire), la signature reste valide, même si l'adresse IP d'envoi change.
 
-# Limites
+## Limites
 
-### DKIM ne garantie pas l'authenticité de l'émetteur visible dans le champ d'en-tête `From`
+#### DKIM ne garantie pas l'authenticité de l'émetteur visible dans le champ d'en-tête `From`
 
 Comme pour SPF, un attaquant peut signer un e-mail avec son propre domaine (`attaquant.com`) tout en affichant `banque.com` dans le champ `From`. DKIM dira "Signature Valide pour `attaquant.com`", mais l'utilisateur verra "Banque" dans son client e-mail. Encore une fois, il y a encore un manque d'alignement qui sera pallié par DMARC.
 
-### L'attaque par Replay et l'atténuation
+#### L'attaque par Replay et l'atténuation
 Une limite de DKIM est l'attaque par rejeu (Replay Attack). Un pirate peut intercepter un e-mail légitime (signé DKIM) envoyé par votre PDG, et le renvoyer tel quel à des millions de personnes. Comme le message n'est pas modifié, la signature DKIM reste valide mathématiquement. Bien que DMARC aide, la vraie parade se situe dans la configuration avancée de DKIM :
 - L'expiration (`x=`) : Il est possible d'ajouter un tag `x= dans la signature pour dire "Cette signature n'est valable que 24h".
 	- Le timestamp (`t=`) : Indique l'heure de signature. Les serveurs modernes peuvent refuser des signatures trop anciennes.
