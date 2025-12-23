@@ -71,47 +71,45 @@ En plus de la vérification de l'IP, les serveurs modernes effectuent une vérif
 
 ```mermaid
 sequenceDiagram
-    autonumber
-    participant Sender as Serveur A (Expéditeur)
-    participant Receiver as Serveur B (Destinataire)
-    participant DNS as Serveur DNS
-
-    Note over Sender, Receiver: 1. Connexion & Annonce
-    Sender->>Receiver: TCP Connect (IP: 1.2.3.4)
-    Sender->>Receiver: EHLO mail.a.com
-    
-    Note right of Receiver: Le serveur B note :<br/>IP = 1.2.3.4<br/>Nom annoncé = mail.a.com
-    
-    Note over Receiver, DNS: 2. Vérification Inverse (rDNS/PTR)
-    Receiver->>DNS: "Qui est l'IP 1.2.3.4 ?" (Query PTR)
-    DNS-->>Receiver: "C'est mail.a.com"
-    
-    Note over Receiver: Check 1 : L'IP a un nom (PTR existe).<br/>Check 2 : Le nom n'est pas générique.
-    
-    Note over Receiver, DNS: 3. Vérification Directe (Forward A)
-    Receiver->>DNS: "Quelle est l'IP de mail.a.com ?" (Query A)
-    DNS-->>Receiver: "C'est 1.2.3.4"
-    
-    Note over Receiver: 4. Validation FCrDNS (IP <-> DNS)
-    Note right of Receiver: IP réelle == IP du DNS ?<br/>OK, l'IP correspond bien au nom DNS.
-
-    Note over Receiver: 5. Validation de Cohérence (HELO Check)
-    Note right of Receiver: Nom annoncé (EHLO) == Nom FCrDNS ?<br/>"mail.a.com" == "mail.a.com"
-    
-    alt Validation Totale Réussie
-        Receiver->>Sender: 250 OK (Accepte la transaction)
-    else Échec Cohérence ou DNS
-        Note over Receiver, Sender: DÉCISION SELON POLITIQUE
-        
-        %% Zone Rouge (Transparence 0.15)
-        rect rgba(255, 0, 0, 0.15)
-            Receiver-->>Sender: Cas Strict : 4xx/5xx Reject
-        end
-        
-        %% Zone Or/Jaune (Transparence 0.15)
-        rect rgba(255, 165, 0, 0.15)
-            Receiver-->>Sender: Cas Tolérant : Accepté (mais Spam Score++)
-    end
+  autonumber
+  participant Sender as Serveur A (Expéditeur)
+  participant Receiver as Serveur B (Destinataire)
+  participant DNS as Serveur DNS
+  Note over Sender, Receiver: 1. Connexion & Annonce
+  Sender->>Receiver: TCP Connect (IP: 1.2.3.4)
+  Sender->>Receiver: EHLO mail.a.com
+  
+  Note right of Receiver: Le serveur B note :<br/>IP = 1.2.3.4<br/>Nom annoncé = mail.a.com
+  
+  Note over Receiver, DNS: 2. Vérification Inverse (rDNS/PTR)
+  Receiver->>DNS: "Qui est l'IP 1.2.3.4 ?" (Query PTR)
+  DNS-->>Receiver: "C'est mail.a.com"
+  
+  Note over Receiver: Check 1 : L'IP a un nom (PTR existe).<br/>Check 2 : Le nom n'est pas générique.
+  
+  Note over Receiver, DNS: 3. Vérification Directe (Forward A)
+  Receiver->>DNS: "Quelle est l'IP de mail.a.com ?" (Query A)
+  DNS-->>Receiver: "C'est 1.2.3.4"
+  
+  Note over Receiver: 4. Validation FCrDNS (IP <-> DNS)
+  Note right of Receiver: IP réelle == IP du DNS ?<br/>OK, l'IP correspond bien au nom DNS.
+  Note over Receiver: 5. Validation de Cohérence (HELO Check)
+  Note right of Receiver: Nom annoncé (EHLO) == Nom FCrDNS ?<br/>"mail.a.com" == "mail.a.com"
+  
+  alt Validation Totale Réussie
+      Receiver->>Sender: 250 OK (Accepte la transaction)
+  else Échec Cohérence ou DNS
+      Note over Receiver, Sender: DÉCISION SELON POLITIQUE
+      
+      %% Zone Rouge (Transparence 0.15)
+      rect rgba(255, 0, 0, 0.15)
+          Receiver-->>Sender: Cas Strict : 4xx/5xx Reject
+      end
+      
+      %% Zone Or/Jaune (Transparence 0.15)
+      rect rgba(255, 165, 0, 0.15)
+        Receiver-->>Sender: Cas Tolérant : Accepté (mais Spam Score++)
+  end
 end
 ```
 

@@ -10,7 +10,7 @@ weight: 1
 Il y a trois types d'utilisateurs du système d'e-mail :
 - Les utilisateurs des boîtes e-mail
 - Les administrateurs des domaines
-	- Les mainteneurs de l'infrastructure e-mail
+- Les mainteneurs de l'infrastructure e-mail
 
 Cette série d'articles s'adresse aux administrateurs de domaines qui ont besoin de configurer des boîtes e-mail de façon à empêcher l'usurpation d'identité.
 
@@ -18,17 +18,17 @@ Cette série d'articles s'adresse aux administrateurs de domaines qui ont besoin
 
 Pour tirer pleinement profit de cet article et sécuriser votre domaine, vous devez :
 1.  **Accès et Environnement**
-- Avoir un accès administrateur à la zone DNS de votre domaine (chez votre registrar ou hébergeur).
-- Disposer d'un terminal (Linux/macOS) pour effectuer des requêtes DNS.
+  - Avoir un accès administrateur à la zone DNS de votre domaine (chez votre registrar ou hébergeur).
+  - Disposer d'un terminal (Linux/macOS) pour effectuer des requêtes DNS.
 2.  **Connaissances Techniques**
-- Compréhension du DNS :
+  - Compréhension du DNS :
     - Savoir modifier une zone DNS.
     - Connaître les types d'enregistrements : A, AAAA, TXT, CNAME, MX et PTR.
     - Comprendre les notions de TTL (Time To Live) et de propagation DNS (délais de mise à jour).
-- Réseau (IP) :
+  - Réseau (IP) :
     - Différencier IPv4 et IPv6.
     - Comprendre la notation CIDR (ex: 192.51.100.0/24) utilisée fréquemment dans les règles SPF pour autoriser des plages d'adresses entières.
-- Avoir une notion basique de la cryptographie asymétrique (clé privée / clé publique), utile pour comprendre le fonctionnement de la signature DKIM.
+  - Avoir une notion basique de la cryptographie asymétrique (clé privée / clé publique), utile pour comprendre le fonctionnement de la signature DKIM.
 
 # Concepts spécifiques au mail
 
@@ -45,41 +45,32 @@ Le diagramme suivant montre les différentes RFC qui ont façonné le protocole 
 
 ```mermaid
 graph TD
-    %% --- Définition des Styles ---
-    classDef base fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#000;
-    classDef esmtp fill:#fff9c4,stroke:#fbc02d,stroke-width:2px,color:#000;
-    classDef merge fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#000;
-    classDef current fill:#c8e6c9,stroke:#1b5e20,stroke-width:4px,color:#000;
-
-    %% --- 1982 : L'origine ---
-    R821("<b>RFC 821</b><br/><i>Août 1982</i><br/>Fondation de SMTP."):::base
-
-    %% --- La branche ESMTP (Années 90) ---
-    R1425("<b>RFC 1425</b><br/><i>Fév 1993</i><br/>Invention ESMTP (EHLO)."):::esmtp
-    R1651("<b>RFC 1651</b><br/><i>Juil 1994</i><br/>Correctifs ESMTP."):::esmtp
-    R1869("<b>RFC 1869</b><br/><i>Nov 1995</i><br/>Standard ESMTP Stable."):::esmtp
-
-    %% --- La Fusion (Années 2000) ---
-    R2821("<b>RFC 2821</b><br/><i>Avril 2001</i><br/>Fusion SMTP + ESMTP."):::merge
-    R5321("<b>RFC 5321</b><br/><i>Oct 2008</i><br/>Standard Actuel."):::current
-
-    %% --- Relations Chronologiques (Verticales) ---
-    
-    %% Astuce : Lien invisible pour forcer 821 au-dessus de 1425
-    R821 ~~~ R1425
-
-    %% Évolution de la branche ESMTP
-    R1425 -->|Remplace| R1651
-    R1651 -->|Remplace| R1869
-
-    %% La Fusion des deux branches
-    R821 -->|Intégrée dans| R2821
-    R1869 -->|Intégrée dans| R2821
-
-    %% Le Standard Final
-    R2821 -->|Remplacée par| R5321
-
-
+  %% --- Définition des Styles ---
+  classDef base fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#000;
+  classDef esmtp fill:#fff9c4,stroke:#fbc02d,stroke-width:2px,color:#000;
+  classDef merge fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#000;
+  classDef current fill:#c8e6c9,stroke:#1b5e20,stroke-width:4px,color:#000;
+  %% --- 1982 : L'origine ---
+  R821("<b>RFC 821</b><br/><i>Août 1982</i><br/>Fondation de SMTP."):::base
+  %% --- La branche ESMTP (Années 90) ---
+  R1425("<b>RFC 1425</b><br/><i>Fév 1993</i><br/>Invention ESMTP (EHLO)."):::esmtp
+  R1651("<b>RFC 1651</b><br/><i>Juil 1994</i><br/>Correctifs ESMTP."):::esmtp
+  R1869("<b>RFC 1869</b><br/><i>Nov 1995</i><br/>Standard ESMTP Stable."):::esmtp
+  %% --- La Fusion (Années 2000) ---
+  R2821("<b>RFC 2821</b><br/><i>Avril 2001</i><br/>Fusion SMTP + ESMTP."):::merge
+  R5321("<b>RFC 5321</b><br/><i>Oct 2008</i><br/>Standard Actuel."):::current
+  %% --- Relations Chronologiques (Verticales) ---
+  
+  %% Astuce : Lien invisible pour forcer 821 au-dessus de 1425
+  R821 ~~~ R1425
+  %% Évolution de la branche ESMTP
+  R1425 -->|Remplace| R1651
+  R1651 -->|Remplace| R1869
+  %% La Fusion des deux branches
+  R821 -->|Intégrée dans| R2821
+  R1869 -->|Intégrée dans| R2821
+  %% Le Standard Final
+  R2821 -->|Remplacée par| R5321
 ```
 
 ## Structure d'un e-mail
@@ -91,36 +82,28 @@ Le diagramme suivant montre les différentes RFC qui ont façonné la structure 
 
 ```mermaid
 graph TD
-    %% --- Définition des Styles (Identiques au schéma SMTP) ---
-    classDef base fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#000;
-    classDef mime fill:#fff9c4,stroke:#fbc02d,stroke-width:2px,color:#000;
-    classDef update fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#000;
-    classDef current fill:#c8e6c9,stroke:#1b5e20,stroke-width:4px,color:#000;
-
-    %% --- 1982 : L'origine ---
-    R822("<b>RFC 822</b><br/><i>Août 1982</i><br/>Format Texte Standard.<br/>(ASCII seulement)"):::base
-
-    %% --- 1996 : La Révolution Multimédia (MIME) ---
-    %% Note: MIME est une extension, pas un remplacement
-    R2045("<b>RFC 2045</b><br/><i>Nov 1996</i><br/>Standards MIME.<br/>(HTML, Pièces jointes...)"):::mime
-
-    %% --- 2001 : La Modernisation ---
-    R2822("<b>RFC 2822</b><br/><i>Avril 2001</i><br/>Mise à jour syntaxique."):::update
-
-    %% --- 2008 : Le Standard Actuel ---
-    R5322("<b>RFC 5322</b><br/><i>Oct 2008</i><br/>Standard Actuel<br/>(Format du Message)."):::current
-
-    %% --- Relations Chronologiques ---
-    
-    %% Lignée principale (Le format du texte)
-    R822 -->|Remplacée par| R2822
-    R2822 -->|Remplacée par| R5322
-
-    %% L'apport de MIME (Extension latérale)
-    R822 -.->|Étendu par| R2045
-    R2045 -.->|Toujours utilisé avec| R5322
-
-
+  %% --- Définition des Styles (Identiques au schéma SMTP) ---
+  classDef base fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#000;
+  classDef mime fill:#fff9c4,stroke:#fbc02d,stroke-width:2px,color:#000;
+  classDef update fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#000;
+  classDef current fill:#c8e6c9,stroke:#1b5e20,stroke-width:4px,color:#000;
+  %% --- 1982 : L'origine ---
+  R822("<b>RFC 822</b><br/><i>Août 1982</i><br/>Format Texte Standard.<br/>(ASCII seulement)"):::base
+  %% --- 1996 : La Révolution Multimédia (MIME) ---
+  %% Note: MIME est une extension, pas un remplacement
+  R2045("<b>RFC 2045</b><br/><i>Nov 1996</i><br/>Standards MIME.<br/>(HTML, Pièces jointes...)"):::mime
+  %% --- 2001 : La Modernisation ---
+  R2822("<b>RFC 2822</b><br/><i>Avril 2001</i><br/>Mise à jour syntaxique."):::update
+  %% --- 2008 : Le Standard Actuel ---
+  R5322("<b>RFC 5322</b><br/><i>Oct 2008</i><br/>Standard Actuel<br/>(Format du Message)."):::current
+  %% --- Relations Chronologiques ---
+  
+  %% Lignée principale (Le format du texte)
+  R822 -->|Remplacée par| R2822
+  R2822 -->|Remplacée par| R5322
+  %% L'apport de MIME (Extension latérale)
+  R822 -.->|Étendu par| R2045
+  R2045 -.->|Toujours utilisé avec| R5322
 ```
 
 Un e-mail peut se décomposer en trois composants techniques :
@@ -147,50 +130,46 @@ Il est structuré selon le standard **MIME** (Multipurpose Internet Mail Extensi
 
 ### Le voyage d'un e-mail
 
-Pour comprendre le voyage d'un e-mail, il est utile de connaître les acteurs logiciels impliqués.
-
-1.  MUA (Mail User Agent) - Le Client de Messagerie  
-    C'est l'interface utilisée par l'humain pour lire et écrire des e-mails.  
-    **Exemples :** Mozilla Thunderbird, Microsoft Outlook, l'application Mail sur iPhone, ou une interface web comme Roundcube ou Gmail (Webmail).  
-    **Rôle :** Il formate le message et l'envoie au premier maillon de la chaîne (le MSA/MTA) via SMTP.
-2.  MTA (Mail Transfer Agent) - Le Facteur / Le Serveur de Relais  
-    C'est le logiciel serveur qui transporte l'e-mail d'une machine à une autre via le protocole SMTP.  
-    **Exemples :** Postfix, Sendmail, Microsoft Exchange Server.  
-    **Rôle :** Il reçoit le message du MUA, consulte le DNS (MX records) pour savoir où l'envoyer, et le transmet au MTA du destinataire (ou à un relais intermédiaire). C'est le MTA qui effectue souvent les contrôles SPF.
-3.  MDA (Mail Delivery Agent) - Le Trieur / Le Livreur Final  
-    C'est le logiciel qui reçoit le message final du MTA et le dépose dans la boîte aux lettres de l'utilisateur sur le serveur.  
-    **Exemples :** Dovecot, Procmail.  
-    **Rôle :** Il stocke le message sur le disque dur pour qu'il puisse être récupéré plus tard par le MUA (via les protocoles IMAP ou POP). C'est souvent à ce stade que les filtres anti-spam (comme SpamAssassin) analysent le contenu final.
+Pour comprendre le voyage d'un e-mail, il est utile de connaître les acteurs logiciels impliqués :
+1. MUA (Mail User Agent) - Le Client de Messagerie  
+   C'est l'interface utilisée par l'humain pour lire et écrire des e-mails.  
+   **Exemples :** Mozilla Thunderbird, Microsoft Outlook, l'application Mail sur iPhone, ou une interface web comme Roundcube ou Gmail (Webmail).  
+   **Rôle :** Il formate le message et l'envoie au premier maillon de la chaîne (le MSA/MTA) via SMTP.
+2. MTA (Mail Transfer Agent) - Le Facteur / Le Serveur de Relais  
+   C'est le logiciel serveur qui transporte l'e-mail d'une machine à une autre via le protocole SMTP.  
+   **Exemples :** Postfix, Sendmail, Microsoft Exchange Server.  
+   **Rôle :** Il reçoit le message du MUA, consulte le DNS (MX records) pour savoir où l'envoyer, et le transmet au MTA du destinataire (ou à un relais intermédiaire). C'est le MTA qui effectue souvent les contrôles SPF.
+3. MDA (Mail Delivery Agent) - Le Trieur / Le Livreur Final  
+   C'est le logiciel qui reçoit le message final du MTA et le dépose dans la boîte aux lettres de l'utilisateur sur le serveur.  
+   **Exemples :** Dovecot, Procmail.  
+   **Rôle :** Il stocke le message sur le disque dur pour qu'il puisse être récupéré plus tard par le MUA (via les protocoles IMAP ou POP). C'est souvent à ce stade que les filtres anti-spam (comme SpamAssassin) analysent le contenu final.
 
 **Le voyage typique :**  
 MUA (Expéditeur) ➔ MTA (Serveur départ) ➔ Internet ➔ MTA (Serveur arrivée) ➔ MDA (Stockage) ➔ MUA (Destinataire)
 
 ```mermaid
 graph TD
-    %% --- Définition des Styles ---
-    classDef client fill:#f8bbd0,stroke:#c2185b,stroke-width:2px,color:#000;
-    classDef server fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#000;
-    classDef storage fill:#fff9c4,stroke:#fbc02d,stroke-width:2px,color:#000;
-    classDef internet fill:#f5f5f5,stroke:#9e9e9e,stroke-width:2px,stroke-dasharray: 5 5,color:#000;
-
-    %% --- Domaine A (Expéditeur) ---
-    subgraph "Domaine A (a.com)"
-        Alice(Alice):::client -->|Rédige| MUA_A[MUA<br/>Thunderbird]:::client
-        MUA_A -->|SMTP<br/>Auth| MTA_A[MTA<br/>Facteur<br/>Postfix]:::server
-    end
-
-    %% --- Internet ---
-    subgraph "Internet"
-        MTA_A -->|Requête DNS MX?| DNS((DNS)):::internet
-        DNS -.->|Réponse IP| MTA_A
-        MTA_A -->|SMTP<br/>Transmission| MTA_B[MTA<br/>Facteur<br/>Postfix]:::server
-    end
-
-    %% --- Domaine B (Destinataire) ---
-    subgraph "Domaine B (b.com)"
-        MTA_B -->|Livraison| MDA_B[("MDA<br/>Trieur<br/>Dovecot/Imap")]:::storage
-        MDA_B -.->|IMAP / POP<br/>Récupération| MUA_B[MUA<br/>Webmail]:::client
-        MUA_B -->|Lit| Bob(Bob):::client
+  %% --- Définition des Styles ---
+  classDef client fill:#f8bbd0,stroke:#c2185b,stroke-width:2px,color:#000;
+  classDef server fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#000;
+  classDef storage fill:#fff9c4,stroke:#fbc02d,stroke-width:2px,color:#000;
+  classDef internet fill:#f5f5f5,stroke:#9e9e9e,stroke-width:2px,stroke-dasharray: 5 5,color:#000;
+  %% --- Domaine A (Expéditeur) ---
+  subgraph "Domaine A (a.com)"
+      Alice(Alice):::client -->|Rédige| MUA_A[MUA<br/>Thunderbird]:::client
+      MUA_A -->|SMTP<br/>Auth| MTA_A[MTA<br/>Facteur<br/>Postfix]:::server
+  end
+  %% --- Internet ---
+  subgraph "Internet"
+      MTA_A -->|Requête DNS MX?| DNS((DNS)):::internet
+      DNS -.->|Réponse IP| MTA_A
+      MTA_A -->|SMTP<br/>Transmission| MTA_B[MTA<br/>Facteur<br/>Postfix]:::server
+  end
+  %% --- Domaine B (Destinataire) ---
+  subgraph "Domaine B (b.com)"
+      MTA_B -->|Livraison| MDA_B[("MDA<br/>Trieur<br/>Dovecot/Imap")]:::storage
+      MDA_B -.->|IMAP / POP<br/>Récupération| MUA_B[MUA<br/>Webmail]:::client
+      MUA_B -->|Lit| Bob(Bob):::client
 end
 ```
 
@@ -202,6 +181,6 @@ Bien que les images aient leurs limites, elles permettent de garder de la hauteu
 3.  Si le FCrDNS valide le camion, le SPF valide l'enveloppe et l'adresse de l'expéditeur (le `Return-Path`). L'entreprise émettrice du message (le Domaine `a.com`) a publié une liste. Si le camion qui arrive chez `b.com` ne figure pas sur la liste, on refuse l'enveloppe.
 4.  DKIM est un genre de sceau de cire numérique de l'enveloppe. Attention cependant, DKIM ne permet pas de garantir que le message n'a pas été lu, juste qu'il n'a pas été modifié. Une autre image est le scellé de preuves de la police car tout le monde peut voir ce qu'il y a dedans, mais personne ne peut le modifier sans laisser de traces. La limite évidente de cette image est que l'on n'envoie pas nos lettres dans des scellés en plastique de la police !
 5.  DMARC vérifie la cohérence entre le message et l'enveloppe :
-    1.  Il ouvre l'enveloppe.
-    2.  Il regarde l'en-tête du papier à lettre (le `From:` que le destinataire va lire).
-    3.  Il compare cet en-tête avec les preuves extérieures : soit avec l'adresse au dos de l'enveloppe (`Return-Path` validé par le SPF), soit avec le logo sur le sceau de cire (Signature DKIM).
+  1.  Il ouvre l'enveloppe.
+  2.  Il regarde l'en-tête du papier à lettre (le `From:` que le destinataire va lire).
+  3.  Il compare cet en-tête avec les preuves extérieures : soit avec l'adresse au dos de l'enveloppe (`Return-Path` validé par le SPF), soit avec le logo sur le sceau de cire (Signature DKIM).

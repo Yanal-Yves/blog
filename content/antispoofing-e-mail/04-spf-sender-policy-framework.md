@@ -12,34 +12,30 @@ Lorsqu'un e-mail arrive, le serveur de réception vérifie l'IP d'envoi par rapp
 
 ```mermaid
 sequenceDiagram
-    autonumber
-    %% --- Acteurs ---
-    participant Sender as Serveur Expéditeur<br/>(IP: 1.2.3.4)
-    participant Receiver as Serveur Destinataire<br/>(b.com)
-    participant DNS as DNS<br/>(Zone a.com)
-
-    %% --- Étape 1 : Le transport ---
-    Note over Sender, Receiver: 1. L'ENVELOPPE (SMTP)
-    Sender->>Receiver: Connexion TCP (Source IP: 1.2.3.4)
-    Sender->>Receiver: EHLO mail.serveur.com
-    Sender->>Receiver: MAIL FROM: <alice@a.com>
-    
-    %% --- Le déclencheur ---
-    Note right of Receiver: Le serveur B note deux choses :<br/>1. L'IP qui frappe à la porte : 1.2.3.4<br/>2. Le domaine prétendu : a.com
-
-    %% --- Étape 2 : La consultation ---
-    Note over Receiver, DNS: 2. L'INTERROGATION (Lookup)
-    Receiver->>DNS: Donne-moi l'enregistrement TXT (SPF) de "a.com"
-    DNS-->>Receiver: "v=spf1 ip4:1.2.3.4 ip4:203.0.113.5 -all"
-
-    %% --- Étape 3 : La décision ---
-    Note over Receiver: 3. LA COMPARAISON
-    Note right of Receiver: Le serveur B regarde sa liste :<br/>"L'IP 1.2.3.4 est-elle dans la liste que le DNS m'a donnée ?"
-
-    alt L'IP est dans la liste
-        Receiver->>Sender: SPF Result: PASS<br/>(Continue la transaction...)
-    else L'IP n'est pas dans la liste
-        Receiver-->>Sender: SPF Result: FAIL<br/>(550 Message rejected)
+  autonumber
+  %% --- Acteurs ---
+  participant Sender as Serveur Expéditeur<br/>(IP: 1.2.3.4)
+  participant Receiver as Serveur Destinataire<br/>(b.com)
+  participant DNS as DNS<br/>(Zone a.com)
+ %% --- Étape 1 : Le transport ---
+  Note over Sender, Receiver: 1. L'ENVELOPPE (SMTP)
+  Sender->>Receiver: Connexion TCP (Source IP: 1.2.3.4)
+  Sender->>Receiver: EHLO mail.serveur.com
+  Sender->>Receiver: MAIL FROM: <alice@a.com>
+  
+  %% --- Le déclencheur ---
+  Note right of Receiver: Le serveur B note deux choses :<br/>1. L'IP qui frappe à la porte : 1.2.3.4<br/>2. Le domaine prétendu : a.com
+ %% --- Étape 2 : La consultation ---
+  Note over Receiver, DNS: 2. L'INTERROGATION (Lookup)
+  Receiver->>DNS: Donne-moi l'enregistrement TXT (SPF) de "a.com"
+  DNS-->>Receiver: "v=spf1 ip4:1.2.3.4 ip4:203.0.113.5 -all"
+ %% --- Étape 3 : La décision ---
+  Note over Receiver: 3. LA COMPARAISON
+  Note right of Receiver: Le serveur B regarde sa liste :<br/>"L'IP 1.2.3.4 est-elle dans la liste que le DNS m'a donnée ?"
+ alt L'IP est dans la liste
+    Receiver->>Sender: SPF Result: PASS<br/>(Continue la transaction...)
+  else L'IP n'est pas dans la liste
+    Receiver-->>Sender: SPF Result: FAIL<br/>(550 Message rejected)
 end
 ```
 

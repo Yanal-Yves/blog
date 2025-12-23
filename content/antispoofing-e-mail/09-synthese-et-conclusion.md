@@ -30,59 +30,47 @@ Le diagramme suivant synthétise la pile de sécurité d'e-mail :
 
 ```mermaid
 graph TD
-    %% --- Styles ---
-    classDef network fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#000
-    classDef auth fill:#fff9c4,stroke:#fbc02d,stroke-width:2px,color:#000
-    classDef policy fill:#c8e6c9,stroke:#1b5e20,stroke-width:2px,color:#000
-    classDef human fill:#f8bbd0,stroke:#c2185b,stroke-width:2px,color:#000
-    classDef outcome fill:#e0e0e0,stroke:#757575,stroke-width:1px,color:#000
-
-    %% --- Entrée ---
-    Mail["📧 E-mail Entrant"]
-
-    %% --- Couches ---
-    subgraph "Couche 1 : Réseau"
-        L1["FCrDNS<br/>Validation IP/Domaine"]:::network
-    end
-
-    subgraph "Couche 2 : Auth Technique"
-        L2_SPF["SPF<br/>Autorisation IP"]:::auth
-        L2_DKIM["DKIM<br/>Signature & Intégrité"]:::auth
-    end
-
-    subgraph "Couche 3 : Politique"
-        L3["DMARC<br/>Alignement & Règles"]:::policy
-    end
-
-    subgraph "Couche 4 : Humain"
-        L4["Utilisateur<br/>Vigilance Typosquatting"]:::human
-    end
-
-    %% --- Sorties ---
-    Inbox["📥 Boîte de Réception"]:::outcome
-    Spam["🚫 Spam / Rejet"]:::outcome
-
-    %% --- Flux ---
-    Mail --> L1
-    
-    %% Du réseau vers l'auth
-    L1 --> L2_SPF
-    Mail --> L2_DKIM
-
-    %% De l'auth vers DMARC
-    L2_SPF --> L3
-    L2_DKIM --> L3
-    L1 -.->|Info PTR| L3
-
-    %% Décision DMARC
-    L3 -->|Succès| L4
-    L3 -->|Échec| Spam
-
-    %% Décision Humaine
-    L4 -->|Légitime| Inbox
-    L4 -->|Phishing détecté| Spam
-
-
+  %% --- Styles ---
+  classDef network fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#000
+  classDef auth fill:#fff9c4,stroke:#fbc02d,stroke-width:2px,color:#000
+  classDef policy fill:#c8e6c9,stroke:#1b5e20,stroke-width:2px,color:#000
+  classDef human fill:#f8bbd0,stroke:#c2185b,stroke-width:2px,color:#000
+  classDef outcome fill:#e0e0e0,stroke:#757575,stroke-width:1px,color:#000
+  %% --- Entrée ---
+  Mail["📧 E-mail Entrant"]
+  %% --- Couches ---
+  subgraph "Couche 1 : Réseau"
+      L1["FCrDNS<br/>Validation IP/Domaine"]:::network
+  end
+  subgraph "Couche 2 : Auth Technique"
+      L2_SPF["SPF<br/>Autorisation IP"]:::auth
+      L2_DKIM["DKIM<br/>Signature & Intégrité"]:::auth
+  end
+  subgraph "Couche 3 : Politique"
+      L3["DMARC<br/>Alignement & Règles"]:::policy
+  end
+  subgraph "Couche 4 : Humain"
+      L4["Utilisateur<br/>Vigilance Typosquatting"]:::human
+  end
+  %% --- Sorties ---
+  Inbox["📥 Boîte de Réception"]:::outcome
+  Spam["🚫 Spam / Rejet"]:::outcome
+  %% --- Flux ---
+  Mail --> L1
+  
+  %% Du réseau vers l'auth
+  L1 --> L2_SPF
+  Mail --> L2_DKIM
+  %% De l'auth vers DMARC
+  L2_SPF --> L3
+  L2_DKIM --> L3
+  L1 -.->|Info PTR| L3
+  %% Décision DMARC
+  L3 -->|Succès| L4
+  L3 -->|Échec| Spam
+  %% Décision Humaine
+  L4 -->|Légitime| Inbox
+  L4 -->|Phishing détecté| Spam
 ```
 
 Enfin si FCrDNS, SPF, DKIM et DMARC sont les "défenses anti usurpation". Les alias standards sont les "yeux et les oreilles" de cette défense (pour recevoir les plaintes FBL et les rapports d'erreurs).

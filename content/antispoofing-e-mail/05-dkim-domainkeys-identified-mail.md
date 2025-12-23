@@ -21,55 +21,46 @@ DKIM utilise la cryptographie asymétrique (clé privée / clé publique) :
 
 ```mermaid
 graph TD
-    %% --- Styles ---
-    classDef private fill:#ffcdd2,stroke:#c62828,stroke-width:2px,color:#000
-    classDef public fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px,color:#000
-    classDef email fill:#fff9c4,stroke:#fbc02d,stroke-width:2px,color:#000
-    classDef action fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#000
-
-    %% --- BLOC 1 : EXPÉDITEUR ---
-    %% J'ai remplacé "1. " par "ETAPE 1 -" pour éviter le bug de liste
-    subgraph SENDER ["1 -  EXPÉDITEUR (a.com)"]
-        PrivKey["🔑 Clé Privée<br/>(Secret)"]:::private
-        Email_Original["📄 E-mail Original"]:::email
-        Sign_Process["⚙️ Signature<br/>(Hachage + Chiffrement)"]:::action
-        
-        %% Flux
-        PrivKey --> Sign_Process
-        Email_Original --> Sign_Process
-    end
-
-    %% Transition
-    Sign_Process -->|Envoi via Internet| Email_In
-
-    %% --- BLOC 2 : DESTINATAIRE ---
-    subgraph RECEIVER ["2 - DESTINATAIRE (b.com)"]
-        Email_In["📨 E-mail Reçu<br/>(Avec DKIM-Signature)"]:::email
-        Read_Header["🔍 Lecture du Sélecteur<br/>(s=..., d=a.com)"]:::action
-    end
-
-    %% Transition
-    Read_Header -->|Requête Publique| DNSRecord
-
-    %% --- BLOC 3 : DNS ---
-    subgraph DNSZONE ["3 - DNS PUBLIC (a.com)"]
-        DNSRecord["📖 Record TXT<br/>(Contient la 🗝️ Clé Publique)"]:::public
-    end
-
-    %% Retour
-    DNSRecord -->|Fournit la clé| Verify_Process
-
-    %% --- BLOC 4 : VERDICT ---
-    subgraph VERDICT ["4 - VALIDATION"]
-        Verify_Process["🧮 Vérification<br/>(Recalcul du Hash)"]:::action
-        Result{"Correspondance ?"}
-        
-        Verify_Process --> Result
-        Result -->|OUI| Pass["✅ DKIM PASS"]:::public
-        Result -->|NON| Fail["❌ DKIM FAIL"]:::private
-    end
-
-
+  %% --- Styles ---
+  classDef private fill:#ffcdd2,stroke:#c62828,stroke-width:2px,color:#000
+  classDef public fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px,color:#000
+  classDef email fill:#fff9c4,stroke:#fbc02d,stroke-width:2px,color:#000
+  classDef action fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#000
+  %% --- BLOC 1 : EXPÉDITEUR ---
+  %% J'ai remplacé "1. " par "ETAPE 1 -" pour éviter le bug de liste
+  subgraph SENDER ["1 -  EXPÉDITEUR (a.com)"]
+      PrivKey["🔑 Clé Privée<br/>(Secret)"]:::private
+      Email_Original["📄 E-mail Original"]:::email
+      Sign_Process["⚙️ Signature<br/>(Hachage + Chiffrement)"]:::action
+      
+      %% Flux
+      PrivKey --> Sign_Process
+      Email_Original --> Sign_Process
+  end
+  %% Transition
+  Sign_Process -->|Envoi via Internet| Email_In
+  %% --- BLOC 2 : DESTINATAIRE ---
+  subgraph RECEIVER ["2 - DESTINATAIRE (b.com)"]
+      Email_In["📨 E-mail Reçu<br/>(Avec DKIM-Signature)"]:::email
+      Read_Header["🔍 Lecture du Sélecteur<br/>(s=..., d=a.com)"]:::action
+  end
+  %% Transition
+  Read_Header -->|Requête Publique| DNSRecord
+  %% --- BLOC 3 : DNS ---
+  subgraph DNSZONE ["3 - DNS PUBLIC (a.com)"]
+      DNSRecord["📖 Record TXT<br/>(Contient la 🗝️ Clé Publique)"]:::public
+  end
+  %% Retour
+  DNSRecord -->|Fournit la clé| Verify_Process
+  %% --- BLOC 4 : VERDICT ---
+  subgraph VERDICT ["4 - VALIDATION"]
+      Verify_Process["🧮 Vérification<br/>(Recalcul du Hash)"]:::action
+      Result{"Correspondance ?"}
+      
+      Verify_Process --> Result
+      Result -->|OUI| Pass["✅ DKIM PASS"]:::public
+      Result -->|NON| Fail["❌ DKIM FAIL"]:::private
+  end
 ```
 
 # Résistance au Forwarding

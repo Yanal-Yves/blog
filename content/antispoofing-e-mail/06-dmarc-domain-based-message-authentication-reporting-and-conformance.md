@@ -26,57 +26,51 @@ DMARC utilise les résultats de SPF et DKIM et ajoute une règle simple : **Pour
 
 ```mermaid
 graph TD
-    %% --- Styles ---
-    classDef input fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#000
-    classDef check fill:#fff9c4,stroke:#fbc02d,stroke-width:2px,color:#000
-    classDef pass fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px,color:#000
-    classDef fail fill:#ffcdd2,stroke:#c62828,stroke-width:2px,color:#000
-    classDef policy fill:#e1bee7,stroke:#8e24aa,stroke-width:2px,color:#000
-
-    %% --- ETAPE 1 : LES PREUVES ---
-    subgraph INPUTS ["1 - LES PREUVES DISPONIBLES"]
-        HeaderFrom["👤 Header FROM<br/>(Ce que voit l'utilisateur)"]:::input
-        
-        SPF_Res["🚚 Résultat SPF<br/>(Domaine Return-Path)"]:::input
-        DKIM_Res["🛡️ Résultat DKIM<br/>(Domaine de signature d=)"]:::input
-    end
-
-    %% --- ETAPE 2 : LE TEST D'ALIGNEMENT ---
-    subgraph ALIGNMENT ["2 - VERIFICATION D'ALIGNEMENT"]
-        %% Liens invisibles pour forcer la structure
-        HeaderFrom --> CompareSPF
-        HeaderFrom --> CompareDKIM
-        
-        CompareSPF{"Le FROM matche<br/>le SPF ?"}:::check
-        CompareDKIM{"Le FROM matche<br/>le DKIM ?"}:::check
-        
-        SPF_Res --> CompareSPF
-        DKIM_Res --> CompareDKIM
-    end
-
-    %% --- ETAPE 3 : LE VERDICT DMARC ---
-    subgraph VERDICT ["3 - VERDICT GLOBAL"]
-        FinalDecision{"Au moins UN<br/>match ?"}:::check
-        
-        CompareSPF --> FinalDecision
-        CompareDKIM --> FinalDecision
-        
-        FinalDecision -- OUI --> DMARC_OK["✅ DMARC PASS<br/>(Inbox)"]:::pass
-        FinalDecision -- NON --> DMARC_FAIL["❌ DMARC FAIL<br/>(Non aligné)"]:::fail
-    end
-
-    %% --- ETAPE 4 : APPLICATION POLITIQUE ---
-    subgraph ENFORCEMENT ["4 - POLITIQUE"]
-        PolicyCheck["👮 Lecture de p=..."]:::policy
-        
-        DMARC_FAIL --> PolicyCheck
-        
-        PolicyCheck -- "p=none" --> ActNone["Laissez passer<br/>(Monitoring)"]:::policy
-        PolicyCheck -- "p=quarantine" --> ActSpam["Dossier Spam"]:::policy
-        PolicyCheck -- "p=reject" --> ActReject["🚫 Rejet Total"]:::fail
-    end
-
-
+  %% --- Styles ---
+  classDef input fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#000
+  classDef check fill:#fff9c4,stroke:#fbc02d,stroke-width:2px,color:#000
+  classDef pass fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px,color:#000
+  classDef fail fill:#ffcdd2,stroke:#c62828,stroke-width:2px,color:#000
+  classDef policy fill:#e1bee7,stroke:#8e24aa,stroke-width:2px,color:#000
+  %% --- ETAPE 1 : LES PREUVES ---
+  subgraph INPUTS ["1 - LES PREUVES DISPONIBLES"]
+      HeaderFrom["👤 Header FROM<br/>(Ce que voit l'utilisateur)"]:::input
+      
+      SPF_Res["🚚 Résultat SPF<br/>(Domaine Return-Path)"]:::input
+      DKIM_Res["🛡️ Résultat DKIM<br/>(Domaine de signature d=)"]:::input
+  end
+  %% --- ETAPE 2 : LE TEST D'ALIGNEMENT ---
+  subgraph ALIGNMENT ["2 - VERIFICATION D'ALIGNEMENT"]
+      %% Liens invisibles pour forcer la structure
+      HeaderFrom --> CompareSPF
+      HeaderFrom --> CompareDKIM
+      
+      CompareSPF{"Le FROM matche<br/>le SPF ?"}:::check
+      CompareDKIM{"Le FROM matche<br/>le DKIM ?"}:::check
+      
+      SPF_Res --> CompareSPF
+      DKIM_Res --> CompareDKIM
+  end
+  %% --- ETAPE 3 : LE VERDICT DMARC ---
+  subgraph VERDICT ["3 - VERDICT GLOBAL"]
+      FinalDecision{"Au moins UN<br/>match ?"}:::check
+      
+      CompareSPF --> FinalDecision
+      CompareDKIM --> FinalDecision
+      
+      FinalDecision -- OUI --> DMARC_OK["✅ DMARC PASS<br/>(Inbox)"]:::pass
+      FinalDecision -- NON --> DMARC_FAIL["❌ DMARC FAIL<br/>(Non aligné)"]:::fail
+  end
+  %% --- ETAPE 4 : APPLICATION POLITIQUE ---
+  subgraph ENFORCEMENT ["4 - POLITIQUE"]
+      PolicyCheck["👮 Lecture de p=..."]:::policy
+      
+      DMARC_FAIL --> PolicyCheck
+      
+      PolicyCheck -- "p=none" --> ActNone["Laissez passer<br/>(Monitoring)"]:::policy
+      PolicyCheck -- "p=quarantine" --> ActSpam["Dossier Spam"]:::policy
+      PolicyCheck -- "p=reject" --> ActReject["🚫 Rejet Total"]:::fail
+  end
 ```
 
 # Pour aller plus loin
