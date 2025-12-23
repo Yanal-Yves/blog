@@ -3,11 +3,8 @@
 &lt;p&gt;Il y a trois types d&amp;rsquo;utilisateurs du système d&amp;rsquo;e-mail :&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Les utilisateurs des boîtes e-mail&lt;/li&gt;
-&lt;li&gt;Les administrateurs des domaines
-&lt;ul&gt;
+&lt;li&gt;Les administrateurs des domaines&lt;/li&gt;
 &lt;li&gt;Les mainteneurs de l&amp;rsquo;infrastructure e-mail&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Cette série d&amp;rsquo;articles s&amp;rsquo;adresse aux administrateurs de domaines qui ont besoin de configurer des boîtes e-mail de façon à empêcher l&amp;rsquo;usurpation d&amp;rsquo;identité.&lt;/p&gt;
 &lt;h2 id="prérequis"&gt;Prérequis&lt;a class="anchor" href="#pr%c3%a9requis"&gt;#&lt;/a&gt;&lt;/h2&gt;
