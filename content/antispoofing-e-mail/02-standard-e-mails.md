@@ -12,7 +12,6 @@ La création de certaines boîtes mail est une obligation technique définie par
 ---
 ## 💡 En bref, pour un domaine classique (e-mail et site web)
 Créez les alias suivants (redirigés vers votre adresse d'administration) pour être conforme :
-
 - `abuse@`
 - `admin@`
 - `administrator@`

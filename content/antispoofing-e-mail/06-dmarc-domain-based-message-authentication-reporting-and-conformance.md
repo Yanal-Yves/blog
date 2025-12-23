@@ -8,7 +8,6 @@ weight: 6
 Publié en 2015 ([RFC 7489](https://www.rfc-editor.org/rfc/rfc7489)).
 
 Jusqu'ici, nous avons vu que :
-
 - SPF valide l'IP mais vérifie le `Return-Path`, pas le `From`.
 - DKIM valide le contenu et vérifie le domaine de la signature (`d=`). Il ne vérifie pas le `From`.
 

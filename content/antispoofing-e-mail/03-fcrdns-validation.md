@@ -48,7 +48,6 @@ $ host 82.65.37.251
 ```
 
 Les indices suspects (Expressions régulières (Regex)) :
-
 - Présence de l'IP dans le nom.
 - Mots-clés résidentiels : `dynamic`, `dsl`, `fiber`, `pool`, `dhcp`, `cable`, `dialup`, etc..
 - Manque de domaine personnalisé : Finir par le domaine du FAI (`orange.fr`, `free.fr`) au lieu d'un domaine personnalisé.
@@ -127,7 +126,6 @@ Le **FCrDNS** est la première barrière. C'est un test binaire : si le PTR est 
 Le FCrDNS valide le serveur (la machine), mais pas l'identité de l'expéditeur. Il ne garantit pas que le serveur a le droit d'envoyer des mails pour le domaine `a.com`, ni que le message n'a pas été modifié. FCrDNS est uniquement une mesure de **réputation d'infrastructure** afin de lutter contre les botnets.
 
 C'est ce qui a rendu obligatoire l'adoption de protocoles complémentaires :
-
 - Sender Policy Framework (SPF)
 - DomainKeys Identified Mail (DKIM)
 - Domain-based Message Authentication (DMARC)

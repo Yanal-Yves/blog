@@ -15,16 +15,12 @@ weight: 9
 La sécurisation des e-mails n'est pas l'affaire d'un seul protocole, mais repose sur une stratégie de défense en profondeur. La combinaison des protocoles FCrDNS, SPF, DKIM et DMARC permet de créer une chaîne de confiance robuste, rendant l'usurpation d'identité technique (spoofing) quasi impossible, à condition que la chaîne ne soit pas brisée.
 
 Pour garantir cette sécurité, deux conditions sont impératives :
-
 1.  **Une configuration stricte côté émetteur** : Les administrateurs de domaines doivent viser l'excellence :
-
 - SPF verrouillé avec `-all` (Hard Fail).
 - DMARC en politique `p=reject` (Rejet pur et simple des échecs).
-
 2.  **Une validation rigoureuse côté récepteur** : Les serveurs de réception doivent effectuer les contrôles cryptographiques et DNS en temps réel. C'est aujourd'hui le standard chez les géants du secteur (Gmail, Microsoft, Yahoo, Proton, etc.).
 
 Si ces protocoles ferment la porte à l'usurpation technique (envoyer un e-mail en tant que president@whitehouse.gov), ils ne peuvent pas empêcher l'ingénierie sociale. Une fois la barrière technique levée, la vigilance de l'utilisateur reste le dernier rempart contre les attaques qui contournent les protocoles :
-
 - **Le Typosquatting (Homoglyphes)** : L'attaquant achète un domaine légitime qui ressemble visuellement à la cible (ex : bance-postale.fr au lieu de banque-postale.fr). DMARC validera cet e-mail car il provient légitimement du domaine de l'attaquant.
 - **Le Display Name Spoofing** : L'attaquant utilise une adresse générique (ex : jean.pirate@gmail.com) mais modifie le nom d'affichage pour qu'il apparaisse comme "Support Technique" ou "Votre PDG".
 
@@ -93,7 +89,6 @@ Enfin si FCrDNS, SPF, DKIM et DMARC sont les "défenses anti usurpation". Les al
 
 
 Quelques URL utiles :
-
 - https://postmaster.google.com
 - https://www.mail-tester.com
 - https://dmarc.postmarkapp.com

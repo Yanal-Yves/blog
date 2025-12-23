@@ -8,17 +8,14 @@ weight: 5
 Standardisé en 2007 ([RFC 4871](https://www.rfc-editor.org/rfc/rfc4871)), mis à jour en 2011 ([RFC 6376](https://www.rfc-editor.org/rfc/rfc6376)).
 
 Si le SPF protège l'enveloppe (le serveur d'envoi), DKIM (DomainKeys Identified Mail) protège le message lui-même. C'est l'équivalent numérique d'un scellé de preuves de la police :
-
 - **Transparence (Pas de confidentialité)** : N'importe qui peut regarder à travers le scellé et voir exactement ce qu'il contient (le texte de l'e-mail).
 - **Scellé inviolable (Intégrité)** : Si quelqu'un essaie d'ouvrir le sac pour remplacer l'objet à l'intérieur ou changer un mot sur un document, il doit déchirer le plastique. Le destinataire verra immédiatement que le sac a été forcé (i.e. la signature DKIM échoue).
 - **Étiquette officielle (Authentification)** : Le sac porte le logo du commissariat ou de la banque (le domaine émetteur).
 
 DKIM utilise la cryptographie asymétrique (clé privée / clé publique) :
-
 1.  **Signature (Serveur d'envoi)** : Le serveur sortant (ou l'ESP) choisit certains champs de l'en-tête et le corps du message. La liste des champs d'en-tête signés se trouve dans le tag `h=` du champ d'en-tête `DKIM-Signature` de l'e-mail. La norme recommande de signer au minimum les champs d'en-tête: `h=From:To:Subject:Date:Message-ID`. Le corps du message est d'abord haché et celui-ci est mis dans le tag `bh=` : on dit que le champ d'en-tête `DKIM-Signature` est préparé à la signature. Enfin les champs d'en-tête renseignés dans le tag `h=` ainsi que le champ d'en-tête `DKIM-Signature` sont signés avec une clé privée puis mis dans le tag `b=`.
 2.  **Vérification (Serveur de réception)** : Le serveur destinataire lit l'en-tête DKIM. Il y trouve le "sélecteur" (selector) et le domaine signataire (`d=a.com`). Il va alors interroger le DNS de ce domaine pour récupérer la clé publique.
 3.  **Validation** : Avec la clé publique, il déchiffre la signature et recalcule le hash du message reçu. Si les deux correspondent, cela prouve deux choses :
-
 - Authenticité : Le propriétaire du domaine détient bien la clé privée.
 - Intégrité : Le message n'a pas été modifié d'un seul octet en cours de route.
 

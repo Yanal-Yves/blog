@@ -46,7 +46,6 @@ end
 # Limites : La délégation, Forwarding et intégrité du message
 
 Le SPF présente deux faiblesses majeures :
-
 1.  **Délégation sophistiquée des ESP et problème d'alignement** : Si `a.com` utilise un ESP comme Mailjet, l'e-mail aura un `Return-Path` chez `mailjet.com` (pour gérer les rebonds) et un `From` chez `a.com`. Le SPF validera l'IP de Mailjet pour le domaine `mailjet.com`. Le SPF passe, mais il ne valide pas que l'expéditeur visible (`a.com`) est légitime, ce qui laisse parfois place à une falsification visuelle pour l'utilisateur. Nous verrons plus tard que DMARC vient pallier ce problème.
 2.  **Le Forwarding** : Si un e-mail est transféré automatiquement d'une boîte A vers une boîte B, l'IP d'envoi change (c'est celle du serveur de transfert), mais le `Return-Path` reste souvent celui de l'expéditeur original. L'IP du serveur de transfert n'étant pas dans la liste SPF de l'expéditeur, le SPF échoue.
 3.  **L'intégrité de message** : Si SPF permet de vérifier qu'un mail a été légitimement émis par `a.com`, il ne permet pas de valider que le message n'a pas été modifié lors de son transfert. Il faudra s'appuyer sur DKIM pour confirmer que le message n'a pas été altéré comme nous le verrons plus tard.
@@ -59,13 +58,11 @@ Le problème se pose lorsque le propriétaire d'un domaine (`a.com`) délègue l
 ### Le Mécanisme Classique du SPF
 
 Le SPF fonctionne en vérifiant si l'adresse IP d'envoi est autorisée par le domaine du `Return-Path` (le domaine de l'enveloppe) :
-
 - Expéditeur : `alice@a.com`
 - Adresse IP : L'IP appartient à Mailjet.
 - `Return-Path` : Dans une configuration standard, l'ESP utilise son propre domaine pour gérer les rebonds (ex : `bounce-id@mailjet.com`).
 
 Le serveur récepteur (`b.com`) effectue la vérification SPF :
-
 - Il regarde le `Return-Path` : `mailjet.com`.
 - Il consulte le record SPF de `mailjet.com`.
 - Il constate que l'IP est bien dans la liste des IPs autorisées par `mailjet.com`.
@@ -74,7 +71,6 @@ Le serveur récepteur (`b.com`) effectue la vérification SPF :
 ### L'Échec de l'Authentification de l'Utilisateur Final
 
 Le problème est que le SPF a validé la légitimité de Mailjet, mais n'a rien prouvé concernant la légitimité de l'expéditeur : `a.com` :
-
 - Le serveur récepteur sait que Mailjet a envoyé l'e-mail.
 - Le serveur récepteur ne vérifie pas que l'utilisateur qui a configuré le `From` en `alice@a.com` est effectivement légitime pour émettre un e-mail de `a.com`.
 
@@ -82,7 +78,6 @@ Le problème est que le SPF a validé la légitimité de Mailjet, mais n'a rien 
 
 C'est là que le SPF seul montre ses limites en matière d'anti-usurpation (anti-spoofing) :  
 Une personne mal intentionnée (un spammeur) pourrait :
-
 - Utiliser l'infrastructure de Mailjet avec son propre compte ou un compte piraté.
 - Régler le champ From à `president@whitehouse.gov`.
 - Le `Return-Path` restera `bounce-id@bnc3.mailjet.com`.

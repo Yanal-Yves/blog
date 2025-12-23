@@ -8,7 +8,6 @@ weight: 1
 ## Objectif et audience
 
 Il y a trois types d'utilisateurs du système d'e-mail :
-
 - Les utilisateurs des boîtes e-mail
 - Les administrateurs des domaines
 	- Les mainteneurs de l'infrastructure e-mail
@@ -18,14 +17,10 @@ Cette série d'articles s'adresse aux administrateurs de domaines qui ont besoin
 ## Prérequis
 
 Pour tirer pleinement profit de cet article et sécuriser votre domaine, vous devez :
-
 1.  **Accès et Environnement**
-
 - Avoir un accès administrateur à la zone DNS de votre domaine (chez votre registrar ou hébergeur).
 - Disposer d'un terminal (Linux/macOS) pour effectuer des requêtes DNS.
-
 2.  **Connaissances Techniques**
-
 - Compréhension du DNS :
     - Savoir modifier une zone DNS.
     - Connaître les types d'enregistrements : A, AAAA, TXT, CNAME, MX et PTR.
@@ -133,7 +128,6 @@ Un e-mail peut se décomposer en trois composants techniques :
 ### L'Enveloppe (The Envelope) - Protocole SMTP
 
 C'est la partie utilisée par les serveurs pour le transport de l'e-mail. Elle n'est généralement pas visible par l'utilisateur final. Elle est définie par les commandes du protocole SMTP (`MAIL FROM:` et `RCPT TO:`). Elle contient :
-
 - L'adresse de l'expéditeur de l'enveloppe (`MAIL FROM`) : C'est cette adresse qui est utilisée pour le `Return-Path` dans l'en-tête (une fois l'e-mail reçu). Elle est essentielle pour les mécanismes SPF et la gestion des rebonds.
 - L'adresse du destinataire de l'enveloppe (`RCPT TO`) : L'adresse réelle où l'e-mail doit être livré.
 
@@ -141,7 +135,6 @@ C'est la partie utilisée par les serveurs pour le transport de l'e-mail. Elle n
 
 C'est un ensemble de champs structurés au début du message.  
 Il contient notamment les champs :
-
 - `From` (Adresse de l'expéditeur affichée)
 - `Return-Path` (qui est rempli avec l'adresse `MAIL FROM` de l'enveloppe)
 - `To`, `Cc`, `Bcc`, `Subject`, `Date`.  
@@ -204,7 +197,6 @@ end
 # L'analogie postale
 
 Bien que les images aient leurs limites, elles permettent de garder de la hauteur sans se perdre dans les détails techniques. Voici les protocoles de sécurité que nous allons voir et leurs images respectives :
-
 1.  SMTP est le facteur et le camion de livraison : Il prend votre lettre (e-mail) depuis votre boîte aux lettres de départ et la transporte jusqu'au bureau de poste du destinataire.
 2.  FCrDNS valide le camion qui transporte l'enveloppe. C'est la vérification que la plaque d'immatriculation (IP) correspond bien à la carte grise du camion (Nom de domaine du serveur). On s'assure que le camion n'est pas volé.
 3.  Si le FCrDNS valide le camion, le SPF valide l'enveloppe et l'adresse de l'expéditeur (le `Return-Path`). L'entreprise émettrice du message (le Domaine `a.com`) a publié une liste. Si le camion qui arrive chez `b.com` ne figure pas sur la liste, on refuse l'enveloppe.
