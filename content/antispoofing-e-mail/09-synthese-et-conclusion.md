@@ -76,7 +76,10 @@ graph TD
 Enfin si FCrDNS, SPF, DKIM et DMARC sont les "défenses anti usurpation". Les alias standards sont les "yeux et les oreilles" de cette défense (pour recevoir les plaintes FBL et les rapports d'erreurs).
 
 
-Quelques URL utiles :
-- https://postmaster.google.com
+# Quelques URL utiles
+- https://postmaster.google.com : La version historique du site web de google qui permet d'avoir des retours sur les mails issue de votre domaine à destination de gmail.com
+- https://postmaster.google.com/v2/ : La nouvelle version du site web de google qui permet d'avoir des retours sur les mails issue de votre domaine à destination de gmail.com
 - https://www.mail-tester.com
 - https://dmarc.postmarkapp.com
+- https://easydmarc.com/tools/spf-lookup : Vérifie la syntaxe du SPF, compte le nombre de DNS lookup, détaille le SPF de façon récursive.
+- https://easydmarc.com/tools/dmarc-lookup : Vérifie la syntaxe du DMARC et donne des informations relatives au DMARC du domaine vérifié.

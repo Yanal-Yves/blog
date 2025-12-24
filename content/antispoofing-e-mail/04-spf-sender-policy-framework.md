@@ -103,3 +103,6 @@ Pour éviter que la vérification SPF ne serve de vecteur d'attaque par déni de
 Chaque mécanisme qui demande au serveur de réception d'interroger le DNS compte pour 1 : cela concerne les `include`, `a`, `mx`, `ptr` et `exists`. Attention, cela est récursif : si vous faites un `include:spf.protection.outlook.com` et que Microsoft fait lui-même un `include` dans son record, cela compte pour 2 requêtes. En revanche, les mécanismes `ip4` et `ip6` sont "gratuits" car ils ne nécessitent pas d'interrogation DNS.
 
 **Le danger :** Si vous cumulez trop de prestataires (ex: Google + Salesforce + Mailjet + Zendesk), vous dépasserez cette limite. Le résultat sera un `PermError` immédiat, provoquant le rejet de vos e-mails ou leur classement en spam, même si l'IP expéditrice était techniquement autorisée.
+
+# Quelques URL utiles
+- https://easydmarc.com/tools/spf-lookup : Vérifie la syntaxe du SPF, compte le nombre de DNS lookup, détaille le SPF de façon récursive.
