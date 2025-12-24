@@ -43,7 +43,7 @@ end
 
 Le SPF présente deux faiblesses majeures :
 1.  **Délégation sophistiquée des ESP et problème d'alignement** : Si `a.com` utilise un ESP comme Mailjet, l'e-mail aura un `Return-Path` chez `mailjet.com` (pour gérer les rebonds) et un `From` chez `a.com`. Le SPF validera l'IP de Mailjet pour le domaine `mailjet.com`. Le SPF passe, mais il ne valide pas que l'expéditeur visible (`a.com`) est légitime, ce qui laisse parfois place à une falsification visuelle pour l'utilisateur. Nous verrons plus tard que DMARC vient pallier ce problème.
-2.  **Le Forwarding** : Si un e-mail est transféré automatiquement d'une boîte A vers une boîte B, l'IP d'envoi change (c'est celle du serveur de transfert), mais le `Return-Path` reste souvent celui de l'expéditeur original. L'IP du serveur de transfert n'étant pas dans la liste SPF de l'expéditeur, le SPF échoue.
+2.  **Le Forwarding** : Si un e-mail est transféré automatiquement d'une boîte A vers une boîte B, l'IP d'envoi change (c'est celle du serveur de transfert), mais le `Return-Path` reste souvent celui de l'expéditeur original. L'IP du serveur de transfert n'étant pas dans la liste SPF de l'expéditeur, le SPF échoue (sauf mécanisme de réécriture spécifique comme le SRS).
 3.  **L'intégrité de message** : Si SPF permet de vérifier qu'un mail a été légitimement émis par `a.com`, il ne permet pas de valider que le message n'a pas été modifié lors de son transfert. Il faudra s'appuyer sur DKIM pour confirmer que le message n'a pas été altéré comme nous le verrons plus tard.
 4. **La contrainte technique : La limite des 10 requêtes DNS :** Pour éviter que la vérification SPF ne serve de vecteur d'attaque par déni de service (DoS) sur les infrastructures DNS, l'évaluation d'un enregistrement SPF ne doit pas générer plus de 10 requêtes DNS supplémentaires. 
 
@@ -90,8 +90,11 @@ Bob a configuré une redirection automatique de sa boîte pro vers sa boîte per
 Le serveur de Bob reçoit l'e-mail (SPF valide : l'IP d'Alice est OK).  
 Le serveur de Bob transfère l'e-mail vers `c.com`.  
 Le problème : Du point de vue du serveur `c.com`, l'e-mail provient de l'adresse IP du serveur de Bob (`b.com`), mais l'adresse d'expéditeur (`Return-Path`) indique toujours `a.com`.  
-Le serveur `c.com` va vérifier le SPF : "Est-ce que l'IP de Bob (`b.com`) est autorisée à envoyer des e-mails pour le domaine `a.com` ?" La réponse est NON. Le SPF échoue. C'est pourquoi le SPF seul ne permet pas, dans le cas du forward d'e-mail, de garantir la légitimité de l'e-mail d'Alice `a.com` aux yeux du serveur d'e-mail de `c.com`.  
-Dans ce cas, il faudra utiliser un autre protocole DKIM pour valider l'authenticité de l'e-mail.
+Le serveur `c.com` va vérifier le SPF. Deux cas de figure se présentent :
+**1. Sans réécriture :** C'est le comportement natif du protocole SPF. Le serveur vérifie si l'IP de Bob (`b.com`) est autorisée à envoyer des e-mails pour le domaine d'Alice (`a.com`). La réponse est NON, le SPF échoue.
+**2. Avec SRS (Sender Rewriting Scheme) :** Le serveur de Bob réécrit l'enveloppe technique pour que le SPF passe. Cependant, cela change le domaine vérifié (qui devient b.com) et brise l'alignement avec le domaine visible (a.com). On dit que l'**alignement SPF échoue**. Ce désalignement peut être un problème pour valider l'authenticité d'un e-mail que nous aborderons dans la section consacrée à [DMARC](06-dmarc-domain-based-message-authentication-reporting-and-conformance.md).
+
+Le SRS a été inventé pour empêcher que les mails légitimes ne soient rejetés (bounce) lors d'un transfert. La plupart des gros hébergeurs (OVH, Gmail, Outlook) appliquent le SRS. Il "répare" la couche transport (SMTP) au détriment de l'alignement SPF.
 
 ### La contrainte technique : La limite des 10 requêtes DNS
 
@@ -99,4 +102,4 @@ Pour éviter que la vérification SPF ne serve de vecteur d'attaque par déni de
 
 Chaque mécanisme qui demande au serveur de réception d'interroger le DNS compte pour 1 : cela concerne les `include`, `a`, `mx`, `ptr` et `exists`. Attention, cela est récursif : si vous faites un `include:spf.protection.outlook.com` et que Microsoft fait lui-même un `include` dans son record, cela compte pour 2 requêtes. En revanche, les mécanismes `ip4` et `ip6` sont "gratuits" car ils ne nécessitent pas d'interrogation DNS.
 
-**Le danger :** Si vous cumulez trop de prestataires (ex: Google + Salesforce + Mailjet + Zendesk), vous dépasserez cette limite. Le résultat sera un `PermError immédiat, provoquant le rejet de vos e-mails ou leur classement en spam, même si l'IP expéditrice était techniquement autorisée.
+**Le danger :** Si vous cumulez trop de prestataires (ex: Google + Salesforce + Mailjet + Zendesk), vous dépasserez cette limite. Le résultat sera un `PermError` immédiat, provoquant le rejet de vos e-mails ou leur classement en spam, même si l'IP expéditrice était techniquement autorisée.
