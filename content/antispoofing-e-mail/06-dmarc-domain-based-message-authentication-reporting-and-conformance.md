@@ -17,12 +17,12 @@ DMARC utilise les résultats de SPF et DKIM et ajoute une règle simple : **Pour
 
 ## Les 3 piliers de DMARC
 
-1.  **L'Alignement (Identifier Alignment) :** DMARC vérifie si le domaine du `From` correspond soit au domaine validé par SPF (celui du `Return-Path`), soit au domaine de la signature DKIM (le tag `d=` du champ d'en-tête `DKIM-Signature`). On appelle "alignement" cette correspondance. C'est ce qui empêche un spammeur d'utiliser par exemple l'infrastructure de Mailjet (SPF valide pour Mailjet) pour envoyer un e-mail avec `From: president@whitehouse.gov`. DMARC échoue car `whitehouse.gov` n'est pas aligné avec `mailjet.com`. C'est ce mécanisme qui empêche enfin le spoofing d'adresse visible.
-2.  **La Politique (Policy) :** DMARC permet au propriétaire du domaine de dire au récepteur quoi faire si la validation échoue. C'est défini par la balise `p=` dans le DNS :
+1. **L'Alignement (Identifier Alignment) :** DMARC vérifie si le domaine du `From` correspond soit au domaine validé par SPF (celui du `Return-Path`), soit au domaine de la signature DKIM (le tag `d=` du champ d'en-tête `DKIM-Signature`). On appelle "alignement" cette correspondance. C'est ce qui empêche un spammeur d'utiliser par exemple l'infrastructure de Mailjet (SPF valide pour Mailjet) pour envoyer un e-mail avec `From: president@whitehouse.gov`. DMARC échoue car `whitehouse.gov` n'est pas aligné avec `mailjet.com`. C'est ce mécanisme qui empêche enfin le spoofing d'adresse visible.
+2. **La Politique (Policy) :** DMARC permet au propriétaire du domaine de dire au récepteur quoi faire si la validation échoue. C'est défini par la balise `p=` dans le DNS :
 - `p=none` : **Observation uniquement**. "Dis-moi juste qui échoue, mais laisse passer l'e-mail." (Idéal pour commencer et auditer).
 - `p=quarantine` : **Mise en doute**. "Mets les e-mails qui échouent dans le dossier Spam du destinataire."
 - `p=reject` : **Protection maximale**. "Rejette purement et simplement les e-mails qui échouent. Ils n'arriveront jamais."
-3.  **Le Reporting (RUA/RUF) :** C'est la boucle de rétroaction. Les serveurs de réception (Gmail, Yahoo, etc.) envoient des rapports XML quotidiens à l'adresse définie dans le record DMARC. Cela permet à l'administrateur de savoir exactement qui envoie des e-mails en son nom (légitimement ou non) et de corriger sa configuration avant de passer en mode `reject`.
+3. **Le Reporting (RUA/RUF) :** C'est la boucle de rétroaction. Les serveurs de réception (Gmail, Yahoo, etc.) envoient des rapports XML quotidiens à l'adresse définie dans le record DMARC. Cela permet à l'administrateur de savoir exactement qui envoie des e-mails en son nom (légitimement ou non) et de corriger sa configuration avant de passer en mode `reject`.
 
 ```mermaid
 graph TD
