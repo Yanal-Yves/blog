@@ -1,0 +1,7 @@
+<ul class="article-list">
+  {{ range .Page.Pages.ByWeight }}
+    <li>
+      <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+    </li>
+  {{ end }}
+</ul>
