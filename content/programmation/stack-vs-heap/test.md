@@ -14,7 +14,7 @@ Avez-vous bien saisi la nuance ? C'est le moment de vérité. Cliquez sur "Voir 
 
 * A) Elle est plus lente mais permet de stocker plus de données.
 * B) Elle est beaucoup plus rapide d'accès et d'allocation.
-* C) Il n'y a aucune différence de performance notable.
+* C) Il n'y a aucune différence de performance.
 * D) Elle est optimisée pour les objets volumineux uniquement.
 
 <details>
