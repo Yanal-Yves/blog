@@ -1,3 +1,10 @@
+---
+title: "La Pile et le Tas en C# - Test"
+draft: false
+tags: ["programmation", "mémoire", "débutant", "csharp", "dotnet"]
+categories: ["Développement", "Théorie"]
+---
+
 ## 📝 Testez vos connaissances
 
 Avez-vous bien saisi la nuance ? C'est le moment de vérité. Cliquez sur "Voir la réponse" pour vérifier votre compréhension.
