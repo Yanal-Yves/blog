@@ -1,5 +1,5 @@
 ---
-title: "La Pile (Stack) et le Tas (Heap) en C#"
+title: "La Pile et le Tas en C#"
 draft: false
 tags: ["programmation", "mémoire", "débutant", "csharp", "dotnet"]
 categories: ["Développement", "Théorie"]
