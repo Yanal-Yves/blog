@@ -164,3 +164,11 @@ graph TB
 | **Problème type** | Stack Overflow (trop d'appels récursifs) | Out of Memory / Fragmentation |
 
 Comprendre cette séparation vous aidera à mieux visualiser pourquoi modifier un objet dans une fonction modifie l'objet original (car on copie l'adresse, pas l'objet), alors que modifier un entier ne change que la copie locale.
+
+---
+
+## Prêt à valider vos acquis ?
+
+Avez-vous tout retenu ? Les pièges du `null` et des références n'ont plus de secret pour vous ?
+
+👉 **[Passez le Quiz : Testez vos connaissances sur la Stack et le Heap]({{< ref "test.md" >}})**
