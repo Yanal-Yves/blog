@@ -181,6 +181,6 @@ Bien que les images aient leurs limites, elles permettent de garder de la hauteu
 3.  Si le FCrDNS valide le camion, le SPF valide l'enveloppe et l'adresse de l'expéditeur (le `Return-Path`). L'entreprise émettrice du message (le Domaine `a.com`) a publié une liste. Si le camion qui arrive chez `b.com` ne figure pas sur la liste, on refuse l'enveloppe.
 4.  DKIM est un genre de sceau de cire numérique de l'enveloppe. Attention cependant, DKIM ne permet pas de garantir que le message n'a pas été lu, juste qu'il n'a pas été modifié. Une autre image est le scellé de preuves de la police car tout le monde peut voir ce qu'il y a dedans, mais personne ne peut le modifier sans laisser de traces. La limite évidente de cette image est que l'on n'envoie pas nos lettres dans des scellés en plastique de la police !
 5.  DMARC vérifie la cohérence entre le message et l'enveloppe :
-  1.  Il ouvre l'enveloppe.
-  2.  Il regarde l'en-tête du papier à lettre (le `From:` que le destinataire va lire).
-  3.  Il compare cet en-tête avec les preuves extérieures : soit avec l'adresse au dos de l'enveloppe (`Return-Path` validé par le SPF), soit avec le logo sur le sceau de cire (Signature DKIM).
+  a.  Il ouvre l'enveloppe.
+  b.  Il regarde l'en-tête du papier à lettre (le `From:` que le destinataire va lire).
+  c.  Il compare cet en-tête avec les preuves extérieures : soit avec l'adresse au dos de l'enveloppe (`Return-Path` validé par le SPF), soit avec le logo sur le sceau de cire (Signature DKIM).
