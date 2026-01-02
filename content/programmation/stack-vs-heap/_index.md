@@ -171,4 +171,4 @@ Comprendre cette séparation vous aidera à mieux visualiser pourquoi modifier u
 
 Avez-vous tout retenu ? Les pièges du `null` et des références n'ont plus de secret pour vous ?
 
-👉 **[Passez le Quiz : Testez vos connaissances sur la Stack et le Heap]({{< ref "test.md" >}})**
+👉 **[Passez le Quiz : Testez vos connaissances sur la Stack et le Heap]({{< ref "quiz-stack-heap.md" >}})**
