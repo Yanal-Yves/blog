@@ -5,7 +5,7 @@
 &lt;ul&gt;
 &lt;li&gt;A) Elle est plus lente mais permet de stocker plus de données.&lt;/li&gt;
 &lt;li&gt;B) Elle est beaucoup plus rapide d&amp;rsquo;accès et d&amp;rsquo;allocation.&lt;/li&gt;
-&lt;li&gt;C) Il n&amp;rsquo;y a aucune différence de performance notable.&lt;/li&gt;
+&lt;li&gt;C) Il n&amp;rsquo;y a aucune différence de performance.&lt;/li&gt;
 &lt;li&gt;D) Elle est optimisée pour les objets volumineux uniquement.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;details&gt;
