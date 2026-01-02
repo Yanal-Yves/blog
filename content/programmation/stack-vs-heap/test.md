@@ -1,5 +1,5 @@
 ---
-title: "La Pile et le Tas en C# - Test"
+title: "Test"
 draft: false
 tags: ["programmation", "mémoire", "débutant", "csharp", "dotnet"]
 categories: ["Développement", "Théorie"]
