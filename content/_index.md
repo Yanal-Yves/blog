@@ -14,5 +14,15 @@ Une série d'articles pour les les administrateurs de domaines qui ont besoin de
 
 ---
 
+#### 🏠 [Auto-hébergement](/auto-hébergement/)
+Tutoriels et guides pour l'auto-hébergement de services (Pi-hole, Raspberry Pi, etc.).
+
+---
+
+#### 💻 [Programmation](/programmation/)
+Articles sur le développement et la programmation.
+
+---
+
 #### 🕹️ [Recalbox](/recalbox/)
 Mes expérimentations et configurations sur le retrogaming avec [Recalbox](https://www.recalbox.com/)
