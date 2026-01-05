@@ -5,8 +5,6 @@ tags: ["recalbox", "dosbox", "pc-dos", "worms", "cd-rom"]
 categories: ["Tutoriels"]
 ---
 
-## Installation de Worms (PC DOS) sur Recalbox avec pistes CD Audio
-
 Ce guide explique comment extraire et installer la version CD-ROM originale de **Worms** vendu par **Sold out** sur Recalbox, en préservant les pistes audio (musique d'ambiance) qui sont souvent perdues lors d'une copie standard.
 
 ![Boite du jeu Worms Sold Out](worms-sold-out.jpg)
