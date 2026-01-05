@@ -45,7 +45,7 @@ sequenceDiagram
 ## Prérequis
 
 * Un **Raspberry Pi 1** (Modèle B dans mon cas).
-* **Raspberry Pi OS Lite** (anciennement Raspbian) déjà installé et configuré (SSH activé, IP fixe ou baille DHCP statique).
+* **Raspberry Pi OS Lite** (anciennement Raspbian) déjà installé et configuré (SSH activé, IP fixe ou bail DHCP statique).
 * Une connexion Ethernet (préférable au Wi-Fi pour un serveur DNS).
 
 ## Étape 1 : Préserver la carte SD avec Log2Ram
@@ -132,7 +132,7 @@ Allez dans **Paramètres de la Freebox > Configuration IPv6 > DNS IPv6**.
 * Cochez "Forcer l'utilisation de serveurs DNS IPv6 personnalisés".
 * Collez l'IPv6 du Pi-hole dans le champ DNS Préférentiel.
 
-Je n'ai pas eu besoin de redémarrez la Freebox pour forcer la mise à jour des baux réseau sur tous vos appareils.
+Je n'ai pas eu besoin de redémarrer la Freebox pour forcer la mise à jour des baux réseau sur tous vos appareils.
 
 ## Étape 4 : Validation sur les clients (Linux)
 
