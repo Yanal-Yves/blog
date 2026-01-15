@@ -109,6 +109,41 @@ Au lieu d'inscrire un saut direct vers une adresse de code fixe (comme pour `Dit
 ### Structure Mémoire d'un objet .NET
 Chaque objet dans le tas (Heap) possède un en-tête caché contenant un **TypeHandle**. Ce pointeur dirige vers la **MethodTable** (la carte d'identité de la classe). Cette table contient la **Vtable** (Virtual Method Table) : un tableau de pointeurs vers les méthodes.
 
+```mermaid
+flowchart LR
+    %% Définition des styles pour différencier les zones
+    classDef heapObject fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:black;
+    classDef metaData fill:#fff3e0,stroke:#ef6c00,stroke-width:2px,color:black;
+    classDef invisible fill:none,stroke:none;
+
+    %% ZONE 1 : LE TAS (Où vivent les instances)
+    subgraph HEAP ["<b>GC Heap (Tas Géré)</b>"]
+        direction TB
+        
+        %% Instance 1
+        chien1["<b>Instance : Chien #1</b><br/>-----------------------<br/>Header : <b>TypeHandle</b> ⏺<br/>Données : Age = 5"]:::heapObject
+        
+        %% Instance 2
+        chien2["<b>Instance : Chien #2</b><br/>-----------------------<br/>Header : <b>TypeHandle</b> ⏺<br/>Données : Age = 3"]:::heapObject
+    end
+
+    %% ZONE 2 : LE LOADER HEAP (Où vivent les types)
+    subgraph LOADER ["<b>Loader Heap (Métadonnées)</b>"]
+        direction TB
+        
+        %% La MethodTable unique
+        mtChien["<b>MethodTable (Chien)</b><br/>-----------------------<br/>Infos GC <br/>Interfaces implémentées<br/>Taille de l'Instance<br/>...<br/><b>VTABLE (Liste Méthodes)</b><br/><i>[Slot 1] Animal.ToString</i><br/><i>[Slot 2] Chien.Parle</i>"]:::metaData
+    end
+
+    %% RELATIONS (Les pointeurs)
+    %% On fait partir les flèches des objets vers la table commune
+    chien1 -.-> mtChien
+    chien2 -.-> mtChien
+
+    %% Légende explicative sur le lien
+    linkStyle 0,1 stroke:#1565c0,stroke-width:2px,dasharray: 5 5;
+```
+
 ### Exécution pas à pas (Liaison Dynamique)
 
 Prenons le premier tour de boucle où l'objet est un **Chien**.
