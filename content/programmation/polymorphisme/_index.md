@@ -127,50 +127,66 @@ Le diagramme ci-dessous illustre la différence fondamentale. Remarquez comment 
 
 ```mermaid
 flowchart TD
-    subgraph STACK ["Pile d'exécution (Stack)"]
+    %% Configuration des styles pour la lisibilité
+    %% classDef default fill:#f9f9f9,stroke:#333,stroke-width:1px;
+    %% classDef memory fill:#fff,stroke:#333,stroke-width:1px;
+    
+    %% --- PILE ---
+    subgraph STACK ["Pile d'exécution - Stack"]
+        direction TB
         varRef["Variable: animal<br/>(Type: Animal)"]
     end
 
-    subgraph HEAP ["Tas Géré (Heap)"]
+    %% --- TAS ---
+    subgraph HEAP [Tas Géré - Heap]
+        direction TB
         objChien["Instance Objet : Chien<br/>Header: Ptr vers Chien MethodTable"]
     end
 
-    subgraph METADATA ["Métadonnées (Method Tables)"]
-        mtAnimal["<b>Animal MethodTable</b><br/>...<br/>DitBonjour() : @Addr A<br/>Parle() : @Addr B (virtuelle)"]
+    %% --- METADONNEES ---
+    subgraph METADATA ["Vtables"]
+        direction TB
+        mtAnimal["<b>Animal MethodTable</b><br/>...<br/>DitBonjour() : @Addr_A<br/>Parle() : @Addr_B (virtuelle)"]
         
-        mtChien["<b>Chien MethodTable</b><br/>Hérite de Animal<br/>...<br/>DitBonjour (Base) : @Addr A<br/>DitBonjour (New) : @Addr D<br/>Parle() : @Addr C (Override)"]
+        mtChien["<b>Chien MethodTable</b><br/>Hérite de Animal<br/>...<br/>DitBonjour (Base) : @Addr_A<br/>DitBonjour (New) : @Addr_D<br/>Parle() : @Addr_C (Override)"]
     end
 
-    subgraph CODE ["Segment de Code (Méthodes)"]
-        codeAnimal["@Addr A : Code Animal.DitBonjour()<br/>(Affiche 'L'animal salue')"]
-        codeChienNew["@Addr D : Code Chien.DitBonjour()<br/>(Affiche 'Le chien salue')"]
+    %% --- CODE ---
+    subgraph CODE ["Méthodes"]
+        direction TB
+        codeAnimal["@Addr_A : Code Animal.DitBonjour()<br/>(Affiche 'L'animal vous salue (Méthode de base).')"]
+        codeChienNew["@Addr_D : Code Chien.DitBonjour()<br/>(Affiche 'Le chien vous salue.')"]
         
-        codeAnimalBase["@Addr B : Code Animal.Parle()<br/>(Affiche '...')"]
-        codeChien["@Addr C : Code Chien.Parle()<br/>(Affiche 'Wouf')"]
+        codeAnimalBase["@Addr_B : Code Animal.Parle()<br/>(Affiche '...')"]
+        codeChien["@Addr_C : Code Chien.Parle()<br/>(Affiche 'Wouf !')"]
     end
 
-    %% Relations
+    %% --- RELATIONS ---
+
+    %% 1. Structure mémoire
     varRef -- "Pointe vers" --> objChien
-    objChien -. "TypeHandle" .-> mtChien
+    objChien -. "TypeHandle (Lien caché)" .-> mtChien
 
-    %% CAS 1 : NON VIRTUEL
-    varRef -- "1. Appel DitBonjour()<br/>(Décidé à la compilation : ignore le type réel)" --> codeAnimal
+    %% 2. CAS 1 : NON VIRTUEL (Rouge)
+    varRef -- "1. Appel DitBonjour()<br/>(Décidé à la compilation)" --> codeAnimal
     linkStyle 2 stroke:red,stroke-width:3px,color:red;
 
-    %% CAS 2 : VIRTUEL
+    %% 3. CAS 2 : VIRTUEL (Bleu)
     varRef -- "2. Appel Parle()<br/>(Appel callvirt)" --> mtChien
-    mtChien -- "3. Lookup Vtable Slot 'Parle'<br/>Trouve l'adresse @Addr C" --> codeChien
+    mtChien -- "3. Lookup Vtable Slot 'Parle'<br/>Trouve l'adresse _C" --> codeChien
     linkStyle 3 stroke:blue,stroke-width:3px,color:blue;
     linkStyle 4 stroke:blue,stroke-width:3px,color:blue;
-    
-    %% Lien pour montrer que le code D existe mais n'est pas appelé
+
+    %% 4. Liens structurels (Pointillés) - Pour montrer qui définit quoi
     mtChien -.-> codeChienNew
+    mtAnimal -.-> codeAnimal
+    mtAnimal -.-> codeAnimalBase   
 ```
 
 ### Légende du schéma
-* **Flèche Rouge (Liaison Statique) :** Le chemin est direct. Le compilateur a vu la variable de type `Animal` et a câblé directement l'appel vers le code `Animal.DitBonjour` (@Addr A). Il ignore totalement que l'objet est un Chien et que la méthode `Chien.DitBonjour` (@Addr D) existe.
-* **Flèche Bleue (Liaison Dynamique) :** Le chemin passe par la table. On part de l'objet -> on va voir sa table de définition (`mtChien`) -> on récupère l'adresse spécifique dans le slot de `Parle` -> on exécute le code `Chien.Parle` (@Addr C).
+* **Flèche Rouge (Liaison Statique) :** Le chemin est direct. Le compilateur a vu la variable de type `Animal` et a câblé directement l'appel vers le code `Animal.DitBonjour` (@Addr_A). Il ignore totalement que l'objet est un Chien et que la méthode `Chien.DitBonjour` (@Addr_D) existe.
+* **Flèche Bleue (Liaison Dynamique) :** Le chemin passe par la Vtable. On part de l'objet -> on va voir sa Vtable (celle de la classe `Chien`) -> on récupère l'adresse spécifique dans le slot de `Parle` -> on exécute le code `Chien.Parle` (@Addr_C).
 
 ## Résumé
-* **Non-virtuel (et `new`) :** La méthode est déterminée par le **Type de la variable**. C'est rapide, rigide, et cela peut mener à appeler la méthode du parent même si l'enfant en a une "nouvelle".
-* **Virtuel (`override`) :** La méthode est déterminée par le **Type de l'objet en mémoire** via une indirection (Vtable). C'est flexible et garantit le comportement polymorphique.
+* **Non-virtuel (mot clé `new`) :** La méthode est déterminée par le **Type de la variable**. C'est rapide, rigide, et cela peut mener à appeler la méthode du parent même si l'enfant en a une "nouvelle".
+* **Virtuel (mot clé `override`) :** La méthode est déterminée par le **Type de l'objet en mémoire** via une indirection (Vtable). C'est flexible et garantit le comportement polymorphique.
