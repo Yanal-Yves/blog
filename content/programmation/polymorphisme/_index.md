@@ -1,4 +1,11 @@
-# Plongée dans le Polymorphisme C# : Vtable, Indirection et Mémoire
+---
+title: "Polymorphisme en C#"
+draft: false
+tags: ["programmation", "polymorphisme", "débutant", "csharp", "dotnet"]
+categories: ["Développement", "Théorie"]
+---
+
+# Plongée dans le Polymorphisme C#
 
 En C#, le polymorphisme est souvent résumé par "le bon code est exécuté pour le bon objet". Mais pour un développeur aguerri, il est crucial de comprendre la mécanique interne : comment le CLR (Common Language Runtime) décide-t-il quelle méthode appeler ?
 
