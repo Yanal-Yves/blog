@@ -127,10 +127,6 @@ Le diagramme ci-dessous illustre la différence fondamentale. Remarquez comment 
 
 ```mermaid
 flowchart TD
-    %% Configuration des styles pour la lisibilité
-    %% classDef default fill:#f9f9f9,stroke:#333,stroke-width:1px;
-    %% classDef memory fill:#fff,stroke:#333,stroke-width:1px;
-    
     %% --- PILE ---
     subgraph STACK ["Pile d'exécution - Stack"]
         direction TB
@@ -156,7 +152,6 @@ flowchart TD
         direction TB
         codeAnimal["@Addr_A : Code Animal.DitBonjour()<br/>(Affiche 'L'animal vous salue (Méthode de base).')"]
         codeChienNew["@Addr_D : Code Chien.DitBonjour()<br/>(Affiche 'Le chien vous salue.')"]
-        
         codeAnimalBase["@Addr_B : Code Animal.Parle()<br/>(Affiche '...')"]
         codeChien["@Addr_C : Code Chien.Parle()<br/>(Affiche 'Wouf !')"]
     end
