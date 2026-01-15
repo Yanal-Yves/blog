@@ -96,15 +96,15 @@ Lorsque le compilateur rencontre la ligne `animal.DitBonjour()`, il analyse le t
 Peu importe que les classes `Chat` et `Chien` définissent une nouvelle version de la méthode `DitBonjour` (avec `new`), c'est bien celle de la classe de base `Animal` qui est appelée car l'adresse de destination est gravée dans le marbre lors de la compilation.
 
 ### Exécution pas à pas (Liaison Statique)
-1.  **Compilation :** Le compilateur génère une instruction `call` pointant directement vers l'adresse mémoire fixe où se trouve le code compilé de `Animal.DitBonjour`.
+1.  **Compilation :** Le compilateur C# génère une instruction IL qui désigne explicitement la méthode Animal.DitBonjour. Lors de la traduction en code machine par le JIT, cette instruction est transformée en un saut direct vers l'adresse mémoire du code, sans passer par aucune table.
 2.  **Exécution :** Le processeur saute directement à cette adresse.
 3.  **Résultat :** Même si l'objet est un `Chien`, c'est la méthode de l' `Animal` qui s'exécute. La méthode `Chien.DitBonjour` est totalement ignorée.
 
 ## 3. Cas 2 : Appel Virtuel (`Parle`) et la Vtable
 
-Lorsque le compilateur rencontre `animal.Parle()`, il voit le mot clé `virtual`. Il sait qu'il ne peut pas figer l'adresse de la méthode maintenant, car l'objet pourrait être un `Chat` ou un `Chien`.
+Lorsque le compilateur rencontre `animal.Parle()`, il détecte le mot-clé `virtual`. Il comprend alors qu'il ne peut pas figer l'adresse de la méthode immédiatement à la compilation, car la variable `animal` pourrait pointer vers n'importe quelle instance dérivée (un Chat, un Chien, etc.) au moment de l'exécution.
 
-Il génère une instruction `callvirt`. C'est ici qu'entre en jeu la **Vtable**.
+Au lieu d'inscrire un saut direct vers une adresse de code fixe (comme pour `DitBonjour`), le compilateur met en place un mécanisme de **résolution dynamique**. Il demande au runtime d'aller chercher la bonne méthode en fonction de l'objet réel en mémoire. C'est ici qu'entre en jeu la **Vtable**.
 
 ### Structure Mémoire d'un objet .NET
 Chaque objet dans le tas (Heap) possède un en-tête caché contenant un **TypeHandle**. Ce pointeur dirige vers la **MethodTable** (la carte d'identité de la classe). Cette table contient la **Vtable** (Virtual Method Table) : un tableau de pointeurs vers les méthodes.
