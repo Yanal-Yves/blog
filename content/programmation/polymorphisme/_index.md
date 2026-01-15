@@ -128,54 +128,63 @@ Le diagramme ci-dessous illustre la différence fondamentale. Remarquez comment 
 ```mermaid
 flowchart TD
     %% --- PILE ---
-    subgraph STACK ["Pile d'exécution - Stack"]
+    subgraph STACK ["Stack (Pile)"]
         direction TB
-        varRef["Variable: animal<br/>(Type: Animal)"]
+        varRef["var animal<br/>(Type: Animal)"]
     end
 
     %% --- TAS ---
-    subgraph HEAP [Tas Géré - Heap]
+    subgraph HEAP ["Heap (Tas)"]
         direction TB
-        objChien["Instance Objet : Chien<br/>Header: Ptr vers Chien MethodTable"]
+        objChien["Instance : Chien<br/>Header: Ptr vers VTable Chien"]
     end
 
     %% --- METADONNEES ---
-    subgraph METADATA ["Vtables"]
+    subgraph METADATA ["Vtables (Métadonnées)"]
         direction TB
-        mtAnimal["<b>Animal MethodTable</b><br/>...<br/>DitBonjour() : @Addr_A<br/>Parle() : @Addr_B (virtuelle)"]
+        mtAnimal["<b>Animal VTable</b><br/>DitBonjour: @Addr_A<br/>Parle: @Addr_B"]
         
-        mtChien["<b>Chien MethodTable</b><br/>Hérite de Animal<br/>...<br/>DitBonjour (Base) : @Addr_A<br/>DitBonjour (New) : @Addr_D<br/>Parle() : @Addr_C (Override)"]
+        mtChien["<b>Chien VTable</b><br/>(Hérite d'Animal)<br/>DitBonjour: @Addr_A<br/>DitBonjour (New): @Addr_D<br/>Parle (Override): @Addr_C"]
     end
 
     %% --- CODE ---
     subgraph CODE ["Méthodes"]
         direction TB
-        codeAnimal["@Addr_A : Code Animal.DitBonjour()<br/>(Affiche 'L'animal vous salue (Méthode de base).')"]
-        codeChienNew["@Addr_D : Code Chien.DitBonjour()<br/>(Affiche 'Le chien vous salue.')"]
-        codeAnimalBase["@Addr_B : Code Animal.Parle()<br/>(Affiche '...')"]
-        codeChien["@Addr_C : Code Chien.Parle()<br/>(Affiche 'Wouf !')"]
+        codeAnimal["@Addr_A<br/>Animal.DitBonjour()<br/>'L'animal salue...'"]
+        codeChienNew["@Addr_D<br/>Chien.DitBonjour()<br/>'Le chien salue...'"]
+        codeAnimalBase["@Addr_B<br/>Animal.Parle()<br/>'...'"]
+        codeChien["@Addr_C<br/>Chien.Parle()<br/>'Wouf !'"]
     end
 
     %% --- RELATIONS ---
+    %% L'ordre de déclaration définit les index pour linkStyle (0, 1, 2...)
 
-    %% 1. Structure mémoire
+    %% 0. Lien var -> objet
     varRef -- "Pointe vers" --> objChien
-    objChien -. "TypeHandle (Lien caché)" .-> mtChien
+    
+    %% 1. Lien objet -> vtable
+    objChien -. "TypeHandle" .-> mtChien
 
-    %% 2. CAS 1 : NON VIRTUEL (Rouge)
-    varRef -- "1. Appel DitBonjour()<br/>(Décidé à la compilation)" --> codeAnimal
-    linkStyle 2 stroke:red,stroke-width:3px,color:red;
+    %% 2. CAS ROUGE (Index 2)
+    varRef -- "(1) Appel Statique<br/>DitBonjour()" --> codeAnimal
 
-    %% 3. CAS 2 : VIRTUEL (Bleu)
-    varRef -- "2. Appel Parle()<br/>(Résolution dynamique)" --> mtChien
-    mtChien -- "3. Lookup Vtable Slot 'Parle'<br/>Trouve l'adresse _C" --> codeChien
-    linkStyle 3 stroke:blue,stroke-width:3px,color:blue;
-    linkStyle 4 stroke:blue,stroke-width:3px,color:blue;
+    %% 3. CAS BLEU PARTIE 1 (Index 3)
+    varRef -- "(2) Appel Virtuel<br/>Parle()" --> mtChien
 
-    %% 4. Liens structurels (Pointillés) - Pour montrer qui définit quoi
+    %% 4. CAS BLEU PARTIE 2 (Index 4)
+    mtChien -- "(3) Lookup Vtable<br/>Trouve @Addr_C" --> codeChien
+
+    %% Liens structurels (gris)
     mtChien -.-> codeChienNew
     mtAnimal -.-> codeAnimal
     mtAnimal -.-> codeAnimalBase
+
+    %% STYLES
+    %% Rouge pour l'appel statique (Index 2)
+    linkStyle 2 stroke:red,stroke-width:3px,color:red;
+    
+    %% Bleu pour le chemin dynamique (Index 3 et 4)
+    linkStyle 3,4 stroke:blue,stroke-width:3px,color:blue;
 ```
 
 ### Légende du schéma
