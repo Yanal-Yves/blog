@@ -172,7 +172,7 @@ flowchart TD
     linkStyle 2 stroke:red,stroke-width:3px,color:red;
 
     %% 3. CAS 2 : VIRTUEL (Bleu)
-    varRef -- "2. Appel Parle()<br/>(Appel callvirt)" --> mtChien
+    varRef -- "2. Appel Parle()<br/>(Résolution dynamique)" --> mtChien
     mtChien -- "3. Lookup Vtable Slot 'Parle'<br/>Trouve l'adresse _C" --> codeChien
     linkStyle 3 stroke:blue,stroke-width:3px,color:blue;
     linkStyle 4 stroke:blue,stroke-width:3px,color:blue;
@@ -180,7 +180,7 @@ flowchart TD
     %% 4. Liens structurels (Pointillés) - Pour montrer qui définit quoi
     mtChien -.-> codeChienNew
     mtAnimal -.-> codeAnimal
-    mtAnimal -.-> codeAnimalBase   
+    mtAnimal -.-> codeAnimalBase
 ```
 
 ### Légende du schéma
