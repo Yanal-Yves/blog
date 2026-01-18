@@ -1,10 +1,7 @@
 {{ if .Page.TableOfContents }}
 <div class="book-toc-inline">
-  <details>
-    <summary><strong>Sommaire</strong></summary>
-    <div class="markdown-inner">
-      {{ .Page.TableOfContents }}
-    </div>
-  </details>
+  <div class="markdown-inner">
+    {{ .Page.TableOfContents }}
+  </div>
 </div>
 {{ end }}
