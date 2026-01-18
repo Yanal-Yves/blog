@@ -6,18 +6,9 @@
  &lt;ul&gt;
  &lt;li&gt;&lt;a href="#1-prérequis-sous-fedora-linux-43"&gt;1. Prérequis (Sous Fedora Linux 43)&lt;/a&gt;&lt;/li&gt;
  &lt;li&gt;&lt;a href="#2-extraction-du-cd-image-binaire"&gt;2. Extraction du CD (Image binaire)&lt;/a&gt;&lt;/li&gt;
- &lt;li&gt;&lt;a href="#3-conversion-du-fichier-de-structure-cue"&gt;3. Conversion du fichier de structure (.cue)&lt;/a&gt;
- &lt;ul&gt;
- &lt;li&gt;&lt;a href="#vérification-du-fichier-cue"&gt;Vérification du fichier .cue&lt;/a&gt;&lt;/li&gt;
- &lt;/ul&gt;
- &lt;/li&gt;
+ &lt;li&gt;&lt;a href="#3-conversion-du-fichier-de-structure-cue"&gt;3. Conversion du fichier de structure (.cue)&lt;/a&gt;&lt;/li&gt;
  &lt;li&gt;&lt;a href="#4-installation-sur-la-recalbox"&gt;4. Installation sur la Recalbox&lt;/a&gt;&lt;/li&gt;
- &lt;li&gt;&lt;a href="#5-configuration-et-lancement"&gt;5. Configuration et Lancement&lt;/a&gt;
- &lt;ul&gt;
- &lt;li&gt;&lt;a href="#phase-a--première-installation-setup"&gt;Phase A : Première installation (Setup)&lt;/a&gt;&lt;/li&gt;
- &lt;li&gt;&lt;a href="#phase-b--script-de-jeu-définitif"&gt;Phase B : Script de jeu définitif&lt;/a&gt;&lt;/li&gt;
- &lt;/ul&gt;
- &lt;/li&gt;
+ &lt;li&gt;&lt;a href="#5-configuration-et-lancement"&gt;5. Configuration et Lancement&lt;/a&gt;&lt;/li&gt;
  &lt;li&gt;&lt;a href="#astuces"&gt;Astuces&lt;/a&gt;&lt;/li&gt;
  &lt;/ul&gt;
 &lt;/nav&gt;
@@ -25,4 +16,5 @@
  &lt;/details&gt;
 &lt;/div&gt;
 
-&lt;p&gt;Ce guide explique comment extraire et installer la version CD-ROM originale de &lt;strong&gt;Worms&lt;/strong&gt; vendu par &lt;strong&gt;Sold out&lt;/strong&gt; sur Recalbox, en préservant les pistes audio (musique d&amp;rsquo;ambiance) qui sont souvent perdues lors d&amp;rsquo;une copie standard.&lt;/p&gt;</description></item></channel></rss>
+&lt;p&gt;Ce guide explique comment extraire et installer la version CD-ROM originale de &lt;strong&gt;Worms&lt;/strong&gt; vendu par &lt;strong&gt;Sold out&lt;/strong&gt; sur Recalbox, en préservant les pistes audio (musique d&amp;rsquo;ambiance) qui sont souvent perdues lors d&amp;rsquo;une copie standard.&lt;/p&gt;
+&lt;p&gt;&lt;img src="worms-sold-out.jpg" alt="Boite du jeu Worms Sold Out" /&gt;&lt;/p&gt;</description></item></channel></rss>

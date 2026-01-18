@@ -4,21 +4,10 @@
  &lt;div class="markdown-inner"&gt;
  &lt;nav id="TableOfContents"&gt;
  &lt;ul&gt;
- &lt;li&gt;&lt;a href="#lanalogie--le-bureau-et-lentrepôt"&gt;L&amp;rsquo;Analogie : Le Bureau et l&amp;rsquo;Entrepôt&lt;/a&gt;
- &lt;ul&gt;
- &lt;li&gt;&lt;a href="#la-pile-the-stack--votre-plan-de-travail"&gt;La Pile (The Stack) : Votre plan de travail&lt;/a&gt;&lt;/li&gt;
- &lt;li&gt;&lt;a href="#le-tas-the-heap--lentrepôt-géant"&gt;Le Tas (The Heap) : L&amp;rsquo;entrepôt géant&lt;/a&gt;&lt;/li&gt;
- &lt;/ul&gt;
- &lt;/li&gt;
+ &lt;li&gt;&lt;a href="#lanalogie--le-bureau-et-lentrepôt"&gt;L&amp;rsquo;Analogie : Le Bureau et l&amp;rsquo;Entrepôt&lt;/a&gt;&lt;/li&gt;
  &lt;li&gt;&lt;a href="#1-la-pile-the-stack--vitesse-et-ordre"&gt;1. La Pile (The Stack) : Vitesse et Ordre&lt;/a&gt;&lt;/li&gt;
  &lt;li&gt;&lt;a href="#2-le-tas-the-heap--flexibilité-et-désordre"&gt;2. Le Tas (The Heap) : Flexibilité et Désordre&lt;/a&gt;&lt;/li&gt;
- &lt;li&gt;&lt;a href="#pourquoi-est-ce-vital-pour-les-nullable-"&gt;Pourquoi est-ce vital pour les &lt;code&gt;Nullable&lt;/code&gt; ?&lt;/a&gt;
- &lt;ul&gt;
- &lt;li&gt;&lt;a href="#cas-1--les-types-valeurs-stack"&gt;Cas 1 : Les Types Valeurs (Stack)&lt;/a&gt;&lt;/li&gt;
- &lt;li&gt;&lt;a href="#cas-2--les-types-références-heap"&gt;Cas 2 : Les Types Références (Heap)&lt;/a&gt;&lt;/li&gt;
- &lt;li&gt;&lt;a href="#la-confusion-moderne-c-8"&gt;La confusion moderne (C# 8+)&lt;/a&gt;&lt;/li&gt;
- &lt;/ul&gt;
- &lt;/li&gt;
+ &lt;li&gt;&lt;a href="#pourquoi-est-ce-vital-pour-les-nullable-"&gt;Pourquoi est-ce vital pour les &lt;code&gt;Nullable&lt;/code&gt; ?&lt;/a&gt;&lt;/li&gt;
  &lt;li&gt;&lt;a href="#en-résumé"&gt;En résumé&lt;/a&gt;&lt;/li&gt;
  &lt;li&gt;&lt;a href="#prêt-à-valider-vos-acquis-"&gt;Prêt à valider vos acquis ?&lt;/a&gt;&lt;/li&gt;
  &lt;/ul&gt;
@@ -33,13 +22,7 @@
  &lt;div class="markdown-inner"&gt;
  &lt;nav id="TableOfContents"&gt;
  &lt;ul&gt;
- &lt;li&gt;&lt;a href="#plongée-dans-le-polymorphisme-c"&gt;Plongée dans le Polymorphisme C#&lt;/a&gt;
- &lt;ul&gt;
- &lt;li&gt;&lt;a href="#1-la-situation--le-code"&gt;1. La situation : Le code&lt;/a&gt;&lt;/li&gt;
- &lt;li&gt;&lt;a href="#2-cas-1--appel-non-virtuel-ditbonjour"&gt;2. Cas 1 : Appel Non-Virtuel (&lt;code&gt;DitBonjour&lt;/code&gt;)&lt;/a&gt;&lt;/li&gt;
- &lt;li&gt;&lt;a href="#3-cas-2--appel-virtuel-parle-et-la-vtable"&gt;3. Cas 2 : Appel Virtuel (&lt;code&gt;Parle&lt;/code&gt;) et la Vtable&lt;/a&gt;&lt;/li&gt;
- &lt;/ul&gt;
- &lt;/li&gt;
+ &lt;li&gt;&lt;a href="#plongée-dans-le-polymorphisme-c"&gt;Plongée dans le Polymorphisme C#&lt;/a&gt;&lt;/li&gt;
  &lt;li&gt;&lt;a href="#schéma-de-fonctionnement"&gt;Schéma de fonctionnement&lt;/a&gt;&lt;/li&gt;
  &lt;li&gt;&lt;a href="#résumé"&gt;Résumé&lt;/a&gt;&lt;/li&gt;
  &lt;/ul&gt;
@@ -49,7 +32,8 @@
 &lt;/div&gt;
 
 &lt;h2 id="plongée-dans-le-polymorphisme-c"&gt;Plongée dans le Polymorphisme C#&lt;a class="anchor" href="#plong%c3%a9e-dans-le-polymorphisme-c"&gt;#&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;En C#, le polymorphisme est souvent résumé par &amp;ldquo;le bon code est exécuté pour le bon objet&amp;rdquo;. Mais pour un développeur aguerri, il est crucial de comprendre la mécanique interne : comment le CLR (Common Language Runtime) décide-t-il quelle méthode appeler ?&lt;/p&gt;</description></item><item><title>Quiz : Pile et Tas</title><link>https://yanal.fargialla.com/programmation/stack-vs-heap/quiz-stack-heap/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/programmation/stack-vs-heap/quiz-stack-heap/</guid><description>&lt;h2 id="-testez-vos-connaissances"&gt;📝 Testez vos connaissances&lt;a class="anchor" href="#-testez-vos-connaissances"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;En C#, le polymorphisme est souvent résumé par &amp;ldquo;le bon code est exécuté pour le bon objet&amp;rdquo;. Mais pour un développeur aguerri, il est crucial de comprendre la mécanique interne : comment le CLR (Common Language Runtime) décide-t-il quelle méthode appeler ?&lt;/p&gt;
+&lt;p&gt;Cet article décortique la différence entre un appel statique et un appel dynamique via les &lt;strong&gt;Vtables&lt;/strong&gt;.&lt;/p&gt;</description></item><item><title>Quiz : Pile et Tas</title><link>https://yanal.fargialla.com/programmation/stack-vs-heap/quiz-stack-heap/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/programmation/stack-vs-heap/quiz-stack-heap/</guid><description>&lt;h2 id="-testez-vos-connaissances"&gt;📝 Testez vos connaissances&lt;a class="anchor" href="#-testez-vos-connaissances"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Avez-vous bien saisi la nuance ? C&amp;rsquo;est le moment de vérité. Cliquez sur &amp;ldquo;Voir la réponse&amp;rdquo; pour vérifier votre compréhension.&lt;/p&gt;
 &lt;h3 id="question-1"&gt;Question 1&lt;a class="anchor" href="#question-1"&gt;#&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;Quelle est la caractéristique principale de la Pile (Stack) comparée au Tas (Heap) en termes de performance ?&lt;/strong&gt;&lt;/p&gt;

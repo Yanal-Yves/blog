@@ -6,31 +6,10 @@
  &lt;ul&gt;
  &lt;li&gt;&lt;a href="#pourquoi-installer-pi-hole-"&gt;Pourquoi installer Pi-hole ?&lt;/a&gt;&lt;/li&gt;
  &lt;li&gt;&lt;a href="#prérequis"&gt;Prérequis&lt;/a&gt;&lt;/li&gt;
- &lt;li&gt;&lt;a href="#étape-1--préserver-la-carte-sd-avec-log2ram"&gt;Étape 1 : Préserver la carte SD avec Log2Ram&lt;/a&gt;
- &lt;ul&gt;
- &lt;li&gt;&lt;a href="#optimisation-pour-le-rpi-1-512-mo-ram"&gt;Optimisation pour le RPi 1 (512 Mo RAM)&lt;/a&gt;&lt;/li&gt;
- &lt;/ul&gt;
- &lt;/li&gt;
- &lt;li&gt;&lt;a href="#étape-2--installation-de-pi-hole"&gt;Étape 2 : Installation de Pi-hole&lt;/a&gt;
- &lt;ul&gt;
- &lt;li&gt;&lt;a href="#le-choix-du-dns-upstream--quad9"&gt;Le choix du DNS Upstream : Quad9&lt;/a&gt;&lt;/li&gt;
- &lt;/ul&gt;
- &lt;/li&gt;
- &lt;li&gt;&lt;a href="#étape-3--configuration-de-la-freebox-révolution"&gt;Étape 3 : Configuration de la Freebox Révolution&lt;/a&gt;
- &lt;ul&gt;
- &lt;li&gt;&lt;a href="#1-le-dns-ipv4-dhcp"&gt;1. Le DNS IPv4 (DHCP)&lt;/a&gt;&lt;/li&gt;
- &lt;li&gt;&lt;a href="#2-le-dns-ipv6"&gt;2. Le DNS IPv6&lt;/a&gt;&lt;/li&gt;
- &lt;/ul&gt;
- &lt;/li&gt;
- &lt;li&gt;&lt;a href="#étape-4--validation-sur-les-clients-linux"&gt;Étape 4 : Validation sur les clients (Linux)&lt;/a&gt;
- &lt;ul&gt;
- &lt;li&gt;&lt;a href="#la-méthode-via-networkmanager"&gt;La méthode via NetworkManager&lt;/a&gt;&lt;/li&gt;
- &lt;li&gt;&lt;a href="#la-méthode-via-systemd-resolved"&gt;La méthode via Systemd-resolved&lt;/a&gt;&lt;/li&gt;
- &lt;li&gt;&lt;a href="#le-test-final"&gt;Le test final&lt;/a&gt;&lt;/li&gt;
- &lt;li&gt;&lt;a href="#vérifié-que-le-dns-upstream-est-bien-quad9"&gt;Vérifié que le DNS upstream est bien quad9&lt;/a&gt;&lt;/li&gt;
- &lt;li&gt;&lt;a href="#cache-dns-de-firefox"&gt;Cache DNS de Firefox&lt;/a&gt;&lt;/li&gt;
- &lt;/ul&gt;
- &lt;/li&gt;
+ &lt;li&gt;&lt;a href="#étape-1--préserver-la-carte-sd-avec-log2ram"&gt;Étape 1 : Préserver la carte SD avec Log2Ram&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#étape-2--installation-de-pi-hole"&gt;Étape 2 : Installation de Pi-hole&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#étape-3--configuration-de-la-freebox-révolution"&gt;Étape 3 : Configuration de la Freebox Révolution&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#étape-4--validation-sur-les-clients-linux"&gt;Étape 4 : Validation sur les clients (Linux)&lt;/a&gt;&lt;/li&gt;
  &lt;li&gt;&lt;a href="#conclusion"&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
  &lt;/ul&gt;
 &lt;/nav&gt;
@@ -38,4 +17,5 @@
  &lt;/details&gt;
 &lt;/div&gt;
 
-&lt;p&gt;Le Raspberry Pi 1, bien qu&amp;rsquo;ancien, est loin d&amp;rsquo;être obsolète. Il possède exactement la puissance nécessaire pour une tâche critique de votre réseau domestique : agir comme un &lt;strong&gt;sinkhole DNS&lt;/strong&gt;.&lt;/p&gt;</description></item></channel></rss>
+&lt;p&gt;Le Raspberry Pi 1, bien qu&amp;rsquo;ancien, est loin d&amp;rsquo;être obsolète. Il possède exactement la puissance nécessaire pour une tâche critique de votre réseau domestique : agir comme un &lt;strong&gt;sinkhole DNS&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Dans cet article, nous allons voir comment transformer ce petit ordinateur en un bouclier qui protège tous vos appareils (PC, smartphones, tablettes, TV connectées) contre la publicité intrusive, les traceurs et les sites malveillants, le tout sans ralentir votre navigation.&lt;/p&gt;</description></item></channel></rss>
