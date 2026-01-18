@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Mémoire on Notes Techniques</title><link>https://yanal.fargialla.com/tags/m%C3%A9moire/</link><description>Recent content in Mémoire on Notes Techniques</description><generator>Hugo</generator><language>fr-fr</language><atom:link href="https://yanal.fargialla.com/tags/m%C3%A9moire/index.xml" rel="self" type="application/rss+xml"/><item><title>La Pile et le Tas en C#</title><link>https://yanal.fargialla.com/programmation/stack-vs-heap/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/programmation/stack-vs-heap/</guid><description>&lt;div class="book-toc-inline"&gt;
- &lt;details&gt;
- &lt;summary&gt;&lt;strong&gt;Sommaire&lt;/strong&gt;&lt;/summary&gt;
  &lt;div class="markdown-inner"&gt;
  &lt;nav id="TableOfContents"&gt;
  &lt;ul&gt;
@@ -13,8 +11,8 @@
  &lt;/ul&gt;
 &lt;/nav&gt;
  &lt;/div&gt;
- &lt;/details&gt;
 &lt;/div&gt;
+
 
 &lt;p&gt;Si vous avez appris le développement avec des langages modernes comme C#, Java, Python ou JavaScript, la gestion de la mémoire est probablement une boîte noire pour vous. Vous créez une variable, et &amp;ldquo;magiquement&amp;rdquo;, elle existe.&lt;/p&gt;</description></item><item><title>Quiz : Pile et Tas</title><link>https://yanal.fargialla.com/programmation/stack-vs-heap/quiz-stack-heap/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/programmation/stack-vs-heap/quiz-stack-heap/</guid><description>&lt;h2 id="-testez-vos-connaissances"&gt;📝 Testez vos connaissances&lt;a class="anchor" href="#-testez-vos-connaissances"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Avez-vous bien saisi la nuance ? C&amp;rsquo;est le moment de vérité. Cliquez sur &amp;ldquo;Voir la réponse&amp;rdquo; pour vérifier votre compréhension.&lt;/p&gt;

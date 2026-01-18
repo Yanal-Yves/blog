@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Théorie on Notes Techniques</title><link>https://yanal.fargialla.com/categories/th%C3%A9orie/</link><description>Recent content in Théorie on Notes Techniques</description><generator>Hugo</generator><language>fr-fr</language><atom:link href="https://yanal.fargialla.com/categories/th%C3%A9orie/index.xml" rel="self" type="application/rss+xml"/><item><title>La Pile et le Tas en C#</title><link>https://yanal.fargialla.com/programmation/stack-vs-heap/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/programmation/stack-vs-heap/</guid><description>&lt;div class="book-toc-inline"&gt;
- &lt;details&gt;
- &lt;summary&gt;&lt;strong&gt;Sommaire&lt;/strong&gt;&lt;/summary&gt;
  &lt;div class="markdown-inner"&gt;
  &lt;nav id="TableOfContents"&gt;
  &lt;ul&gt;
@@ -13,12 +11,10 @@
  &lt;/ul&gt;
 &lt;/nav&gt;
  &lt;/div&gt;
- &lt;/details&gt;
 &lt;/div&gt;
 
+
 &lt;p&gt;Si vous avez appris le développement avec des langages modernes comme C#, Java, Python ou JavaScript, la gestion de la mémoire est probablement une boîte noire pour vous. Vous créez une variable, et &amp;ldquo;magiquement&amp;rdquo;, elle existe.&lt;/p&gt;</description></item><item><title>Polymorphisme en C#</title><link>https://yanal.fargialla.com/programmation/polymorphisme/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/programmation/polymorphisme/</guid><description>&lt;div class="book-toc-inline"&gt;
- &lt;details&gt;
- &lt;summary&gt;&lt;strong&gt;Sommaire&lt;/strong&gt;&lt;/summary&gt;
  &lt;div class="markdown-inner"&gt;
  &lt;nav id="TableOfContents"&gt;
  &lt;ul&gt;
@@ -28,8 +24,8 @@
  &lt;/ul&gt;
 &lt;/nav&gt;
  &lt;/div&gt;
- &lt;/details&gt;
 &lt;/div&gt;
+
 
 &lt;h2 id="plongée-dans-le-polymorphisme-c"&gt;Plongée dans le Polymorphisme C#&lt;a class="anchor" href="#plong%c3%a9e-dans-le-polymorphisme-c"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;En C#, le polymorphisme est souvent résumé par &amp;ldquo;le bon code est exécuté pour le bon objet&amp;rdquo;. Mais pour un développeur aguerri, il est crucial de comprendre la mécanique interne : comment le CLR (Common Language Runtime) décide-t-il quelle méthode appeler ?&lt;/p&gt;

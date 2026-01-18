@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Accueil on Notes Techniques</title><link>https://yanal.fargialla.com/</link><description>Recent content in Accueil on Notes Techniques</description><generator>Hugo</generator><language>fr-fr</language><atom:link href="https://yanal.fargialla.com/index.xml" rel="self" type="application/rss+xml"/><item><title>Architecture et concepts - 1/9</title><link>https://yanal.fargialla.com/antispoofing-e-mail/01-architecture-concepts/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/antispoofing-e-mail/01-architecture-concepts/</guid><description>&lt;div class="book-toc-inline"&gt;
- &lt;details&gt;
- &lt;summary&gt;&lt;strong&gt;Sommaire&lt;/strong&gt;&lt;/summary&gt;
  &lt;div class="markdown-inner"&gt;
  &lt;nav id="TableOfContents"&gt;
  &lt;ul&gt;
@@ -10,8 +8,8 @@
  &lt;/ul&gt;
 &lt;/nav&gt;
  &lt;/div&gt;
- &lt;/details&gt;
 &lt;/div&gt;
+
 
 &lt;h2 id="introduction"&gt;Introduction&lt;a class="anchor" href="#introduction"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;h3 id="objectif-et-audience"&gt;Objectif et audience&lt;a class="anchor" href="#objectif-et-audience"&gt;#&lt;/a&gt;&lt;/h3&gt;
@@ -24,8 +22,6 @@
 &lt;p&gt;Cette série d&amp;rsquo;articles s&amp;rsquo;adresse aux administrateurs de domaines qui ont besoin de configurer des boîtes e-mail de façon à empêcher l&amp;rsquo;usurpation d&amp;rsquo;identité.&lt;/p&gt;
 &lt;h3 id="prérequis"&gt;Prérequis&lt;a class="anchor" href="#pr%c3%a9requis"&gt;#&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;Pour tirer pleinement profit de cet article et sécuriser votre domaine, vous devez :&lt;/p&gt;</description></item><item><title>Les e-mails standards - 2/9</title><link>https://yanal.fargialla.com/antispoofing-e-mail/02-standard-e-mails/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/antispoofing-e-mail/02-standard-e-mails/</guid><description>&lt;div class="book-toc-inline"&gt;
- &lt;details&gt;
- &lt;summary&gt;&lt;strong&gt;Sommaire&lt;/strong&gt;&lt;/summary&gt;
  &lt;div class="markdown-inner"&gt;
  &lt;nav id="TableOfContents"&gt;
  &lt;ul&gt;
@@ -34,12 +30,10 @@
  &lt;/ul&gt;
 &lt;/nav&gt;
  &lt;/div&gt;
- &lt;/details&gt;
 &lt;/div&gt;
 
+
 &lt;p&gt;Les protocoles anti usurpation que l&amp;rsquo;on va voir dans les articles suivants sont les murs de votre forteresse, et les e-mails standards sont les postes de garde. Si vous construisez les murs (SPF/DKIM) mais qu&amp;rsquo;il n&amp;rsquo;y a personne dans les postes de garde (postmaster/abuse) pour entendre les alarmes, votre sécurité finira par être contournée ou dégradée sans que vous le sachiez. Commençons par configurer les e-mails standards.&lt;/p&gt;</description></item><item><title>FCrDNS et validation croisée - 3/9</title><link>https://yanal.fargialla.com/antispoofing-e-mail/03-fcrdns-validation/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/antispoofing-e-mail/03-fcrdns-validation/</guid><description>&lt;div class="book-toc-inline"&gt;
- &lt;details&gt;
- &lt;summary&gt;&lt;strong&gt;Sommaire&lt;/strong&gt;&lt;/summary&gt;
  &lt;div class="markdown-inner"&gt;
  &lt;nav id="TableOfContents"&gt;
  &lt;ul&gt;
@@ -48,8 +42,8 @@
  &lt;/ul&gt;
 &lt;/nav&gt;
  &lt;/div&gt;
- &lt;/details&gt;
 &lt;/div&gt;
+
 
 &lt;h2 id="principe-de-fonctionnement"&gt;Principe de fonctionnement&lt;a class="anchor" href="#principe-de-fonctionnement"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Cette technique est apparue comme une bonne pratique dans les années 90.&lt;/p&gt;
@@ -78,8 +72,6 @@ Réponse Inverse : Le DNS répond :&lt;br&gt;
 &lt;p&gt;Le serveur de &lt;code&gt;b.com&lt;/code&gt; vérifie que le nom d&amp;rsquo;hôte ne ressemble pas à une IP résidentielle dynamique.&lt;br&gt;
 Cette vérification, qui est une règle supplémentaire de qualité, est appelée &lt;strong&gt;Generic PTR Check&lt;/strong&gt; et ne fait pas stricto sensu partie de la vérification &lt;code&gt;FCrDNS&lt;/code&gt;.&lt;br&gt;
 ex : Cas d&amp;rsquo;un nom d&amp;rsquo;hôte personnalisé&lt;/p&gt;</description></item><item><title>SPF (Sender Policy Framework) - 4/9</title><link>https://yanal.fargialla.com/antispoofing-e-mail/04-spf-sender-policy-framework/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/antispoofing-e-mail/04-spf-sender-policy-framework/</guid><description>&lt;div class="book-toc-inline"&gt;
- &lt;details&gt;
- &lt;summary&gt;&lt;strong&gt;Sommaire&lt;/strong&gt;&lt;/summary&gt;
  &lt;div class="markdown-inner"&gt;
  &lt;nav id="TableOfContents"&gt;
  &lt;ul&gt;
@@ -88,15 +80,13 @@ ex : Cas d&amp;rsquo;un nom d&amp;rsquo;hôte personnalisé&lt;/p&gt;</descripti
  &lt;/ul&gt;
 &lt;/nav&gt;
  &lt;/div&gt;
- &lt;/details&gt;
 &lt;/div&gt;
+
 
 &lt;h2 id="principe-de-fonctionnement"&gt;Principe de fonctionnement&lt;a class="anchor" href="#principe-de-fonctionnement"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Standardisé en 2006 (&lt;a href="https://www.rfc-editor.org/rfc/rfc4408"&gt;RFC 4408&lt;/a&gt;), mis à jour en 2014 (&lt;a href="https://www.rfc-editor.org/rfc/rfc7208"&gt;RFC 7208&lt;/a&gt;).&lt;/p&gt;
 &lt;p&gt;Le SPF agit comme un annuaire de confiance. Le propriétaire du domaine &lt;code&gt;a.com&lt;/code&gt; publie dans son DNS (enregistrement &lt;code&gt;TXT&lt;/code&gt;) la liste des IPs autorisées à envoyer des e-mails en son nom.&lt;br&gt;
 Lorsqu&amp;rsquo;un e-mail arrive, le serveur de réception vérifie l&amp;rsquo;IP d&amp;rsquo;envoi par rapport à cette liste. Attention : Le SPF vérifie le domaine indiqué dans le &lt;code&gt;Return-Path&lt;/code&gt; (l&amp;rsquo;enveloppe), et non le &lt;code&gt;From&lt;/code&gt; (l&amp;rsquo;en-tête visible).&lt;/p&gt;</description></item><item><title>DKIM (DomainKeys Identified Mail) - 5/9</title><link>https://yanal.fargialla.com/antispoofing-e-mail/05-dkim-domainkeys-identified-mail/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/antispoofing-e-mail/05-dkim-domainkeys-identified-mail/</guid><description>&lt;div class="book-toc-inline"&gt;
- &lt;details&gt;
- &lt;summary&gt;&lt;strong&gt;Sommaire&lt;/strong&gt;&lt;/summary&gt;
  &lt;div class="markdown-inner"&gt;
  &lt;nav id="TableOfContents"&gt;
  &lt;ul&gt;
@@ -106,8 +96,8 @@ Lorsqu&amp;rsquo;un e-mail arrive, le serveur de réception vérifie l&amp;rsquo
  &lt;/ul&gt;
 &lt;/nav&gt;
  &lt;/div&gt;
- &lt;/details&gt;
 &lt;/div&gt;
+
 
 &lt;h2 id="principe-de-fonctionnement--le-scellé-de-preuves-de-la-police"&gt;Principe de fonctionnement : Le scellé de preuves de la police&lt;a class="anchor" href="#principe-de-fonctionnement--le-scell%c3%a9-de-preuves-de-la-police"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Standardisé en 2007 (&lt;a href="https://www.rfc-editor.org/rfc/rfc4871"&gt;RFC 4871&lt;/a&gt;), mis à jour en 2011 (&lt;a href="https://www.rfc-editor.org/rfc/rfc6376"&gt;RFC 6376&lt;/a&gt;).&lt;/p&gt;
@@ -118,8 +108,6 @@ Lorsqu&amp;rsquo;un e-mail arrive, le serveur de réception vérifie l&amp;rsquo
 &lt;li&gt;&lt;strong&gt;Étiquette officielle (Authentification)&lt;/strong&gt; : Le sac porte le logo du commissariat ou de la banque (le domaine émetteur).&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;DKIM utilise la cryptographie asymétrique (clé privée / clé publique) :&lt;/p&gt;</description></item><item><title>DMARC (Domain-based Message Authentication) - 6/9</title><link>https://yanal.fargialla.com/antispoofing-e-mail/06-dmarc-domain-based-message-authentication-reporting-and-conformance/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/antispoofing-e-mail/06-dmarc-domain-based-message-authentication-reporting-and-conformance/</guid><description>&lt;div class="book-toc-inline"&gt;
- &lt;details&gt;
- &lt;summary&gt;&lt;strong&gt;Sommaire&lt;/strong&gt;&lt;/summary&gt;
  &lt;div class="markdown-inner"&gt;
  &lt;nav id="TableOfContents"&gt;
  &lt;ul&gt;
@@ -129,8 +117,8 @@ Lorsqu&amp;rsquo;un e-mail arrive, le serveur de réception vérifie l&amp;rsquo
  &lt;/ul&gt;
 &lt;/nav&gt;
  &lt;/div&gt;
- &lt;/details&gt;
 &lt;/div&gt;
+
 
 &lt;h2 id="le-chef-dorchestre"&gt;Le Chef d&amp;rsquo;Orchestre&lt;a class="anchor" href="#le-chef-dorchestre"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Publié en 2015 (&lt;a href="https://www.rfc-editor.org/rfc/rfc7489"&gt;RFC 7489&lt;/a&gt;).&lt;/p&gt;
@@ -140,8 +128,6 @@ Lorsqu&amp;rsquo;un e-mail arrive, le serveur de réception vérifie l&amp;rsquo
 &lt;li&gt;DKIM valide le contenu et vérifie le domaine de la signature (&lt;code&gt;d=&lt;/code&gt;). Il ne vérifie pas le &lt;code&gt;From&lt;/code&gt;.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;DMARC (Domain-based Message Authentication, Reporting, and Conformance)&lt;/strong&gt; ne propose pas une nouvelle méthode d&amp;rsquo;authentification technique, mais une couche de politique qui s&amp;rsquo;appuie sur SPF et DKIM pour résoudre le problème de &lt;strong&gt;l&amp;rsquo;alignement&lt;/strong&gt;.&lt;/p&gt;</description></item><item><title>BIMI et analyse des limites - 7/9</title><link>https://yanal.fargialla.com/antispoofing-e-mail/07-bimi-brand-indicators-for-message-identification-analyse-des-limites/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/antispoofing-e-mail/07-bimi-brand-indicators-for-message-identification-analyse-des-limites/</guid><description>&lt;div class="book-toc-inline"&gt;
- &lt;details&gt;
- &lt;summary&gt;&lt;strong&gt;Sommaire&lt;/strong&gt;&lt;/summary&gt;
  &lt;div class="markdown-inner"&gt;
  &lt;nav id="TableOfContents"&gt;
  &lt;ul&gt;
@@ -150,8 +136,8 @@ Lorsqu&amp;rsquo;un e-mail arrive, le serveur de réception vérifie l&amp;rsquo
  &lt;/ul&gt;
 &lt;/nav&gt;
  &lt;/div&gt;
- &lt;/details&gt;
 &lt;/div&gt;
+
 
 &lt;p&gt;Dans l&amp;rsquo;écosystème de la sécurité des e-mails, &lt;strong&gt;BIMI (Brand Indicators for Message Identification)&lt;/strong&gt; est souvent présenté comme la prochaine étape logique après la mise en conformité DMARC. L&amp;rsquo;objectif est de permettre l&amp;rsquo;affichage d&amp;rsquo;un logo certifié dans les clients de messagerie pour renforcer la confiance visuelle.&lt;/p&gt;
 &lt;p&gt;Cependant, une analyse technique approfondie révèle que ce protocole est plus complexe qu&amp;rsquo;il n&amp;rsquo;y paraît. Contrairement à SPF ou DKIM qui sont purement déclaratifs, BIMI s&amp;rsquo;appuie généralement sur un tiers de confiance via un certificat numérique appelé VMC (Verified Mark Certificate). Si ce mécanisme fonctionne dans des environnements intégrés (comme les webmails de Google ou Yahoo), il se heurte à des obstacles structurels majeurs dès qu&amp;rsquo;il est confronté à l&amp;rsquo;architecture ouverte et standardisée de l&amp;rsquo;e-mail.&lt;/p&gt;</description></item><item><title>Parked Domain Locking - 8/9</title><link>https://yanal.fargialla.com/antispoofing-e-mail/08-parked-domain-locking/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/antispoofing-e-mail/08-parked-domain-locking/</guid><description>&lt;p&gt;Un domaine qui n&amp;rsquo;envoie aucun e-mail doit également configurer SPF, DKIM et DMARC afin de déclarer : &amp;ldquo;Ce domaine n&amp;rsquo;envoie jamais d&amp;rsquo;e-mail. Si vous en recevez un, jetez-le immédiatement.&amp;rdquo;. C&amp;rsquo;est indispensable pour protéger contre l&amp;rsquo;usurpation : les pirates pourraient utiliser des domaines &amp;ldquo;dormants&amp;rdquo; ou des variations de votre domaine (typosquatting) pour envoyer du phishing, car personne ne les surveille.&lt;/p&gt;
@@ -192,8 +178,6 @@ Lorsqu&amp;rsquo;un e-mail arrive, le serveur de réception vérifie l&amp;rsquo
  &lt;/tr&gt;
  &lt;/tbody&gt;
 &lt;/table&gt;</description></item><item><title>Synthèse et conclusion - 9/9</title><link>https://yanal.fargialla.com/antispoofing-e-mail/09-synthese-et-conclusion/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/antispoofing-e-mail/09-synthese-et-conclusion/</guid><description>&lt;div class="book-toc-inline"&gt;
- &lt;details&gt;
- &lt;summary&gt;&lt;strong&gt;Sommaire&lt;/strong&gt;&lt;/summary&gt;
  &lt;div class="markdown-inner"&gt;
  &lt;nav id="TableOfContents"&gt;
  &lt;ul&gt;
@@ -202,8 +186,8 @@ Lorsqu&amp;rsquo;un e-mail arrive, le serveur de réception vérifie l&amp;rsquo
  &lt;/ul&gt;
 &lt;/nav&gt;
  &lt;/div&gt;
- &lt;/details&gt;
 &lt;/div&gt;
+
 
 &lt;h2 id="synthèse-et-conclusion"&gt;Synthèse et conclusion&lt;a class="anchor" href="#synth%c3%a8se-et-conclusion"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;table&gt;

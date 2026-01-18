@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dosbox on Notes Techniques</title><link>https://yanal.fargialla.com/tags/dosbox/</link><description>Recent content in Dosbox on Notes Techniques</description><generator>Hugo</generator><language>fr-fr</language><atom:link href="https://yanal.fargialla.com/tags/dosbox/index.xml" rel="self" type="application/rss+xml"/><item><title>Installation de Worms (PC DOS) sur Recalbox avec pistes CD Audio</title><link>https://yanal.fargialla.com/recalbox/pc-worms/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/recalbox/pc-worms/</guid><description>&lt;div class="book-toc-inline"&gt;
- &lt;details&gt;
- &lt;summary&gt;&lt;strong&gt;Sommaire&lt;/strong&gt;&lt;/summary&gt;
  &lt;div class="markdown-inner"&gt;
  &lt;nav id="TableOfContents"&gt;
  &lt;ul&gt;
@@ -13,8 +11,8 @@
  &lt;/ul&gt;
 &lt;/nav&gt;
  &lt;/div&gt;
- &lt;/details&gt;
 &lt;/div&gt;
+
 
 &lt;p&gt;Ce guide explique comment extraire et installer la version CD-ROM originale de &lt;strong&gt;Worms&lt;/strong&gt; vendu par &lt;strong&gt;Sold out&lt;/strong&gt; sur Recalbox, en préservant les pistes audio (musique d&amp;rsquo;ambiance) qui sont souvent perdues lors d&amp;rsquo;une copie standard.&lt;/p&gt;
 &lt;p&gt;&lt;img src="worms-sold-out.jpg" alt="Boite du jeu Worms Sold Out" /&gt;&lt;/p&gt;</description></item></channel></rss>
