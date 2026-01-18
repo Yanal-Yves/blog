@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Antispoofing e-mail on Notes Techniques</title><link>https://yanal.fargialla.com/antispoofing-e-mail/</link><description>Recent content in Antispoofing e-mail on Notes Techniques</description><generator>Hugo</generator><language>fr-fr</language><atom:link href="https://yanal.fargialla.com/antispoofing-e-mail/index.xml" rel="self" type="application/rss+xml"/><item><title>Architecture et concepts - 1/9</title><link>https://yanal.fargialla.com/antispoofing-e-mail/01-architecture-concepts/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/antispoofing-e-mail/01-architecture-concepts/</guid><description>&lt;div class="book-toc-inline"&gt;
- &lt;details open&gt;
+ &lt;details&gt;
  &lt;summary&gt;&lt;strong&gt;Sommaire&lt;/strong&gt;&lt;/summary&gt;
  &lt;div class="markdown-inner"&gt;
  &lt;nav id="TableOfContents"&gt;
@@ -32,7 +32,7 @@
 &lt;li&gt;Les mainteneurs de l&amp;rsquo;infrastructure e-mail&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Cette série d&amp;rsquo;articles s&amp;rsquo;adresse aux administrateurs de domaines qui ont besoin de configurer des boîtes e-mail de façon à empêcher l&amp;rsquo;usurpation d&amp;rsquo;identité.&lt;/p&gt;</description></item><item><title>Les e-mails standards - 2/9</title><link>https://yanal.fargialla.com/antispoofing-e-mail/02-standard-e-mails/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/antispoofing-e-mail/02-standard-e-mails/</guid><description>&lt;div class="book-toc-inline"&gt;
- &lt;details open&gt;
+ &lt;details&gt;
  &lt;summary&gt;&lt;strong&gt;Sommaire&lt;/strong&gt;&lt;/summary&gt;
  &lt;div class="markdown-inner"&gt;
  &lt;nav id="TableOfContents"&gt;
@@ -52,7 +52,7 @@
 &lt;/div&gt;
 
 &lt;p&gt;Les protocoles anti usurpation que l&amp;rsquo;on va voir dans les articles suivants sont les murs de votre forteresse, et les e-mails standards sont les postes de garde. Si vous construisez les murs (SPF/DKIM) mais qu&amp;rsquo;il n&amp;rsquo;y a personne dans les postes de garde (postmaster/abuse) pour entendre les alarmes, votre sécurité finira par être contournée ou dégradée sans que vous le sachiez. Commençons par configurer les e-mails standards.&lt;/p&gt;</description></item><item><title>FCrDNS et validation croisée - 3/9</title><link>https://yanal.fargialla.com/antispoofing-e-mail/03-fcrdns-validation/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/antispoofing-e-mail/03-fcrdns-validation/</guid><description>&lt;div class="book-toc-inline"&gt;
- &lt;details open&gt;
+ &lt;details&gt;
  &lt;summary&gt;&lt;strong&gt;Sommaire&lt;/strong&gt;&lt;/summary&gt;
  &lt;div class="markdown-inner"&gt;
  &lt;nav id="TableOfContents"&gt;
@@ -78,7 +78,7 @@
 &lt;h2 id="principe-de-fonctionnement"&gt;Principe de fonctionnement&lt;a class="anchor" href="#principe-de-fonctionnement"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Cette technique est apparue comme une bonne pratique dans les années 90.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Le principe de sécurité :&lt;/strong&gt; La robustesse de cette technique repose sur la nécessité de contrôler à la fois l&amp;rsquo;infrastructure IP (Côté Hébergeur) et la zone DNS (Côté Domaine). Un usurpateur ne possédant que l&amp;rsquo;un des deux accès ne pourra pas valider le test.&lt;/p&gt;</description></item><item><title>SPF (Sender Policy Framework) - 4/9</title><link>https://yanal.fargialla.com/antispoofing-e-mail/04-spf-sender-policy-framework/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/antispoofing-e-mail/04-spf-sender-policy-framework/</guid><description>&lt;div class="book-toc-inline"&gt;
- &lt;details open&gt;
+ &lt;details&gt;
  &lt;summary&gt;&lt;strong&gt;Sommaire&lt;/strong&gt;&lt;/summary&gt;
  &lt;div class="markdown-inner"&gt;
  &lt;nav id="TableOfContents"&gt;
@@ -101,7 +101,7 @@
 &lt;p&gt;Standardisé en 2006 (&lt;a href="https://www.rfc-editor.org/rfc/rfc4408"&gt;RFC 4408&lt;/a&gt;), mis à jour en 2014 (&lt;a href="https://www.rfc-editor.org/rfc/rfc7208"&gt;RFC 7208&lt;/a&gt;).&lt;/p&gt;
 &lt;p&gt;Le SPF agit comme un annuaire de confiance. Le propriétaire du domaine &lt;code&gt;a.com&lt;/code&gt; publie dans son DNS (enregistrement &lt;code&gt;TXT&lt;/code&gt;) la liste des IPs autorisées à envoyer des e-mails en son nom.&lt;br&gt;
 Lorsqu&amp;rsquo;un e-mail arrive, le serveur de réception vérifie l&amp;rsquo;IP d&amp;rsquo;envoi par rapport à cette liste. Attention : Le SPF vérifie le domaine indiqué dans le &lt;code&gt;Return-Path&lt;/code&gt; (l&amp;rsquo;enveloppe), et non le &lt;code&gt;From&lt;/code&gt; (l&amp;rsquo;en-tête visible).&lt;/p&gt;</description></item><item><title>DKIM (DomainKeys Identified Mail) - 5/9</title><link>https://yanal.fargialla.com/antispoofing-e-mail/05-dkim-domainkeys-identified-mail/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/antispoofing-e-mail/05-dkim-domainkeys-identified-mail/</guid><description>&lt;div class="book-toc-inline"&gt;
- &lt;details open&gt;
+ &lt;details&gt;
  &lt;summary&gt;&lt;strong&gt;Sommaire&lt;/strong&gt;&lt;/summary&gt;
  &lt;div class="markdown-inner"&gt;
  &lt;nav id="TableOfContents"&gt;
@@ -128,7 +128,7 @@ Lorsqu&amp;rsquo;un e-mail arrive, le serveur de réception vérifie l&amp;rsquo
 &lt;li&gt;&lt;strong&gt;Étiquette officielle (Authentification)&lt;/strong&gt; : Le sac porte le logo du commissariat ou de la banque (le domaine émetteur).&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;DKIM utilise la cryptographie asymétrique (clé privée / clé publique) :&lt;/p&gt;</description></item><item><title>DMARC (Domain-based Message Authentication) - 6/9</title><link>https://yanal.fargialla.com/antispoofing-e-mail/06-dmarc-domain-based-message-authentication-reporting-and-conformance/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/antispoofing-e-mail/06-dmarc-domain-based-message-authentication-reporting-and-conformance/</guid><description>&lt;div class="book-toc-inline"&gt;
- &lt;details open&gt;
+ &lt;details&gt;
  &lt;summary&gt;&lt;strong&gt;Sommaire&lt;/strong&gt;&lt;/summary&gt;
  &lt;div class="markdown-inner"&gt;
  &lt;nav id="TableOfContents"&gt;
@@ -154,7 +154,7 @@ Lorsqu&amp;rsquo;un e-mail arrive, le serveur de réception vérifie l&amp;rsquo
 &lt;li&gt;DKIM valide le contenu et vérifie le domaine de la signature (&lt;code&gt;d=&lt;/code&gt;). Il ne vérifie pas le &lt;code&gt;From&lt;/code&gt;.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;DMARC (Domain-based Message Authentication, Reporting, and Conformance)&lt;/strong&gt; ne propose pas une nouvelle méthode d&amp;rsquo;authentification technique, mais une couche de politique qui s&amp;rsquo;appuie sur SPF et DKIM pour résoudre le problème de &lt;strong&gt;l&amp;rsquo;alignement&lt;/strong&gt;.&lt;/p&gt;</description></item><item><title>BIMI et analyse des limites - 7/9</title><link>https://yanal.fargialla.com/antispoofing-e-mail/07-bimi-brand-indicators-for-message-identification-analyse-des-limites/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/antispoofing-e-mail/07-bimi-brand-indicators-for-message-identification-analyse-des-limites/</guid><description>&lt;div class="book-toc-inline"&gt;
- &lt;details open&gt;
+ &lt;details&gt;
  &lt;summary&gt;&lt;strong&gt;Sommaire&lt;/strong&gt;&lt;/summary&gt;
  &lt;div class="markdown-inner"&gt;
  &lt;nav id="TableOfContents"&gt;
@@ -211,7 +211,7 @@ Lorsqu&amp;rsquo;un e-mail arrive, le serveur de réception vérifie l&amp;rsquo
  &lt;/tr&gt;
  &lt;/tbody&gt;
 &lt;/table&gt;</description></item><item><title>Synthèse et conclusion - 9/9</title><link>https://yanal.fargialla.com/antispoofing-e-mail/09-synthese-et-conclusion/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/antispoofing-e-mail/09-synthese-et-conclusion/</guid><description>&lt;div class="book-toc-inline"&gt;
- &lt;details open&gt;
+ &lt;details&gt;
  &lt;summary&gt;&lt;strong&gt;Sommaire&lt;/strong&gt;&lt;/summary&gt;
  &lt;div class="markdown-inner"&gt;
  &lt;nav id="TableOfContents"&gt;
