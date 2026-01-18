@@ -10,18 +10,9 @@ title = "Notes Techniques" # Le nom de votre site en haut à gauche
 [params]
   BookEditPath = 'edit/main/content'
   BookRepo = 'https://github.com/Yanal-Yves/blog'
-  
-  # Menu gauche large et retractable
-  BookMenuBundle = "/menu"
-  
-  # Active le mode sombre automatique selon les préférences du visiteur
-  BookTheme = "auto" 
-
-  # Format de date français
-  DateFormat = "2 Jan 2006"
-
-  # Permet aux titres longs de ne pas casser le design
-  BookSection = "*"
+  BookSection = "*" # Permet aux titres longs de ne pas casser le design
+  BookTheme = "auto" # Active le mode sombre automatique selon les préférences du visiteur
+  DateFormat = "2 Jan 2006" # Format de date français
 
 # Configuration pour que les URLs soient propres
 [server]
