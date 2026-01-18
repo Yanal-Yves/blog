@@ -12,6 +12,7 @@ title = "Notes Techniques" # Le nom de votre site en haut à gauche
   BookRepo = 'https://github.com/Yanal-Yves/blog'
   BookSection = "*" # Permet aux titres longs de ne pas casser le design
   BookTheme = "auto" # Active le mode sombre automatique selon les préférences du visiteur
+  BookToC = false # Désactive le sommaire partout
   DateFormat = "2 Jan 2006" # Format de date français
 
 # Configuration pour que les URLs soient propres

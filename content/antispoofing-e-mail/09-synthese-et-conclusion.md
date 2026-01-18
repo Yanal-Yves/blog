@@ -3,6 +3,8 @@ title: "Synthèse et conclusion - 9/9"
 weight: 9
 ---
 
+{{< toc >}}
+
 ## Synthèse et conclusion
 
 | Mécanisme | Date / RFC | Image | Rôle | Limites Clés |
@@ -76,7 +78,7 @@ graph TD
 Enfin si FCrDNS, SPF, DKIM et DMARC sont les "défenses anti usurpation". Les alias standards sont les "yeux et les oreilles" de cette défense (pour recevoir les plaintes FBL et les rapports d'erreurs).
 
 
-# Quelques URL utiles
+## Quelques URL utiles
 - https://postmaster.google.com : La version historique du site web de google qui permet d'avoir des retours sur les mails issue de votre domaine à destination de gmail.com
 - https://postmaster.google.com/v2/ : La nouvelle version du site web de google qui permet d'avoir des retours sur les mails issue de votre domaine à destination de gmail.com
 - https://www.mail-tester.com

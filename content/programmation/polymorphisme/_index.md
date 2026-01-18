@@ -5,13 +5,15 @@ tags: ["programmation", "polymorphisme", "débutant", "csharp", "dotnet"]
 categories: ["Développement", "Théorie"]
 ---
 
-# Plongée dans le Polymorphisme C#
+{{< toc >}}
+
+## Plongée dans le Polymorphisme C#
 
 En C#, le polymorphisme est souvent résumé par "le bon code est exécuté pour le bon objet". Mais pour un développeur aguerri, il est crucial de comprendre la mécanique interne : comment le CLR (Common Language Runtime) décide-t-il quelle méthode appeler ?
 
 Cet article décortique la différence entre un appel statique et un appel dynamique via les **Vtables**.
 
-## 1. La situation : Le code
+### 1. La situation : Le code
 
 Prenons une classe de base `Animal` et deux implémentations : `Chien` et `Chat`.
 Nous avons deux types de méthodes :
@@ -92,7 +94,7 @@ class Program
 }
 ```
 
-## 2. Cas 1 : Appel Non-Virtuel (`DitBonjour`)
+### 2. Cas 1 : Appel Non-Virtuel (`DitBonjour`)
 
 Lorsque le compilateur rencontre la ligne `animal.DitBonjour()`, il analyse le type de la **variable** `animal`.
 
@@ -102,18 +104,18 @@ Lorsque le compilateur rencontre la ligne `animal.DitBonjour()`, il analyse le t
 
 Peu importe que les classes `Chat` et `Chien` définissent une nouvelle version de la méthode `DitBonjour` (avec `new`), c'est bien celle de la classe de base `Animal` qui est appelée car l'adresse de destination est gravée dans le marbre lors de la compilation.
 
-### Exécution pas à pas (Liaison Statique)
+#### Exécution pas à pas (Liaison Statique)
 1.  **Compilation :** Le compilateur C# génère une instruction IL qui désigne explicitement la méthode Animal.DitBonjour. Lors de la traduction en code machine par le JIT, cette instruction est transformée en un saut direct vers l'adresse mémoire du code, sans passer par aucune table.
 2.  **Exécution :** Le processeur saute directement à cette adresse.
 3.  **Résultat :** Même si l'objet est un `Chien`, c'est la méthode de l' `Animal` qui s'exécute. La méthode `Chien.DitBonjour` est totalement ignorée.
 
-## 3. Cas 2 : Appel Virtuel (`Parle`) et la Vtable
+### 3. Cas 2 : Appel Virtuel (`Parle`) et la Vtable
 
 Lorsque le compilateur rencontre `animal.Parle()`, il détecte le mot-clé `virtual`. Il comprend alors qu'il ne peut pas figer l'adresse de la méthode immédiatement à la compilation, car la variable `animal` pourrait pointer vers n'importe quelle instance dérivée (un Chat, un Chien, etc.) au moment de l'exécution.
 
 Au lieu d'inscrire un saut direct vers une adresse de code fixe (comme pour `DitBonjour`), le compilateur met en place un mécanisme de **résolution dynamique**. Il demande au runtime d'aller chercher la bonne méthode en fonction de l'objet réel en mémoire. C'est ici qu'entre en jeu la **Vtable**.
 
-### Structure Mémoire d'un objet .NET
+#### Structure Mémoire d'un objet .NET
 Chaque objet dans le tas (Heap) possède un en-tête caché contenant un **TypeHandle**. Ce pointeur dirige vers la **MethodTable** (la carte d'identité de la classe). Cette table contient la **Vtable** (Virtual Method Table) : un tableau de pointeurs vers les méthodes.
 
 ```mermaid
@@ -151,7 +153,7 @@ flowchart LR
     linkStyle 0,1 stroke:#1565c0,stroke-width:2px,dasharray: 5 5;
 ```
 
-### Exécution pas à pas (Liaison Dynamique)
+#### Exécution pas à pas (Liaison Dynamique)
 
 Prenons le premier tour de boucle où l'objet est un **Chien**.
 
@@ -163,7 +165,7 @@ Prenons le premier tour de boucle où l'objet est un **Chien**.
     * Comme `Chien` a fait un `override`, l'adresse stockée dans ce slot est celle de `Chien.Parle` (et non `Animal.Parle`).
 4.  **Saut (Indirection) :** Le runtime récupère cette adresse (par exemple `0x3000`) et exécute le code.
 
-## 4. Schéma de fonctionnement
+## Schéma de fonctionnement
 
 Le diagramme ci-dessous illustre la différence fondamentale. Remarquez comment `Chien.DitBonjour` (Address D) existe bien, mais est contourné par la flèche rouge.
 
@@ -233,7 +235,7 @@ flowchart TD
 
 </div>
 
-### Légende du schéma
+**Légende du schéma**
 * **Flèche Rouge (Liaison Statique) :** Le chemin est direct. Le compilateur a vu la variable de type `Animal` et a câblé directement l'appel vers le code `Animal.DitBonjour` (@Addr_A). Il ignore totalement que l'objet est un Chien et que la méthode `Chien.DitBonjour` (@Addr_D) existe.
 * **Flèche Bleue (Liaison Dynamique) :** Le chemin passe par la Vtable. On part de l'objet -> on va voir sa Vtable (celle de la classe `Chien`) -> on récupère l'adresse spécifique dans le slot de `Parle` -> on exécute le code `Chien.Parle` (@Addr_C).
 

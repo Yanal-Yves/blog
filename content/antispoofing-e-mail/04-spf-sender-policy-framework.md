@@ -3,6 +3,8 @@ title: "SPF (Sender Policy Framework) - 4/9"
 weight: 4
 ---
 
+{{< toc >}}
+
 ## Principe de fonctionnement
 
 Standardisé en 2006 ([RFC 4408](https://www.rfc-editor.org/rfc/rfc4408)), mis à jour en 2014 ([RFC 7208](https://www.rfc-editor.org/rfc/rfc7208)).

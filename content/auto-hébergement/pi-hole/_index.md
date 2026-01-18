@@ -5,6 +5,8 @@ tags: ["Raspberry Pi", "Pi-hole", "DNS", "Linux", "Réseau", "Freebox"]
 categories: ["Tutoriel", "Self-hosting"]
 ---
 
+{{< toc >}}
+
 Le Raspberry Pi 1, bien qu'ancien, est loin d'être obsolète. Il possède exactement la puissance nécessaire pour une tâche critique de votre réseau domestique : agir comme un **sinkhole DNS**.
 
 Dans cet article, nous allons voir comment transformer ce petit ordinateur en un bouclier qui protège tous vos appareils (PC, smartphones, tablettes, TV connectées) contre la publicité intrusive, les traceurs et les sites malveillants, le tout sans ralentir votre navigation.

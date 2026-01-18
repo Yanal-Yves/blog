@@ -1,0 +1,10 @@
+{{ if .Page.TableOfContents }}
+<div class="book-toc-inline">
+  <details open>
+    <summary><strong>Sommaire</strong></summary>
+    <div class="markdown-inner">
+      {{ .Page.TableOfContents }}
+    </div>
+  </details>
+</div>
+{{ end }}

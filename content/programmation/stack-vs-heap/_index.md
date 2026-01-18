@@ -5,6 +5,8 @@ tags: ["programmation", "mémoire", "débutant", "csharp", "dotnet"]
 categories: ["Développement", "Théorie"]
 ---
 
+{{< toc >}}
+
 Si vous avez appris le développement avec des langages modernes comme C#, Java, Python ou JavaScript, la gestion de la mémoire est probablement une boîte noire pour vous. Vous créez une variable, et "magiquement", elle existe.
 
 Pourtant, tôt ou tard, vous rencontrerez des concepts comme `StackOverflowException`, les fuites de mémoire, ou la différence subtile entre une **copie par valeur** et une **copie par référence**. Pire encore, la gestion des valeurs `null` peut devenir un cauchemar si on ne visualise pas ce qui se passe "sous le capot".

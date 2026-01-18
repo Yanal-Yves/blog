@@ -1,0 +1,43 @@
+/* --- STYLE PAR DÉFAUT (MODE CLAIR) --- */
+.book-toc-inline {
+  background: #f8f9fa;      /* Fond gris très clair */
+  border: 1px solid #e9ecef;
+  border-radius: 4px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  color: #212529;           /* Texte sombre (presque noir) */
+}
+
+/* Force la couleur du titre "Sommaire" */
+.book-toc-inline summary {
+  cursor: pointer;
+  color: #000000;           /* Titre noir */
+}
+
+/* Force la couleur des liens en bleu foncé pour qu'ils soient lisibles sur fond clair */
+.book-toc-inline a {
+  color: #0056b3 !important; /* Bleu foncé */
+  text-decoration: none;
+}
+.book-toc-inline a:hover {
+  text-decoration: underline;
+}
+
+/* --- STYLE MODE SOMBRE (DARK MODE) --- */
+/* On cible body.dark ou html.dark selon comment le thème l'active */
+body.dark .book-toc-inline, 
+html.dark .book-toc-inline {
+  background: #252525 !important; /* Fond gris foncé */
+  border-color: #444 !important;
+  color: #e0e0e0 !important;      /* Texte clair */
+}
+
+body.dark .book-toc-inline summary {
+  color: #ffffff !important;      /* Titre blanc */
+}
+
+/* Liens en bleu clair pour le mode sombre */
+body.dark .book-toc-inline a,
+html.dark .book-toc-inline a {
+  color: #5ea2e4 !important;      /* Bleu clair */
+}

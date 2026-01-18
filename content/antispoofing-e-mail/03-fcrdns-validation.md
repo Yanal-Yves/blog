@@ -3,6 +3,8 @@ title: "FCrDNS et validation croisée - 3/9"
 weight: 3
 ---
 
+{{< toc >}}
+
 ## Principe de fonctionnement
 
 Cette technique est apparue comme une bonne pratique dans les années 90.

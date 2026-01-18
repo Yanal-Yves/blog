@@ -3,6 +3,8 @@ title: "BIMI et analyse des limites - 7/9"
 weight: 7
 ---
 
+{{< toc >}}
+
 Dans l'écosystème de la sécurité des e-mails, **BIMI (Brand Indicators for Message Identification)** est souvent présenté comme la prochaine étape logique après la mise en conformité DMARC. L'objectif est de permettre l'affichage d'un logo certifié dans les clients de messagerie pour renforcer la confiance visuelle.
 
 Cependant, une analyse technique approfondie révèle que ce protocole est plus complexe qu'il n'y paraît. Contrairement à SPF ou DKIM qui sont purement déclaratifs, BIMI s'appuie généralement sur un tiers de confiance via un certificat numérique appelé VMC (Verified Mark Certificate). Si ce mécanisme fonctionne dans des environnements intégrés (comme les webmails de Google ou Yahoo), il se heurte à des obstacles structurels majeurs dès qu'il est confronté à l'architecture ouverte et standardisée de l'e-mail.

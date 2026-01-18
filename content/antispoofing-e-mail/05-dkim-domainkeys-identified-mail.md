@@ -3,6 +3,8 @@ title: "DKIM (DomainKeys Identified Mail) - 5/9"
 weight: 5
 ---
 
+{{< toc >}}
+
 ## Principe de fonctionnement : Le scellé de preuves de la police
 
 Standardisé en 2007 ([RFC 4871](https://www.rfc-editor.org/rfc/rfc4871)), mis à jour en 2011 ([RFC 6376](https://www.rfc-editor.org/rfc/rfc6376)).

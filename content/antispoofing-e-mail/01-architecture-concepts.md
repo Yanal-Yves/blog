@@ -3,6 +3,8 @@ title: "Architecture et concepts - 1/9"
 weight: 1
 ---
 
+{{< toc >}}
+
 ## Introduction
 
 ### Objectif et audience
