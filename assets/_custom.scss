@@ -59,3 +59,28 @@ body.dark .book-toc-inline a,
 html.dark .book-toc-inline a {
   color: #5ea2e4 !important;      /* Bleu clair */
 }
+
+.content-after {
+  border-top: 1px solid var(--gray-200);
+  color: var(--gray-500);
+  font-size: 0.8rem;
+  margin-top: 3rem;
+  opacity: 0.8;
+  padding-top: 1rem;
+}
+
+.content-after-github {
+  width: 18px;
+  height: 18px;
+}
+
+.content-after-github-link{
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.content-after-ia {
+  font-style: italic;
+}
