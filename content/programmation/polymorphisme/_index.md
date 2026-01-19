@@ -169,8 +169,6 @@ Prenons le premier tour de boucle où l'objet est un **Chien**.
 
 Le diagramme ci-dessous illustre la différence fondamentale. Remarquez comment `Chien.DitBonjour` (Address D) existe bien, mais est contourné par la flèche rouge.
 
-<div style="overflow-x: auto; text-align: center;">
-
 ```mermaid
 flowchart TD
     %% --- PILE ---
@@ -232,8 +230,6 @@ flowchart TD
     %% Bleu pour le chemin dynamique (Index 3 et 4)
     linkStyle 3,4 stroke:blue,stroke-width:3px,color:blue;
 ```
-
-</div>
 
 **Légende du schéma**
 * **Flèche Rouge (Liaison Statique) :** Le chemin est direct. Le compilateur a vu la variable de type `Animal` et a câblé directement l'appel vers le code `Animal.DitBonjour` (@Addr_A). Il ignore totalement que l'objet est un Chien et que la méthode `Chien.DitBonjour` (@Addr_D) existe.
