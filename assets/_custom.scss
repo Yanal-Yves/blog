@@ -12,8 +12,7 @@
 /* On cible les éléments de liste pour l'espacement vertical */
 .book-toc-inline li {
   margin: 0;              /* Supprime les marges entre les lignes */
-  padding: 0.1rem 0;      /* Un espacement très fin pour ne pas que ce soit étouffé */
-  line-height: 1.2;       /* Réduit la hauteur de ligne */
+  line-height: 1;       /* Réduit la hauteur de ligne */
 }
 
 /* --- STYLE PAR DÉFAUT (MODE CLAIR) --- */
@@ -21,8 +20,6 @@
   background: #f8f9fa;      /* Fond gris très clair */
   border: 1px solid #e9ecef;
   border-radius: 4px;
-  padding: 0.5rem 0.1rem 0.5rem 0.1rem;
-  margin-bottom: 1.5rem;
   color: #212529;           /* Texte sombre (presque noir) */
 }
 
