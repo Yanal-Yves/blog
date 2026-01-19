@@ -22,7 +22,7 @@ Dans la spécification BIMI, la charge de la vérification incombe au MTA (Mail 
 
 Sans une extension stricte du protocole IMAP permettant au serveur de signer ses résultats d'authentification ou de garantir au client qu'il a "nettoyé" les en-têtes entrants, le client mail se trouve dans l'incapacité de distinguer un vrai logo d'une tentative de phishing sophistiquée.
 
-C'est cette raison technique précise qui pousse les développeurs de **Mozilla Thunderbird** à refuser l'implémentation de BIMI en l'état, la jugeant non sécurisée pour une architecture ouverte. De son côté, **Microsoft** a contourné le problème pour Outlook en ignorant BIMI au profit d'une solution propriétaire centralisée, ne faisant pas confiance aux en-têtes transitant par le mail.
+C'est cette raison technique précise qui pousse les développeurs de **Mozilla Thunderbird** à [refuser l'implémentation de BIMI en l'état](https://bugzilla.mozilla.org/show_bug.cgi?id=1670078), la jugeant non sécurisée pour une architecture ouverte. De son côté, **Microsoft** a contourné le problème pour Outlook en ignorant BIMI au profit d'une solution propriétaire centralisée, ne faisant pas confiance aux en-têtes transitant par le mail.
 
 Pour que cela soit sécurisé, la spécification exige que le MTA **nettoie (strip)** tous les en-têtes BIMI entrants avant de faire ses propres vérifications et d'ajouter son propre en-tête.
 
