@@ -1,16 +1,19 @@
 .book-toc-inline {
-  font-size: 0.85rem; /* Réduit la taille globale (1rem est la taille normale) */
+  font-size: 0.85rem; 
 }
 
+/* On cible la liste pour supprimer l'écart à gauche */
 .book-toc-inline nav ul {
-  margin-top: 0.5rem;
-  margin-bottom: 0;
-  padding-left: 1.5rem; /* Ajuste l'alignement des puces */
+  margin: 0;              /* Supprime les marges externes */
+  padding-left: 1rem;     /* Réduit l'écart à gauche (ajustez à 0 si vous voulez coller au bord) */
+  list-style: none;       /* Sécurité : force la suppression des puces */
 }
 
+/* On cible les éléments de liste pour l'espacement vertical */
 .book-toc-inline li {
-  margin-bottom: 0.25rem; /* Espace légèrement les lignes pour la lisibilité */
-  
+  margin: 0;              /* Supprime les marges entre les lignes */
+  padding: 0.1rem 0;      /* Un espacement très fin pour ne pas que ce soit étouffé */
+  line-height: 1.2;       /* Réduit la hauteur de ligne */
 }
 
 /* --- STYLE PAR DÉFAUT (MODE CLAIR) --- */
