@@ -1,8 +1,6 @@
 ---
 title: "Installation de Worms (PC DOS) sur Recalbox avec pistes CD Audio"
 draft: false
-tags: ["recalbox", "dosbox", "pc-dos", "worms", "cd-rom"]
-categories: ["Tutoriels"]
 ---
 
 {{< toc >}}

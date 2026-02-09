@@ -1,8 +1,6 @@
 ---
 title: "Polymorphisme en C#"
 draft: false
-tags: ["programmation", "polymorphisme", "débutant", "csharp", "dotnet"]
-categories: ["Développement", "Théorie"]
 ---
 
 {{< toc >}}

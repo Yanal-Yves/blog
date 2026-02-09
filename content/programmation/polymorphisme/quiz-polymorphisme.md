@@ -1,8 +1,6 @@
 ---
 title: "Quiz : Polymorphisme"
 draft: false
-tags: ["csharp", "dotnet", "polymorphisme", "performance", "intermédiaire"]
-categories: ["Développement", "Deep Dive"]
 ---
 
 ## 📝 Testez vos connaissances

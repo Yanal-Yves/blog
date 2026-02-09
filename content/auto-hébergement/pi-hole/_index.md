@@ -1,8 +1,6 @@
 ---
 title: "Installation de Pi-hole sur un Raspberry Pi 1"
 draft: false
-tags: ["Raspberry Pi", "Pi-hole", "DNS", "Linux", "Réseau", "Freebox"]
-categories: ["Tutoriel", "Self-hosting"]
 ---
 
 {{< toc >}}

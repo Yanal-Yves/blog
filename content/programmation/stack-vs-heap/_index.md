@@ -1,8 +1,6 @@
 ---
 title: "La Pile et le Tas en C#"
 draft: false
-tags: ["programmation", "mémoire", "débutant", "csharp", "dotnet"]
-categories: ["Développement", "Théorie"]
 ---
 
 {{< toc >}}

@@ -1,5 +1,6 @@
 baseURL = "https://yanal.fargialla.com/"
 defaultContentLanguage = "fr"
+disableKinds = ["taxonomy", "term"] # Supprimer la création des pages tag/xxx et category/yyy
 enableGitInfo = true # Pour la date automatique
 enableRobotsTXT = true
 languageCode = "fr-fr"

@@ -1,8 +1,6 @@
 ---
 title: "Quiz : Pile et Tas"
 draft: false
-tags: ["programmation", "mémoire", "débutant", "csharp", "dotnet"]
-categories: ["Développement", "Théorie"]
 ---
 
 ## 📝 Testez vos connaissances
