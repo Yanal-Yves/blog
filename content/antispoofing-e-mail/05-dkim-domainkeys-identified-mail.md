@@ -1,5 +1,6 @@
 ---
 title: "DKIM (DomainKeys Identified Mail) - 5/9"
+description: "Fonctionnement du DKIM (DomainKeys Identified Mail) : signature cryptographique des e-mails pour garantir leur intégrité et authenticité."
 weight: 5
 ---
 

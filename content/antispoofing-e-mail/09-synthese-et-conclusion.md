@@ -1,5 +1,6 @@
 ---
 title: "Synthèse et conclusion - 9/9"
+description: "Synthèse des protocoles anti-usurpation e-mail (FCrDNS, SPF, DKIM, DMARC) : tableau comparatif, recommandations de configuration et limites face à l'ingénierie sociale."
 weight: 9
 ---
 

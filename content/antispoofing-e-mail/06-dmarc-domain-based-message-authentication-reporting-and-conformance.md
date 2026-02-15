@@ -1,5 +1,6 @@
 ---
 title: "DMARC (Domain-based Message Authentication) - 6/9"
+description: "Guide DMARC : alignement SPF/DKIM avec le champ From, politique de rejet (none, quarantine, reject) et reporting RUA/RUF pour protéger votre domaine."
 weight: 6
 ---
 

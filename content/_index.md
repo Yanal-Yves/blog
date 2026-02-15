@@ -1,5 +1,6 @@
 ---
 title: "Accueil"
+description: "Notes techniques sur la sécurité e-mail (SPF, DKIM, DMARC, BIMI), l'auto-hébergement, la programmation C# et le retrogaming avec Recalbox."
 type: docs
 ---
 

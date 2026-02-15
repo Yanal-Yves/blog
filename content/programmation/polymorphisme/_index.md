@@ -1,5 +1,6 @@
 ---
 title: "Polymorphisme en C#"
+description: "Plongée dans le polymorphisme en C# : liaison statique vs dynamique, Vtables, mots-clés virtual/override/new et mécanismes internes du CLR."
 draft: false
 ---
 

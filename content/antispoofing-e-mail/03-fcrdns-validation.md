@@ -1,5 +1,6 @@
 ---
 title: "FCrDNS et validation croisée - 3/9"
+description: "Fonctionnement du FCrDNS (Forward-Confirmed Reverse DNS) : validation croisée entre IP et nom de domaine pour authentifier les serveurs e-mail."
 weight: 3
 ---
 

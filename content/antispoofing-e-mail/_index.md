@@ -1,5 +1,6 @@
 ---
 title: "Antispoofing e-mail"
+description: "Série d'articles pour configurer SPF, DKIM, DMARC et BIMI afin de protéger votre domaine contre l'usurpation d'identité par e-mail."
 weight: 1
 bookCollapseSection: true
 ---

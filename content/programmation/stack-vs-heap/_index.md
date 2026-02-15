@@ -1,5 +1,6 @@
 ---
 title: "La Pile et le Tas en C#"
+description: "Comprendre la pile (Stack) et le tas (Heap) en C# : types valeur vs référence, allocation mémoire, Garbage Collector et impact sur les performances."
 draft: false
 ---
 

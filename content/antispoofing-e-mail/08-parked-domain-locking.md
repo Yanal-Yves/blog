@@ -1,5 +1,6 @@
 ---
 title: "Parked Domain Locking - 8/9"
+description: "Configuration DNS pour verrouiller un domaine qui n'envoie pas d'e-mail : SPF -all, DMARC reject, DKIM avec clé vide et Null MX (RFC 7505)."
 weight: 8
 ---
 

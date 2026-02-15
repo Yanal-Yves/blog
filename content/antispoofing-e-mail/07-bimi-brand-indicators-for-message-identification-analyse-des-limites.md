@@ -1,5 +1,6 @@
 ---
 title: "BIMI et analyse des limites - 7/9"
+description: "Analyse technique du protocole BIMI (Brand Indicators for Message Identification) : affichage de logo certifié, certificat VMC et limites de sécurité sur IMAP."
 weight: 7
 ---
 

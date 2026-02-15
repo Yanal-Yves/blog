@@ -1,5 +1,6 @@
 ---
 title: "Quiz : Pile et Tas"
+description: "Quiz interactif pour tester vos connaissances sur la pile (Stack) et le tas (Heap) en C# : allocation mémoire, types valeur et types référence."
 draft: false
 ---
 

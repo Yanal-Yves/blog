@@ -1,5 +1,6 @@
 ---
 title: "Installation de Worms (PC DOS) sur Recalbox avec pistes CD Audio"
+description: "Guide pas à pas pour extraire et installer Worms (PC DOS, version Sold Out) sur Recalbox en préservant les pistes CD audio avec cdrdao sous Linux."
 draft: false
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "Architecture et concepts - 1/9"
+description: "Introduction à l'architecture e-mail et aux concepts fondamentaux pour comprendre les protocoles anti-usurpation SPF, DKIM et DMARC."
 weight: 1
 ---
 

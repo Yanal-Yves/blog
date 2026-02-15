@@ -1,5 +1,6 @@
 ---
 title: "SPF (Sender Policy Framework) - 4/9"
+description: "Guide complet sur le SPF (Sender Policy Framework) : fonctionnement, configuration de l'enregistrement DNS TXT et limites du protocole."
 weight: 4
 ---
 

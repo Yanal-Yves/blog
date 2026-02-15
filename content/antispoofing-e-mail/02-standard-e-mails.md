@@ -1,5 +1,6 @@
 ---
 title: "Les e-mails standards - 2/9"
+description: "Configuration des adresses e-mail standards (postmaster, abuse, hostmaster...) obligatoires selon les RFC pour assurer l'interopérabilité et la sécurité de votre domaine."
 weight: 2
 ---
 

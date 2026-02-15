@@ -1,5 +1,6 @@
 ---
 title: "Quiz : Polymorphisme"
+description: "Quiz interactif sur le polymorphisme en C# : testez votre compréhension des Vtables, de la liaison statique/dynamique et des mots-clés virtual, override et new."
 draft: false
 ---
 
