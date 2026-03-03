@@ -37,11 +37,11 @@ Voici le flux de chaque image affichée sous Wayland :
 
 ```mermaid
 graph LR
-    GBM["GBM\nAlloue un buffer\nen VRAM"]
-    API["OpenGL / Vulkan\nDessine l'image\ndans le buffer"]
-    DRM["DRM/KMS\nEnvoie le buffer\nau moniteur"]
+    GBM["GBM<br/>Alloue un buffer<br/>en VRAM"]
+    API["OpenGL / Vulkan<br/>Dessine l'image<br/>dans le buffer"]
+    DRM["DRM/KMS<br/>Envoie le buffer<br/>au moniteur"]
 
-    GBM -- "1" --> API -- "2" --> DRM
+    GBM --> API --> DRM
 ```
 
 ### X11 vs Wayland : pourquoi GBM ne compte que pour Wayland
@@ -80,19 +80,19 @@ Résultat : sur les cartes Turing et plus récentes, Nouveau peut enfin exploite
 ```mermaid
 graph TD
     subgraph GPU ["Carte Graphique NVIDIA (Turing+)"]
-        GSP["GSP (RISC-V)\nFirmware NVIDIA"]
-        CUDA_CORES["Cœurs CUDA\n(Calcul graphique)"]
+        GSP["GSP (RISC-V)<br/>Firmware NVIDIA"]
+        CUDA_CORES["Cœurs CUDA<br/>(Calcul graphique)"]
         VRAM["VRAM"]
     end
 
     subgraph KERNEL ["Noyau Linux"]
-        NOUVEAU["nouveau\n(Open-source)"]
-        NVIDIA_DRV["nvidia / nvidia-open\n(Propriétaire)"]
+        NOUVEAU["nouveau<br/>(Open-source)"]
+        NVIDIA_DRV["nvidia / nvidia-open<br/>(Propriétaire)"]
     end
 
-    NOUVEAU -- "Délègue la gestion\nd'énergie au firmware" --> GSP
-    NVIDIA_DRV -- "Utilise aussi le GSP\n(nvidia-open)" --> GSP
-    GSP -- "Contrôle fréquences,\ntempérature, affichage" --> CUDA_CORES
+    NOUVEAU -- "Délègue la gestion<br/>d'énergie au firmware" --> GSP
+    NVIDIA_DRV -- "Utilise aussi le GSP<br/>(nvidia-open)" --> GSP
+    GSP -- "Contrôle fréquences,<br/>température, affichage" --> CUDA_CORES
     GSP -- "Gère l'allocation" --> VRAM
 ```
 
@@ -108,13 +108,13 @@ Si la machine est éteinte, le firmware disparaît de la mémoire du GSP. Il ser
 
 ```mermaid
 graph LR
-    FW["/lib/firmware/nvidia/gsp_*.bin\n(sur le disque)"]
-    PILOTE["Pilote noyau\n(nouveau ou nvidia-open)"]
-    GSP_PROC["GSP RISC-V\nsur le GPU"]
+    FW["/lib/firmware/nvidia/gsp_*.bin<br/>(sur le disque)"]
+    PILOTE["Pilote noyau<br/>(nouveau ou nvidia-open)"]
+    GSP_PROC["GSP RISC-V<br/>sur le GPU"]
 
-    FW -- "Lecture au chargement\ndu module" --> PILOTE
+    FW -- "Lecture au chargement<br/>du module" --> PILOTE
     PILOTE -- "Envoi via PCIe" --> GSP_PROC
-    GSP_PROC -- "Le GSP démarre\net gère le GPU" --> GSP_PROC
+    GSP_PROC -- "Le GSP démarre<br/>et gère le GPU" --> GSP_PROC
 ```
 
 ## Les deux piles graphiques : vue d'ensemble
