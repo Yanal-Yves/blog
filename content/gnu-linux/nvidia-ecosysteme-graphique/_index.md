@@ -204,3 +204,43 @@ La situation des cartes pré-Turing (Kepler, Maxwell, Pascal) se dégrade sur to
 - **Le CUDA/IA est également terminé** : les versions récentes de PyTorch, TensorFlow et consorts ne supportent plus ces anciennes architectures.
 
 En résumé : ces cartes restent viables comme **cartes bureautiques sous Wayland** (via Nouveau), mais pour le gaming ou le calcul GPU sous Linux, elles sont en fin de vie.
+
+## Comment vérifier votre configuration actuelle ?
+
+Après toute cette théorie, voici comment identifier concrètement quelle pile graphique tourne sur votre machine.
+
+### Quel pilote noyau est chargé ?
+
+```bash
+lspci -k | grep -A 3 -i nvidia
+```
+
+Dans la sortie, cherchez la ligne `Kernel driver in use:` :
+- `nvidia` → Pilote propriétaire NVIDIA (Équipe A)
+- `nouveau` → Pilote open-source (Équipe B)
+
+### Quel pilote Vulkan est utilisé ?
+
+```bash
+vulkaninfo --summary 2>/dev/null | grep -E "driverName|deviceName"
+```
+
+- `nvidia` → Userland propriétaire NVIDIA
+- `NVK` → Userland open-source Mesa
+
+### Le firmware GSP est-il actif ?
+
+```bash
+dmesg | grep -i gsp
+```
+
+Si vous voyez des messages contenant `GSP firmware` ou `gsp-rm`, le firmware GSP est bien chargé. L'absence de messages indique que votre carte n'a pas de GSP (pré-Turing) ou que le firmware n'a pas été trouvé dans `/lib/firmware/nvidia/`.
+
+### Quel serveur d'affichage est actif ?
+
+```bash
+echo $XDG_SESSION_TYPE
+```
+
+- `wayland` → Vous utilisez Wayland
+- `x11` → Vous utilisez X11
