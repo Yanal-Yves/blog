@@ -37,11 +37,11 @@ Voici le flux de chaque image affichée sous Wayland :
 
 ```mermaid
 graph LR
-    GBM["1. GBM<br/>Alloue un buffer<br/>en VRAM"]
-    API["2. OpenGL / Vulkan<br/>Dessine l'image<br/>dans le buffer"]
-    DRM["3. DRM/KMS<br/>Envoie le buffer<br/>au moniteur"]
+    GBM["GBM\nAlloue un buffer\nen VRAM"]
+    API["OpenGL / Vulkan\nDessine l'image\ndans le buffer"]
+    DRM["DRM/KMS\nEnvoie le buffer\nau moniteur"]
 
-    GBM --> API --> DRM
+    GBM -- "1" --> API -- "2" --> DRM
 ```
 
 ### X11 vs Wayland : pourquoi GBM ne compte que pour Wayland
@@ -108,13 +108,13 @@ Si la machine est éteinte, le firmware disparaît de la mémoire du GSP. Il ser
 
 ```mermaid
 graph LR
-    FW["/lib/firmware/nvidia/gsp_*.bin<br/>(sur le disque)"]
-    PILOTE["Pilote noyau<br/>(nouveau ou nvidia-open)"]
-    GSP_PROC["GSP (RISC-V)<br/>sur le GPU"]
+    FW["/lib/firmware/nvidia/gsp_*.bin\n(sur le disque)"]
+    PILOTE["Pilote noyau\n(nouveau ou nvidia-open)"]
+    GSP_PROC["GSP RISC-V\nsur le GPU"]
 
-    FW -- "1. Lecture au chargement<br/>du module" --> PILOTE
-    PILOTE -- "2. Envoi via PCIe" --> GSP_PROC
-    GSP_PROC -- "3. Le GSP démarre et<br/>gère le GPU" --> GSP_PROC
+    FW -- "Lecture au chargement\ndu module" --> PILOTE
+    PILOTE -- "Envoi via PCIe" --> GSP_PROC
+    GSP_PROC -- "Le GSP démarre\net gère le GPU" --> GSP_PROC
 ```
 
 ## Les deux piles graphiques : vue d'ensemble
