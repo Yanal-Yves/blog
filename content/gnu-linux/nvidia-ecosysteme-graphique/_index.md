@@ -12,6 +12,33 @@ Cet article fait le point sur la situation actuelle. Mais avant de plonger dans 
 
 ## Les fondamentaux : comment une image arrive sur votre écran
 
+### Pilote noyau vs pilote userland
+
+Sous Linux, un pilote graphique n'est pas un bloc monolithique. Il est **coupé en deux** :
+
+- Le **pilote noyau** (un module `.ko`) tourne dans le noyau Linux. Il gère l'accès bas-niveau au matériel : allocation de mémoire vidéo, gestion des interruptions, communication avec la puce graphique.
+- Le **pilote userland** (une bibliothèque `.so`) tourne dans l'**espace utilisateur**, chargé directement dans le processus de chaque application qui utilise le GPU. Ce n'est pas un daemon ni un service séparé : quand un jeu appelle Vulkan, le code du pilote userland s'exécute dans le processus du jeu.
+
+Le rôle du pilote userland est double :
+1. Il **implémente une API graphique standard** (OpenGL, Vulkan, CUDA...) pour un matériel spécifique.
+2. Il **communique avec le pilote noyau** (via des appels système comme `ioctl()`, `mmap()`, `read()`/`write()` sur un fichier `/dev/...`, ou `sysfs`) pour envoyer des commandes au GPU.
+
+```mermaid
+graph LR
+    APP["Application<br/>(jeu, navigateur...)"]
+    UL["Pilote userland (.so)<br/>Implémente OpenGL / Vulkan"]
+    KL["Pilote noyau (.ko)<br/>Accès au matériel"]
+    GPU["GPU"]
+
+    APP -- "Appel API standard" --> UL
+    UL -- "ioctl / mmap<br/>(uAPI)" --> KL
+    KL -- "Commandes matérielles" --> GPU
+```
+
+Ce découpage noyau/userland est la clé pour comprendre tout cet article : les deux « équipes » NVIDIA fournissent chacune **leur propre paire** de pilotes (noyau + userland), et ces paires ne sont pas interchangeables.
+
+> Pour aller plus loin sur les mécanismes de communication entre noyau et userland (`ioctl`, `mmap`, `/dev`, `sysfs`), consultez l'article dédié : [Comment les pilotes communiquent sous Linux]({{< relref "/gnu-linux/communication-noyau-userland" >}}).
+
 ### DRM/KMS : le sous-système d'affichage du noyau
 
 **DRM/KMS** (*Direct Rendering Manager / Kernel Mode Setting*) est un sous-système intégré au **noyau Linux**. C'est la base absolue de tout affichage graphique sous Linux.
