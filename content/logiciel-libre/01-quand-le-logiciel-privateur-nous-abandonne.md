@@ -1,6 +1,6 @@
 ---
 title: "Quand le logiciel privateur nous abandonne"
-description: "Article fondateur : vingt-cinq ans d'expériences vécues avec le logiciel propriétaire (Access, Classic ASP, Windows, PC Soft) qui mènent à une conviction — se tourner vers le logiciel libre et des modèles économiques respectueux des utilisateurs."
+description: "Article fondateur : vingt-cinq ans d'expériences vécues avec le logiciel propriétaire (Access, Classic ASP, Windows, PC Soft, OneDrive, Balsamiq) qui mènent à une conviction — se tourner vers le logiciel libre et des modèles économiques respectueux des utilisateurs."
 weight: 1
 ---
 
@@ -69,15 +69,39 @@ Pour qui développe avec une petite équipe mais **déploie massivement**, le ch
 
 > Sur ce changement et la réaction de la communauté, voir l'article de Next, [« Les développeurs WinDev s'alarment d'une possible redevance par installation client »](https://next.ink/241694/les-developpeurs-windev-salarment-dune-possible-redevance-par-installation-client/).
 
+## Expérience 6 — OneDrive et nos photos de famille
+
+Un soir, en 2024, je jette un œil sur l'ordinateur de ma femme et je vois quelque chose d'inquiétant : **toutes nos photos stockées sur OneDrive sont en train de disparaître localement** de sa machine. **400 Gio de photos de famille** qui s'effacent du disque — pas de OneDrive, juste la copie locale. Une fois l'opération terminée, à la place du dossier de photos, il ne reste qu'un **raccourci `.url`** : quand on clique dessus, ça ouvre un navigateur web. Même chose pour le dossier qui contenait la base **KeePass** que je partage avec ma femme.
+
+Nous avions chacun un abonnement **Microsoft 365 Famille** avec 1 Tio de stockage, et **ni l'un ni l'autre n'avions atteint son quota**. Un dossier que je partageais avec elle, et qui se synchronisait localement **depuis des années**, a cessé du jour au lendemain d'être disponible hors ligne — cassant notre organisation familiale et m'obligeant à chercher une solution de remplacement en urgence (la base de mots de passe partagée n'étant soudain plus accessible localement).
+
+Le phénomène a été largement documenté à partir de **juin 2024** : des dossiers partagés synchronisés localement se transformaient en **raccourcis internet**, renvoyant vers l'interface web au lieu d'ouvrir le contenu en local. Microsoft a fini par **reconnaître le problème** — mais en le qualifiant de **bug** (« OneDrive engineering is working on this issue »), pas de choix délibéré ; le problème a tout de même persisté de longs mois.
+
+Et c'est précisément là que tout se joue. Que ce soit un bug ou une décision **ne change rien pour l'utilisateur** : avec un service privateur et fermé, **on ne peut ni corriger soi-même, ni confier le correctif à quelqu'un d'autre**. On subit, et on attend le bon vouloir de l'éditeur — pendant des mois, sur ses propres photos de famille et ses propres mots de passe.
+
+> Sources : [Neowin, « Microsoft confirms OneDrive shared folders are indeed turning into internet shortcuts »](https://www.neowin.net/news/microsoft-confirms-onedrive-shared-folders-are-indeed-turning-into-internet-shortcuts/) · [Windows Latest, « Microsoft confirms Windows 11 OneDrive internet shortcut bug »](https://www.windowslatest.com/2024/07/03/microsoft-confirms-windows-11-onedrive-internet-shortcut-bug/).
+
+## Expérience 7 — Balsamiq et le format de fichier prisonnier
+
+Chez Prothesis Dental Solutions, mon équipe — cinq personnes, moi compris — utilisait **Balsamiq pour Google Drive** pour ses maquettes (*mockups*). Notre organisation était simple et efficace : pour chaque projet ou fonctionnalité, un dossier sur Google Drive, et dans ce dossier un fichier de maquette Balsamiq.
+
+Du jour au lendemain — quelques semaines en réalité — **Balsamiq a déprécié sa version pour Google Drive**, nous obligeant à basculer vers sa **version Cloud**, à la **tarification différente**. Notre organisation d'équipe était cassée, et il fallait nous réorganiser à un moment où nous avions par ailleurs beaucoup de sujets urgents à traiter. Pour être juste, Balsamiq a justifié cet arrêt (effectif le **17 décembre 2024**) par des **coûts de maintenance qu'il ne pouvait plus assumer** et par sa volonté de se concentrer sur Balsamiq Cloud — une raison parfaitement légitime de son point de vue. Mais pour nous, l'effet était le même : une échéance subie, imposée de l'extérieur.
+
+Après avoir étudié la nouvelle tarification, testé la version Cloud et découvert au passage un **bug qui rendait l'import de nos fichiers difficile**, nous avons fini par réussir la migration — mais en y perdant un temps et un argent précieux à ce moment-là. Et nous étions pris au piège : forcés de migrer à la date décidée par l'éditeur, **sans pouvoir nous tourner vers un autre outil**, car le format de fichier de Balsamiq n'est ni standard ni ouvert. Le format privateur n'enferme pas seulement le logiciel : il enferme **vos données**.
+
+> Source : [Balsamiq, « Looking back at Balsamiq's 2024 »](https://balsamiq.com/blog/looking-back-2024/) (« We retired Balsamiq Wireframes for Google Drive and began winding down Desktop »). La page d'annonce dédiée (« What happened to Balsamiq for Google Drive? ») n'est aujourd'hui plus en ligne.
+
 ## Le point commun : qui contrôle réellement le logiciel ?
 
-Cinq histoires, une même mécanique. À chaque fois, **une décision unilatérale de l'éditeur** détruit l'investissement de l'utilisateur :
+Sept histoires, une même mécanique. À chaque fois, **une décision — ou une défaillance — de l'éditeur** détruit l'investissement de l'utilisateur, sans qu'il ait son mot à dire :
 
 - Access : compatibilité cassée, code à réécrire et à retester intégralement ;
 - Classic ASP / Web Forms : technologie abandonnée, sans alternative indolore ;
 - Windows Server : prix de licence qui explose, à matériel identique ;
 - Windows 7 / 10 : fin de support imposée, machines jetées, refus de libérer le code ;
-- PC Soft : modèle économique retourné, viabilité détruite.
+- PC Soft : modèle économique retourné, viabilité détruite ;
+- OneDrive : synchronisation locale rompue, organisation familiale cassée, aucun correctif possible de notre côté ;
+- Balsamiq : produit déprécié, migration forcée, données prisonnières d'un format privateur.
 
 C'est exactement ce que décrit Richard Stallman : avec le logiciel privateur, **le développeur a un pouvoir sur les utilisateurs** qu'aucune bonne intention ne suffit à rendre acceptable, parce que ce pouvoir est **structurel**. L'utilisateur n'a pas le code. Il ne peut pas le corriger, le prolonger, le confier à quelqu'un d'autre. Il ne peut que subir — ou tout recommencer.
 
@@ -95,7 +119,7 @@ Quelques illustrations, vérifiées :
 
 - **net2ftp**, un client FTP en PHP que j'ai connu au tout début des années 2000. Sa dernière version stable (1.3) date de **juillet 2019**, sans changement de technologie de fond sur toute cette durée. Un outil libre peut traverser deux décennies parce que personne ne décrète sa mort. *(Je n'ai pas pu confirmer publiquement la date exacte de sa toute première version ; je la situe « au début des années 2000 » de mémoire.)*
 
-- **Python 2 → Python 3**, l'exemple le plus parlant. Python 3.0 sort en **décembre 2008**, en cassant volontairement la compatibilité. Mais comme l'écosystème est libre et piloté par la communauté, **Python 2.7 a été maintenu en parallèle jusqu'au 1ᵉʳ janvier 2020** — plus de onze ans. (La date de fin de vie a même été repoussée de 2015 à 2020 pour laisser à tout le monde le temps de migrer.) Personne n'a été mis devant le fait accompli : chacun a pu migrer **à son rythme**. C'est exactement ce qu'aucune des cinq histoires précédentes n'a permis.
+- **Python 2 → Python 3**, l'exemple le plus parlant. Python 3.0 sort en **décembre 2008**, en cassant volontairement la compatibilité. Mais comme l'écosystème est libre et piloté par la communauté, **Python 2.7 a été maintenu en parallèle jusqu'au 1ᵉʳ janvier 2020** — plus de onze ans. (La date de fin de vie a même été repoussée de 2015 à 2020 pour laisser à tout le monde le temps de migrer.) Personne n'a été mis devant le fait accompli : chacun a pu migrer **à son rythme**. C'est exactement ce qu'aucune des sept histoires précédentes n'a permis.
 
 La différence est là : avec le libre, une rupture reste **gérable**, parce que le pouvoir de décision n'est pas confisqué par un seul acteur.
 
@@ -116,5 +140,7 @@ J'invite donc tout le monde, partout, à **se tourner vers le logiciel libre** c
 - Campagne FSF — [« Upcycle Windows 7 »](https://www.fsf.org/windows/upcycle-windows-7)
 - Fin de support de Windows 10 — [Microsoft Support : Windows 10 support has ended on October 14, 2025](https://support.microsoft.com/en-us/windows/windows-10-support-has-ended-on-october-14-2025-2ca8b313-1946-43d3-b55c-2b95b107f281)
 - PC Soft / WinDev, rachat et nouveau modèle — [Next, « Les développeurs WinDev s'alarment… »](https://next.ink/241694/les-developpeurs-windev-salarment-dune-possible-redevance-par-installation-client/) · [Programmez, « PC Soft : après le rachat… »](https://www.programmez.com/actualites/pc-soft-apres-le-rachat-une-grogne-des-developpeurs-windev-39590)
+- OneDrive, dossiers partagés transformés en raccourcis web — [Neowin, « Microsoft confirms OneDrive shared folders are indeed turning into internet shortcuts »](https://www.neowin.net/news/microsoft-confirms-onedrive-shared-folders-are-indeed-turning-into-internet-shortcuts/) · [Windows Latest, « Microsoft confirms Windows 11 OneDrive internet shortcut bug »](https://www.windowslatest.com/2024/07/03/microsoft-confirms-windows-11-onedrive-internet-shortcut-bug/)
+- Balsamiq pour Google Drive, arrêt et migration — [Balsamiq, « Looking back at Balsamiq's 2024 »](https://balsamiq.com/blog/looking-back-2024/) (la page d'annonce dédiée n'est plus en ligne)
 - net2ftp — [Wikipédia (EN)](https://en.wikipedia.org/wiki/Net2ftp)
 - Fin de vie de Python 2 — [Python.org, « Sunsetting Python 2 »](https://www.python.org/doc/sunset-python-2/) · [PEP 373 — Python 2.7 Release Schedule](https://peps.python.org/pep-0373/)
