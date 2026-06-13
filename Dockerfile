@@ -39,6 +39,13 @@ WORKDIR /workspace
 # --------------------------------------------------------------------------
 FROM node:22-bookworm-slim AS dev
 ARG NVIM_VERSION
+# uid/gid de l'utilisateur du conteneur. Par défaut 1000 (= 1er utilisateur Linux
+# courant, et géré par Docker Desktop sur macOS/Windows). Sur un hôte Linux dont
+# l'uid ≠ 1000, construire avec `--build-arg UID=$(id -u) --build-arg GID=$(id -g)`
+# (compose le fait via les variables UID/GID) pour que les fichiers du projet
+# monté soient accessibles en écriture.
+ARG UID=1000
+ARG GID=1000
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -77,7 +84,15 @@ RUN curl -fsSL "https://github.com/neovim/neovim/releases/download/v${NVIM_VERSI
 # Claude Code.
 RUN npm install -g @anthropic-ai/claude-code
 
-# On tourne en utilisateur non-root (l'image node fournit déjà l'utilisateur "node", uid 1000).
+# Aligne l'utilisateur `node` (uid/gid 1000 par défaut dans l'image node) sur
+# l'uid/gid de l'hôte. On pré-crée ~/.claude pour que le volume nommé qui s'y
+# monte hérite du bon propriétaire à sa création.
+RUN mkdir -p /home/node/.claude \
+    && if [ "$GID" != "1000" ]; then groupmod -g "$GID" node; fi \
+    && if [ "$UID" != "1000" ]; then usermod -u "$UID" node; fi \
+    && chown -R "$UID:$GID" /home/node
+
+# On tourne en utilisateur non-root (aligné sur l'hôte via UID/GID ci-dessus).
 USER node
 WORKDIR /workspace
 

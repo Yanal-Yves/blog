@@ -47,6 +47,15 @@ git submodule update --init --recursive
 docker compose build
 ```
 
+> **Hôte Linux dont l'uid ≠ 1000** (vérifie avec `id -u`) : aligne l'utilisateur
+> du conteneur sur le tien pour pouvoir écrire dans le projet monté, et **construis**
+> l'image au lieu de la tirer (l'image publiée est en uid 1000) :
+> ```bash
+> printf 'UID=%s\nGID=%s\n' "$(id -u)" "$(id -g)" >> .env   # compose lit .env
+> docker compose build                                       # ne fais PAS `docker compose pull`
+> ```
+> Sur uid 1000, macOS et Windows : rien à faire, les valeurs par défaut conviennent.
+
 ## Au quotidien
 
 ```bash
