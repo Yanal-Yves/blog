@@ -29,9 +29,12 @@ jobs:
       # On construit le site DANS l'image CI (Hugo figé à la même version qu'en
       # local) → build reproductible, fini les écarts de version. Image légère :
       # elle ne contient que Hugo, pas les outils de dev (Claude, gh, nvim).
+      # --user : on tourne sous l'utilisateur du runner (pas root) pour que les
+      # fichiers générés dans ./public lui appartiennent, et non à root.
       - name: Construction du site (Build)
         run: |
           docker run --rm \
+            --user "$(id -u):$(id -g)" \
             -v "$PWD:/workspace" -w /workspace \
             ghcr.io/yanal-yves/blog-ci:latest \
             hugo --minify
