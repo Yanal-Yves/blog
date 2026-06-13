@@ -123,11 +123,33 @@ Quelques illustrations, vérifiées :
 
 La différence est là : avec le libre, une rupture reste **gérable**, parce que le pouvoir de décision n'est pas confisqué par un seul acteur.
 
+## Et moi, dans tout ça ? Un chemin, pas une posture
+
+Je ne voudrais pas écrire tout cela depuis un piédestal : je suis le premier pris dans ces contradictions. Ce que je décris est un **chemin**, lent et parfois fragile, pas une vertu déjà acquise.
+
+Ce que j'ai changé, ces dernières années :
+
+- **À titre personnel**, j'ai quitté Windows pour **Fedora Linux**. Une de mes filles est passée à Fedora elle aussi.
+- **Professionnellement**, j'ai fait basculer toute mon équipe sur **TuxedoOS** (une distribution GNU/Linux). J'ai aussi tenté de faire adopter des ordinateurs Tuxedo, ce que la direction a refusé. La bascule reste fragile : dans mon groupe d'environ 60 personnes, nous ne sommes que **5 sous GNU/Linux**.
+- Je me suis fixé une **règle simple** : chaque euro dépensé en logiciel privateur, je le compense par un euro **donné à un projet libre**. Concrètement, je contribue financièrement et chaque mois à des projets open source — ce qui **double** le prix réel de tout logiciel privateur que j'achète directement (je ne compte pas le logiciel embarqué, comme celui de ma voiture, dont j'ignore le coût).
+- Dans mes développements, **je n'utilise plus de logiciel privateur** : Prothesis Cloud repose presque exclusivement sur du logiciel libre et open source.
+
+Et puis il y a la contradiction que je ne veux pas cacher : **je suis salarié d'une entreprise qui développe et opère un SaaS privateur**, Prothesis Cloud. Certains me diront que, si je crois vraiment à ce que j'écris, je devrais démissionner. Au-delà du fait que j'ai besoin de ce travail pour faire vivre ma famille, je crois plus utile de **faire bouger les mentalités de l'intérieur**. Avant, personne dans la société ne connaissait les licences libres et leurs spécificités ; on ne développait qu'avec des outils privateurs. Aujourd'hui :
+
+- on **n'apprend plus** les technologies fermées : quand on rencontre un problème, on contribue sur les forums (mon score Stack Overflow est passé de 0 à **1 327** ces dernières années — modeste, mais mieux que zéro) ;
+- on a **contribué à des projets** de l'écosystème .NET (par exemple une [amélioration fusionnée dans DocNet](https://github.com/GowenGit/docnet/pull/42)) et publié un embryon de bibliothèque en open source, [SimpleExcelExporter](https://www.nuget.org/packages/SimpleExcelExporter) (sous licence **LGPL-3.0**) ;
+- on fait tourner **PostgreSQL** en production : utiliser un projet libre, c'est déjà soutenir sa popularité — et donc, indirectement, l'investissement que des acteurs comme AWS lui consacrent ;
+- l'entreprise est devenue **contributrice financière de WeasyPrint**, via le collectif [CourtBouillon sur OpenCollective](https://opencollective.com/courtbouillon) — ce que l'on peut vérifier sur [son profil OpenCollective](https://opencollective.com/prothesis-dental-solutions).
+
+On entend parfois que les entreprises « exploitent » le logiciel libre. Je crois l'inverse : **rien qu'en l'utilisant et en le faisant connaître, on sert la cause** — on élargit sa base d'utilisateurs, on remonte des bugs, on aide d'autres développeurs, on finance les mainteneurs.
+
+Mais si ces sept histoires enseignent une chose, c'est que **migrer vers le libre après coup est lent, fragile et coûteux**. Cinq personnes sur soixante, une direction qui refuse le matériel, des années pour défaire des dépendances accumulées. D'où la vraie leçon, surtout pour celles et ceux qui débutent : **commencez libre dès le départ**. Il est infiniment plus facile de bâtir sur du logiciel libre dès le premier jour que de s'extraire, des années plus tard, d'un écosystème privateur dans lequel on s'est enfermé sans même s'en rendre compte.
+
 ## Conclusion
 
 Le logiciel privateur est, au sens propre, **privateur** : il prive l'utilisateur du contrôle de son propre outil de travail. Ce n'est pas une question de méchanceté des éditeurs ; c'est une question de **structure de pouvoir**. Tant que vous ne possédez ni le code, ni le droit de le modifier et de le redistribuer, c'est l'entreprise technologique qui décide — de la compatibilité, du prix, de la licence, de la date de mort de votre logiciel — et vous n'avez aucun recours.
 
-J'invite donc tout le monde, partout, à **se tourner vers le logiciel libre** chaque fois que c'est possible, et à privilégier des **modèles économiques qui respectent les clients et les utilisateurs** plutôt que de les piéger. Les articles suivants de cette série exploreront concrètement ces alternatives.
+J'invite donc tout le monde, partout, à **se tourner vers le logiciel libre** chaque fois que c'est possible, et à privilégier des **modèles économiques qui respectent les clients et les utilisateurs** plutôt que de les piéger. Et si vous le pouvez, **commencez libre dès le départ** : s'extraire d'un écosystème privateur des années plus tard coûte bien plus cher que de ne jamais s'y enfermer. Les articles suivants de cette série exploreront concrètement ces alternatives.
 
 ## Sources et références
 
@@ -144,3 +166,4 @@ J'invite donc tout le monde, partout, à **se tourner vers le logiciel libre** c
 - Balsamiq pour Google Drive, arrêt et migration — [Balsamiq, « Looking back at Balsamiq's 2024 »](https://balsamiq.com/blog/looking-back-2024/) (la page d'annonce dédiée n'est plus en ligne)
 - net2ftp — [Wikipédia (EN)](https://en.wikipedia.org/wiki/Net2ftp)
 - Fin de vie de Python 2 — [Python.org, « Sunsetting Python 2 »](https://www.python.org/doc/sunset-python-2/) · [PEP 373 — Python 2.7 Release Schedule](https://peps.python.org/pep-0373/)
+- Mes contributions citées — [DocNet, PR #42 (fusion de PDF multiples)](https://github.com/GowenGit/docnet/pull/42) · [SimpleExcelExporter (NuGet, LGPL-3.0)](https://www.nuget.org/packages/SimpleExcelExporter) · [WeasyPrint / CourtBouillon sur OpenCollective](https://opencollective.com/courtbouillon) · [profil OpenCollective de Prothesis Dental Solutions](https://opencollective.com/prothesis-dental-solutions)
