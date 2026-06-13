@@ -30,7 +30,8 @@ services:
       - claude-config:/home/node/.claude
     environment:
       # Token GitHub fine-grained limité au repo du blog (depuis .env, gitignoré).
-      # gh et git le lisent automatiquement.
+      # gh le lit automatiquement ; pour git push, lance `gh auth setup-git` une
+      # fois dans le conteneur (voir CONTAINER.md).
       GITHUB_TOKEN: ${GITHUB_TOKEN:-}
       GH_TOKEN: ${GITHUB_TOKEN:-}
 

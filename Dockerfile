@@ -25,6 +25,12 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends /tmp/hugo.deb \
     && rm -rf /var/lib/apt/lists/* /tmp/hugo.deb
 
+# Hugo (enableGitInfo) lit l'historique git pour la date de dernière màj. En CI,
+# le conteneur tourne en root sur un dépôt possédé par le runner → git refuse
+# ("dubious ownership") et le build échoue. On déclare le workspace comme sûr
+# pour tout utilisateur (conteneur éphémère, sans risque).
+RUN git config --system --add safe.directory '*'
+
 WORKDIR /workspace
 # La CI lance `hugo --minify` ; pas de CMD spécifique requis ici.
 
