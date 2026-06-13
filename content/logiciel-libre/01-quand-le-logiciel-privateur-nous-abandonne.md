@@ -1,6 +1,6 @@
 ---
 title: "Quand le logiciel privateur nous abandonne"
-description: "Article fondateur : vingt-cinq ans d'expériences vécues avec le logiciel propriétaire (Access, Classic ASP, Windows, PC Soft, OneDrive, Balsamiq) qui mènent à une conviction — se tourner vers le logiciel libre et des modèles économiques respectueux des utilisateurs."
+description: "Article fondateur : vingt-cinq ans d'expériences vécues avec le logiciel propriétaire (Access, Classic ASP, Windows, OneDrive, Balsamiq, PC Soft) qui mènent à une conviction — se tourner vers le logiciel libre et des modèles économiques respectueux des utilisateurs."
 weight: 1
 ---
 
@@ -59,17 +59,7 @@ L'histoire se répète avec **Windows 10**, dont le support s'arrête le **14 oc
 
 Le résultat est double : un **gâchis écologique** considérable (des centaines de millions de machines poussées vers la benne ou vers l'obsolescence forcée) et un **non-respect des utilisateurs**, à qui l'on impose un calendrier qu'ils n'ont pas choisi. Avec un système libre, une communauté aurait pu prolonger la sécurité de ces machines aussi longtemps qu'elle le souhaite. Avec un système privateur, c'est interdit : personne d'autre que l'éditeur n'a le droit de toucher au code.
 
-## Expérience 5 — PC Soft : changer les règles en cours de partie
-
-Plus récemment, l'éditeur français **PC Soft** (WinDev, WebDev, WinDev Mobile) a été **racheté par le groupe canadien Volaris Group** (printemps 2025). Dans la foulée, le **modèle économique change radicalement**.
-
-Avant : on payait une licence pour les **outils de développement**, et le **runtime était gratuit** — on déployait son application autant qu'on voulait, sur autant de postes ou de serveurs qu'on voulait, sans surcoût. Après le rachat : fin de la licence perpétuelle, passage à un **abonnement (SaaS)**, et surtout **facturation au runtime / à l'usage**.
-
-Pour qui développe avec une petite équipe mais **déploie massivement**, le changement est brutal : une même application qui ne coûtait rien à déployer peut désormais représenter de **quelques milliers à potentiellement plusieurs millions d'euros** selon le volume de déploiement. Des modèles économiques jusque-là **viables deviennent non viables du jour au lendemain** — non pas parce que le logiciel a changé, mais parce que le propriétaire de l'outil a changé les règles en cours de partie. C'est l'illustration parfaite de la dépendance : on ne possède pas vraiment l'outil avec lequel on a construit son entreprise.
-
-> Sur ce changement et la réaction de la communauté, voir l'article de Next, [« Les développeurs WinDev s'alarment d'une possible redevance par installation client »](https://next.ink/241694/les-developpeurs-windev-salarment-dune-possible-redevance-par-installation-client/).
-
-## Expérience 6 — OneDrive et nos photos de famille
+## Expérience 5 — OneDrive et nos photos de famille
 
 Un soir, en 2024, je jette un œil sur l'ordinateur de ma femme et je vois quelque chose d'inquiétant : **toutes nos photos stockées sur OneDrive sont en train de disparaître localement** de sa machine. **400 Gio de photos de famille** qui s'effacent du disque — pas de OneDrive, juste la copie locale. Une fois l'opération terminée, à la place du dossier de photos, il ne reste qu'un **raccourci `.url`** : quand on clique dessus, ça ouvre un navigateur web. Même chose pour le dossier qui contenait la base **KeePass** que je partage avec ma femme.
 
@@ -81,7 +71,7 @@ Et c'est précisément là que tout se joue. Que ce soit un bug ou une décision
 
 > Sources : [Neowin, « Microsoft confirms OneDrive shared folders are indeed turning into internet shortcuts »](https://www.neowin.net/news/microsoft-confirms-onedrive-shared-folders-are-indeed-turning-into-internet-shortcuts/) · [Windows Latest, « Microsoft confirms Windows 11 OneDrive internet shortcut bug »](https://www.windowslatest.com/2024/07/03/microsoft-confirms-windows-11-onedrive-internet-shortcut-bug/).
 
-## Expérience 7 — Balsamiq et le format de fichier prisonnier
+## Expérience 6 — Balsamiq et le format de fichier prisonnier
 
 Chez Prothesis Dental Solutions, mon équipe — cinq personnes, moi compris — utilisait **Balsamiq pour Google Drive** pour ses maquettes (*mockups*). Notre organisation était simple et efficace : pour chaque projet ou fonctionnalité, un dossier sur Google Drive, et dans ce dossier un fichier de maquette Balsamiq.
 
@@ -91,6 +81,16 @@ Après avoir étudié la nouvelle tarification, testé la version Cloud et déco
 
 > Source : [Balsamiq, « Looking back at Balsamiq's 2024 »](https://balsamiq.com/blog/looking-back-2024/) (« We retired Balsamiq Wireframes for Google Drive and began winding down Desktop »). La page d'annonce dédiée (« What happened to Balsamiq for Google Drive? ») n'est aujourd'hui plus en ligne.
 
+## Expérience 7 — PC Soft : changer les règles en cours de partie
+
+Plus récemment, l'éditeur français **PC Soft** (WinDev, WebDev, WinDev Mobile) a été **racheté par le groupe canadien Volaris Group** (printemps 2025). Dans la foulée, le **modèle économique change radicalement**.
+
+Avant : on payait une licence pour les **outils de développement**, et le **runtime était gratuit** — on déployait son application autant qu'on voulait, sur autant de postes ou de serveurs qu'on voulait, sans surcoût. Après le rachat : fin de la licence perpétuelle, passage à un **abonnement (SaaS)**, et surtout **facturation au runtime / à l'usage**.
+
+Pour qui développe avec une petite équipe mais **déploie massivement**, le changement est brutal : une même application qui ne coûtait rien à déployer peut désormais représenter de **quelques milliers à potentiellement plusieurs millions d'euros** selon le volume de déploiement. Des modèles économiques jusque-là **viables deviennent non viables du jour au lendemain** — non pas parce que le logiciel a changé, mais parce que le propriétaire de l'outil a changé les règles en cours de partie. C'est l'illustration parfaite de la dépendance : on ne possède pas vraiment l'outil avec lequel on a construit son entreprise.
+
+> Sur ce changement et la réaction de la communauté, voir l'article de Next, [« Les développeurs WinDev s'alarment d'une possible redevance par installation client »](https://next.ink/241694/les-developpeurs-windev-salarment-dune-possible-redevance-par-installation-client/).
+
 ## Le point commun : qui contrôle réellement le logiciel ?
 
 Sept histoires, une même mécanique. À chaque fois, **une décision — ou une défaillance — de l'éditeur** détruit l'investissement de l'utilisateur, sans qu'il ait son mot à dire :
@@ -99,9 +99,9 @@ Sept histoires, une même mécanique. À chaque fois, **une décision — ou une
 - Classic ASP / Web Forms : technologie abandonnée, sans alternative indolore ;
 - Windows Server : prix de licence qui explose, à matériel identique ;
 - Windows 7 / 10 : fin de support imposée, machines jetées, refus de libérer le code ;
-- PC Soft : modèle économique retourné, viabilité détruite ;
 - OneDrive : synchronisation locale rompue, organisation familiale cassée, aucun correctif possible de notre côté ;
-- Balsamiq : produit déprécié, migration forcée, données prisonnières d'un format privateur.
+- Balsamiq : produit déprécié, migration forcée, données prisonnières d'un format privateur ;
+- PC Soft : modèle économique retourné, viabilité détruite.
 
 C'est exactement ce que décrit Richard Stallman : avec le logiciel privateur, **le développeur a un pouvoir sur les utilisateurs** qu'aucune bonne intention ne suffit à rendre acceptable, parce que ce pouvoir est **structurel**. L'utilisateur n'a pas le code. Il ne peut pas le corriger, le prolonger, le confier à quelqu'un d'autre. Il ne peut que subir — ou tout recommencer.
 
