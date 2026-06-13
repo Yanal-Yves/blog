@@ -87,9 +87,12 @@ RUN npm install -g @anthropic-ai/claude-code
 # Aligne l'utilisateur `node` (uid/gid 1000 par défaut dans l'image node) sur
 # l'uid/gid de l'hôte. On pré-crée ~/.claude pour que le volume nommé qui s'y
 # monte hérite du bon propriétaire à sa création.
+# Robustesse : si le gid existe déjà dans l'image (ex. 100 'users'), on réutilise
+# ce groupe au lieu de le recréer ; `-o` autorise un uid déjà pris (collision
+# avec un utilisateur système). Sans ça, le build casserait pour ces hôtes.
 RUN mkdir -p /home/node/.claude \
-    && if [ "$GID" != "1000" ]; then groupmod -g "$GID" node; fi \
-    && if [ "$UID" != "1000" ]; then usermod -u "$UID" node; fi \
+    && if ! getent group "$GID" >/dev/null; then groupmod -g "$GID" node; fi \
+    && usermod -o -u "$UID" -g "$GID" node \
     && chown -R "$UID:$GID" /home/node
 
 # On tourne en utilisateur non-root (aligné sur l'hôte via UID/GID ci-dessus).
