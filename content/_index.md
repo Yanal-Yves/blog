@@ -27,3 +27,8 @@ Articles sur le développement et la programmation.
 
 #### 🕹️ [Recalbox](/recalbox/)
 Mes expérimentations et configurations sur le retrogaming avec [Recalbox](https://www.recalbox.com/)
+
+---
+
+#### 🗽 [Logiciel libre](/logiciel-libre/)
+Une série partant d'expériences vécues avec le logiciel privateur (propriétaire) pour expliquer pourquoi le logiciel libre protège mieux les utilisateurs et les organisations.
