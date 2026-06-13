@@ -42,8 +42,10 @@ jobs:
           # Lie le paquet au dépôt → le GITHUB_TOKEN du déploiement peut le tirer
           # (même privé), sans clic ni PAT.
           labels: org.opencontainers.image.source=https://github.com/Yanal-Yves/blog
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          # scope distinct par image : sinon les deux builds se partagent le même
+          # cache gha et le second écrase celui du premier.
+          cache-from: type=gha,scope=blog-ci
+          cache-to: type=gha,mode=max,scope=blog-ci
 
       - name: Build & push dev image (étage dev)
         uses: docker/build-push-action@v6
@@ -53,5 +55,5 @@ jobs:
           push: true
           tags: ghcr.io/yanal-yves/blog-dev:latest
           labels: org.opencontainers.image.source=https://github.com/Yanal-Yves/blog
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: type=gha,scope=blog-dev
+          cache-to: type=gha,mode=max,scope=blog-dev

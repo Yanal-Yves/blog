@@ -49,6 +49,12 @@ RUN apt-get update \
         gnupg \
     && rm -rf /var/lib/apt/lists/*
 
+# Même garde que l'étage build : le serveur Hugo (enableGitInfo) et les commandes
+# git tournent ici en `node`. Sur un hôte Linux dont l'uid ≠ 1000, le dépôt monté
+# n'appartient pas à `node` → git refuse ("dubious ownership"). On déclare le
+# workspace comme sûr pour préserver la portabilité multi-machines.
+RUN git config --system --add safe.directory '*'
+
 # Hugo : on réutilise le binaire exact de l'étage build (même version, garanti aligné).
 COPY --from=build /usr/local/bin/hugo /usr/local/bin/hugo
 

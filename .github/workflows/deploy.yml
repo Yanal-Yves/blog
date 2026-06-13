@@ -1,9 +1,20 @@
 name: Deploy to GitHub Pages
 
 on:
+  # Push de contenu : on déploie directement (l'image blog-ci ne change pas).
+  # On IGNORE les changements de Dockerfile ici pour ne pas déployer avant que
+  # la nouvelle image soit publiée (sinon course → site bâti avec l'ancien Hugo).
   push:
     branches:
       - main
+    paths-ignore:
+      - "Dockerfile"
+      - ".github/workflows/image.yml"
+  # Changement de Dockerfile : on déploie APRÈS que "Build & push images" a fini,
+  # pour bâtir le site avec l'image fraîchement publiée.
+  workflow_run:
+    workflows: ["Build & push images"]
+    types: [completed]
 
 permissions:
   contents: write
@@ -12,6 +23,8 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    # Sur push : toujours. Sur workflow_run : seulement si le build d'image a réussi.
+    if: ${{ github.event_name == 'push' || github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Checkout du code
         uses: actions/checkout@v4
