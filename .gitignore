@@ -10,3 +10,6 @@
 # Fichiers système (Mac/Windows) inutiles
 .DS_Store
 Thumbs.db
+
+# Token GitHub local du conteneur (ne JAMAIS committer)
+.env

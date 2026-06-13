@@ -1,0 +1,53 @@
+name: Build & push images
+
+# Reconstruit les images uniquement quand le Dockerfile change, et permet un
+# déclenchement manuel (notamment pour le tout premier build).
+#
+# Deux images publiées :
+#   - blog-ci  : étage "build", minimal (Hugo seul) — utilisé par le déploiement.
+#   - blog-dev : étage "dev", complet (Hugo + Claude + gh + nvim) — usage local.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "Dockerfile"
+      - ".github/workflows/image.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build-images:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build & push CI image (étage build)
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          target: build
+          push: true
+          tags: ghcr.io/yanal-yves/blog-ci:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Build & push dev image (étage dev)
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          target: dev
+          push: true
+          tags: ghcr.io/yanal-yves/blog-dev:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
