@@ -39,6 +39,9 @@ jobs:
           target: build
           push: true
           tags: ghcr.io/yanal-yves/blog-ci:latest
+          # Lie le paquet au dépôt → le GITHUB_TOKEN du déploiement peut le tirer
+          # (même privé), sans clic ni PAT.
+          labels: org.opencontainers.image.source=https://github.com/Yanal-Yves/blog
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -49,5 +52,6 @@ jobs:
           target: dev
           push: true
           tags: ghcr.io/yanal-yves/blog-dev:latest
+          labels: org.opencontainers.image.source=https://github.com/Yanal-Yves/blog
           cache-from: type=gha
           cache-to: type=gha,mode=max
