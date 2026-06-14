@@ -6,7 +6,7 @@
 {{- $isExternal := or (strings.HasPrefix $destination "http://") (strings.HasPrefix $destination "https://") -}}
 {{- with .Page.Site.BaseURL -}}
   {{- $host := (urls.Parse .).Host -}}
-  {{- if and $isExternal $host (strings.Contains $destination $host) -}}
+  {{- if and $isExternal (eq (urls.Parse $destination).Host $host) -}}
     {{- $isExternal = false -}}
   {{- end -}}
 {{- end -}}
