@@ -1,0 +1,45 @@
+# Environnement de dev isolé pour le blog.
+#
+# Usage courant :
+#   docker compose up dev            # serveur Hugo live-reload sur http://localhost:1313
+#   docker compose exec dev bash     # shell DANS le conteneur (claude, nvim, gh, git)
+#
+# Sécurité : seul le projet est monté. Le token GitHub est volontairement
+# limité au seul repo Yanal-Yves/blog (voir CONTAINER.md). Les dégâts que
+# Claude peut faire restent donc bornés à ce projet et à ce repo.
+
+services:
+  dev:
+    # En local on construit l'étage "dev" du Dockerfile (Hugo + Claude + gh + nvim).
+    # `image:` permet aussi de récupérer l'image publiée sur ghcr.io
+    # (docker compose pull) au lieu de reconstruire.
+    build:
+      context: .
+      target: dev
+      # Aligne l'utilisateur du conteneur sur l'hôte (portabilité Linux uid ≠ 1000).
+      # Défaut 1000 si non défini. Sur un hôte concerné, renseigne UID/GID dans .env :
+      #   printf 'UID=%s\nGID=%s\n' "$(id -u)" "$(id -g)" >> .env
+      args:
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
+    image: ghcr.io/yanal-yves/blog-dev:latest
+    init: true
+    stdin_open: true
+    tty: true
+    ports:
+      - "1313:1313"
+    volumes:
+      # On NE monte QUE le projet — jamais $HOME, ~/.ssh, etc.
+      - .:/workspace
+      # Config Claude isolée et persistante (login conservé entre les runs),
+      # séparée de ton ~/.claude de l'hôte.
+      - claude-config:/home/node/.claude
+    environment:
+      # Token GitHub fine-grained limité au repo du blog (depuis .env, gitignoré).
+      # gh le lit automatiquement ; pour git push, lance `gh auth setup-git` une
+      # fois dans le conteneur (voir CONTAINER.md).
+      GITHUB_TOKEN: ${GITHUB_TOKEN:-}
+      GH_TOKEN: ${GITHUB_TOKEN:-}
+
+volumes:
+  claude-config:

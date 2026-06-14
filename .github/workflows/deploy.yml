@@ -1,31 +1,56 @@
 name: Deploy to GitHub Pages
 
 on:
+  # Push de contenu : on déploie directement (l'image blog-ci ne change pas).
+  # On IGNORE les changements de Dockerfile ici pour ne pas déployer avant que
+  # la nouvelle image soit publiée (sinon course → site bâti avec l'ancien Hugo).
   push:
     branches:
       - main
+    paths-ignore:
+      - "Dockerfile"
+      - ".github/workflows/image.yml"
+  # Changement de Dockerfile : on déploie APRÈS que "Build & push images" a fini,
+  # pour bâtir le site avec l'image fraîchement publiée.
+  workflow_run:
+    workflows: ["Build & push images"]
+    types: [completed]
 
 permissions:
   contents: write
+  packages: read
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    # Sur push : toujours. Sur workflow_run : seulement si le build d'image a réussi.
+    if: ${{ github.event_name == 'push' || github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Checkout du code
         uses: actions/checkout@v4
         with:
-          submodules: true  # Important pour télécharger le thème
+          submodules: true # Important pour télécharger le thème
           fetch-depth: 0
 
-      - name: Installation de Hugo
-        uses: peaceiris/actions-hugo@v2
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
         with:
-          hugo-version: 'latest'
-          extended: true
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
+      # On construit le site DANS l'image CI (Hugo figé à la même version qu'en
+      # local) → build reproductible, fini les écarts de version. Image légère :
+      # elle ne contient que Hugo, pas les outils de dev (Claude, gh, nvim).
+      # --user : on tourne sous l'utilisateur du runner (pas root) pour que les
+      # fichiers générés dans ./public lui appartiennent, et non à root.
       - name: Construction du site (Build)
-        run: hugo --minify
+        run: |
+          docker run --rm \
+            --user "$(id -u):$(id -g)" \
+            -v "$PWD:/workspace" -w /workspace \
+            ghcr.io/yanal-yves/blog-ci:latest \
+            hugo --minify
 
       - name: Déploiement sur GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
