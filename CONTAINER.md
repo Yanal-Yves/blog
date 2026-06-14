@@ -106,11 +106,12 @@ identique au tien. Il se déclenche sur les push de contenu, et **après**
 `image.yml` lorsque le `Dockerfile` change (`workflow_run`), pour toujours bâtir
 avec l'image fraîchement publiée.
 
-> **Premier setup — à faire AVANT de merger cette branche** : lance une fois le
-> workflow *Build & push images* manuellement (onglet Actions → *Run workflow*).
-> Sinon le tout premier déploiement échoue (l'image `blog-ci` n'existe pas encore
-> sur ghcr) ; il se corrige tout seul ensuite via `workflow_run`, mais tu verras
-> un run en échec inutile.
+> **Au premier merge** : `image.yml` se déclenche tout seul (le `Dockerfile` est
+> ajouté) et publie les images. En parallèle, ce tout premier déploiement
+> **échoue** — c'est attendu : l'image `blog-ci` n'est pas encore sur ghcr. Il se
+> relance et réussit automatiquement via `workflow_run` dès qu'`image.yml` a fini
+> (ou relance-le à la main). Le bouton *Run workflow* n'apparaît qu'une fois le
+> workflow présent sur `main`, donc on ne peut pas l'amorcer avant le merge.
 
 ## Bumper Hugo (ou Neovim)
 
