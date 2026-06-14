@@ -84,7 +84,7 @@ ex : Cas d&amp;rsquo;un nom d&amp;rsquo;hôte personnalisé&lt;/p&gt;</descripti
 
 
 &lt;h2 id="principe-de-fonctionnement"&gt;Principe de fonctionnement&lt;a class="anchor" href="#principe-de-fonctionnement"&gt;#&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;Standardisé en 2006 (&lt;a href="https://www.rfc-editor.org/rfc/rfc4408"&gt;RFC 4408&lt;/a&gt;), mis à jour en 2014 (&lt;a href="https://www.rfc-editor.org/rfc/rfc7208"&gt;RFC 7208&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;Standardisé en 2006 (&lt;a href="https://www.rfc-editor.org/rfc/rfc4408" target="_blank" rel="noopener"&gt;RFC 4408&lt;/a&gt;), mis à jour en 2014 (&lt;a href="https://www.rfc-editor.org/rfc/rfc7208" target="_blank" rel="noopener"&gt;RFC 7208&lt;/a&gt;).&lt;/p&gt;
 &lt;p&gt;Le SPF agit comme un annuaire de confiance. Le propriétaire du domaine &lt;code&gt;a.com&lt;/code&gt; publie dans son DNS (enregistrement &lt;code&gt;TXT&lt;/code&gt;) la liste des IPs autorisées à envoyer des e-mails en son nom.&lt;br&gt;
 Lorsqu&amp;rsquo;un e-mail arrive, le serveur de réception vérifie l&amp;rsquo;IP d&amp;rsquo;envoi par rapport à cette liste. Attention : Le SPF vérifie le domaine indiqué dans le &lt;code&gt;Return-Path&lt;/code&gt; (l&amp;rsquo;enveloppe), et non le &lt;code&gt;From&lt;/code&gt; (l&amp;rsquo;en-tête visible).&lt;/p&gt;</description></item><item><title>DKIM (DomainKeys Identified Mail) - 5/9</title><link>https://yanal.fargialla.com/antispoofing-e-mail/05-dkim-domainkeys-identified-mail/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/antispoofing-e-mail/05-dkim-domainkeys-identified-mail/</guid><description>&lt;div class="book-toc-inline"&gt;
  &lt;div class="markdown-inner"&gt;
@@ -100,7 +100,7 @@ Lorsqu&amp;rsquo;un e-mail arrive, le serveur de réception vérifie l&amp;rsquo
 
 
 &lt;h2 id="principe-de-fonctionnement--le-scellé-de-preuves-de-la-police"&gt;Principe de fonctionnement : Le scellé de preuves de la police&lt;a class="anchor" href="#principe-de-fonctionnement--le-scell%c3%a9-de-preuves-de-la-police"&gt;#&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;Standardisé en 2007 (&lt;a href="https://www.rfc-editor.org/rfc/rfc4871"&gt;RFC 4871&lt;/a&gt;), mis à jour en 2011 (&lt;a href="https://www.rfc-editor.org/rfc/rfc6376"&gt;RFC 6376&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;Standardisé en 2007 (&lt;a href="https://www.rfc-editor.org/rfc/rfc4871" target="_blank" rel="noopener"&gt;RFC 4871&lt;/a&gt;), mis à jour en 2011 (&lt;a href="https://www.rfc-editor.org/rfc/rfc6376" target="_blank" rel="noopener"&gt;RFC 6376&lt;/a&gt;).&lt;/p&gt;
 &lt;p&gt;Si le SPF protège l&amp;rsquo;enveloppe (le serveur d&amp;rsquo;envoi), DKIM (DomainKeys Identified Mail) protège le message lui-même. C&amp;rsquo;est l&amp;rsquo;équivalent numérique d&amp;rsquo;un scellé de preuves de la police :&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;Transparence (Pas de confidentialité)&lt;/strong&gt; : N&amp;rsquo;importe qui peut regarder à travers le scellé et voir exactement ce qu&amp;rsquo;il contient (le texte de l&amp;rsquo;e-mail).&lt;/li&gt;
@@ -121,7 +121,7 @@ Lorsqu&amp;rsquo;un e-mail arrive, le serveur de réception vérifie l&amp;rsquo
 
 
 &lt;h2 id="le-chef-dorchestre"&gt;Le Chef d&amp;rsquo;Orchestre&lt;a class="anchor" href="#le-chef-dorchestre"&gt;#&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;Publié en 2015 (&lt;a href="https://www.rfc-editor.org/rfc/rfc7489"&gt;RFC 7489&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;Publié en 2015 (&lt;a href="https://www.rfc-editor.org/rfc/rfc7489" target="_blank" rel="noopener"&gt;RFC 7489&lt;/a&gt;).&lt;/p&gt;
 &lt;p&gt;Jusqu&amp;rsquo;ici, nous avons vu que :&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;SPF valide l&amp;rsquo;IP mais vérifie le &lt;code&gt;Return-Path&lt;/code&gt;, pas le &lt;code&gt;From&lt;/code&gt;.&lt;/li&gt;
@@ -174,7 +174,7 @@ Lorsqu&amp;rsquo;un e-mail arrive, le serveur de réception vérifie l&amp;rsquo
  &lt;td&gt;MX&lt;/td&gt;
  &lt;td&gt;@&lt;/td&gt;
  &lt;td&gt;. (Priorité 0)&lt;/td&gt;
- &lt;td&gt;MX (ce domaine ne reçoit pas d&amp;rsquo;e-mail &lt;a href="https://www.rfc-editor.org/rfc/rfc7505"&gt;RFC 7505&lt;/a&gt; (Null MX))&lt;/td&gt;
+ &lt;td&gt;MX (ce domaine ne reçoit pas d&amp;rsquo;e-mail &lt;a href="https://www.rfc-editor.org/rfc/rfc7505" target="_blank" rel="noopener"&gt;RFC 7505&lt;/a&gt; (Null MX))&lt;/td&gt;
  &lt;/tr&gt;
  &lt;/tbody&gt;
 &lt;/table&gt;</description></item><item><title>Synthèse et conclusion - 9/9</title><link>https://yanal.fargialla.com/antispoofing-e-mail/09-synthese-et-conclusion/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/antispoofing-e-mail/09-synthese-et-conclusion/</guid><description>&lt;div class="book-toc-inline"&gt;
@@ -210,21 +210,21 @@ Lorsqu&amp;rsquo;un e-mail arrive, le serveur de réception vérifie l&amp;rsquo
  &lt;/tr&gt;
  &lt;tr&gt;
  &lt;td&gt;SPF&lt;/td&gt;
- &lt;td&gt;2006 (&lt;a href="https://www.rfc-editor.org/rfc/rfc4408"&gt;RFC 4408&lt;/a&gt;) &lt;br&gt;&lt;br/&gt;2014 (&lt;a href="https://www.rfc-editor.org/rfc/rfc7208"&gt;RFC 7208&lt;/a&gt;)&lt;/td&gt;
+ &lt;td&gt;2006 (&lt;a href="https://www.rfc-editor.org/rfc/rfc4408" target="_blank" rel="noopener"&gt;RFC 4408&lt;/a&gt;) &lt;br&gt;&lt;br/&gt;2014 (&lt;a href="https://www.rfc-editor.org/rfc/rfc7208" target="_blank" rel="noopener"&gt;RFC 7208&lt;/a&gt;)&lt;/td&gt;
  &lt;td&gt;Valide que le camion est autorisé à transporter le courrier de l&amp;rsquo;émetteur.&lt;/td&gt;
  &lt;td&gt;Autorise une liste d&amp;rsquo;IPs à envoyer des e-mails au nom du domaine indiqué dans le &lt;code&gt;Return-Path&lt;/code&gt;.&lt;/td&gt;
  &lt;td&gt;Vulnérable aux redirections. Pas d&amp;rsquo;alignement avec le champ visible (&lt;code&gt;From&lt;/code&gt;).&lt;/td&gt;
  &lt;/tr&gt;
  &lt;tr&gt;
  &lt;td&gt;DKIM&lt;/td&gt;
- &lt;td&gt;2007 (&lt;a href="https://www.rfc-editor.org/rfc/rfc4871"&gt;RFC 4871&lt;/a&gt;) &lt;br&gt;&lt;br/&gt;2011 (&lt;a href="https://www.rfc-editor.org/rfc/rfc6376"&gt;RFC 6376&lt;/a&gt;)&lt;/td&gt;
+ &lt;td&gt;2007 (&lt;a href="https://www.rfc-editor.org/rfc/rfc4871" target="_blank" rel="noopener"&gt;RFC 4871&lt;/a&gt;) &lt;br&gt;&lt;br/&gt;2011 (&lt;a href="https://www.rfc-editor.org/rfc/rfc6376" target="_blank" rel="noopener"&gt;RFC 6376&lt;/a&gt;)&lt;/td&gt;
  &lt;td&gt;Sceau de cire numérique &lt;br&gt;&lt;br/&gt;Scellé de preuves de la police&lt;/td&gt;
  &lt;td&gt;Garantit l&amp;rsquo;intégrité et l&amp;rsquo;authenticité du message par l&amp;rsquo;ajout d&amp;rsquo;une signature cryptographique au message. (&lt;code&gt;d=&lt;/code&gt; dans l&amp;rsquo;en-tête DKIM).&lt;/td&gt;
  &lt;td&gt;Pas d&amp;rsquo;alignement obligatoire avec &lt;code&gt;From&lt;/code&gt;. &lt;br&gt;&lt;br/&gt;Ne garantit pas la confidentialité (l&amp;rsquo;e-mail reste lisible).&lt;/td&gt;
  &lt;/tr&gt;
  &lt;tr&gt;
  &lt;td&gt;DMARC&lt;/td&gt;
- &lt;td&gt;2015 (&lt;a href="https://www.rfc-editor.org/rfc/rfc7489"&gt;RFC 7489&lt;/a&gt;)&lt;/td&gt;
+ &lt;td&gt;2015 (&lt;a href="https://www.rfc-editor.org/rfc/rfc7489" target="_blank" rel="noopener"&gt;RFC 7489&lt;/a&gt;)&lt;/td&gt;
  &lt;td&gt;Le Majordome (Chef du protocole). &lt;br&gt;&lt;br/&gt;Vérifie que l&amp;rsquo;en-tête de la lettre est aligné soit avec l&amp;rsquo;adresse au dos de l&amp;rsquo;enveloppe (SPF) soit avec le sceau de cire numérique (Signature DKIM)&lt;/td&gt;
  &lt;td&gt;Vérifie l&amp;rsquo;alignement du domaine vérifié par SPF ou DKIM avec le domaine visible (&lt;code&gt;From&lt;/code&gt;). &lt;br&gt;&lt;br/&gt;Définit la politique de gestion des échecs (&lt;code&gt;none&lt;/code&gt;, &lt;code&gt;quarantine&lt;/code&gt;, &lt;code&gt;reject&lt;/code&gt;). &lt;br&gt;&lt;br/&gt;Permet le reporting (RUA/RUF)&lt;/td&gt;
  &lt;td&gt;Fonctionne uniquement si SPF/DKIM sont implémentés et que la politique est active.&lt;/td&gt;
