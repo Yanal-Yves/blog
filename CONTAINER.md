@@ -55,6 +55,10 @@ docker compose build
 > docker compose build                                       # ne fais PAS `docker compose pull`
 > ```
 > Sur uid 1000, macOS et Windows : rien à faire, les valeurs par défaut conviennent.
+>
+> Si tu **changes l'uid après avoir déjà lancé le conteneur**, le volume Claude
+> garde son ancien propriétaire (Docker ne le réinitialise pas) → Claude ne peut
+> plus y écrire. Recrée-le : `docker volume rm blog_claude-config`.
 
 ## Au quotidien
 
@@ -98,13 +102,22 @@ docker compose pull
 
 Le déploiement (`.github/workflows/deploy.yml`) construit le site **dans l'image
 `blog-ci`** (légère, Hugo seul) → le `hugo --minify` de la CI est strictement
-identique au tien.
+identique au tien. Il se déclenche sur les push de contenu, et **après**
+`image.yml` lorsque le `Dockerfile` change (`workflow_run`), pour toujours bâtir
+avec l'image fraîchement publiée.
 
-> **Premier setup** : lance une fois le workflow *Build & push images*
-> manuellement (onglet Actions → *Run workflow*) pour publier les images avant le
-> premier déploiement.
+> **Premier setup — à faire AVANT de merger cette branche** : lance une fois le
+> workflow *Build & push images* manuellement (onglet Actions → *Run workflow*).
+> Sinon le tout premier déploiement échoue (l'image `blog-ci` n'existe pas encore
+> sur ghcr) ; il se corrige tout seul ensuite via `workflow_run`, mais tu verras
+> un run en échec inutile.
 
 ## Bumper Hugo (ou Neovim)
 
 Modifie `ARG HUGO_VERSION` dans le `Dockerfile`, commit : l'image se reconstruit
 et la CI suit automatiquement. Local et CI restent alignés.
+
+> Conseil : commit un bump de `Dockerfile` **seul** (sans changement de contenu).
+> Un commit mixte (contenu + Dockerfile) déclenche un déploiement immédiat qui
+> tire l'ancienne image avant qu'`image.yml` ait publié la nouvelle ; le
+> déploiement suivant (via `workflow_run`) corrige, mais évite-toi ce transitoire.
