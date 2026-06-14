@@ -1,6 +1,6 @@
 ---
 title: "Quand le logiciel privateur nous abandonne"
-description: "Article fondateur : vingt-cinq ans d'expériences vécues avec le logiciel propriétaire (Access, Classic ASP, Windows, OneDrive, Balsamiq, PC Soft) qui mènent à une conviction — se tourner vers le logiciel libre et des modèles économiques respectueux des utilisateurs."
+description: "Article fondateur : vingt-cinq ans d'expériences vécues avec le logiciel propriétaire (Access, Classic ASP, Visual Studio, Windows, OneDrive, Balsamiq, PC Soft) qui mènent à une conviction — se tourner vers le logiciel libre et des modèles économiques respectueux des utilisateurs."
 weight: 1
 ---
 
@@ -41,7 +41,21 @@ Et c'est précisément à ce moment-là que Microsoft nous explique que **ASP.NE
 
 Cette fois pourtant, nous y avons échappé — mais pas grâce à un choix qui nous appartenait : Homelidays avait été racheté par **HomeAway**, qui a entrepris de migrer le site sur la **stack technologique du groupe**, basée sur **Java**. Autrement dit, c'est une décision d'entreprise — et non la pérennité de la technologie Microsoft — qui nous a sortis de l'impasse. Sans ce rachat et cette migration, nous serions bel et bien restés le bec dans l'eau. Tout le monde n'a pas la chance d'être adossé à un groupe capable de financer une telle bascule.
 
-## Expérience 3 — Le dépôt-vente et la licence Windows
+## Expérience 3 — Visual Studio et les projets d'installation MSI supprimés
+
+Pendant des années, Visual Studio a proposé un type de projet dédié — les *Setup and Deployment Projects* (fichiers `.vdproj`) — qui permettait de générer simplement un **installeur MSI** (Windows Installer) pour ses applications : choix des fichiers à déployer, raccourcis, clés de registre, actions personnalisées… C'était une fonctionnalité **intégrée à Visual Studio**, donc déjà incluse dans la licence que l'on payait (dans mon cas, via l'abonnement **MSDN** de mon employeur), et largement utilisée.
+
+Puis, avec **Visual Studio 2012**, Microsoft a tout simplement **retiré ce type de projet**. Visual Studio 2010 aura été la dernière version à l'inclure nativement. À la place, Microsoft renvoyait vers **InstallShield Limited Edition**, un produit tiers (Flexera) bridé : pas de support x64, pas d'installation de services Windows, pas d'actions personnalisées, pas de support VSTO… et conçu, comme son nom l'indique, pour pousser à l'achat de la version complète. Du jour au lendemain, un projet d'installation qui fonctionnait ne pouvait plus être maintenu dans la nouvelle version de l'outil sans le réécrire avec une solution tierce, payante ou limitée.
+
+La réaction de la communauté a été massive. Sur **UserVoice** — la plateforme où Microsoft recueillait alors les retours sur Visual Studio — la demande de rétablir ce type de projet est devenue la **deuxième suggestion la plus votée** de tout le forum Visual Studio. Et pendant des années, Microsoft n'en a pas tenu compte : VS 2012 puis VS 2013 sont sortis sans support natif.
+
+Honnêteté oblige, l'histoire ne s'arrête pas là : Microsoft a fini par céder. En **avril 2014** (version finale en **juin 2014**), l'éditeur publie une **extension** *Visual Studio Installer Projects* qui réintègre la fonctionnalité, extension qui existe d'ailleurs encore aujourd'hui (jusqu'à Visual Studio 2022). La fonction est donc bien revenue — mais seulement **quatre ans après VS 2010**, un délai pendant lequel tous ceux qui en avaient besoin ont dû bricoler des solutions de contournement.
+
+Je n'ai moi-même appris ce revirement qu'en documentant cet article : à l'époque, je travaillais chez HomeAway et nous migrions vers la stack Java du groupe (voir l'expérience précédente), si bien que j'avais quitté ce monde et que je n'ai jamais su que Microsoft avait fini par rétablir la fonction. Que la demande la mieux classée — la **n°2** — d'une plateforme de feedback officielle mette quatre ans à être (partiellement) entendue en dit long sur le rapport de force : même très nombreux et très visibles, les utilisateurs n'ont aucune prise réelle sur les décisions de l'éditeur.
+
+> Sources : [Visual Studio Blog, « Visual Studio Installer Projects Extension »](https://devblogs.microsoft.com/visualstudio/visual-studio-installer-projects-extension/) · [InfoQ, « Visual Studio 2013 Installer Project »](https://www.infoq.com/news/2014/04/vs2013_installer_project).
+
+## Expérience 4 — Le dépôt-vente et la licence Windows
 
 Il y a quelques années, ma femme monte un dépôt-vente, [La Petite Fouine](http://web.archive.org/web/20180601133011/https://lapetitefouine.com/) (lien vers une capture d'archive de 2018). Je lui développe un logiciel de gestion sous forme d'application web, en **ASP.NET MVC / Entity Framework 6 / .NET Framework 4.6**. Pour l'héberger, je loue chez Dedibox un petit serveur à une dizaine d'euros par mois (de mémoire, 10 à 15 €).
 
@@ -49,7 +63,7 @@ Puis un jour, sans que rien ne change techniquement — **même serveur, même v
 
 Le serveur physique vaut toujours le même prix. C'est **uniquement la licence du système privateur** qui explose. Pour un dépôt-vente qui ne dégage même pas un SMIC, **30 € de plus par mois, ça compte énormément**. Là encore, dépendre d'un logiciel non libre, c'est dépendre du **bon vouloir du fournisseur** — sans aucune prise sur sa décision.
 
-## Expérience 4 — Windows 7 puis Windows 10 : le gâchis imposé
+## Expérience 5 — Windows 7 puis Windows 10 : le gâchis imposé
 
 Le 14 janvier 2020, Microsoft met fin au support de **Windows 7**. À ce moment-là, l'OS est encore massivement utilisé : les estimations parlent d'environ **200 millions de PC** qui tournaient encore sous Windows 7 fin 2019 (mon souvenir disait 250 millions ; le chiffre sourcé est plutôt de l'ordre de 200 millions, ce qui reste énorme).
 
@@ -59,7 +73,7 @@ L'histoire se répète avec **Windows 10**, dont le support s'arrête le **14 oc
 
 Le résultat est double : un **gâchis écologique** considérable (des centaines de millions de machines poussées vers la benne ou vers l'obsolescence forcée) et un **non-respect des utilisateurs**, à qui l'on impose un calendrier qu'ils n'ont pas choisi. Avec un système libre, une communauté aurait pu prolonger la sécurité de ces machines aussi longtemps qu'elle le souhaite. Avec un système privateur, c'est interdit : personne d'autre que l'éditeur n'a le droit de toucher au code.
 
-## Expérience 5 — OneDrive et nos photos de famille
+## Expérience 6 — OneDrive et nos photos de famille
 
 Un soir, en 2024, je jette un œil sur l'ordinateur de ma femme et je vois quelque chose d'inquiétant : **toutes nos photos stockées sur OneDrive sont en train de disparaître localement** de sa machine. **400 Gio de photos de famille** qui s'effacent du disque — pas de OneDrive, juste la copie locale. Une fois l'opération terminée, à la place du dossier de photos, il ne reste qu'un **raccourci `.url`** : quand on clique dessus, ça ouvre un navigateur web. Même chose pour le dossier qui contenait la base **KeePass** que je partage avec ma femme.
 
@@ -71,7 +85,7 @@ Et c'est précisément là que tout se joue. Que ce soit un bug ou une décision
 
 > Sources : [Neowin, « Microsoft confirms OneDrive shared folders are indeed turning into internet shortcuts »](https://www.neowin.net/news/microsoft-confirms-onedrive-shared-folders-are-indeed-turning-into-internet-shortcuts/) · [Windows Latest, « Microsoft confirms Windows 11 OneDrive internet shortcut bug »](https://www.windowslatest.com/2024/07/03/microsoft-confirms-windows-11-onedrive-internet-shortcut-bug/).
 
-## Expérience 6 — Balsamiq et le format de fichier prisonnier
+## Expérience 7 — Balsamiq et le format de fichier prisonnier
 
 Chez Prothesis Dental Solutions, mon équipe — cinq personnes, moi compris — utilisait **Balsamiq pour Google Drive** pour ses maquettes (*mockups*). Notre organisation était simple et efficace : pour chaque projet ou fonctionnalité, un dossier sur Google Drive, et dans ce dossier un fichier de maquette Balsamiq.
 
@@ -81,7 +95,7 @@ Après avoir étudié la nouvelle tarification, testé la version Cloud et déco
 
 > Source : [Balsamiq, « Looking back at Balsamiq's 2024 »](https://balsamiq.com/blog/looking-back-2024/) (« We retired Balsamiq Wireframes for Google Drive and began winding down Desktop »). La page d'annonce dédiée (« What happened to Balsamiq for Google Drive? ») n'est aujourd'hui plus en ligne.
 
-## Expérience 7 — PC Soft : changer les règles en cours de partie
+## Expérience 8 — PC Soft : changer les règles en cours de partie
 
 Plus récemment, l'éditeur français **PC Soft** (WinDev, WebDev, WinDev Mobile) a été **racheté par le groupe canadien Volaris Group** (printemps 2025). Dans la foulée, le **modèle économique change radicalement**.
 
@@ -93,10 +107,11 @@ Pour qui développe avec une petite équipe mais **déploie massivement**, le ch
 
 ## Le point commun : qui contrôle réellement le logiciel ?
 
-Sept histoires, une même mécanique. À chaque fois, **une décision — ou une défaillance — de l'éditeur** détruit l'investissement de l'utilisateur, sans qu'il ait son mot à dire :
+Huit histoires, une même mécanique. À chaque fois, **une décision — ou une défaillance — de l'éditeur** détruit l'investissement de l'utilisateur, sans qu'il ait son mot à dire :
 
 - Access : compatibilité cassée, code à réécrire et à retester intégralement ;
 - Classic ASP / Web Forms : technologie abandonnée, sans alternative indolore ;
+- Visual Studio : type de projet d'installation supprimé du jour au lendemain, demande #2 sur UserVoice ignorée quatre ans ;
 - Windows Server : prix de licence qui explose, à matériel identique ;
 - Windows 7 / 10 : fin de support imposée, machines jetées, refus de libérer le code ;
 - OneDrive : synchronisation locale rompue, organisation familiale cassée, aucun correctif possible de notre côté ;
@@ -119,7 +134,7 @@ Quelques illustrations, vérifiées :
 
 - **net2ftp**, un client FTP en PHP que j'ai connu au tout début des années 2000. Sa dernière version stable (1.3) date de **juillet 2019**, sans changement de technologie de fond sur toute cette durée. Un outil libre peut traverser deux décennies parce que personne ne décrète sa mort. *(Je n'ai pas pu confirmer publiquement la date exacte de sa toute première version ; je la situe « au début des années 2000 » de mémoire.)*
 
-- **Python 2 → Python 3**, l'exemple le plus parlant. Python 3.0 sort en **décembre 2008**, en cassant volontairement la compatibilité. Mais comme l'écosystème est libre et piloté par la communauté, **Python 2.7 a été maintenu en parallèle jusqu'au 1ᵉʳ janvier 2020** — plus de onze ans. (La date de fin de vie a même été repoussée de 2015 à 2020 pour laisser à tout le monde le temps de migrer.) Personne n'a été mis devant le fait accompli : chacun a pu migrer **à son rythme**. C'est exactement ce qu'aucune des sept histoires précédentes n'a permis.
+- **Python 2 → Python 3**, l'exemple le plus parlant. Python 3.0 sort en **décembre 2008**, en cassant volontairement la compatibilité. Mais comme l'écosystème est libre et piloté par la communauté, **Python 2.7 a été maintenu en parallèle jusqu'au 1ᵉʳ janvier 2020** — plus de onze ans. (La date de fin de vie a même été repoussée de 2015 à 2020 pour laisser à tout le monde le temps de migrer.) Personne n'a été mis devant le fait accompli : chacun a pu migrer **à son rythme**. C'est exactement ce qu'aucune des huit histoires précédentes n'a permis.
 
 La différence est là : avec le libre, une rupture reste **gérable**, parce que le pouvoir de décision n'est pas confisqué par un seul acteur.
 
@@ -134,7 +149,7 @@ Ce que j'ai changé, ces dernières années :
 - Je me suis fixé une **règle simple** : chaque euro dépensé en logiciel privateur, je le compense par un euro **donné à un projet libre**. Concrètement, je contribue financièrement et chaque mois à des projets open source — ce qui **double** le prix réel de tout logiciel privateur que j'achète directement (je ne compte pas le logiciel embarqué, comme celui de ma voiture, dont j'ignore le coût).
 - Dans mes développements, **je n'utilise plus de logiciel privateur** : Prothesis Cloud repose presque exclusivement sur du logiciel libre et open source.
 
-Et puis il y a la contradiction que je ne veux pas cacher : **je suis salarié d'une entreprise qui développe et opère un SaaS privateur**, Prothesis Cloud. Certains me diront que, si je crois vraiment à ce que j'écris, je devrais démissionner. Au-delà du fait que j'ai besoin de ce travail pour faire vivre ma famille, je crois plus utile de **faire bouger les mentalités de l'intérieur**. Avant, personne dans la société ne connaissait les licences libres et leurs spécificités ; on ne développait qu'avec des outils privateurs. Aujourd'hui :
+Et puis il y a la contradiction que je ne veux pas cacher : **je suis salarié d'une entreprise qui développe et opère un SaaS privateur**, Prothesis Cloud. Certains me diront que, si je crois vraiment à ce que j'écris, je devrais démissionner. Au-delà du fait que j'ai besoin de ce travail pour faire vivre ma famille, je crois que c'est aussi utile de **faire bouger les mentalités de l'intérieur**. Avant, personne dans la société ne connaissait les licences libres et leurs spécificités ; on ne développait qu'avec des outils privateurs. Aujourd'hui :
 
 - on **n'apprend plus** les technologies fermées : quand on rencontre un problème, on contribue sur les forums (mon score Stack Overflow est passé de 0 à **1 327** ces dernières années — modeste, mais mieux que zéro) ;
 - on a **contribué à des projets** de l'écosystème .NET (par exemple une [amélioration fusionnée dans DocNet](https://github.com/GowenGit/docnet/pull/42)) et publié un embryon de bibliothèque en open source, [SimpleExcelExporter](https://www.nuget.org/packages/SimpleExcelExporter) (sous licence **LGPL-3.0**) ;
@@ -143,7 +158,7 @@ Et puis il y a la contradiction que je ne veux pas cacher : **je suis salarié d
 
 On entend parfois que les entreprises « exploitent » le logiciel libre. Je crois l'inverse : **rien qu'en l'utilisant et en le faisant connaître, on sert la cause** — on élargit sa base d'utilisateurs, on remonte des bugs, on aide d'autres développeurs, on finance les mainteneurs.
 
-Mais si ces sept histoires enseignent une chose, c'est que **migrer vers le libre après coup est lent, fragile et coûteux**. Cinq personnes sur soixante, une direction qui refuse le matériel, des années pour défaire des dépendances accumulées. D'où la vraie leçon, surtout pour celles et ceux qui débutent : **commencez libre dès le départ**. Il est infiniment plus facile de bâtir sur du logiciel libre dès le premier jour que de s'extraire, des années plus tard, d'un écosystème privateur dans lequel on s'est enfermé sans même s'en rendre compte.
+Mais si ces huit histoires enseignent une chose, c'est que **migrer vers le libre après coup est lent, fragile et coûteux**. Cinq personnes sur soixante, une direction qui refuse le matériel, des années pour défaire des dépendances accumulées. D'où la vraie leçon, surtout pour celles et ceux qui débutent : **commencez libre dès le départ**. Le logiciel privateur a souvent de bonnes raisons d'attirer — il est parfois plus abouti, mieux intégré ou mieux accompagné, et c'est un choix qui peut être parfaitement rationnel sur le moment. Mais, après toutes ces années, ma conviction est qu'il reste le plus souvent bien plus facile de bâtir sur du logiciel libre dès le premier jour que de s'extraire, des années plus tard, d'un écosystème privateur dans lequel on s'est enfermé sans même s'en rendre compte.
 
 ## Conclusion
 
@@ -158,6 +173,7 @@ J'invite donc tout le monde, partout, à **se tourner vers le logiciel libre** c
 - Sur le terme « privateur » — [Logiciel propriétaire, Wikipédia (FR)](https://fr.wikipedia.org/wiki/Logiciel_propri%C3%A9taire)
 - Conversion depuis Access 2.0 — [Allen Browne, « Issues in converting from Access 2 »](http://allenbrowne.com/gotcha27.html) · [Microsoft : importer des bases Access 2.0 et 95](https://support.microsoft.com/en-au/office/import-access-2-0-and-access-95-databases-into-current-versions-2e9d8851-101d-4407-a881-65d06bb12aa7)
 - Homelidays Session Service — [dépôt GitHub](https://github.com/Yanal-Yves/homelidays-session-service)
+- Visual Studio, suppression puis retour des projets d'installation — [Visual Studio Blog, « Visual Studio Installer Projects Extension »](https://devblogs.microsoft.com/visualstudio/visual-studio-installer-projects-extension/) · [InfoQ, « Visual Studio 2013 Installer Project »](https://www.infoq.com/news/2014/04/vs2013_installer_project) · [InstallShield LE et Visual Studio 2012 — support x64](https://gordon.byers.me/misc/installshield-le-visual-studio-2012-x64-support/)
 - Fin de support de Windows 7 et parc résiduel — [PC Gamer, « Over 100 million PCs still run Windows 7… »](https://www.pcgamer.com/over-100-million-pcs-still-run-windows-7-a-year-after-microsoft-ended-support/)
 - Campagne FSF — [« Upcycle Windows 7 »](https://www.fsf.org/windows/upcycle-windows-7)
 - Fin de support de Windows 10 — [Microsoft Support : Windows 10 support has ended on October 14, 2025](https://support.microsoft.com/en-us/windows/windows-10-support-has-ended-on-october-14-2025-2ca8b313-1946-43d3-b55c-2b95b107f281)
