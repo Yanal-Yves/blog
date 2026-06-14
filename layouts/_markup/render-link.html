@@ -1,0 +1,14 @@
+{{- $destination := .Destination -}}
+{{- if .Page.Site.Params.BookPortableLinks -}}
+  {{- $destination = partial "docs/links/portable-link" . -}}
+{{- end -}}
+{{- /* Les liens externes s'ouvrent dans un nouvel onglet ; les liens internes (ancres, navigation) restent dans l'onglet courant. */ -}}
+{{- $isExternal := or (strings.HasPrefix $destination "http://") (strings.HasPrefix $destination "https://") -}}
+{{- with .Page.Site.BaseURL -}}
+  {{- $host := (urls.Parse .).Host -}}
+  {{- if and $isExternal $host (strings.Contains $destination $host) -}}
+    {{- $isExternal = false -}}
+  {{- end -}}
+{{- end -}}
+<a href="{{ $destination | safeURL }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ if $isExternal }} target="_blank" rel="noopener noreferrer"{{ end }}>{{ .Text | safeHTML }}</a>
+{{- /**/ -}}
