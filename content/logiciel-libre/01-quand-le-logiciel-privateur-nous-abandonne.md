@@ -12,7 +12,7 @@ J'ai passé plus de vingt ans à développer et à architecturer des logiciels. 
 
 Le mot « privateur » n'est pas une coquetterie. C'est le terme défendu par Richard Stallman et la communauté du logiciel libre francophone pour traduire l'anglais *proprietary*, parce qu'il dit ce qu'il se passe vraiment : ce type de logiciel **prive l'utilisateur de ses libertés** — celle d'étudier le programme, de le modifier, de le corriger, de le faire vivre quand son éditeur a décidé de le laisser mourir. Avec un logiciel privateur, comme l'explique Stallman, **ce n'est pas l'utilisateur qui contrôle le programme : c'est le programme qui contrôle l'utilisateur**, et c'est l'éditeur qui contrôle le programme. (Voir la [définition du logiciel libre](https://www.gnu.org/philosophy/free-sw.fr.html) et [« Le logiciel libre est encore plus essentiel maintenant »](https://www.gnu.org/philosophy/free-software-even-more-important.fr.html).)
 
-Cet article repose sur des **situations que j'ai réellement vécues**, puis montre ce que le logiciel libre aurait changé. Il ouvre une série, en cours d'écriture, sur le logiciel libre et les licences. Je ne raconte pas une théorie : je raconte des murs sur lesquels je me suis cogné. J'ai vérifié les faits et les dates auprès de sources publiques, listées en fin d'article ; quand un souvenir n'a pas pu être confirmé précisément, je le signale.
+Cet article repose sur des **situations réelles** : pour la plupart, des **murs sur lesquels je me suis personnellement cogné** ; pour le reste, des cas que j'ai vus **frapper mes proches**, ou qui m'ont été **rapportés par d'autres professionnels de mon secteur** — et je le signale au fil du texte. Il montre ensuite ce que le logiciel libre aurait changé, et ouvre une série, en cours d'écriture, sur le logiciel libre et les licences. Je ne raconte pas une théorie. J'ai vérifié les faits et les dates auprès de sources publiques, listées en fin d'article ; quand un souvenir n'a pas pu être confirmé précisément, je le signale.
 
 ## Expérience 1 — L'école de musique et Microsoft Access
 
@@ -73,6 +73,8 @@ L'histoire se répète avec **Windows 10**, dont le support s'arrête le **14 oc
 
 Le résultat est double : un **gâchis écologique** considérable (des centaines de millions de machines poussées vers la benne ou vers l'obsolescence forcée) et un **non-respect des utilisateurs**, à qui l'on impose un calendrier qu'ils n'ont pas choisi. Avec un système libre, une communauté aurait pu prolonger la sécurité de ces machines aussi longtemps qu'elle le souhaite. Avec un système privateur, c'est interdit : personne d'autre que l'éditeur n'a le droit de toucher au code.
 
+Je ne parle pas ici d'un drame abstrait : dans ma propre famille, **plusieurs ordinateurs encore parfaitement utilisables** ont été rendus obsolètes par ces fins de support.
+
 ## Expérience 6 — OneDrive et nos photos de famille
 
 Un soir, en 2024, je jette un œil sur l'ordinateur de ma femme et je vois quelque chose d'inquiétant : **toutes nos photos stockées sur OneDrive sont en train de disparaître localement** de sa machine. **400 Gio de photos de famille** qui s'effacent du disque — pas de OneDrive, juste la copie locale. Une fois l'opération terminée, à la place du dossier de photos, il ne reste qu'un **raccourci `.url`** : quand on clique dessus, ça ouvre un navigateur web. Même chose pour le dossier qui contenait la base **KeePass** que je partage avec ma femme.
@@ -97,7 +99,7 @@ Après avoir étudié la nouvelle tarification, testé la version Cloud et déco
 
 ## Expérience 8 — PC Soft : changer les règles en cours de partie
 
-Plus récemment, l'éditeur français **PC Soft** (WinDev, WebDev, WinDev Mobile) a été **racheté par le groupe canadien Volaris Group** (printemps 2025). Dans la foulée, le **modèle économique change radicalement**.
+Dernier cas — le seul que je **n'ai pas vécu directement**, mais qui m'a été **rapporté par des développeurs de mon réseau** dont le modèle économique se trouve menacé. L'éditeur français **PC Soft** (WinDev, WebDev, WinDev Mobile) a été **racheté par le groupe canadien Volaris Group** (printemps 2025). Dans la foulée, le **modèle économique change radicalement**.
 
 Avant : on payait une licence pour les **outils de développement**, et le **runtime était gratuit** — on déployait son application autant qu'on voulait, sur autant de postes ou de serveurs qu'on voulait, sans surcoût. Après le rachat : fin de la licence perpétuelle, passage à un **abonnement (SaaS)**, et surtout **facturation au runtime / à l'usage**.
 
