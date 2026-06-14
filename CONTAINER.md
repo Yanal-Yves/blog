@@ -90,15 +90,16 @@ chemin que sur l'hôte → Claude peut *voir* tes captures, jamais les modifier.
 
 Par défaut compose prend `~/Pictures/Screenshots` (emplacement KDE/Spectacle en
 **anglais**). En **français** c'est `~/Images/Copies d'écran` : il faut alors
-renseigner `SCREENSHOTS_DIR`. Le plus robuste — **indépendant de la locale** — est
-de lire l'emplacement réellement configuré dans Spectacle, avec repli `xdg-user-dir` :
+renseigner `SCREENSHOTS_DIR`. Le plus robuste — **indépendant de la locale** —
+combine le dossier Images localisé (`xdg-user-dir PICTURES`) et le nom de
+sous-dossier que Spectacle a lui-même localisé (clé `[ImageSave]
+translatedScreenshotsFolder`, p. ex. `Copies d'écran`), avec repli `Screenshots` :
 
 ```bash
-SHOTS="$(kreadconfig6 --file spectaclerc --group General --key defaultSaveLocation 2>/dev/null \
-       || kreadconfig5 --file spectaclerc --group General --key defaultSaveLocation 2>/dev/null)"
-SHOTS="${SHOTS#file://}"                                    # enlève un éventuel file://
-SHOTS="${SHOTS:-$(xdg-user-dir PICTURES)/Screenshots}"      # repli si non configuré
-echo "SCREENSHOTS_DIR=$SHOTS" >> .env
+PICT="$(xdg-user-dir PICTURES)"
+SUB="$(kreadconfig6 --file spectaclerc --group ImageSave --key translatedScreenshotsFolder 2>/dev/null \
+     || kreadconfig5 --file spectaclerc --group ImageSave --key translatedScreenshotsFolder 2>/dev/null)"
+echo "SCREENSHOTS_DIR=$PICT/${SUB:-Screenshots}" >> .env
 ```
 
 > Le montage source = cible : si le dossier n'existe pas encore côté hôte, Docker
