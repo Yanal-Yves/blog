@@ -2,7 +2,9 @@
   "name": "blog-dev",
   "dockerComposeFile": "../compose.yaml",
   "service": "dev",
-  "workspaceFolder": "/workspace",
+  // Même chemin que sur l'hôte : ${localWorkspaceFolder} = chemin hôte du dossier
+  // ouvert dans VSCode, qui correspond au montage de compose.yaml (${PWD}).
+  "workspaceFolder": "${localWorkspaceFolder}",
   // On ne veut PAS le serveur Hugo comme commande au démarrage du devcontainer :
   // l'éditeur (VSCode/JetBrains) se connecte dans le conteneur, on lance Hugo à la main.
   "overrideCommand": true,

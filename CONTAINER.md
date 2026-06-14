@@ -20,12 +20,13 @@ Les deux tournent en utilisateur non-root (`node` pour l'étage dev). Hugo est f
 
 ## Modèle de sécurité
 
-Le conteneur isole le **disque** (seul le projet est monté, jamais `$HOME`,
+Le conteneur isole le **disque** (on ne monte que le projet — en lecture/écriture
+— et le dossier des captures d'écran — en **lecture seule** ; jamais `$HOME`,
 `~/.ssh`, etc.). Mais l'isolation GitHub vient du **token**, pas du conteneur :
 
 1. **Token fine-grained limité au seul repo `Yanal-Yves/blog`** — voir `.env.example`.
    Sans ça, un token large laisserait Claude atteindre *tous* tes repos.
-2. On ne monte que le projet (voir `compose.yaml`).
+2. On ne monte que le projet et les captures d'écran (voir `compose.yaml`).
 3. On ne monte **jamais** le socket Docker (= évasion triviale).
 4. Config Claude isolée dans un volume dédié, séparée de ton `~/.claude` de l'hôte.
 
@@ -59,6 +60,50 @@ docker compose build
 > Si tu **changes l'uid après avoir déjà lancé le conteneur**, le volume Claude
 > garde son ancien propriétaire (Docker ne le réinitialise pas) → Claude ne peut
 > plus y écrire. Recrée-le : `docker volume rm blog_claude-config`.
+
+## Chemins de montage : projet et captures d'écran
+
+Deux variables (facultatives) dans `.env` pilotent les montages. **Compose
+n'expanse pas `$HOME`/`$PWD` dans `.env`** (valeurs littérales) : laisse-les
+vides pour profiter des défauts calculés dans `compose.yaml`, ou mets un chemin
+**absolu** complet.
+
+### Projet au même chemin dedans/dehors (`PROJECT_DIR`)
+
+Le projet est monté **au même chemin absolu** sur l'hôte et dans le conteneur,
+pour que Claude, les outils et toi le voyiez à l'identique. Par défaut compose
+prend `${PWD}` : lance simplement `docker compose` **depuis la racine du projet**
+(ex. `~/_gh/Yanal-Yves/blog`) et c'est automatique — rien à configurer.
+
+Pour forcer un chemin fixe, renseigne `PROJECT_DIR` dans `.env` (chemin absolu) :
+
+```bash
+echo "PROJECT_DIR=$PWD" >> .env   # fige le chemin courant
+```
+
+(VSCode Dev Containers utilise `${localWorkspaceFolder}`, donc s'aligne tout seul.)
+
+### Captures d'écran visibles par Claude (`SCREENSHOTS_DIR`)
+
+Le dossier des captures de l'hôte est monté **en lecture seule** (`:ro`) au même
+chemin que sur l'hôte → Claude peut *voir* tes captures, jamais les modifier.
+
+Par défaut compose prend `~/Pictures/Screenshots` (emplacement KDE/Spectacle en
+**anglais**). En **français** c'est `~/Images/Copies d'écran` : il faut alors
+renseigner `SCREENSHOTS_DIR`. Le plus robuste — **indépendant de la locale** — est
+de lire l'emplacement réellement configuré dans Spectacle, avec repli `xdg-user-dir` :
+
+```bash
+SHOTS="$(kreadconfig6 --file spectaclerc --group General --key defaultSaveLocation 2>/dev/null \
+       || kreadconfig5 --file spectaclerc --group General --key defaultSaveLocation 2>/dev/null)"
+SHOTS="${SHOTS#file://}"                                    # enlève un éventuel file://
+SHOTS="${SHOTS:-$(xdg-user-dir PICTURES)/Screenshots}"      # repli si non configuré
+echo "SCREENSHOTS_DIR=$SHOTS" >> .env
+```
+
+> Le montage source = cible : si le dossier n'existe pas encore côté hôte, Docker
+> le crée (vide, possédé par root). Vérifie donc que `SCREENSHOTS_DIR` pointe bien
+> sur ton dossier réel. Après modif de `.env`, relance `docker compose up dev`.
 
 ## Au quotidien
 

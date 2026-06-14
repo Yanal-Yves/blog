@@ -97,6 +97,8 @@ RUN mkdir -p /home/node/.claude \
 
 # On tourne en utilisateur non-root (aligné sur l'hôte via UID/GID ci-dessus).
 USER node
+# Repli si l'image est lancée sans compose. En usage normal, compose.yaml impose
+# `working_dir` = chemin hôte du projet (même chemin dedans/dehors).
 WORKDIR /workspace
 
 EXPOSE 1313
