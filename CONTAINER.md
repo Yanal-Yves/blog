@@ -63,30 +63,35 @@ docker compose build
 
 ## Chemins de montage : projet et captures d'écran
 
-Deux variables (facultatives) dans `.env` pilotent les montages. **Compose
-n'expanse pas `$HOME`/`$PWD` dans `.env`** (valeurs littérales) : laisse-les
-vides pour profiter des défauts calculés dans `compose.yaml`, ou mets un chemin
-**absolu** complet.
+### Projet : convention `<home>/_gh/<org>/<repo>`
 
-### Projet au même chemin dedans/dehors (`PROJECT_DIR`)
+Le projet vit sous le **home de chaque environnement**, suffixé par
+`_gh/<github-org>/<repo>`. Cette convention scale à plusieurs dépôts sans
+collision (contrairement à un `/workspace` unique) et calque l'organisation de
+GitHub :
 
-Le projet est monté **au même chemin absolu** sur l'hôte et dans le conteneur,
-pour que Claude, les outils et toi le voyiez à l'identique. Par défaut compose
-prend `${PWD}` : lance simplement `docker compose` **depuis la racine du projet**
-(ex. `~/_gh/Yanal-Yves/blog`) et c'est automatique — rien à configurer.
+| Environnement | Chemin du projet |
+|---|---|
+| Hôte | `~/_gh/Yanal-Yves/blog` (= `/home/<toi>/_gh/Yanal-Yves/blog`) |
+| Conteneur **dev** | `/home/node/_gh/Yanal-Yves/blog` (`node` = user du conteneur) |
+| **CI** (runner) | `$HOME/_gh/Yanal-Yves/blog` (= `/home/runner/_gh/Yanal-Yves/blog`) |
 
-Pour forcer un chemin fixe, renseigne `PROJECT_DIR` dans `.env` (chemin absolu) :
-
-```bash
-echo "PROJECT_DIR=$PWD" >> .env   # fige le chemin courant
-```
-
-(VSCode Dev Containers utilise `${localWorkspaceFolder}`, donc s'aligne tout seul.)
+Rien à configurer : `compose.yaml` fixe la cible du montage à
+`/home/node/_gh/Yanal-Yves/blog` (et VSCode Dev Containers ouvre ce même chemin).
+`node` est un utilisateur de conteneur **générique** : aucun chemin personnel de
+l'hôte n'est inscrit dans les fichiers versionnés. Lance simplement
+`docker compose up dev` depuis la racine du dépôt.
 
 ### Captures d'écran visibles par Claude (`SCREENSHOTS_DIR`)
 
 Le dossier des captures de l'hôte est monté **en lecture seule** (`:ro`) au même
 chemin que sur l'hôte → Claude peut *voir* tes captures, jamais les modifier.
+(C'est le seul montage qui suit encore le modèle « même chemin dedans/dehors » :
+tu colles à Claude des chemins absolus de captures, ils doivent donc exister à
+l'identique dans le conteneur.) Ce montage se règle dans `.env` ; **Compose
+n'expanse pas `$HOME`/`$PWD` dans `.env`** (valeurs littérales) : laisse
+`SCREENSHOTS_DIR` vide pour le défaut calculé dans `compose.yaml`, ou mets un
+chemin **absolu** complet.
 
 Par défaut compose prend `~/Pictures/Screenshots` (emplacement KDE/Spectacle en
 **anglais**). En **français** c'est `~/Images/Copies d'écran` : il faut alors

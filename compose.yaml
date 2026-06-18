@@ -29,16 +29,16 @@ services:
     tty: true
     ports:
       - "1313:1313"
-    # Même chemin sur l'hôte ET dans le conteneur (Claude, les outils et toi
-    # voyez le projet à l'identique). Par défaut on prend ${PWD} : comme tu lances
-    # `docker compose` depuis la racine du projet, le conteneur monte le projet à
-    # son chemin hôte absolu (ex. /home/<toi>/_gh/Yanal-Yves/blog), sans config.
-    # Pour forcer un chemin, renseigne PROJECT_DIR dans .env (chemin ABSOLU littéral).
-    working_dir: ${PROJECT_DIR:-${PWD}}
+    # Convention de chemin : le projet vit sous le home de CHAQUE environnement,
+    # suffixé par `_gh/<org>/<repo>` (ici Yanal-Yves/blog). Dans le conteneur,
+    # l'utilisateur est `node` → `/home/node/_gh/Yanal-Yves/blog`. C'est un user
+    # de conteneur générique : aucun chemin perso de l'hôte n'est inscrit ici.
+    # (`node` calque ce que tu as sur l'hôte sous `~/_gh/Yanal-Yves/blog`.)
+    working_dir: /home/node/_gh/Yanal-Yves/blog
     volumes:
-      # On NE monte QUE le projet — jamais $HOME, ~/.ssh, etc. — mais au même
-      # chemin que sur l'hôte (cf. working_dir ci-dessus).
-      - .:${PROJECT_DIR:-${PWD}}
+      # On NE monte QUE le projet — jamais $HOME, ~/.ssh, etc. La source `.` est
+      # le dépôt courant ; la cible suit la convention ci-dessus.
+      - .:/home/node/_gh/Yanal-Yves/blog
       # Config Claude isolée et persistante (login conservé entre les runs),
       # séparée de ton ~/.claude de l'hôte.
       - claude-config:/home/node/.claude
