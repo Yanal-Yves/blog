@@ -1,0 +1,25 @@
+# Montage OPTIONNEL des captures d'écran (lecture seule) dans le conteneur dev.
+#
+# Pourquoi un fichier à part : Compose fusionne automatiquement
+# `compose.override.yaml` s'il existe. Tant que tu ne le crées pas, `docker
+# compose up dev` ne monte RIEN de plus (pas de dossier parasite créé en root).
+#
+# Pour l'activer :
+#   1) cp compose.override.yaml.example compose.override.yaml   (gitignoré)
+#   2) renseigne SCREENSHOTS_DIR dans .env (chemin ABSOLU de tes captures)
+#      ex. FR/KDE : SCREENSHOTS_DIR=/home/toi/Images/Copies d'écran
+#      (résolution dynamique indépendante de la locale : voir CONTAINER.md)
+#
+# Le dossier est monté au MÊME chemin que sur l'hôte, en LECTURE SEULE, et
+# `create_host_path: false` fait échouer franchement si le chemin n'existe pas
+# (au lieu de créer en douce un dossier vide possédé par root).
+
+services:
+  dev:
+    volumes:
+      - type: bind
+        source: ${SCREENSHOTS_DIR:?renseigne SCREENSHOTS_DIR dans .env}
+        target: ${SCREENSHOTS_DIR:?renseigne SCREENSHOTS_DIR dans .env}
+        read_only: true
+        bind:
+          create_host_path: false

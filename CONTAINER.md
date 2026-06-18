@@ -20,13 +20,15 @@ Les deux tournent en utilisateur non-root (`node` pour l'étage dev). Hugo est f
 
 ## Modèle de sécurité
 
-Le conteneur isole le **disque** (on ne monte que le projet — en lecture/écriture
-— et le dossier des captures d'écran — en **lecture seule** ; jamais `$HOME`,
-`~/.ssh`, etc.). Mais l'isolation GitHub vient du **token**, pas du conteneur :
+Le conteneur isole le **disque** (par défaut on ne monte **que le projet**, en
+lecture/écriture ; jamais `$HOME`, `~/.ssh`, etc. — le dossier des captures est
+un montage *optionnel* en lecture seule, voir plus bas). Mais l'isolation GitHub
+vient du **token**, pas du conteneur :
 
 1. **Token fine-grained limité au seul repo `Yanal-Yves/blog`** — voir `.env.example`.
    Sans ça, un token large laisserait Claude atteindre *tous* tes repos.
-2. On ne monte que le projet et les captures d'écran (voir `compose.yaml`).
+2. Par défaut on ne monte que le projet (voir `compose.yaml`) ; les captures sont
+   opt-in (`compose.override.yaml`) et en lecture seule.
 3. On ne monte **jamais** le socket Docker (= évasion triviale).
 4. Config Claude isolée dans un volume dédié, séparée de ton `~/.claude` de l'hôte.
 
@@ -82,23 +84,29 @@ Rien à configurer : `compose.yaml` fixe la cible du montage à
 l'hôte n'est inscrit dans les fichiers versionnés. Lance simplement
 `docker compose up dev` depuis la racine du dépôt.
 
-### Captures d'écran visibles par Claude (`SCREENSHOTS_DIR`)
+### Captures d'écran visibles par Claude (optionnel, opt-in)
 
-Le dossier des captures de l'hôte est monté **en lecture seule** (`:ro`) au même
-chemin que sur l'hôte → Claude peut *voir* tes captures, jamais les modifier.
-(C'est le seul montage qui suit encore le modèle « même chemin dedans/dehors » :
-tu colles à Claude des chemins absolus de captures, ils doivent donc exister à
-l'identique dans le conteneur.) Ce montage se règle dans `.env` ; **Compose
-n'expanse pas `$HOME`/`$PWD` dans `.env`** (valeurs littérales) : laisse
-`SCREENSHOTS_DIR` vide pour le défaut calculé dans `compose.yaml`, ou mets un
-chemin **absolu** complet.
+Par défaut, **aucun** dossier de captures n'est monté — `docker compose up dev`
+ne touche que le projet. Pour rendre tes captures visibles par Claude (en
+**lecture seule**, au même chemin que sur l'hôte), active l'override Compose :
 
-Par défaut compose prend `~/Pictures/Screenshots` (emplacement KDE/Spectacle en
-**anglais**). En **français** c'est `~/Images/Copies d'écran` : il faut alors
-renseigner `SCREENSHOTS_DIR`. Le plus robuste — **indépendant de la locale** —
-combine le dossier Images localisé (`xdg-user-dir PICTURES`) et le nom de
-sous-dossier que Spectacle a lui-même localisé (clé `[ImageSave]
-translatedScreenshotsFolder`, p. ex. `Copies d'écran`), avec repli `Screenshots` :
+```bash
+cp compose.override.yaml.example compose.override.yaml   # gitignoré, auto-mergé
+# puis renseigne SCREENSHOTS_DIR dans .env (voir ci-dessous)
+```
+
+`compose.override.yaml` est fusionné automatiquement par Compose s'il existe.
+Tant que tu ne le crées pas, rien de plus n'est monté — et aucun dossier parasite
+n'est créé. Le montage utilise `create_host_path: false` : si `SCREENSHOTS_DIR`
+pointe sur un chemin inexistant, Compose **échoue franchement** (au lieu de créer
+en douce un dossier vide possédé par root).
+
+**Régler `SCREENSHOTS_DIR`** (chemin **absolu** — Compose n'expanse pas
+`$HOME`/`$PWD` dans `.env`). Le défaut KDE/Spectacle est `~/Pictures/Screenshots`
+en **anglais**, `~/Images/Copies d'écran` en **français**. Le plus robuste,
+**indépendant de la locale**, combine le dossier Images localisé
+(`xdg-user-dir PICTURES`) et le nom de sous-dossier que Spectacle a lui-même
+localisé (clé `[ImageSave] translatedScreenshotsFolder`), avec repli `Screenshots` :
 
 ```bash
 PICT="$(xdg-user-dir PICTURES)"
@@ -107,9 +115,7 @@ SUB="$(kreadconfig6 --file spectaclerc --group ImageSave --key translatedScreens
 echo "SCREENSHOTS_DIR=$PICT/${SUB:-Screenshots}" >> .env
 ```
 
-> Le montage source = cible : si le dossier n'existe pas encore côté hôte, Docker
-> le crée (vide, possédé par root). Vérifie donc que `SCREENSHOTS_DIR` pointe bien
-> sur ton dossier réel. Après modif de `.env`, relance `docker compose up dev`.
+> Après modif de `.env` ou de l'override, relance `docker compose up dev`.
 
 ## Au quotidien
 
