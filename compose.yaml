@@ -51,6 +51,10 @@ services:
         source: ${SCREENSHOTS_DIR:-${HOME}/Pictures/Screenshots}
         target: ${SCREENSHOTS_DIR:-${HOME}/Pictures/Screenshots}
         read_only: true
+        # Si le chemin n'existe pas, échouer franchement au lieu de créer en
+        # douce un dossier vide possédé par root.
+        bind:
+          create_host_path: false
     environment:
       # Token GitHub fine-grained limité au repo du blog (depuis .env, gitignoré).
       # gh le lit automatiquement ; pour git push, lance `gh auth setup-git` une

@@ -107,9 +107,10 @@ SUB="$(kreadconfig6 --file spectaclerc --group ImageSave --key translatedScreens
 echo "SCREENSHOTS_DIR=$PICT/${SUB:-Screenshots}" >> .env
 ```
 
-> Le montage source = cible : si le dossier n'existe pas encore côté hôte, Docker
-> le crée (vide, possédé par root). Vérifie donc que `SCREENSHOTS_DIR` pointe bien
-> sur ton dossier réel. Après modif de `.env`, relance `docker compose up dev`.
+> Ce montage a `create_host_path: false` : si `SCREENSHOTS_DIR` pointe sur un
+> dossier inexistant, `docker compose up` **échoue clairement** (au lieu de créer
+> en douce un dossier vide possédé par root). Vérifie donc que `SCREENSHOTS_DIR`
+> pointe sur ton dossier réel. Après modif de `.env`, relance `docker compose up dev`.
 
 ## Au quotidien
 
