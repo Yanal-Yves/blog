@@ -44,11 +44,15 @@ jobs:
       # elle ne contient que Hugo, pas les outils de dev (Claude, gh, nvim).
       # --user : on tourne sous l'utilisateur du runner (pas root) pour que les
       # fichiers générés dans ./public lui appartiennent, et non à root.
+      # Chemin : même convention que l'hôte et le conteneur dev — projet sous le
+      # home de l'environnement courant, suffixé par `_gh/<org>/<repo>`. Sur le
+      # runner, $HOME = /home/runner → /home/runner/_gh/Yanal-Yves/blog. Hugo y
+      # écrit `public/`, remappé sur $PWD/public côté runner (publié plus bas).
       - name: Construction du site (Build)
         run: |
           docker run --rm \
             --user "$(id -u):$(id -g)" \
-            -v "$PWD:/workspace" -w /workspace \
+            -v "$PWD:$HOME/_gh/Yanal-Yves/blog" -w "$HOME/_gh/Yanal-Yves/blog" \
             ghcr.io/yanal-yves/blog-ci:latest \
             hugo --minify
 

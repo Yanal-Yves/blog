@@ -26,13 +26,14 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* /tmp/hugo.deb
 
 # Hugo (enableGitInfo) lit l'historique git pour la date de dernière màj. En CI,
-# le conteneur tourne en root sur un dépôt possédé par le runner → git refuse
-# ("dubious ownership") et le build échoue. On déclare le workspace comme sûr
-# pour tout utilisateur (conteneur éphémère, sans risque).
+# le dépôt monté n'appartient pas à l'utilisateur du conteneur → git refuse
+# ("dubious ownership") et le build échoue. On déclare tout dépôt monté comme
+# sûr (conteneur éphémère, sans risque).
 RUN git config --system --add safe.directory '*'
 
-WORKDIR /workspace
-# La CI lance `hugo --minify` ; pas de CMD spécifique requis ici.
+# Pas de WORKDIR figé : la CI fixe elle-même le répertoire de travail via
+# `-w "$HOME/_gh/Yanal-Yves/blog"` (cf. deploy.yml), suivant la même convention
+# que l'hôte et le conteneur dev. La CI lance `hugo --minify`.
 
 # --------------------------------------------------------------------------
 # Étage dev — image locale complète (Hugo + Node + Claude + gh + Neovim)
@@ -59,7 +60,7 @@ RUN apt-get update \
 # Même garde que l'étage build : le serveur Hugo (enableGitInfo) et les commandes
 # git tournent ici en `node`. Sur un hôte Linux dont l'uid ≠ 1000, le dépôt monté
 # n'appartient pas à `node` → git refuse ("dubious ownership"). On déclare le
-# workspace comme sûr pour préserver la portabilité multi-machines.
+# dépôt monté comme sûr pour préserver la portabilité multi-machines.
 RUN git config --system --add safe.directory '*'
 
 # Hugo : on réutilise le binaire exact de l'étage build (même version, garanti aligné).
@@ -97,7 +98,11 @@ RUN mkdir -p /home/node/.claude \
 
 # On tourne en utilisateur non-root (aligné sur l'hôte via UID/GID ci-dessus).
 USER node
-WORKDIR /workspace
+# Convention de chemin : projet sous le home du conteneur (`node`), suffixé par
+# `_gh/<org>/<repo>`. `node` est un user de conteneur générique → aucun chemin
+# perso de l'hôte ici. compose.yaml impose le même `working_dir` ; ce WORKDIR ne
+# sert que de repli si l'image est lancée sans compose (alors sans montage).
+WORKDIR /home/node/_gh/Yanal-Yves/blog
 
 EXPOSE 1313
 

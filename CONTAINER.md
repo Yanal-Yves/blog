@@ -20,12 +20,13 @@ Les deux tournent en utilisateur non-root (`node` pour l'étage dev). Hugo est f
 
 ## Modèle de sécurité
 
-Le conteneur isole le **disque** (seul le projet est monté, jamais `$HOME`,
+Le conteneur isole le **disque** (on ne monte que le projet — en lecture/écriture
+— et le dossier des captures d'écran — en **lecture seule** ; jamais `$HOME`,
 `~/.ssh`, etc.). Mais l'isolation GitHub vient du **token**, pas du conteneur :
 
 1. **Token fine-grained limité au seul repo `Yanal-Yves/blog`** — voir `.env.example`.
    Sans ça, un token large laisserait Claude atteindre *tous* tes repos.
-2. On ne monte que le projet (voir `compose.yaml`).
+2. On ne monte que le projet et les captures d'écran (voir `compose.yaml`).
 3. On ne monte **jamais** le socket Docker (= évasion triviale).
 4. Config Claude isolée dans un volume dédié, séparée de ton `~/.claude` de l'hôte.
 
@@ -59,6 +60,57 @@ docker compose build
 > Si tu **changes l'uid après avoir déjà lancé le conteneur**, le volume Claude
 > garde son ancien propriétaire (Docker ne le réinitialise pas) → Claude ne peut
 > plus y écrire. Recrée-le : `docker volume rm blog_claude-config`.
+
+## Chemins de montage : projet et captures d'écran
+
+### Projet : convention `<home>/_gh/<org>/<repo>`
+
+Le projet vit sous le **home de chaque environnement**, suffixé par
+`_gh/<github-org>/<repo>`. Cette convention scale à plusieurs dépôts sans
+collision (contrairement à un `/workspace` unique) et calque l'organisation de
+GitHub :
+
+| Environnement | Chemin du projet |
+|---|---|
+| Hôte | `~/_gh/Yanal-Yves/blog` (= `/home/<toi>/_gh/Yanal-Yves/blog`) |
+| Conteneur **dev** | `/home/node/_gh/Yanal-Yves/blog` (`node` = user du conteneur) |
+| **CI** (runner) | `$HOME/_gh/Yanal-Yves/blog` (= `/home/runner/_gh/Yanal-Yves/blog`) |
+
+Rien à configurer : `compose.yaml` fixe la cible du montage à
+`/home/node/_gh/Yanal-Yves/blog` (et VSCode Dev Containers ouvre ce même chemin).
+`node` est un utilisateur de conteneur **générique** : aucun chemin personnel de
+l'hôte n'est inscrit dans les fichiers versionnés. Lance simplement
+`docker compose up dev` depuis la racine du dépôt.
+
+### Captures d'écran visibles par Claude (`SCREENSHOTS_DIR`)
+
+Le dossier des captures de l'hôte est monté **en lecture seule** (`:ro`) au même
+chemin que sur l'hôte → Claude peut *voir* tes captures, jamais les modifier.
+(C'est le seul montage qui suit encore le modèle « même chemin dedans/dehors » :
+tu colles à Claude des chemins absolus de captures, ils doivent donc exister à
+l'identique dans le conteneur.) Ce montage se règle dans `.env` ; **Compose
+n'expanse pas `$HOME`/`$PWD` dans `.env`** (valeurs littérales) : laisse
+`SCREENSHOTS_DIR` vide pour le défaut calculé dans `compose.yaml`, ou mets un
+chemin **absolu** complet.
+
+Par défaut compose prend `~/Pictures/Screenshots` (emplacement KDE/Spectacle en
+**anglais**). En **français** c'est `~/Images/Copies d'écran` : il faut alors
+renseigner `SCREENSHOTS_DIR`. Le plus robuste — **indépendant de la locale** —
+combine le dossier Images localisé (`xdg-user-dir PICTURES`) et le nom de
+sous-dossier que Spectacle a lui-même localisé (clé `[ImageSave]
+translatedScreenshotsFolder`, p. ex. `Copies d'écran`), avec repli `Screenshots` :
+
+```bash
+PICT="$(xdg-user-dir PICTURES)"
+SUB="$(kreadconfig6 --file spectaclerc --group ImageSave --key translatedScreenshotsFolder 2>/dev/null \
+     || kreadconfig5 --file spectaclerc --group ImageSave --key translatedScreenshotsFolder 2>/dev/null)"
+echo "SCREENSHOTS_DIR=$PICT/${SUB:-Screenshots}" >> .env
+```
+
+> Ce montage a `create_host_path: false` : si `SCREENSHOTS_DIR` pointe sur un
+> dossier inexistant, `docker compose up` **échoue clairement** (au lieu de créer
+> en douce un dossier vide possédé par root). Vérifie donc que `SCREENSHOTS_DIR`
+> pointe sur ton dossier réel. Après modif de `.env`, relance `docker compose up dev`.
 
 ## Au quotidien
 

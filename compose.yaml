@@ -4,9 +4,10 @@
 #   docker compose up dev            # serveur Hugo live-reload sur http://localhost:1313
 #   docker compose exec dev bash     # shell DANS le conteneur (claude, nvim, gh, git)
 #
-# Sécurité : seul le projet est monté. Le token GitHub est volontairement
-# limité au seul repo Yanal-Yves/blog (voir CONTAINER.md). Les dégâts que
-# Claude peut faire restent donc bornés à ce projet et à ce repo.
+# Sécurité : on ne monte que le projet (en lecture/écriture) et le dossier des
+# captures d'écran (en LECTURE SEULE) — jamais $HOME, ~/.ssh, etc. Le token GitHub
+# est volontairement limité au seul repo Yanal-Yves/blog (voir CONTAINER.md). Les
+# dégâts que Claude peut faire restent donc bornés à ce projet et à ce repo.
 
 services:
   dev:
@@ -28,12 +29,32 @@ services:
     tty: true
     ports:
       - "1313:1313"
+    # Convention de chemin : le projet vit sous le home de CHAQUE environnement,
+    # suffixé par `_gh/<org>/<repo>` (ici Yanal-Yves/blog). Dans le conteneur,
+    # l'utilisateur est `node` → `/home/node/_gh/Yanal-Yves/blog`. C'est un user
+    # de conteneur générique : aucun chemin perso de l'hôte n'est inscrit ici.
+    # (`node` calque ce que tu as sur l'hôte sous `~/_gh/Yanal-Yves/blog`.)
+    working_dir: /home/node/_gh/Yanal-Yves/blog
     volumes:
-      # On NE monte QUE le projet — jamais $HOME, ~/.ssh, etc.
-      - .:/workspace
+      # On NE monte QUE le projet — jamais $HOME, ~/.ssh, etc. La source `.` est
+      # le dépôt courant ; la cible suit la convention ci-dessus.
+      - .:/home/node/_gh/Yanal-Yves/blog
       # Config Claude isolée et persistante (login conservé entre les runs),
       # séparée de ton ~/.claude de l'hôte.
       - claude-config:/home/node/.claude
+      # Captures d'écran de l'hôte, en LECTURE SEULE (:ro) : Claude n'a qu'à les
+      # voir, jamais à y écrire. Montées au même chemin que sur l'hôte.
+      # Défaut = dossier KDE/anglais ~/Pictures/Screenshots. Pour une autre locale
+      # (FR : ~/Images/Copies d'écran) ou une résolution dynamique indépendante de
+      # la locale, renseigne SCREENSHOTS_DIR dans .env (voir CONTAINER.md).
+      - type: bind
+        source: ${SCREENSHOTS_DIR:-${HOME}/Pictures/Screenshots}
+        target: ${SCREENSHOTS_DIR:-${HOME}/Pictures/Screenshots}
+        read_only: true
+        # Si le chemin n'existe pas, échouer franchement au lieu de créer en
+        # douce un dossier vide possédé par root.
+        bind:
+          create_host_path: false
     environment:
       # Token GitHub fine-grained limité au repo du blog (depuis .env, gitignoré).
       # gh le lit automatiquement ; pour git push, lance `gh auth setup-git` une
