@@ -22,12 +22,12 @@ Cette technique est apparue comme une bonne pratique dans les années 90.
 1.  **Connexion** : Le serveur de mail de `a.com` se connecte au serveur de mail de `b.com`.
 2.  **Annonce (HELO/EHLO)** : Il se présente : `EHLO pf-1010.whm.fr-par.scw.cloud`
 3.  **Récupération IP** : Le serveur de `b.com` accepte la connexion. Il voit physiquement d'où viennent les paquets de données.  
-    Il note l'IP appelante : `51.159.128.187`.
+    Il note l'IP appelante : `203.0.113.187`.
 
 ### Phase 2 : Requête Inverse (Le "Reverse")
 
 1.  **Recherche `PTR`** : Le serveur `b.com` interroge le DNS (zone `in-addr.arpa` car c'est une IPv4) :  
-    "Quel est le nom associé à l'IP `51.159.128.187` ?" (Requête `PTR`)  
+    "Quel est le nom associé à l'IP `203.0.113.187` ?" (Requête `PTR`)  
     Réponse Inverse : Le DNS répond :  
     "Cette IP appartient au nom de machine `pf-1010.whm.fr-par.scw.cloud`."  
     (Premier bon point : le nom trouvé correspond au nom annoncé dans le EHLO à l'étape 2. Mais ce n'est pas suffisant, le DNS a pu être manipulé).
@@ -39,15 +39,15 @@ Cette vérification, qui est une règle supplémentaire de qualité, est appelé
 ex : Cas d'un nom d'hôte personnalisé
 
 ```bash
-$ host 51.159.128.187
-*187.128.159.51.in-addr.arpa domain name pointer pf-1010.whm.fr-par.scw.cloud.
+$ host 203.0.113.187
+*187.113.0.203.in-addr.arpa domain name pointer pf-1010.whm.fr-par.scw.cloud.
 ```
 
 ex : Cas d'un nom d'hôte générique
 
 ```bash
-$ host 82.65.37.251
-251.37.65.82.in-addr.arpa domain name pointer 82-65-37-251.subs.proxad.net.
+$ host 198.51.100.251
+251.100.51.198.in-addr.arpa domain name pointer 198-51-100-251.subs.proxad.net.
 ```
 
 Les indices suspects (Expressions régulières (Regex)) :
@@ -62,9 +62,9 @@ La méthode **FCrDNS** (Forward-confirmed reverse DNS) ferme la boucle de vérif
 1.  **Requête Directe (Le "Forward") :** Le serveur `b.com` prend le nom trouvé dans le `PTR` et interroge le DNS classique :  
     "Quelle est l'adresse IP officielle de `pf-1010.whm.fr-par.scw.cloud` ?" (Requête `A`)
 2.  **Réponse Directe** : Le DNS de Scaleway (`scw.cloud`) répond :  
-    "L'IP de cette machine est `51.159.128.187`."
+    "L'IP de cette machine est `203.0.113.187`."
 3.  **Comparaison Finale** : Le serveur de `b.com` compare l'IP qu'il a sous les yeux (Phase 1 - étape 3) avec l'IP officielle que le DNS vient de lui donner (Phase 4 - étape 2).  
-    `51.159.128.187` (IP réelle) == `51.159.128.187` (IP DNS)  
+    `203.0.113.187` (IP réelle) == `203.0.113.187` (IP DNS)  
     Résultat : Cette machine est bien celle qu'elle prétend être. L'infrastructure est cohérente. Si les deux correspondent, cela garantit que l'entrée `PTR` n'est pas falsifiée et que le propriétaire du domaine a explicitement autorisé cette IP à utiliser ce nom.
 
 ### Phase 5 : Le contrôle de cohérence "HELO"

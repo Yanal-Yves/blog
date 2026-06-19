@@ -30,7 +30,7 @@ Pour tirer pleinement profit de cet article et sécuriser votre domaine, vous de
     - Comprendre les notions de TTL (Time To Live) et de propagation DNS (délais de mise à jour).
   - Réseau (IP) :
     - Différencier IPv4 et IPv6.
-    - Comprendre la notation CIDR (ex: 192.51.100.0/24) utilisée fréquemment dans les règles SPF pour autoriser des plages d'adresses entières.
+    - Comprendre la notation CIDR (ex: 198.51.100.0/24) utilisée fréquemment dans les règles SPF pour autoriser des plages d'adresses entières.
   - Avoir une notion basique de la cryptographie asymétrique (clé privée / clé publique), utile pour comprendre le fonctionnement de la signature DKIM.
 
 ## Concepts spécifiques au mail
