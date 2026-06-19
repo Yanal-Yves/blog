@@ -58,12 +58,12 @@
 &lt;li&gt;&lt;strong&gt;Connexion&lt;/strong&gt; : Le serveur de mail de &lt;code&gt;a.com&lt;/code&gt; se connecte au serveur de mail de &lt;code&gt;b.com&lt;/code&gt;.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Annonce (HELO/EHLO)&lt;/strong&gt; : Il se présente : &lt;code&gt;EHLO pf-1010.whm.fr-par.scw.cloud&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Récupération IP&lt;/strong&gt; : Le serveur de &lt;code&gt;b.com&lt;/code&gt; accepte la connexion. Il voit physiquement d&amp;rsquo;où viennent les paquets de données.&lt;br&gt;
-Il note l&amp;rsquo;IP appelante : &lt;code&gt;51.159.128.187&lt;/code&gt;.&lt;/li&gt;
+Il note l&amp;rsquo;IP appelante : &lt;code&gt;203.0.113.187&lt;/code&gt;.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h3 id="phase-2--requête-inverse-le-reverse"&gt;Phase 2 : Requête Inverse (Le &amp;ldquo;Reverse&amp;rdquo;)&lt;a class="anchor" href="#phase-2--requ%c3%aate-inverse-le-reverse"&gt;#&lt;/a&gt;&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;Recherche &lt;code&gt;PTR&lt;/code&gt;&lt;/strong&gt; : Le serveur &lt;code&gt;b.com&lt;/code&gt; interroge le DNS (zone &lt;code&gt;in-addr.arpa&lt;/code&gt; car c&amp;rsquo;est une IPv4) :&lt;br&gt;
-&amp;ldquo;Quel est le nom associé à l&amp;rsquo;IP &lt;code&gt;51.159.128.187&lt;/code&gt; ?&amp;rdquo; (Requête &lt;code&gt;PTR&lt;/code&gt;)&lt;br&gt;
+&amp;ldquo;Quel est le nom associé à l&amp;rsquo;IP &lt;code&gt;203.0.113.187&lt;/code&gt; ?&amp;rdquo; (Requête &lt;code&gt;PTR&lt;/code&gt;)&lt;br&gt;
 Réponse Inverse : Le DNS répond :&lt;br&gt;
 &amp;ldquo;Cette IP appartient au nom de machine &lt;code&gt;pf-1010.whm.fr-par.scw.cloud&lt;/code&gt;.&amp;rdquo;&lt;br&gt;
 (Premier bon point : le nom trouvé correspond au nom annoncé dans le EHLO à l&amp;rsquo;étape 2. Mais ce n&amp;rsquo;est pas suffisant, le DNS a pu être manipulé).&lt;/li&gt;
