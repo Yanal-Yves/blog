@@ -46,7 +46,23 @@
 
 
 &lt;h2 id="pourquoi-cet-article"&gt;Pourquoi cet article&lt;a class="anchor" href="#pourquoi-cet-article"&gt;#&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;J&amp;rsquo;ai passé plus de vingt ans à développer et à architecturer des logiciels. Pendant ces années, j&amp;rsquo;ai vu se répéter le même scénario : une entreprise technologique décide, &lt;strong&gt;seule et unilatéralement&lt;/strong&gt;, d&amp;rsquo;abandonner une technologie, de casser une compatibilité, de changer un prix ou une licence — et des utilisateurs, des indépendants, des associations, des entreprises entières se retrouvent « le bec dans l&amp;rsquo;eau ». Pas par accident, mais parce que le modèle même du &lt;strong&gt;logiciel privateur&lt;/strong&gt; le permet.&lt;/p&gt;</description></item><item><title>Les e-mails standards - 2/9</title><link>https://yanal.fargialla.com/antispoofing-e-mail/02-standard-e-mails/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/antispoofing-e-mail/02-standard-e-mails/</guid><description>&lt;div class="book-toc-inline"&gt;
+&lt;p&gt;J&amp;rsquo;ai passé plus de vingt ans à développer et à architecturer des logiciels. Pendant ces années, j&amp;rsquo;ai vu se répéter le même scénario : une entreprise technologique décide, &lt;strong&gt;seule et unilatéralement&lt;/strong&gt;, d&amp;rsquo;abandonner une technologie, de casser une compatibilité, de changer un prix ou une licence — et des utilisateurs, des indépendants, des associations, des entreprises entières se retrouvent « le bec dans l&amp;rsquo;eau ». Pas par accident, mais parce que le modèle même du &lt;strong&gt;logiciel privateur&lt;/strong&gt; le permet.&lt;/p&gt;</description></item><item><title>L'envers des licences permissives — FreeBSD, et la liberté pour qui ?</title><link>https://yanal.fargialla.com/logiciel-libre/02-licences-permissives-freebsd/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/logiciel-libre/02-licences-permissives-freebsd/</guid><description>&lt;div class="book-toc-inline"&gt;
+ &lt;div class="markdown-inner"&gt;
+ &lt;nav id="TableOfContents"&gt;
+ &lt;ul&gt;
+ &lt;li&gt;&lt;a href="#quest-ce-quune-licence-permissive-"&gt;Qu&amp;rsquo;est-ce qu&amp;rsquo;une licence permissive ?&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#freebsd--la-force-tranquille-de-linfrastructure"&gt;FreeBSD : la force tranquille de l&amp;rsquo;infrastructure&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#comment-les-géants-exploitent-freebsd"&gt;Comment les géants exploitent FreeBSD&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#la-nuance--ce-que-les-géants-rendent-vraiment"&gt;La nuance : ce que les géants rendent vraiment&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#et-le-copyleft-"&gt;Et le copyleft ?&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#sources-et-références"&gt;Sources et références&lt;/a&gt;&lt;/li&gt;
+ &lt;/ul&gt;
+&lt;/nav&gt;
+ &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Dans l&amp;rsquo;&lt;a href="../01-quand-le-logiciel-privateur-nous-abandonne/"&gt;article fondateur de cette série&lt;/a&gt;, je racontais comment le logiciel privateur finit par abandonner ses utilisateurs. La réponse que je défends, c&amp;rsquo;est le logiciel libre. Mais « libre » n&amp;rsquo;est pas un bloc : il existe deux grandes familles de licences, aux philosophies opposées.&lt;/p&gt;</description></item><item><title>Les e-mails standards - 2/9</title><link>https://yanal.fargialla.com/antispoofing-e-mail/02-standard-e-mails/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/antispoofing-e-mail/02-standard-e-mails/</guid><description>&lt;div class="book-toc-inline"&gt;
  &lt;div class="markdown-inner"&gt;
  &lt;nav id="TableOfContents"&gt;
  &lt;ul&gt;
