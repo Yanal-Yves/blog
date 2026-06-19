@@ -13,6 +13,3 @@ Thumbs.db
 
 # Token GitHub local du conteneur (ne JAMAIS committer)
 .env
-
-# Override Compose local et par-machine (montages optionnels, ex. captures d'écran)
-compose.override.yaml
