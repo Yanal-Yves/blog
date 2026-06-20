@@ -13,7 +13,7 @@ dev a besoin :
 | Image | Étage | Contenu | Usage |
 |-------|-------|---------|-------|
 | `blog-ci`  | `build` | Hugo extended seul (+ git) | déploiement / CI — léger |
-| `blog-dev` | `dev`   | Hugo + Node + **Claude Code** + `git`/`gh` + **neovim** | travail local |
+| `blog-dev` | `dev`   | Hugo + Node + **Claude Code** + `git`/`gh` + `ssh` + **neovim** + Python | travail local |
 
 Les deux tournent en utilisateur non-root (`node` pour l'étage dev). Hugo est figé
 à la même version dans les deux (le binaire de `blog-dev` est copié depuis `blog-ci`).
@@ -207,6 +207,47 @@ ssh -T git@github.com          # test : doit répondre une ligne mentionnant le 
   cocher **Allow write access** sur la deploy key.
 - `bad permissions` / `UNPROTECTED PRIVATE KEY FILE` → `chmod 600` la clé sur l'hôte
   (et, sur un hôte d'uid ≠ 1000, construis l'image avec `UID/GID` alignés, cf. plus haut).
+
+## Persistance de l'état Claude (login & historique)
+
+Recréer le conteneur ne doit te faire **ni** te ré-authentifier **ni** perdre
+l'historique des conversations. Deux pièces s'en chargent :
+
+1. Le **volume nommé** `claude-config` monté sur `/home/node/.claude` (déjà là).
+2. La variable **`CLAUDE_CONFIG_DIR=/home/node/.claude`** (dans `compose.yaml`).
+
+Pourquoi la variable est nécessaire : par défaut, Claude range son login et ses
+credentials dans `~/.claude/` (le volume → OK), **mais** son fichier d'état
+`~/.claude.json` (compte, onboarding, **index des conversations**) vit à la
+*racine du HOME*, **hors** du volume → perdu à chaque recréation. `CLAUDE_CONFIG_DIR`
+force Claude à écrire **tout** — y compris `.claude.json` — **dans** le dossier
+persistant. (Vérifié : avec la variable, `.claude.json` est créé à l'intérieur du
+dossier pointé, pas à la racine du HOME.)
+
+> **Migration unique** (une seule fois, pour ne pas repartir de zéro) : copie ton
+> état actuel dans le volume avant la première recréation —
+> ```bash
+> cp -n ~/.claude.json ~/.claude/.claude.json   # depuis le shell du conteneur
+> ```
+> Ensuite, `docker compose up dev` suffit : login et historique sont conservés.
+
+> Rappel (déjà signalé plus haut) : si tu **changes l'uid** après coup, le volume
+> garde son ancien propriétaire ; recrée-le (`docker volume rm blog_claude-config`)
+> — ce qui, là, repart bien de zéro.
+
+## Python (scripts & outillage)
+
+L'étage dev embarque **`python3`** (avec sa bibliothèque standard, déjà très
+complète : `json`, `csv`, `sqlite3`, `re`, `http`…). Pratique pour les petits
+scripts, y compris ceux que Claude écrit.
+
+Pour des bibliothèques tierces, Debian 12 **bloque `pip` en système** (PEP 668).
+Utilise donc un environnement isolé :
+
+```bash
+pipx install <outil-cli>          # outils en ligne de commande (dans ~/.local/bin, déjà au PATH)
+python3 -m venv .venv && . .venv/bin/activate && pip install <lib>   # libs d'un projet
+```
 
 ## Éditeurs graphiques (PHPStorm, Rider, VSCode)
 

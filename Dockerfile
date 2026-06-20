@@ -2,7 +2,7 @@
 #
 # Deux étages :
 #   - build : minimal, ne contient QUE Hugo (+ git pour enableGitInfo). Utilisé par la CI.
-#   - dev   : ajoute Node, Claude Code, gh, Neovim. Utilisé pour le travail local.
+#   - dev   : ajoute Node, Claude Code, gh, Neovim, ssh, Python. Travail local.
 #
 # La CI n'a besoin que de Hugo : on lui sert l'étage "build", léger.
 # Le dev veut ses outils : on lui sert l'étage "dev".
@@ -56,6 +56,9 @@ RUN apt-get update \
         less \
         gnupg \
         openssh-client \
+        python3 \
+        python3-venv \
+        pipx \
     && rm -rf /var/lib/apt/lists/*
 
 # Même garde que l'étage build : le serveur Hugo (enableGitInfo) et les commandes
@@ -100,6 +103,10 @@ RUN mkdir -p /home/node/.claude /home/node/.ssh \
     && if ! getent group "$GID" >/dev/null; then groupmod -g "$GID" node; fi \
     && usermod -o -u "$UID" -g "$GID" node \
     && chown -R "$UID:$GID" /home/node
+
+# Outils installés par l'utilisateur (pipx pose ses exécutables ici) accessibles
+# sans `pipx ensurepath`.
+ENV PATH=/home/node/.local/bin:$PATH
 
 # On tourne en utilisateur non-root (aligné sur l'hôte via UID/GID ci-dessus).
 USER node

@@ -43,8 +43,10 @@ services:
       # On NE monte QUE le projet — jamais $HOME, ~/.ssh, etc. La source `.` est
       # le dépôt courant ; la cible suit la convention ci-dessus.
       - .:/home/node/_gh/Yanal-Yves/blog
-      # Config Claude isolée et persistante (login conservé entre les runs),
-      # séparée de ton ~/.claude de l'hôte.
+      # Config Claude isolée et persistante, séparée de ton ~/.claude de l'hôte.
+      # Avec CLAUDE_CONFIG_DIR (voir environment), ce volume contient TOUT l'état
+      # de Claude — login, .claude.json, historique des conversations (projects/)
+      # — donc plus de ré-authentification ni d'historique perdu à chaque recréation.
       - claude-config:/home/node/.claude
       # Captures d'écran de l'hôte, en LECTURE SEULE (:ro) : Claude n'a qu'à les
       # voir, jamais à y écrire. Montées au même chemin que sur l'hôte.
@@ -74,6 +76,12 @@ services:
       # une fois dans le conteneur (voir CONTAINER.md).
       GITHUB_TOKEN: ${GITHUB_TOKEN:-}
       GH_TOKEN: ${GITHUB_TOKEN:-}
+      # Consolide TOUT l'état de Claude (config .claude.json, credentials,
+      # historique projects/) dans le volume claude-config monté ci-dessus. Sans
+      # ça, ~/.claude.json vit à la racine du HOME, HORS du volume, et est perdu à
+      # chaque recréation du conteneur → ré-auth + historique envolé. Vérifié :
+      # avec cette variable, Claude écrit .claude.json À L'INTÉRIEUR du dossier.
+      CLAUDE_CONFIG_DIR: /home/node/.claude
       # Transport SSH : git utilise la deploy key montée ci-dessus. `origin` est
       # déjà en SSH (git@github.com:…) → un simple `git push` fonctionne dès que
       # DEPLOY_KEY est renseigné. IdentitiesOnly => n'essaie QUE cette clé ;
