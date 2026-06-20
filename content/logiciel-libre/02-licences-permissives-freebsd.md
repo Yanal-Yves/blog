@@ -25,9 +25,9 @@ En échange, une seule véritable contrainte : **conserver la mention de copyrig
 
 C'est là toute la différence avec le **copyleft** (la GPL en est l'exemple le plus connu), que nous verrons en détail dans un prochain article : une licence copyleft impose que toute version redistribuée reste libre, code source inclus. La licence permissive ne l'impose pas. **Elle autorise donc explicitement à reprendre du libre pour en faire du privateur.** Retenez cette phrase : tout l'article en découle.
 
-## FreeBSD : la force tranquille de l'infrastructure
+## FreeBSD, un système d'exploitation complet, libre… et permissif
 
-Pour voir ce que cela donne en pratique, le meilleur exemple est **FreeBSD**. Et la première chose à comprendre, c'est que **ce n'est pas une « distribution » comme Ubuntu ou Fedora**.
+Pour voir ce que cela donne en pratique, un bon exemple est **FreeBSD**. Et la première chose à comprendre, c'est que **ce n'est pas une « distribution » comme Ubuntu ou Fedora**.
 
 GNU/Linux, c'est un noyau (Linux) assemblé avec une foule de logiciels venus de projets séparés (le userland GNU, etc.), réunis par un distributeur. FreeBSD, à l'inverse, développe le **noyau ET le userland** (les outils de base du système) **ensemble, dans un seul et même arbre de code source**. Le résultat est un système d'exploitation **complet, cohérent et unifié**, pensé d'un bloc.
 
