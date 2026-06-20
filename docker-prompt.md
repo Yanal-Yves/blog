@@ -16,7 +16,11 @@ local soient strictement alignés (même version d'outil de build partout) :
 - **Image CI** (étage `build`) : minimale, ne contient QUE l'outil de build
   (+ ses dépendances strictes, ex. git). Légère, utilisée par le déploiement.
 - **Image dev** (étage `dev`) : tout ce que la CI a + les outils de travail local
-  (Node, Claude Code, GitHub CLI `gh`, Neovim, etc.).
+  (Node, Claude Code, GitHub CLI `gh`, Neovim, `openssh-client` pour le push git,
+  et un langage de script généraliste — Python — bien pratique pour Claude, etc.).
+  Côté Python sur base Debian : `python3` + `python3-venv` + `pipx`, et `~/.local/bin`
+  dans le `PATH` ; `pip` système est verrouillé (PEP 668) → libs via venv, outils
+  CLI via `pipx`.
 
 Le binaire de l'outil de build de l'image dev est COPIÉ depuis l'étage CI
 (`COPY --from=build ...`) : impossible que les deux divergent de version.
@@ -26,21 +30,67 @@ la bumper = changer cette ligne et commit, la CI suit automatiquement.
 ## Modèle de sécurité (le point central — Claude tourne DANS le conteneur)
 
 L'idée est de pouvoir donner de larges droits à Claude tout en bornant les dégâts
-au seul projet et au seul repo. Deux couches :
+au seul projet et au seul repo. Plusieurs couches :
 
 1. **Isolation disque par les montages** : on ne monte QUE le projet (lecture/écriture).
-   JAMAIS `$HOME`, `~/.ssh`, etc. JAMAIS le socket Docker (= évasion triviale).
-   Tout dossier hôte supplémentaire (ex. captures d'écran pour que Claude les voie)
-   est monté en LECTURE SEULE (`:ro`).
-2. **Isolation GitHub par le token, PAS par le conteneur** : un token GitHub
-   *fine-grained* limité au SEUL repo courant, fourni via `.env` (gitignoré).
-   `gh` et git l'utilisent. C'est ce périmètre qui borne les dégâts, pas le conteneur.
-3. Config Claude isolée dans un **volume nommé** dédié (login persistant entre runs),
-   séparée du `~/.claude` de l'hôte.
+   JAMAIS `$HOME`, ni le `~/.ssh` ou la clé SSH PERSONNELLE de l'hôte (elle a accès
+   à tout le compte). JAMAIS le socket Docker (= évasion triviale). Tout dossier hôte
+   supplémentaire (ex. captures d'écran pour que Claude les voie) est monté en LECTURE
+   SEULE (`:ro`). Seule exception SSH tolérée : une *deploy key* DÉDIÉE au repo, montée
+   en `:ro` (cf. « Transport git » plus bas) — jamais ta clé perso.
+2. **Isolation GitHub par les identifiants, PAS par le conteneur** : le périmètre est
+   borné au SEUL repo courant, par l'une ou l'autre voie (ou les deux), fournies via
+   `.env` (gitignoré) :
+   - un token GitHub *fine-grained* limité au repo (HTTPS) — sert AUSSI à `gh` / l'API
+     / la création de PR ;
+   - et/ou une *deploy key* dédiée au repo (SSH) — transport git seulement.
+   C'est ce périmètre qui borne les dégâts, pas le conteneur.
+3. **Config Claude isolée ET persistante** : un **volume nommé** dédié, séparé du
+   `~/.claude` de l'hôte. ATTENTION (piège vérifié) : monter le volume sur `~/.claude`
+   ne suffit PAS — le fichier d'état `~/.claude.json` (login, onboarding, INDEX des
+   conversations) vit à la racine du HOME, HORS du volume, et est perdu à chaque
+   recréation. Pose `CLAUDE_CONFIG_DIR=<chemin du volume>` pour que Claude écrive
+   TOUT (config, credentials, historique) dans le volume → plus de ré-auth ni
+   d'historique perdu. Détaillé dans « Pièges ».
 4. Conteneur en utilisateur **non-root**.
 
 Documente clairement que le réseau reste ouvert (egress non verrouillé) si c'est
 le cas.
+
+## Transport git : token HTTPS et/ou deploy key SSH
+
+Deux voies, toutes deux bornées au seul repo. Token et deploy key sont
+**complémentaires**, pas interchangeables :
+
+- **Token (HTTPS)** : le plus simple, zéro réglage SSH. `git` peut pousser via une URL
+  HTTPS + credential helper, et c'est **de toute façon** ce dont `gh` et l'API ont
+  besoin pour **créer les PR** — une deploy key ne le permet pas. Donc le token reste
+  requis dès qu'on automatise les PR.
+- **Deploy key (SSH)** : une paire de clés DÉDIÉE au repo (clé publique enregistrée
+  comme *deploy key* avec accès en écriture, clé privée montée `:ro` dans le conteneur).
+  Avantage : **agnostique de la plateforme** (GitHub, GitLab, Gitea, serveur maison).
+  Le `remote origin` en `git@…` permet alors un `git push`/`pull` direct.
+
+Mise en œuvre côté image/compose :
+- étage dev : `openssh-client` ; pré-créer `~/.ssh` (700) pour le `known_hosts`.
+- compose : monter la clé privée `:ro` avec un défaut NEUTRE pour ne pas casser
+  `up` quand SSH n'est pas configuré — `source: ${DEPLOY_KEY:-/dev/null}` — et poser
+  `GIT_SSH_COMMAND` (`-i <clé> -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new
+  -o UserKnownHostsFile=<dans le HOME du conteneur>`).
+- la clé privée vit côté HÔTE (jamais dans l'image), chemin absolu via `DEPLOY_KEY`
+  dans `.env` ; `chmod 600`.
+
+Pièges/limites à signaler :
+- **Enregistrer la deploy key est manuel** : un token *fine-grained* sans permission
+  `Administration` reçoit un `403` sur l'API des deploy keys → passage par l'interface.
+  Cocher « Allow write access ».
+- La notion « deploy key par repo » est **côté forge** (GitHub/GitLab/Gitea). Sur un
+  serveur Git **nu** (compte `git` + `authorized_keys`), une clé donne accès à TOUS les
+  dépôts → pour cloisonner, **gitolite** ou un forge auto-hébergé. Le transport SSH,
+  lui, est identique partout (c'est ça qui est portable).
+- Permissions : `git` refuse une clé trop ouverte → `chmod 600` ; sur hôte uid ≠ 1000,
+  aligner UID/GID (cf. section suivante) pour que la clé montée appartienne au user
+  du conteneur.
 
 ## Portabilité utilisateur (Linux uid ≠ 1000)
 
@@ -75,14 +125,21 @@ l'hôte n'est inscrit dans les fichiers versionnés.
 2. **`compose.yaml`** : service `dev`, build de l'étage `dev` + `image:` pointant
    sur le registre (permet `pull` au lieu de rebuild), `init: true`, `stdin_open`,
    `tty`, port forwardé, montages (projet RW + volume config Claude + éventuels
-   dossiers `:ro`), variables d'env pour le token. Sur un montage `:ro` optionnel
+   dossiers `:ro` + clé SSH `:ro`), variables d'env. Sur un montage `:ro` optionnel
    dont la source vient d'une variable avec défaut (ex. `${SCREENSHOTS_DIR:-...}`),
    poser `bind: { create_host_path: false }` : sinon Compose crée en douce une
    source absente (dossier vide possédé par root). Alternative si le montage doit
    être vraiment facultatif : le sortir dans un `compose.override.yaml` opt-in.
+   Côté variables d'env : le token, **`CLAUDE_CONFIG_DIR`** pointant sur le volume
+   Claude (persistance, cf. § sécurité et pièges), et **`GIT_SSH_COMMAND`** pour la
+   deploy key. Pour rendre SSH optionnel sans casser `up`, monter la clé avec un
+   défaut neutre `source: ${DEPLOY_KEY:-/dev/null}` plutôt qu'un montage conditionnel.
 3. **`.env.example`** : token fine-grained documenté (comment le générer, scope
-   repo unique) + variables de chemin optionnelles. AVERTIR que Compose n'expanse
-   PAS `$HOME`/`$PWD` dans `.env` (valeurs littérales → chemins absolus).
+   repo unique) + `DEPLOY_KEY` (chemin absolu de la clé privée de la deploy key,
+   vide par défaut) + variables de chemin optionnelles. Expliquer le partage des
+   rôles **token (API/PR/`gh`) vs deploy key (transport git seulement)** pour que le
+   lecteur ne croie pas que SSH remplace le token. AVERTIR que Compose n'expanse PAS
+   `$HOME`/`$PWD` dans `.env` (valeurs littérales → chemins absolus).
 4. **`.devcontainer/devcontainer.json`** : pour VSCode Dev Containers / JetBrains
    Gateway (éditeur graphique sur l'hôte, se connecte dans le conteneur).
    `overrideCommand: true` pour ne PAS lancer le serveur au démarrage du devcontainer.
@@ -103,7 +160,9 @@ l'hôte n'est inscrit dans les fichiers versionnés.
    `image.yml` quand le Dockerfile change (pour bâtir avec l'image fraîchement
    publiée — éviter la course « build avec l'ancienne image »).
 7. **`CONTAINER.md`** : documentation de mise en route, modèle de sécurité,
-   convention de chemins, cas uid ≠ 1000, et le piège du « premier déploiement qui
+   convention de chemins, cas uid ≠ 1000, push/pull (token HTTPS et deploy key SSH,
+   avec leur partage de rôles), persistance de l'état Claude (`CLAUDE_CONFIG_DIR` +
+   migration unique), note Python/`pipx`, et le piège du « premier déploiement qui
    échoue tant que l'image n'est pas publiée ».
 
 ## Pièges à documenter explicitement
@@ -121,3 +180,13 @@ l'hôte n'est inscrit dans les fichiers versionnés.
 - Montage `:ro` optionnel : un défaut de chemin qui n'existe pas sur l'hôte (autre
   locale, autre OS, dossier jamais créé) fait que Compose crée un dossier vide en
   root. Cf. `create_host_path: false` ci-dessus.
+- **Persistance Claude incomplète** : le volume sur `~/.claude` garde credentials et
+  transcripts, MAIS `~/.claude.json` (login, onboarding, index des conversations) est
+  à la racine du HOME, hors volume → ré-auth + historique « disparu » à chaque
+  recréation. Corriger avec `CLAUDE_CONFIG_DIR=<chemin du volume>` (vérifié : Claude
+  écrit alors `.claude.json` DANS le dossier pointé). En rétro-fit sur un conteneur
+  existant, migration unique : `cp ~/.claude.json <volume>/.claude.json` avant la
+  première recréation, sinon une dernière perte.
+- Push SSH : `Permission denied (publickey)` = clé publique pas (encore) enregistrée
+  comme deploy key, ou `DEPLOY_KEY` faux ; `not granted the required permissions` au
+  push = « Allow write access » oublié sur la deploy key.
