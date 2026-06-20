@@ -13,3 +13,11 @@ Thumbs.db
 
 # Token GitHub local du conteneur (ne JAMAIS committer)
 .env
+
+# Clés SSH (deploy key) — ne JAMAIS committer une clé privée. Filet de sécurité
+# au cas où une clé serait générée dans le dépôt ; le défaut reste de la stocker
+# hors du repo (p. ex. ~/.ssh). Voir CONTAINER.md / .env.example.
+id_ed25519*
+id_rsa*
+*_ed25519
+*.pem

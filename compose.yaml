@@ -5,9 +5,13 @@
 #   docker compose exec dev bash     # shell DANS le conteneur (claude, nvim, gh, git)
 #
 # Sécurité : on ne monte que le projet (en lecture/écriture) et le dossier des
-# captures d'écran (en LECTURE SEULE) — jamais $HOME, ~/.ssh, etc. Le token GitHub
-# est volontairement limité au seul repo Yanal-Yves/blog (voir CONTAINER.md). Les
-# dégâts que Claude peut faire restent donc bornés à ce projet et à ce repo.
+# captures d'écran (en LECTURE SEULE) — jamais le $HOME ni le ~/.ssh de l'hôte.
+# L'accès GitHub est borné au seul repo Yanal-Yves/blog, par DEUX voies au choix
+# (voir CONTAINER.md) :
+#   - HTTPS : token fine-grained limité au repo (défaut, sans réglage) ;
+#   - SSH   : deploy key DÉDIÉE au repo (jamais ta clé perso), montée en lecture
+#             seule. Activée seulement si DEPLOY_KEY est renseigné dans .env.
+# Les dégâts que Claude peut faire restent donc bornés à ce projet et à ce repo.
 
 services:
   dev:
@@ -55,12 +59,32 @@ services:
         # douce un dossier vide possédé par root.
         bind:
           create_host_path: false
+      # Deploy key SSH (FACULTATIF) — clé privée DÉDIÉE au repo, montée en LECTURE
+      # SEULE. Ne renseigne DEPLOY_KEY dans .env QUE si tu pousses en SSH (voir
+      # CONTAINER.md) ; sinon le défaut /dev/null est monté (clé neutre) et rien
+      # ne change. Mets un chemin ABSOLU (Compose n'expanse pas $HOME dans .env)
+      # vers ta clé privée, p. ex. /home/toi/.ssh/blog_deploy_ed25519 (chmod 600).
+      - type: bind
+        source: ${DEPLOY_KEY:-/dev/null}
+        target: /home/node/.ssh/deploy_key
+        read_only: true
     environment:
       # Token GitHub fine-grained limité au repo du blog (depuis .env, gitignoré).
-      # gh le lit automatiquement ; pour git push, lance `gh auth setup-git` une
-      # fois dans le conteneur (voir CONTAINER.md).
+      # gh le lit automatiquement ; pour git push en HTTPS, lance `gh auth setup-git`
+      # une fois dans le conteneur (voir CONTAINER.md).
       GITHUB_TOKEN: ${GITHUB_TOKEN:-}
       GH_TOKEN: ${GITHUB_TOKEN:-}
+      # Transport SSH : git utilise la deploy key montée ci-dessus. `origin` est
+      # déjà en SSH (git@github.com:…) → un simple `git push` fonctionne dès que
+      # DEPLOY_KEY est renseigné. IdentitiesOnly => n'essaie QUE cette clé ;
+      # accept-new => mémorise l'empreinte de github.com au 1er contact sans
+      # blocage interactif. Si DEPLOY_KEY n'est pas renseigné, la clé pointe sur
+      # /dev/null et seul le push HTTPS (token) reste utilisable.
+      GIT_SSH_COMMAND: >-
+        ssh -i /home/node/.ssh/deploy_key
+        -o IdentitiesOnly=yes
+        -o StrictHostKeyChecking=accept-new
+        -o UserKnownHostsFile=/home/node/.ssh/known_hosts
 
 volumes:
   claude-config:
