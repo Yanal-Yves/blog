@@ -40,4 +40,22 @@
 &lt;/div&gt;
 
 
-&lt;p&gt;Dans l&amp;rsquo;&lt;a href="../01-quand-le-logiciel-privateur-nous-abandonne/"&gt;article fondateur de cette série&lt;/a&gt;, je racontais comment le logiciel privateur finit par abandonner ses utilisateurs. La réponse que je défends, c&amp;rsquo;est le logiciel libre. Mais « libre » n&amp;rsquo;est pas un bloc : il existe deux grandes familles de licences, aux philosophies opposées.&lt;/p&gt;</description></item></channel></rss>
+&lt;p&gt;Dans l&amp;rsquo;&lt;a href="../01-quand-le-logiciel-privateur-nous-abandonne/"&gt;article fondateur de cette série&lt;/a&gt;, je racontais comment le logiciel privateur finit par abandonner ses utilisateurs. La réponse que je défends, c&amp;rsquo;est le logiciel libre. Mais « libre » n&amp;rsquo;est pas un bloc : il existe deux grandes familles de licences, aux philosophies opposées.&lt;/p&gt;</description></item><item><title>Les licences copyleft : la liberté qu'on ne peut pas reprendre</title><link>https://yanal.fargialla.com/logiciel-libre/03-licences-copyleft/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/logiciel-libre/03-licences-copyleft/</guid><description>&lt;div class="book-toc-inline"&gt;
+ &lt;div class="markdown-inner"&gt;
+ &lt;nav id="TableOfContents"&gt;
+ &lt;ul&gt;
+ &lt;li&gt;&lt;a href="#quest-ce-que-le-copyleft-"&gt;Qu&amp;rsquo;est-ce que le copyleft ?&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#comment-est-née-la-gpl"&gt;Comment est née la GPL&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#deux-axes-pour-ne-pas-sy-perdre"&gt;Deux axes pour ne pas s&amp;rsquo;y perdre&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#la-famille-gpl--lgpl-gpl-agpl-laxe-de-la--force-"&gt;La famille GPL : LGPL, GPL, AGPL (l&amp;rsquo;axe de la « force »)&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#tivoïsation-et-asymétrie-de-pouvoir"&gt;Tivoïsation et asymétrie de pouvoir&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#au-delà-de-la-tivoïsation--les-autres-apports-de-la-gplv3"&gt;Au-delà de la tivoïsation : les autres apports de la GPLv3&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#deux-philosophies-un-souhait"&gt;Deux philosophies, un souhait&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#sources-et-références"&gt;Sources et références&lt;/a&gt;&lt;/li&gt;
+ &lt;/ul&gt;
+&lt;/nav&gt;
+ &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Le &lt;a href="../02-licences-permissives-freebsd/"&gt;premier volet de cette série&lt;/a&gt; explorait les licences &lt;strong&gt;permissives&lt;/strong&gt; (BSD, MIT, Apache) à travers FreeBSD : elles laissent chacun libre de faire ce qu&amp;rsquo;il veut du code, &lt;strong&gt;y compris le refermer&lt;/strong&gt;. Voici leur pendant : les licences &lt;strong&gt;copyleft&lt;/strong&gt;.&lt;/p&gt;</description></item></channel></rss>
