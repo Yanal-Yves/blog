@@ -13,7 +13,7 @@ dev a besoin :
 | Image | Étage | Contenu | Usage |
 |-------|-------|---------|-------|
 | `blog-ci`  | `build` | Hugo extended seul (+ git) | déploiement / CI — léger |
-| `blog-dev` | `dev`   | Hugo + Node + **Claude Code** + `git`/`gh` + **neovim** | travail local |
+| `blog-dev` | `dev`   | Hugo + Node + **Claude Code** + `git`/`gh` + `ssh` + **neovim** + Python | travail local |
 
 Les deux tournent en utilisateur non-root (`node` pour l'étage dev). Hugo est figé
 à la même version dans les deux (le binaire de `blog-dev` est copié depuis `blog-ci`).
@@ -21,12 +21,18 @@ Les deux tournent en utilisateur non-root (`node` pour l'étage dev). Hugo est f
 ## Modèle de sécurité
 
 Le conteneur isole le **disque** (on ne monte que le projet — en lecture/écriture
-— et le dossier des captures d'écran — en **lecture seule** ; jamais `$HOME`,
-`~/.ssh`, etc.). Mais l'isolation GitHub vient du **token**, pas du conteneur :
+— et le dossier des captures d'écran — en **lecture seule** ; jamais le `$HOME`
+ni le `~/.ssh` de l'hôte). Mais l'isolation GitHub vient des **identifiants**, pas
+du conteneur :
 
-1. **Token fine-grained limité au seul repo `Yanal-Yves/blog`** — voir `.env.example`.
-   Sans ça, un token large laisserait Claude atteindre *tous* tes repos.
-2. On ne monte que le projet et les captures d'écran (voir `compose.yaml`).
+1. **Accès GitHub borné au seul repo `Yanal-Yves/blog`**, par l'une des deux voies
+   (voir [Pousser ses commits](#pousser-ses-commits-https-ou-ssh)) :
+   - **HTTPS** : token *fine-grained* limité au repo (défaut) ;
+   - **SSH** : *deploy key* **dédiée au repo** — jamais ta clé SSH personnelle (qui,
+     elle, a accès à tout ton compte). Montée en lecture seule, hors `~/.ssh`.
+   Dans les deux cas, le périmètre est ce qui borne les dégâts — pas le conteneur.
+2. On ne monte que le projet, les captures d'écran et (si activée) la deploy key
+   en lecture seule (voir `compose.yaml`).
 3. On ne monte **jamais** le socket Docker (= évasion triviale).
 4. Config Claude isolée dans un volume dédié, séparée de ton `~/.claude` de l'hôte.
 
@@ -125,9 +131,122 @@ docker compose exec dev bash
 Dans le shell du conteneur :
 
 ```bash
-gh auth setup-git     # une fois : git utilise le token pour push
+gh auth setup-git     # une fois : git utilise le token pour push HTTPS (voir ci-dessous)
 claude                 # tu te connectes ici ; donne-lui les droits que tu veux
 nvim .
+```
+
+## Pousser ses commits (HTTPS ou SSH)
+
+Deux voies, toutes deux bornées au seul repo `Yanal-Yves/blog`. Choisis-en une.
+
+### Voie HTTPS — token fine-grained (défaut, zéro réglage SSH)
+
+Le token de `.env` est déjà dans le conteneur. Pour que `git push` l'utilise, soit
+tu lances une fois `gh auth setup-git` (configure le credential helper), soit tu
+pousses vers l'URL HTTPS explicite :
+
+```bash
+git -c credential.helper='!f() { echo "username=x-access-token"; echo "password=$GH_TOKEN"; }; f' \
+  push https://github.com/Yanal-Yves/blog.git <branche>
+```
+
+> `origin` reste configuré en SSH (`git@github.com:…`) ; pousser en HTTPS passe par
+> l'URL complète (ou par `gh auth setup-git`) sans modifier ce remote.
+
+### Voie SSH — deploy key dédiée au repo (recommandée pour la portabilité)
+
+Avantage : c'est **agnostique de la plateforme** (GitHub, GitLab, Gitea, ou un
+serveur Git maison demain). On utilise une *deploy key* **dédiée à ce repo**, donc
+le moindre privilège est conservé — on ne monte **jamais** ta clé SSH personnelle.
+
+> ⚠️ La *deploy key* est une notion **côté serveur** (GitHub/GitLab/Gitea la
+> scopent à un repo). Sur un serveur Git « nu » (compte `git` + `authorized_keys`),
+> une clé donne accès à *tous* les dépôts de ce compte : pour un cloisonnement par
+> dépôt, il faut alors **gitolite** ou un forge auto-hébergé (Gitea/Forgejo). Le
+> *transport* SSH, lui, est identique partout — c'est ça qui est portable.
+
+Mise en place (une fois) :
+
+```bash
+# 1. Générer une paire DÉDIÉE (sur l'hôte ; ssh-keygen est aussi dispo dans le conteneur)
+ssh-keygen -t ed25519 -f ~/.ssh/blog_deploy_ed25519 -C "blog deploy key" -N ""
+chmod 600 ~/.ssh/blog_deploy_ed25519
+
+# 2. Enregistrer la clé PUBLIQUE sur GitHub :
+#    repo blog → Settings → Deploy keys → Add deploy key
+#    → colle le contenu de ~/.ssh/blog_deploy_ed25519.pub
+#    → COCHE « Allow write access »   (sinon : lecture seule, push refusé)
+cat ~/.ssh/blog_deploy_ed25519.pub
+
+# 3. Pointer le conteneur sur la clé PRIVÉE (chemin ABSOLU dans .env), puis (re)lancer
+echo 'DEPLOY_KEY=/home/TOI/.ssh/blog_deploy_ed25519' >> .env
+docker compose up dev
+```
+
+Ensuite, dans le conteneur, le push « normal » fonctionne — plus besoin de token
+pour git :
+
+```bash
+git push                       # origin est en SSH → utilise la deploy key montée
+ssh -T git@github.com          # test : doit répondre une ligne mentionnant le repo
+```
+
+> **Le jeton ne peut pas créer la deploy key à ta place** : un token *fine-grained*
+> sans permission `Administration` reçoit un `403` sur l'API des deploy keys.
+> L'étape 2 se fait donc à la main (interface GitHub), volontairement.
+
+**Comment ça marche / dépannage**
+- `compose.yaml` monte la clé privée en lecture seule sur `/home/node/.ssh/deploy_key`
+  et fixe `GIT_SSH_COMMAND` (clé, `IdentitiesOnly`, `accept-new`). Si `DEPLOY_KEY`
+  est vide, la cible est `/dev/null` (clé neutre) : `docker compose up` marche, mais
+  seul le push HTTPS reste possible.
+- `git@github.com: Permission denied (publickey)` → la clé publique n'est pas (encore)
+  enregistrée comme deploy key, ou `DEPLOY_KEY` ne pointe pas sur la bonne clé privée.
+- `remote: ... not granted the required permissions` au push → tu as oublié de
+  cocher **Allow write access** sur la deploy key.
+- `bad permissions` / `UNPROTECTED PRIVATE KEY FILE` → `chmod 600` la clé sur l'hôte
+  (et, sur un hôte d'uid ≠ 1000, construis l'image avec `UID/GID` alignés, cf. plus haut).
+
+## Persistance de l'état Claude (login & historique)
+
+Recréer le conteneur ne doit te faire **ni** te ré-authentifier **ni** perdre
+l'historique des conversations. Deux pièces s'en chargent :
+
+1. Le **volume nommé** `claude-config` monté sur `/home/node/.claude` (déjà là).
+2. La variable **`CLAUDE_CONFIG_DIR=/home/node/.claude`** (dans `compose.yaml`).
+
+Pourquoi la variable est nécessaire : par défaut, Claude range son login et ses
+credentials dans `~/.claude/` (le volume → OK), **mais** son fichier d'état
+`~/.claude.json` (compte, onboarding, **index des conversations**) vit à la
+*racine du HOME*, **hors** du volume → perdu à chaque recréation. `CLAUDE_CONFIG_DIR`
+force Claude à écrire **tout** — y compris `.claude.json` — **dans** le dossier
+persistant. (Vérifié : avec la variable, `.claude.json` est créé à l'intérieur du
+dossier pointé, pas à la racine du HOME.)
+
+> **Migration unique** (une seule fois, pour ne pas repartir de zéro) : copie ton
+> état actuel dans le volume avant la première recréation —
+> ```bash
+> cp -n ~/.claude.json ~/.claude/.claude.json   # depuis le shell du conteneur
+> ```
+> Ensuite, `docker compose up dev` suffit : login et historique sont conservés.
+
+> Rappel (déjà signalé plus haut) : si tu **changes l'uid** après coup, le volume
+> garde son ancien propriétaire ; recrée-le (`docker volume rm blog_claude-config`)
+> — ce qui, là, repart bien de zéro.
+
+## Python (scripts & outillage)
+
+L'étage dev embarque **`python3`** (avec sa bibliothèque standard, déjà très
+complète : `json`, `csv`, `sqlite3`, `re`, `http`…). Pratique pour les petits
+scripts, y compris ceux que Claude écrit.
+
+Pour des bibliothèques tierces, Debian 12 **bloque `pip` en système** (PEP 668).
+Utilise donc un environnement isolé :
+
+```bash
+pipx install <outil-cli>          # outils en ligne de commande (dans ~/.local/bin, déjà au PATH)
+python3 -m venv .venv && . .venv/bin/activate && pip install <lib>   # libs d'un projet
 ```
 
 ## Éditeurs graphiques (PHPStorm, Rider, VSCode)
