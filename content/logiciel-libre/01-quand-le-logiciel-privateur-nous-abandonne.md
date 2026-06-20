@@ -1,6 +1,6 @@
 ---
 title: "Quand le logiciel privateur nous abandonne"
-description: "Article fondateur : vingt-cinq ans d'expériences vécues avec le logiciel propriétaire (Access, Classic ASP, Visual Studio, Windows, OneDrive, Balsamiq, PC Soft) qui mènent à une conviction — se tourner vers le logiciel libre et des modèles économiques respectueux des utilisateurs."
+description: "Article fondateur : vingt-cinq ans d'expériences vécues avec le logiciel propriétaire (Access, Classic ASP, Visual Studio, Windows, Windows Phone, OneDrive, Balsamiq, PC Soft) qui mènent à une conviction — se tourner vers le logiciel libre et des modèles économiques respectueux des utilisateurs."
 weight: 1
 ---
 
@@ -75,7 +75,30 @@ Le résultat est double : un **gâchis écologique** considérable (des centaine
 
 Je ne parle pas ici d'un drame abstrait : dans ma propre famille, **plusieurs ordinateurs encore parfaitement utilisables** ont été rendus obsolètes par ces fins de support.
 
-## Expérience 6 — OneDrive et nos photos de famille
+## Expérience 6 — Windows Phone : un nouveau téléphone à chaque génération
+
+Cet exemple-là, je ne l'ai pas vécu comme développeur, mais comme observateur — il m'a marqué parce qu'il déplace la mécanique du logiciel privateur de l'ordinateur vers un objet qu'on a en permanence dans la poche.
+
+La lignée mobile de Microsoft a imposé **deux ruptures matérielles successives en l'espace de deux ans**, à chaque fois sans chemin de mise à niveau :
+
+- **Windows Mobile 6.x (2007) → Windows Phone 7 (2010).** Windows Phone 7 est une plateforme entièrement nouvelle (Silverlight, XNA, .NET) assortie d'exigences matérielles strictes. En mars 2010, Microsoft confirme que les appareils Windows Mobile 6.x **ne seront pas mis à jour** vers Windows Phone 7, et que les applications de l'ancien monde **n'y fonctionnent pas**.
+- **Windows Phone 7 (2010) → Windows Phone 8 (2012).** Rebelote : Windows Phone 8 bascule sur le noyau Windows NT et vise des appareils multicœurs. Les téléphones Windows Phone 7 **ne peuvent pas être mis à niveau** vers Windows Phone 8. Microsoft ne leur propose que **Windows Phone 7.8** (décembre 2012), une mise à jour essentiellement cosmétique qui rétroporte le nouvel écran d'accueil — mais pas le système.
+
+Autrement dit, un utilisateur qui voulait simplement rester à jour a dû, en deux ans, **changer de téléphone deux fois** — non parce que son appareil était cassé ou usé, mais parce que son matériel avait été déclaré incompatible. Et c'est le point qui me marque le plus : un téléphone rendu obsolète par le logiciel au bout de deux ou trois ans n'est pas un téléphone en fin de vie. L'électronique, elle, est loin d'être hors d'usage ; ce qui s'arrête, c'est la volonté de l'éditeur de la prendre en charge. Avec un système privateur, **personne d'autre n'a le droit de prolonger la vie de l'appareil**. C'est exactement la mécanique de l'expérience précédente (Windows 7 et 10), mais sur un objet du quotidien.
+
+Soyons justes : ce travers n'était pas propre à Microsoft. Pendant longtemps, un support logiciel court a été **la norme dans une grande partie du monde Android** (souvent deux à trois ans d'évolutions majeures), tandis qu'Apple se distinguait par un suivi nettement plus long — de l'ordre de cinq à sept ans dans les faits, avec des correctifs de sécurité au-delà (l'iPhone 5S, sorti en 2013, recevait encore un correctif de sécurité en 2026). Par honnêteté, une nuance s'impose : Apple n'a jamais formellement « promis » un nombre d'années ; il s'agit d'un constat a posteriori, pas d'un engagement annoncé.
+
+La bonne nouvelle, c'est que la situation s'est nettement améliorée — et il serait malhonnête de le passer sous silence :
+
+- depuis 2023, **Google garantit sept ans** de mises à jour (système et sécurité) sur ses Pixel, à partir du Pixel 8 ;
+- **Samsung a suivi** début 2024 en s'engageant sur sept ans pour le Galaxy S24 ;
+- et depuis le **20 juin 2025**, l'Union européenne impose un plancher : le règlement écoconception (UE) 2023/1670 exige **au moins cinq ans** de mises à jour du système et de sécurité après l'arrêt de commercialisation d'un modèle, ainsi que la disponibilité des pièces détachées pendant **au moins sept ans**.
+
+Reste une question ouverte, que je pose sans prétendre la trancher : sept ans, est-ce vraiment suffisant ? C'est un progrès considérable par rapport aux deux ou trois ans de l'époque Windows Phone. Mais quand le matériel peut durer bien plus longtemps, l'écart entre la durée de vie *physique* de l'appareil et la durée de vie *logicielle* qu'on lui accorde reste le cœur du problème. Et la différence décisive demeure la même que dans toutes les autres histoires : avec un système privateur, cette durée dépend du calendrier d'un seul fournisseur ; avec un système libre, une communauté peut prolonger le support aussi longtemps qu'elle le souhaite — c'est précisément ce que font des projets comme LineageOS ou /e/OS, qui redonnent des années de vie à des téléphones abandonnés par leur fabricant.
+
+> Sources : [VentureBeat, « Existing Windows Mobile 6.5 devices not upgradeable to Windows Phone 7, says Microsoft »](https://venturebeat.com/mobile/existing-windows-mobile-6-5-devices-not-upgradeable-to-windows-phone-7-says-microsoft/) · [PCWorld, « Windows Phone 7 Users Can't Upgrade to WP8 »](https://www.pcworld.com/article/465464/windows_phone_7_users_cant_upgrade_to_wp8.html) · [Engadget, « Samsung pledges seven years of updates for S24 series »](https://www.engadget.com/samsung-pledges-seven-years-of-updates-for-s24-series-180844109.html) · [Commission européenne, « New EU rules for durable, energy-efficient and repairable smartphones » (règlement (UE) 2023/1670)](https://single-market-economy.ec.europa.eu/news/new-eu-rules-durable-energy-efficient-and-repairable-smartphones-and-tablets-start-applying-2025-06-20_en).
+
+## Expérience 7 — OneDrive et nos photos de famille
 
 Un soir, en 2024, je jette un œil sur l'ordinateur de ma femme et je vois quelque chose d'inquiétant : **toutes nos photos stockées sur OneDrive sont en train de disparaître localement** de sa machine. **400 Gio de photos de famille** qui s'effacent du disque — pas de OneDrive, juste la copie locale. Une fois l'opération terminée, à la place du dossier de photos, il ne reste qu'un **raccourci `.url`** : quand on clique dessus, ça ouvre un navigateur web. Même chose pour le dossier qui contenait la base **KeePass** que je partage avec ma femme.
 
@@ -87,7 +110,7 @@ Et c'est précisément là que tout se joue. Que ce soit un bug ou une décision
 
 > Sources : [Neowin, « Microsoft confirms OneDrive shared folders are indeed turning into internet shortcuts »](https://www.neowin.net/news/microsoft-confirms-onedrive-shared-folders-are-indeed-turning-into-internet-shortcuts/) · [Windows Latest, « Microsoft confirms Windows 11 OneDrive internet shortcut bug »](https://www.windowslatest.com/2024/07/03/microsoft-confirms-windows-11-onedrive-internet-shortcut-bug/).
 
-## Expérience 7 — Balsamiq et le format de fichier prisonnier
+## Expérience 8 — Balsamiq et le format de fichier prisonnier
 
 Chez Prothesis Dental Solutions, mon équipe — cinq personnes, moi compris — utilisait **Balsamiq pour Google Drive** pour ses maquettes (*mockups*). Notre organisation était simple et efficace : pour chaque projet ou fonctionnalité, un dossier sur Google Drive, et dans ce dossier un fichier de maquette Balsamiq.
 
@@ -97,7 +120,7 @@ Après avoir étudié la nouvelle tarification, testé la version Cloud et déco
 
 > Source : [Balsamiq, « Looking back at Balsamiq's 2024 »](https://balsamiq.com/blog/looking-back-2024/) (« We retired Balsamiq Wireframes for Google Drive and began winding down Desktop »). La page d'annonce dédiée (« What happened to Balsamiq for Google Drive? ») n'est aujourd'hui plus en ligne.
 
-## Expérience 8 — PC Soft : changer les règles en cours de partie
+## Expérience 9 — PC Soft : changer les règles en cours de partie
 
 Dernier cas — le seul que je **n'ai pas vécu directement**, mais qui m'a été **rapporté par des développeurs de mon réseau** dont le modèle économique se trouve menacé. L'éditeur français **PC Soft** (WinDev, WebDev, WinDev Mobile) a été **racheté par le groupe canadien Volaris Group** (printemps 2025). Dans la foulée, le **modèle économique change radicalement**.
 
@@ -109,13 +132,14 @@ Pour qui développe avec une petite équipe mais **déploie massivement**, le ch
 
 ## Le point commun : qui contrôle réellement le logiciel ?
 
-Huit histoires, une même mécanique. À chaque fois, **une décision — ou une défaillance — de l'éditeur** détruit l'investissement de l'utilisateur, sans qu'il ait son mot à dire :
+Neuf histoires, une même mécanique. À chaque fois, **une décision — ou une défaillance — de l'éditeur** détruit l'investissement de l'utilisateur, sans qu'il ait son mot à dire :
 
 - Access : compatibilité cassée, code à réécrire et à retester intégralement ;
 - Classic ASP / Web Forms : technologie abandonnée, sans alternative indolore ;
 - Visual Studio : type de projet d'installation supprimé du jour au lendemain, demande #2 sur UserVoice ignorée quatre ans ;
 - Windows Server : prix de licence qui explose, à matériel identique ;
 - Windows 7 / 10 : fin de support imposée, machines jetées, refus de libérer le code ;
+- Windows Phone : deux ruptures matérielles en deux ans, des téléphones encore fonctionnels rendus obsolètes par le seul logiciel ;
 - OneDrive : synchronisation locale rompue, organisation familiale cassée, aucun correctif possible de notre côté ;
 - Balsamiq : produit déprécié, migration forcée, données prisonnières d'un format privateur ;
 - PC Soft : modèle économique retourné, viabilité détruite.
@@ -136,7 +160,7 @@ Quelques illustrations, vérifiées :
 
 - **net2ftp**, un client FTP en PHP que j'ai connu au tout début des années 2000. Sa dernière version stable (1.3) date de **juillet 2019**, sans changement de technologie de fond sur toute cette durée. Un outil libre peut traverser deux décennies parce que personne ne décrète sa mort. *(Je n'ai pas pu confirmer publiquement la date exacte de sa toute première version ; je la situe « au début des années 2000 » de mémoire.)*
 
-- **Python 2 → Python 3**, l'exemple le plus parlant. Python 3.0 sort en **décembre 2008**, en cassant volontairement la compatibilité. Mais comme l'écosystème est libre et piloté par la communauté, **Python 2.7 a été maintenu en parallèle jusqu'au 1ᵉʳ janvier 2020** — plus de onze ans. (La date de fin de vie a même été repoussée de 2015 à 2020 pour laisser à tout le monde le temps de migrer.) Personne n'a été mis devant le fait accompli : chacun a pu migrer **à son rythme**. C'est exactement ce qu'aucune des huit histoires précédentes n'a permis.
+- **Python 2 → Python 3**, l'exemple le plus parlant. Python 3.0 sort en **décembre 2008**, en cassant volontairement la compatibilité. Mais comme l'écosystème est libre et piloté par la communauté, **Python 2.7 a été maintenu en parallèle jusqu'au 1ᵉʳ janvier 2020** — plus de onze ans. (La date de fin de vie a même été repoussée de 2015 à 2020 pour laisser à tout le monde le temps de migrer.) Personne n'a été mis devant le fait accompli : chacun a pu migrer **à son rythme**. C'est exactement ce qu'aucune des neuf histoires précédentes n'a permis.
 
 La différence est là : avec le libre, une rupture reste **gérable**, parce que le pouvoir de décision n'est pas confisqué par un seul acteur.
 
@@ -160,7 +184,7 @@ Et puis il y a la contradiction que je ne veux pas cacher : **je suis salarié d
 
 On entend parfois que les entreprises « exploitent » le logiciel libre. Je crois l'inverse : **rien qu'en l'utilisant et en le faisant connaître, on sert la cause** — on élargit sa base d'utilisateurs, on remonte des bugs, on aide d'autres développeurs, on finance les mainteneurs.
 
-Mais si ces huit histoires enseignent une chose, c'est que **migrer vers le libre après coup est lent, fragile et coûteux**. Cinq personnes sur soixante, une direction qui refuse le matériel, des années pour défaire des dépendances accumulées. D'où la vraie leçon, surtout pour celles et ceux qui débutent : **commencez libre dès le départ**. Le logiciel privateur a souvent de bonnes raisons d'attirer — il est parfois plus abouti, mieux intégré ou mieux accompagné, et c'est un choix qui peut être parfaitement rationnel sur le moment. Mais, après toutes ces années, ma conviction est qu'il reste le plus souvent bien plus facile de bâtir sur du logiciel libre dès le premier jour que de s'extraire, des années plus tard, d'un écosystème privateur dans lequel on s'est enfermé sans même s'en rendre compte.
+Mais si ces neuf histoires enseignent une chose, c'est que **migrer vers le libre après coup est lent, fragile et coûteux**. Cinq personnes sur soixante, une direction qui refuse le matériel, des années pour défaire des dépendances accumulées. D'où la vraie leçon, surtout pour celles et ceux qui débutent : **commencez libre dès le départ**. Le logiciel privateur a souvent de bonnes raisons d'attirer — il est parfois plus abouti, mieux intégré ou mieux accompagné, et c'est un choix qui peut être parfaitement rationnel sur le moment. Mais, après toutes ces années, ma conviction est qu'il reste le plus souvent bien plus facile de bâtir sur du logiciel libre dès le premier jour que de s'extraire, des années plus tard, d'un écosystème privateur dans lequel on s'est enfermé sans même s'en rendre compte.
 
 ## Conclusion
 
@@ -178,6 +202,9 @@ J'invite donc tout le monde, partout, à **se tourner vers le logiciel libre** c
 - Visual Studio, suppression puis retour des projets d'installation — [Visual Studio Blog, « Visual Studio Installer Projects Extension »](https://devblogs.microsoft.com/visualstudio/visual-studio-installer-projects-extension/) · [InfoQ, « Visual Studio 2013 Installer Project »](https://www.infoq.com/news/2014/04/vs2013_installer_project) · [InstallShield LE et Visual Studio 2012 — support x64](https://gordon.byers.me/misc/installshield-le-visual-studio-2012-x64-support/)
 - Fin de support de Windows 7 et parc résiduel — [PC Gamer, « Over 100 million PCs still run Windows 7… »](https://www.pcgamer.com/over-100-million-pcs-still-run-windows-7-a-year-after-microsoft-ended-support/)
 - Campagne FSF — [« Upcycle Windows 7 »](https://www.fsf.org/windows/upcycle-windows-7)
+- Windows Phone, absence de mise à niveau d'une génération à l'autre — [VentureBeat : les appareils Windows Mobile 6.5 non éligibles à Windows Phone 7](https://venturebeat.com/mobile/existing-windows-mobile-6-5-devices-not-upgradeable-to-windows-phone-7-says-microsoft/) · [PCWorld : « Windows Phone 7 Users Can't Upgrade to WP8 »](https://www.pcworld.com/article/465464/windows_phone_7_users_cant_upgrade_to_wp8.html) · [Windows Phone 7, Wikipédia (EN)](https://en.wikipedia.org/wiki/Windows_Phone_7) · [Windows Phone 8, Wikipédia (EN)](https://en.wikipedia.org/wiki/Windows_Phone_8)
+- Durée de support logiciel des smartphones — [Macworld : « How long does Apple support iPhones? »](https://www.macworld.com/article/675021/how-long-does-apple-support-iphones.html) · [Google : durée des mises à jour des téléphones Pixel](https://support.google.com/pixelphone/answer/4457705) · [Engadget : Samsung s'engage sur sept ans pour le Galaxy S24](https://www.engadget.com/samsung-pledges-seven-years-of-updates-for-s24-series-180844109.html)
+- Règles UE sur les mises à jour et la réparabilité des smartphones — [Commission européenne : nouvelles règles écoconception (règlement (UE) 2023/1670), applicables depuis le 20 juin 2025](https://single-market-economy.ec.europa.eu/news/new-eu-rules-durable-energy-efficient-and-repairable-smartphones-and-tablets-start-applying-2025-06-20_en)
 - Fin de support de Windows 10 — [Microsoft Support : Windows 10 support has ended on October 14, 2025](https://support.microsoft.com/en-us/windows/windows-10-support-has-ended-on-october-14-2025-2ca8b313-1946-43d3-b55c-2b95b107f281)
 - PC Soft / WinDev, rachat et nouveau modèle — [Next, « Les développeurs WinDev s'alarment… »](https://next.ink/241694/les-developpeurs-windev-salarment-dune-possible-redevance-par-installation-client/) · [Programmez, « PC Soft : après le rachat… »](https://www.programmez.com/actualites/pc-soft-apres-le-rachat-une-grogne-des-developpeurs-windev-39590)
 - OneDrive, dossiers partagés transformés en raccourcis web — [Neowin, « Microsoft confirms OneDrive shared folders are indeed turning into internet shortcuts »](https://www.neowin.net/news/microsoft-confirms-onedrive-shared-folders-are-indeed-turning-into-internet-shortcuts/) · [Windows Latest, « Microsoft confirms Windows 11 OneDrive internet shortcut bug »](https://www.windowslatest.com/2024/07/03/microsoft-confirms-windows-11-onedrive-internet-shortcut-bug/)
