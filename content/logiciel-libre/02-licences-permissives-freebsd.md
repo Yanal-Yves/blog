@@ -11,7 +11,7 @@ Dans l'[article fondateur de cette série](../01-quand-le-logiciel-privateur-nou
 - Les licences **permissives** (BSD, MIT, Apache…) : faire ce que l'on veut du code, y compris le refermer dans un produit propriétaire.
 - Les licences **copyleft** : imposer que toute version redistribuée reste libre. La plus connue est la [GPL](https://www.gnu.org/licenses/gpl-3.0.html), mais elle n'est pas la seule : la [LGPL](https://www.gnu.org/licenses/lgpl-3.0.html), l'[AGPL](https://www.gnu.org/licenses/agpl-3.0.html) ou la [MPL](https://www.mozilla.org/en-US/MPL/2.0/) déclinent la même idée à des degrés divers.
 
-Cet article explore la **première** famille — les licences permissives — à travers le cas le plus spectaculaire qui soit : [FreeBSD](https://www.freebsd.org/), ce système d'exploitation que vous utilisez probablement tous les jours sans le savoir. La seconde, le copyleft, fera l'objet d'un article dédié.
+Cet article explore la **première** famille — les licences permissives — à travers le cas le plus spectaculaire qui soit : [FreeBSD](https://www.freebsd.org/), ce système d'exploitation que vous utilisez probablement tous les jours sans le savoir. La seconde, le copyleft, fera l'objet d'[un article dédié](../03-licences-copyleft/).
 
 ## Qu'est-ce qu'une licence permissive ?
 
@@ -89,7 +89,7 @@ Autrement dit : les licences permissives créent une circulation, imparfaite mai
 
 ## Et le copyleft ?
 
-Les licences permissives, on l'a vu, laissent les géants bâtir du propriétaire sur une base libre — tout en lui rendant, par intérêt, de précieux contre-dons. C'est cohérent avec la philosophie de l'**open source** : faire le meilleur logiciel possible, le plus largement réutilisé. L'autre grande famille de licences libres — le **copyleft** (GPL, LGPL, AGPL) — poursuit un tout autre but : **empêcher que la liberté soit reprise à l'utilisateur**. Ce sera l'objet d'un prochain article de cette série, qui partira d'un cas devenu emblématique, la **tivoïsation**, et débouchera sur une conclusion commune à nos deux familles de licences.
+Les licences permissives, on l'a vu, laissent les géants bâtir du propriétaire sur une base libre — tout en lui rendant, par intérêt, de précieux contre-dons. C'est cohérent avec la philosophie de l'**open source** : faire le meilleur logiciel possible, le plus largement réutilisé. L'autre grande famille de licences libres — le **copyleft** (GPL, LGPL, AGPL) — poursuit un tout autre but : **empêcher que la liberté soit reprise à l'utilisateur**. Ce sera l'objet d'[un prochain article de cette série](../03-licences-copyleft/), qui partira d'un cas devenu emblématique, la **tivoïsation**, et débouchera sur une conclusion commune à nos deux familles de licences.
 
 ## Sources et références
 
