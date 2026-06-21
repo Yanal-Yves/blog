@@ -58,4 +58,20 @@
 &lt;/div&gt;
 
 
-&lt;p&gt;Le &lt;a href="../02-licences-permissives-freebsd/"&gt;premier volet de cette série&lt;/a&gt; explorait les licences &lt;strong&gt;permissives&lt;/strong&gt; (BSD, MIT, Apache) à travers FreeBSD : elles laissent chacun libre de faire ce qu&amp;rsquo;il veut du code, &lt;strong&gt;y compris le refermer&lt;/strong&gt;. Voici leur pendant : les licences &lt;strong&gt;copyleft&lt;/strong&gt;.&lt;/p&gt;</description></item></channel></rss>
+&lt;p&gt;Le &lt;a href="../02-licences-permissives-freebsd/"&gt;premier volet de cette série&lt;/a&gt; explorait les licences &lt;strong&gt;permissives&lt;/strong&gt; (BSD, MIT, Apache) à travers FreeBSD : elles laissent chacun libre de faire ce qu&amp;rsquo;il veut du code, &lt;strong&gt;y compris le refermer&lt;/strong&gt;. Voici leur pendant : les licences &lt;strong&gt;copyleft&lt;/strong&gt;.&lt;/p&gt;</description></item><item><title>Pourquoi le noyau Linux est resté en GPLv2 : Torvalds face à la GPLv3</title><link>https://yanal.fargialla.com/logiciel-libre/04-torvalds-gplv3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/logiciel-libre/04-torvalds-gplv3/</guid><description>&lt;div class="book-toc-inline"&gt;
+ &lt;div class="markdown-inner"&gt;
+ &lt;nav id="TableOfContents"&gt;
+ &lt;ul&gt;
+ &lt;li&gt;&lt;a href="#un-préalable---gplv2-only--pas--v2-or-later-"&gt;Un préalable : « GPLv2 only », pas « v2 or later »&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#lobjection-de-fond--la-licence-couvre-le-logiciel-pas-le-matériel"&gt;L&amp;rsquo;objection de fond : la licence couvre le logiciel, pas le matériel&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#-favorable-au-drm---ce-quil-a-vraiment-dit"&gt;« Favorable au DRM » : ce qu&amp;rsquo;il a vraiment dit&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#le-vrai-clivage--éthique-de-la-fsf-contre-pragmatisme-de-lopen-source"&gt;Le vrai clivage : éthique de la FSF contre pragmatisme de l&amp;rsquo;open source&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#en-somme"&gt;En somme&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#sources-et-références"&gt;Sources et références&lt;/a&gt;&lt;/li&gt;
+ &lt;/ul&gt;
+&lt;/nav&gt;
+ &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Dans l&amp;rsquo;&lt;a href="../03-licences-copyleft/"&gt;article précédent sur les licences copyleft&lt;/a&gt;, un détail méritait qu&amp;rsquo;on s&amp;rsquo;y arrête vraiment : la &lt;strong&gt;GPLv3&lt;/strong&gt; (2007) a ajouté une clause &lt;strong&gt;anti-tivoïsation&lt;/strong&gt;, et le &lt;strong&gt;noyau Linux&lt;/strong&gt;, lui, n&amp;rsquo;est jamais passé à la GPLv3. L&amp;rsquo;opposant le plus visible à cette version : &lt;strong&gt;Linus Torvalds&lt;/strong&gt;, le créateur de Linux.&lt;/p&gt;</description></item></channel></rss>
