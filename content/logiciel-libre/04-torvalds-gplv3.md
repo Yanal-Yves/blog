@@ -8,7 +8,7 @@ weight: 4
 
 Dans l'[article précédent sur les licences copyleft](../03-licences-copyleft/), un détail méritait qu'on s'y arrête vraiment : la **GPLv3** (2007) a ajouté une clause **anti-tivoïsation**, et le **noyau Linux**, lui, n'est jamais passé à la GPLv3. L'opposant le plus visible à cette version : **Linus Torvalds**, le créateur de Linux.
 
-Son refus est souvent résumé de travers — « il est pour le DRM », « il se moque de la liberté de l'utilisateur ». Les deux sont faux. Sa position est **cohérente** et repose sur une idée précise : *une licence logicielle doit régir le logiciel, pas le matériel*. La décortiquer est utile, car elle révèle une **ligne de fracture réelle** à l'intérieur même du monde du libre.
+On pourrait croire qu'il est favorable au DRM, ou qu'il néglige la liberté de l'utilisateur. Ni l'un ni l'autre : sa position est **cohérente** et repose sur une idée précise — *une licence logicielle doit régir le logiciel, pas le matériel*. La décortiquer est utile, car elle révèle une **ligne de fracture réelle** à l'intérieur même du monde du libre.
 
 ## Un préalable : « GPLv2 only », pas « v2 or later »
 
