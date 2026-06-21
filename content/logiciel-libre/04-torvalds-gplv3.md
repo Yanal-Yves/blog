@@ -25,14 +25,19 @@ Le cœur du désaccord porte sur la clause **anti-tivoïsation**. Le principe qu
 > « I believe that a software license should cover the software it licenses. »
 > *(« Je crois qu'une licence logicielle devrait couvrir le logiciel qu'elle licencie. »)*
 
-Pour lui, qu'un appareil n'accepte que des micrologiciels signés relève du **design matériel** — une décision de fabricant, pas l'affaire de la licence du logiciel. Or la GPLv3 exige, pour ce genre d'appareils, que le fabricant fournisse de quoi installer et exécuter une version modifiée (les « *installation information* », c'est-à-dire en pratique les clés de signature). C'est précisément ce point que Torvalds rejette :
+Pour lui, qu'un appareil n'accepte que des micrologiciels signés relève du **design matériel** — une décision de fabricant, pas l'affaire de la licence du logiciel. Il le dit sans détour (février 2006) :
+
+> « I literally feel that we do not — as software developers — have the moral right to enforce our rules on hardware manufacturers. […] I do software, and I license software. »
+> *(« Je crois sincèrement que nous n'avons pas, en tant que développeurs de logiciels, le droit moral d'imposer nos règles aux fabricants de matériel. […] Je fais du logiciel, et je licencie du logiciel. »)*
+
+Or la GPLv3 exige, pour ce genre d'appareils, que le fabricant fournisse de quoi installer et exécuter une version modifiée (les « *installation information* », c'est-à-dire en pratique les clés de signature). C'est précisément ce point que Torvalds rejette :
 
 > « I think it's insane to require people to make their private signing keys available, for example. I wouldn't do it. »
 > *(« Je trouve insensé d'exiger des gens qu'ils rendent disponibles leurs clés de signature privées, par exemple. Je ne le ferais pas. »)*
 
 Il est même allé jusqu'à juger le **terme « tivoïsation » lui-même** déplacé, faisant valoir que TiVo **respectait la GPLv2** (l'entreprise publiait bien le code source) et n'avait donc, de son point de vue, rien fait d'illégitime.
 
-> Sources : [Computerworld, « Torvalds says no to GPLv3 »](https://www.computerworld.com/article/1577303/torvalds-says-no-to-gplv3.html) · fil LKML [« GPL V3 and Linux »](https://lkml.iu.edu/hypermail/linux/kernel/0601.3/1495.html) (janvier 2006).
+> Sources : messages de Linus Torvalds (janvier-février 2006) — [archive thématique « GPL » sur yarchive.net](https://yarchive.net/comp/linux/gpl.html) (copies verbatim avec dates et Message-ID) · [Computerworld, « Torvalds says no to GPLv3 »](https://www.computerworld.com/article/1577303/torvalds-says-no-to-gplv3.html) · fil LKML [« GPL V3 and Linux »](https://lkml.iu.edu/hypermail/linux/kernel/0601.3/1495.html).
 
 ## « Pour le DRM » ? Un rejet plus nuancé que ça
 
@@ -58,6 +63,6 @@ Le refus de la GPLv3 par Torvalds n'est ni un caprice ni une trahison de la libe
 ## Sources et références
 
 - Licence du noyau Linux (GPLv2 *only*) — [fichier `COPYING`](https://github.com/torvalds/linux/blob/master/COPYING) · [Documentation, « License rules »](https://www.kernel.org/doc/html/latest/process/license-rules.html)
-- Déclarations de Torvalds (janvier 2006) — [Computerworld, « Torvalds says no to GPLv3 »](https://www.computerworld.com/article/1577303/torvalds-says-no-to-gplv3.html) · fil LKML [« GPL V3 and Linux »](https://lkml.iu.edu/hypermail/linux/kernel/0601.3/1495.html)
+- Déclarations de Torvalds (janvier-février 2006) — [archive thématique « GPL » sur yarchive.net](https://yarchive.net/comp/linux/gpl.html) (copies verbatim, datées, avec Message-ID traçables) · [Computerworld, « Torvalds says no to GPLv3 »](https://www.computerworld.com/article/1577303/torvalds-says-no-to-gplv3.html) · fil LKML [« GPL V3 and Linux »](https://lkml.iu.edu/hypermail/linux/kernel/0601.3/1495.html)
 - DRM et GPLv3, points de vue croisés — [Linux.com, « Stallman, Torvalds, Moglen share views on DRM and GPLv3 »](https://www.linux.com/news/stallman-torvalds-moglen-share-views-drm-and-gplv3/)
 - Tivoïsation et GPLv3 — [Tivoization (Wikipédia)](https://en.wikipedia.org/wiki/Tivoization) · [Stallman, « Why Upgrade to GPLv3 » (GNU)](https://www.gnu.org/licenses/rms-why-gplv3.html)
