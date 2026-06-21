@@ -39,13 +39,15 @@ Il est même allé jusqu'à juger le **terme « tivoïsation » lui-même** dép
 
 > Sources : messages de Linus Torvalds (janvier-février 2006) — [archive thématique « GPL » sur yarchive.net](https://yarchive.net/comp/linux/gpl.html) (copies verbatim avec dates et Message-ID) · [Computerworld, « Torvalds says no to GPLv3 »](https://www.computerworld.com/article/1577303/torvalds-says-no-to-gplv3.html) · fil LKML [« GPL V3 and Linux »](https://lkml.iu.edu/hypermail/linux/kernel/0601.3/1495.html).
 
-## « Pour le DRM » ? Un rejet plus nuancé que ça
+## « Favorable au DRM » : ce qu'il a vraiment dit
 
-On lit souvent que Torvalds serait « favorable au DRM ». C'est une simplification. Ce qu'il refusait, c'est l'**obligation liée au matériel** (livrer les clés) ; sur la formulation anti-DRM de la licence, sa position a été plus mesurée au fil des brouillons. Surtout, son pari n'est pas la coercition par la licence mais la **concurrence** : il estimait qu'un matériel qui bride ses utilisateurs finirait par perdre **de lui-même**, parce que l'hostilité à l'utilisateur n'est pas un bon modèle économique.
+L'étiquette n'est pas inventée : Torvalds a écrit noir sur blanc, en avril 2003, « *I want to make it clear that DRM is perfectly ok with Linux!* », et il s'est opposé à ce qu'on se serve de la GPL pour **interdire** le DRM. Mais « le DRM est permis » ne veut pas dire « le DRM, c'est bien » : c'est exactement la même règle que pour le matériel — une licence dit ce qu'on doit **partager** (le code source), pas ce qu'on a le droit de **faire** avec le logiciel. Refuser qu'elle bannisse un usage n'est pas en faire l'éloge.
 
-Autrement dit, là où la FSF veut **interdire** le verrou par la licence, Torvalds préfère **laisser le marché** le sanctionner. On peut trouver ce pari naïf ou réaliste — c'est un autre débat — mais ce n'est pas un blanc-seing donné au DRM.
+Ce qu'il a refusé dans la GPLv3 n'est donc pas « moins de DRM », mais l'**obligation liée au matériel** (livrer les clés de signature). Et face aux verrous, son pari n'est pas la coercition par la licence mais la **concurrence** : il estimait qu'un matériel qui bride ses utilisateurs finirait par perdre **de lui-même**, l'hostilité à l'utilisateur n'étant pas un bon modèle économique.
 
-> Source : [Linux.com, « Stallman, Torvalds, Moglen share views on DRM and GPLv3 »](https://www.linux.com/news/stallman-torvalds-moglen-share-views-drm-and-gplv3/).
+Autrement dit, là où la FSF veut **interdire** le verrou par la licence, Torvalds préfère **laisser le marché** le sanctionner. On peut trouver ce pari naïf ou réaliste — c'est un autre débat — mais permettre le DRM (refuser de l'interdire par la licence) n'est pas le promouvoir.
+
+> Sources : [LWN.net, « Linus on digital rights management » (avril 2003 — « DRM is perfectly ok with Linux! »)](https://lwn.net/Articles/30048/) · [Linux.com, « Stallman, Torvalds, Moglen share views on DRM and GPLv3 »](https://www.linux.com/news/stallman-torvalds-moglen-share-views-drm-and-gplv3/).
 
 ## Le vrai clivage : éthique de la FSF contre pragmatisme de l'open source
 
@@ -64,5 +66,5 @@ Le refus de la GPLv3 par Torvalds n'est ni un caprice ni une trahison de la libe
 
 - Licence du noyau Linux (GPLv2 *only*) — [fichier `COPYING`](https://github.com/torvalds/linux/blob/master/COPYING) · [Documentation, « License rules »](https://www.kernel.org/doc/html/latest/process/license-rules.html)
 - Déclarations de Torvalds (janvier-février 2006) — [archive thématique « GPL » sur yarchive.net](https://yarchive.net/comp/linux/gpl.html) (copies verbatim, datées, avec Message-ID traçables) · [Computerworld, « Torvalds says no to GPLv3 »](https://www.computerworld.com/article/1577303/torvalds-says-no-to-gplv3.html) · fil LKML [« GPL V3 and Linux »](https://lkml.iu.edu/hypermail/linux/kernel/0601.3/1495.html)
-- DRM et GPLv3, points de vue croisés — [Linux.com, « Stallman, Torvalds, Moglen share views on DRM and GPLv3 »](https://www.linux.com/news/stallman-torvalds-moglen-share-views-drm-and-gplv3/)
+- DRM, position de Torvalds — [LWN.net, « Linus on digital rights management » (avril 2003)](https://lwn.net/Articles/30048/) · [Linux.com, « Stallman, Torvalds, Moglen share views on DRM and GPLv3 »](https://www.linux.com/news/stallman-torvalds-moglen-share-views-drm-and-gplv3/)
 - Tivoïsation et GPLv3 — [Tivoization (Wikipédia)](https://en.wikipedia.org/wiki/Tivoization) · [Stallman, « Why Upgrade to GPLv3 » (GNU)](https://www.gnu.org/licenses/rms-why-gplv3.html)
