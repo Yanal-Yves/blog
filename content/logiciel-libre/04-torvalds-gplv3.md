@@ -56,7 +56,9 @@ Au fond, ce n'est pas une querelle technique mais un désaccord de **valeurs**, 
 - Pour **Richard Stallman et la FSF**, la liberté de l'utilisateur doit être protégée **jusque sur sa machine** : si vous pouvez lire et modifier le code mais pas exécuter votre version modifiée sur votre propre appareil, la liberté n'est qu'apparente. La clause anti-tivoïsation **comble** ce vide.
 - Pour **Torvalds**, la GPLv2 est un échange équilibré — *« tu reçois le code, tu rends tes modifications du code »* — et la licence n'a pas à s'étendre **au-delà du code** lui-même.
 
-Deux systèmes de valeurs **cohérents**, pas un camp qui aurait raison contre l'autre. Le résultat, lui, est concret : le projet GPL le plus important au monde — **le noyau Linux** — est resté en GPLv2, et une large part de l'écosystème l'a suivi. Le débat n'a jamais été tranché ; il dit surtout que le « libre » n'est **pas monolithique**.
+Deux systèmes de valeurs **cohérents**, pas un camp qui aurait raison contre l'autre. Le résultat, lui, est concret : le projet GPL le plus important au monde, **le noyau Linux**, est resté en GPLv2 — et il est loin d'être un cas isolé. Quatre ans après la sortie de la v3, environ **42 % des projets libres recensés étaient encore en GPLv2, contre ~6 % en GPLv3** (Black Duck, 2011) ; l'adoption de la v3 est restée **partielle**, pour des raisons propres à chaque projet, et non par ralliement à Torvalds. Le débat n'a jamais été tranché ; il dit surtout que le « libre » n'est **pas monolithique**.
+
+> Source : [GNU General Public License — adoption GPLv2 / GPLv3 (Wikipédia, d'après les données Black Duck 2011)](https://en.wikipedia.org/wiki/GNU_General_Public_License).
 
 ## En somme
 
