@@ -10,8 +10,6 @@ Le [premier volet de cette série](../02-licences-permissives-freebsd/) explorai
 
 La différence tient en une idée. Là où le permissif autorise à refermer, le **copyleft impose que toute version redistribuée reste libre**, code source compris. La plus connue est la [GPL](https://www.gnu.org/licenses/gpl-3.0.html), avec ses variantes [LGPL](https://www.gnu.org/licenses/lgpl-3.0.html) et [AGPL](https://www.gnu.org/licenses/agpl-3.0.html). Son but n'est pas seulement de partager du code : c'est de faire en sorte que la liberté **ne puisse pas être reprise** à l'utilisateur en aval.
 
-Cet article reste une **pièce en cours** (la série s'écrit au fil de l'eau). Il **définit** d'abord le copyleft et son origine, retrace la **naissance de la GPL** — la première licence copyleft *généraliste* —, puis distingue la **famille** des licences GNU (GPL, LGPL, AGPL) et l'**évolution** qui a mené à la GPLv3, dont le cas le plus emblématique : la **tivoïsation**. Une conclusion commune aux deux volets referme l'ensemble.
-
 ## Qu'est-ce que le copyleft ?
 
 Le copyleft est un **retournement du droit d'auteur**. Plutôt que de renoncer à ses droits (comme un versement au domaine public) ou de s'en servir pour interdire (comme le privateur), l'auteur les utilise pour **garantir** une chose : toute version redistribuée — y compris modifiée — doit rester sous les **mêmes conditions libres**, code source compris. La liberté devient ainsi **transitive**, obligée de « ruisseler » jusqu'au dernier maillon ; personne ne peut la refermer en aval. C'est l'exact contraire des licences permissives, qui autorisent justement à refermer.
