@@ -1,0 +1,10 @@
+# Custom keys used by layouts/partials/docs/inject/content-after.html
+editThisPage: "Suggest an edit"
+authoredByPrefix: "By"
+updatedOnPrefix: "Updated on"
+aiAssistedNotice: "(AI-assisted writing, final review by the author)"
+licensePrefix: "Unless otherwise noted, this content is licensed under"
+
+# Translation notice (shown only on English pages)
+aiTranslationTitle: "Machine-translated page"
+aiTranslationBody: "This English version was produced by automatic AI translation. Only the French version is reviewed by the author, so it remains the authoritative reference. Spotted a mistake or an awkward turn of phrase? Please report it by opening a pull request — contributions are welcome."

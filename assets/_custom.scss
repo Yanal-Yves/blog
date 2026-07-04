@@ -81,3 +81,28 @@ html.dark .book-toc-inline a {
 .content-after-ia {
   font-style: italic;
 }
+
+// Bannière affichée en haut des pages traduites automatiquement (anglais)
+.translation-notice {
+  background-color: rgba(255, 153, 0, 0.08);
+  border: 1px solid rgba(255, 153, 0, 0.5);
+  border-left: 4px solid #ff9900;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  margin: 0 0 1.5rem;
+  padding: 0.75rem 1rem;
+}
+
+.translation-notice strong {
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.translation-notice p {
+  margin: 0;
+}
+
+body.dark .translation-notice,
+html.dark .translation-notice {
+  background-color: rgba(255, 153, 0, 0.12);
+}

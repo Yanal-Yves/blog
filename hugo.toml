@@ -1,11 +1,26 @@
 baseURL = "https://yanal.fargialla.com/"
 defaultContentLanguage = "fr"
+defaultContentLanguageInSubdir = false # FR reste à la racine ; l'anglais est servi sous /en/
 disableKinds = ["taxonomy", "term"] # Supprimer la création des pages tag/xxx et category/yyy
 enableGitInfo = true # Pour la date automatique
 enableRobotsTXT = true
-languageCode = "fr-fr"
 theme = "hugo-book"
 title = "Notes Techniques" # Le nom de votre site en haut à gauche
+
+# Site multilingue : français (langue par défaut) + anglais (traduction assistée par IA)
+[languages]
+  [languages.fr]
+    contentDir = "content"
+    languageCode = "fr-fr"
+    languageName = "Français"
+    title = "Notes Techniques"
+    weight = 1
+  [languages.en]
+    contentDir = "content.en"
+    languageCode = "en-us"
+    languageName = "English"
+    title = "Technical Notes"
+    weight = 2
 
 # Configuration spécifique au thème "Book" pour vos besoins
 [params]
