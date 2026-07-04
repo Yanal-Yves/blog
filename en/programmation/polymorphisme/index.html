@@ -1,0 +1,183 @@
+<!doctype html><html lang=en-us dir=ltr><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="A deep dive into polymorphism in C#: static vs dynamic binding, Vtables, the virtual/override/new keywords and the internal mechanisms of the CLR."><meta name=theme-color media="(prefers-color-scheme: light)" content="#ffffff"><meta name=theme-color media="(prefers-color-scheme: dark)" content="#343a40"><meta name=color-scheme content="light dark"><meta property="og:url" content="https://yanal.fargialla.com/en/programmation/polymorphisme/"><meta property="og:site_name" content="Technical Notes"><meta property="og:title" content="Polymorphism in C#"><meta property="og:description" content="A deep dive into polymorphism in C#: static vs dynamic binding, Vtables, the virtual/override/new keywords and the internal mechanisms of the CLR."><meta property="og:locale" content="en_us"><meta property="og:type" content="website"><meta itemprop=name content="Polymorphism in C#"><meta itemprop=description content="A deep dive into polymorphism in C#: static vs dynamic binding, Vtables, the virtual/override/new keywords and the internal mechanisms of the CLR."><meta itemprop=dateModified content="2026-07-04T17:19:56+02:00"><meta itemprop=wordCount content="1252"><title>Polymorphism in C# | Technical Notes</title><link rel=icon href=/favicon.png><link rel=manifest href=/manifest.json><link rel=canonical href=https://yanal.fargialla.com/en/programmation/polymorphisme/><link rel=alternate hreflang=fr href=https://yanal.fargialla.com/programmation/polymorphisme/ title="Polymorphisme en C#"><link rel=stylesheet href=/book.min.26c2bfdfebcbb4a44c148c6fa08e0622d63861f189e18bf0067b552d8437394a.css integrity="sha256-JsK/3+vLtKRMFIxvoI4GItY4YfGJ4YvwBntVLYQ3OUo=" crossorigin=anonymous><script defer src=/fuse.min.js></script><script defer src=/en.search.min.666d62ff7c4e41c9888e0098c5a95bc353f93761213b05ce754965be65ba0d41.js integrity="sha256-Zm1i/3xOQcmIjgCYxalbw1P5N2EhOwXOdUllvmW6DUE=" crossorigin=anonymous></script><link rel=alternate type=application/rss+xml href=https://yanal.fargialla.com/en/programmation/polymorphisme/index.xml title="Technical Notes"><style>.mermaid{background-color:#fff!important;padding:20px;border-radius:8px;margin:20px 0;box-shadow:0 4px 6px rgba(0,0,0,.3);display:flex;justify-content:center}</style><link rel=alternate hreflang=en href=https://yanal.fargialla.com/en/programmation/polymorphisme/ title="Polymorphism in C#"><link rel=alternate hreflang=x-default href=https://yanal.fargialla.com/programmation/polymorphisme/></head><body dir=ltr class="book-kind-section book-type-programmation"><input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><div class=book-menu-content><nav><h2 class=book-brand><a class="flex align-center" href=/en/><span>Technical Notes</span></a></h2><div class="book-search hidden"><input id=book-search-input type=text placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><script>document.querySelector(".book-search").classList.remove("hidden")</script><ul class=book-languages><li><input type=checkbox id=languages class=toggle>
+<label for=languages class=flex><a role=button><img src=/icons/translate.svg class=book-icon alt=Languages>
+English
+</a><img src=/icons/chevron-right.svg class=book-icon alt=Expand></label><ul><li><a href=/programmation/polymorphisme/ class="flex flex-auto">Français</a></li></ul></li></ul><ul><li><input type=checkbox id=section-e55cf805ac67e2ef06e04e242dccd768 class=toggle>
+<label for=section-e55cf805ac67e2ef06e04e242dccd768 class=flex><a href=/en/antispoofing-e-mail/>Email antispoofing</a>
+<img src=/icons/chevron-right.svg class=book-icon alt=Expand></label><ul><li><a href=/en/antispoofing-e-mail/01-architecture-concepts/>Architecture and concepts - 1/9</a></li><li><a href=/en/antispoofing-e-mail/02-standard-e-mails/>Standard email addresses - 2/9</a></li><li><a href=/en/antispoofing-e-mail/03-fcrdns-validation/>FCrDNS and cross-validation - 3/9</a></li><li><a href=/en/antispoofing-e-mail/04-spf-sender-policy-framework/>SPF (Sender Policy Framework) - 4/9</a></li><li><a href=/en/antispoofing-e-mail/05-dkim-domainkeys-identified-mail/>DKIM (DomainKeys Identified Mail) - 5/9</a></li><li><a href=/en/antispoofing-e-mail/06-dmarc-domain-based-message-authentication-reporting-and-conformance/>DMARC (Domain-based Message Authentication) - 6/9</a></li><li><a href=/en/antispoofing-e-mail/07-bimi-brand-indicators-for-message-identification-analyse-des-limites/>BIMI and an analysis of its limits - 7/9</a></li><li><a href=/en/antispoofing-e-mail/08-parked-domain-locking/>Parked Domain Locking - 8/9</a></li><li><a href=/en/antispoofing-e-mail/09-synthese-et-conclusion/>Summary and conclusion - 9/9</a></li></ul></li><li><input type=checkbox id=section-30436343a7e3597102ac24bd5c746d98 class=toggle>
+<label for=section-30436343a7e3597102ac24bd5c746d98 class=flex><a href=/en/logiciel-libre/>Free software</a>
+<img src=/icons/chevron-right.svg class=book-icon alt=Expand></label><ul><li><a href=/en/logiciel-libre/01-quand-le-logiciel-privateur-nous-abandonne/>When proprietary software abandons us</a></li><li><a href=/en/logiciel-libre/02-licences-permissives-freebsd/>The flip side of permissive licences — FreeBSD, and freedom for whom?</a></li><li><a href=/en/logiciel-libre/03-licences-copyleft/>Copyleft licences: the freedom that can't be taken back</a></li><li><a href=/en/logiciel-libre/04-torvalds-gplv3/>Why the Linux kernel stayed on GPLv2: Torvalds versus GPLv3</a></li></ul></li><li><input type=checkbox id=section-d294891c4e5936db3b1ceca888c86e85 class=toggle>
+<label for=section-d294891c4e5936db3b1ceca888c86e85 class=flex><a href=/en/gnu-linux/>GNU/Linux</a>
+<img src=/icons/chevron-right.svg class=book-icon alt=Expand></label><ul><li><a href=/en/gnu-linux/communication-noyau-userland/>How drivers communicate under Linux: kernel, userland, and their interfaces</a><ul></ul></li><li><a href=/en/gnu-linux/nvidia-ecosysteme-graphique/>The NVIDIA graphics ecosystem under Linux</a><ul></ul></li></ul></li><li><input type=checkbox id=section-435b09091bee8ccc1dcb7d058e3be413 class=toggle checked>
+<label for=section-435b09091bee8ccc1dcb7d058e3be413 class=flex><a href=/en/programmation/>Programming</a>
+<img src=/icons/chevron-right.svg class=book-icon alt=Expand></label><ul><li><a href=/en/programmation/polymorphisme/ class=active>Polymorphism in C#</a><ul><li><a href=/en/programmation/polymorphisme/quiz-polymorphisme/>Quiz: Polymorphism</a></li></ul></li><li><a href=/en/programmation/stack-vs-heap/>The Stack and the Heap in C#</a><ul><li><a href=/en/programmation/stack-vs-heap/quiz-stack-heap/>Quiz: Stack and Heap</a></li></ul></li></ul></li><li><input type=checkbox id=section-75509c470340eb31e09c9ef64472209d class=toggle>
+<label for=section-75509c470340eb31e09c9ef64472209d class=flex><a href=/en/recalbox/>Recalbox</a>
+<img src=/icons/chevron-right.svg class=book-icon alt=Expand></label><ul><li><a href=/en/recalbox/pc-worms/>Installing Worms (PC DOS) on Recalbox with CD Audio tracks</a><ul></ul></li></ul></li><li><input type=checkbox id=section-948639edac77f1663a036cf117c88b36 class=toggle>
+<label for=section-948639edac77f1663a036cf117c88b36 class=flex><a href=/en/auto-h%C3%A9bergement/>Self-hosting</a>
+<img src=/icons/chevron-right.svg class=book-icon alt=Expand></label><ul><li><a href=/en/auto-h%C3%A9bergement/pi-hole/>Installing Pi-hole on a Raspberry Pi 1</a><ul></ul></li></ul></li></ul></nav><script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></div></aside><div class=book-page><header class="book-header hidden"><div class="flex align-center justify-between"><label for=menu-control><img src=/icons/menu.svg class=book-icon alt=Menu></label><h3>Polymorphism in C#</h3><label for=toc-control></label></div></header><h1 class=book-article-title>Polymorphism in C#</h1><div class=translation-notice role=note><strong>Machine-translated page</strong><p>This English version was produced by automatic AI translation. Only the French version is reviewed by the author, so it remains the authoritative reference. Spotted a mistake or an awkward turn of phrase? Please report it by opening a pull request — contributions are welcome.</p></div><article class="markdown book-article"><div class=book-toc-inline><div class=markdown-inner><nav id=TableOfContents><ul><li><a href=#a-deep-dive-into-c-polymorphism>A Deep Dive into C# Polymorphism</a></li><li><a href=#how-it-works-diagram>How it works (diagram)</a></li><li><a href=#summary>Summary</a></li></ul></nav></div></div><h2 id=a-deep-dive-into-c-polymorphism>A Deep Dive into C# Polymorphism<a class=anchor href=#a-deep-dive-into-c-polymorphism>#</a></h2><p>In C#, polymorphism is often summed up as &ldquo;the right code is executed for the right object&rdquo;. But for a seasoned developer, it is crucial to understand the internal mechanics: how does the CLR (Common Language Runtime) decide which method to call?</p><p>This article breaks down the difference between a static call and a dynamic call via <strong>Vtables</strong>.</p><h3 id=1-the-setup-the-code>1. The setup: The code<a class=anchor href=#1-the-setup-the-code>#</a></h3><p>Let&rsquo;s take a base class <code>Animal</code> and two implementations: <code>Dog</code> and <code>Cat</code>.
+We have two types of methods:</p><ol><li><code>SayHello()</code>: A classic (non-virtual) method that we will hide with <code>new</code> in the children.</li><li><code>Speak()</code>: A polymorphic method (<code>virtual</code> / <code>override</code>).</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-csharp data-lang=csharp><span style=display:flex><span><span style=color:#66d9ef>using</span> System;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>using</span> System.Collections.Generic;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Animal</span>
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// NON-VIRTUAL method: the address is resolved at compile time</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> SayHello() 
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        Console.WriteLine(<span style=color:#e6db74>&#34;The animal greets you (base method).&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// VIRTUAL method: the address is resolved at runtime (vtable)</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>virtual</span> <span style=color:#66d9ef>void</span> Speak()
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        Console.WriteLine(<span style=color:#e6db74>&#34;...&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Dog</span> : Animal
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Shadowing: this method exists but does not override the parent&#39;s</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>new</span> <span style=color:#66d9ef>void</span> SayHello()
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        Console.WriteLine(<span style=color:#e6db74>&#34;The dog greets you.&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>override</span> <span style=color:#66d9ef>void</span> Speak()
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        Console.WriteLine(<span style=color:#e6db74>&#34;Woof!&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Cat</span> : Animal
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Shadowing</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>new</span> <span style=color:#66d9ef>void</span> SayHello()
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        Console.WriteLine(<span style=color:#e6db74>&#34;The cat greets you.&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>override</span> <span style=color:#66d9ef>void</span> Speak()
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        Console.WriteLine(<span style=color:#e6db74>&#34;Meow!&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Program</span>
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span> Main()
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// We store children in an array of parents</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// The declared type of the array is Animal[]</span>
+</span></span><span style=display:flex><span>        Animal[] myAnimals = [ <span style=color:#66d9ef>new</span> Dog(), <span style=color:#66d9ef>new</span> Cat() ];
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// The objects in myAnimals are of type Animal (Dog or Cat)</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>foreach</span> (Animal animal <span style=color:#66d9ef>in</span> myAnimals)
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            Console.WriteLine(<span style=color:#e6db74>$&#34;--- Actual instance: {animal.GetType().Name} ---&#34;</span>);
+</span></span><span style=display:flex><span>            
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// Case 1: Static Binding (Non-Virtual Call)</span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// The compiler looks at the type of the variable &#39;animal&#39;</span>
+</span></span><span style=display:flex><span>            animal.SayHello(); 
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// Case 2: Dynamic Binding (Virtual Call)</span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// The runtime looks at the type of the object in memory</span>
+</span></span><span style=display:flex><span>            animal.Speak(); 
+</span></span><span style=display:flex><span>            
+</span></span><span style=display:flex><span>            Console.WriteLine();
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}</span></span></code></pre></div><h3 id=2-case-1-non-virtual-call-sayhello>2. Case 1: Non-Virtual Call (<code>SayHello</code>)<a class=anchor href=#2-case-1-non-virtual-call-sayhello>#</a></h3><p>When the compiler encounters the line <code>animal.SayHello()</code>, it analyzes the type of the <strong>variable</strong> <code>animal</code>.</p><ul><li>The variable is of type <code>Animal</code>.</li><li>The <code>SayHello</code> method is <strong>not</strong> virtual.</li><li><strong>The compiler&rsquo;s conclusion:</strong> &ldquo;I know exactly which method to call. It&rsquo;s <code>Animal.SayHello</code>. No matter what is actually in memory, the version of the code to execute is the one from the <code>Animal</code> class.&rdquo;</li></ul><p>It doesn&rsquo;t matter that the <code>Cat</code> and <code>Dog</code> classes define a new version of the <code>SayHello</code> method (with <code>new</code>); it is indeed the base class <code>Animal</code>&rsquo;s one that is called, because the destination address is set in stone at compile time.</p><h4 id=step-by-step-execution-static-binding>Step-by-step execution (Static Binding)<a class=anchor href=#step-by-step-execution-static-binding>#</a></h4><ol><li><strong>Compilation:</strong> The C# compiler generates an IL instruction that explicitly designates the <code>Animal.SayHello</code> method. When the JIT translates it into machine code, this instruction is turned into a direct jump to the memory address of the code, without going through any table.</li><li><strong>Execution:</strong> The processor jumps directly to that address.</li><li><strong>Result:</strong> Even if the object is a <code>Dog</code>, it is the <code>Animal</code>&rsquo;s method that runs. The <code>Dog.SayHello</code> method is completely ignored.</li></ol><h3 id=3-case-2-virtual-call-speak-and-the-vtable>3. Case 2: Virtual Call (<code>Speak</code>) and the Vtable<a class=anchor href=#3-case-2-virtual-call-speak-and-the-vtable>#</a></h3><p>When the compiler encounters <code>animal.Speak()</code>, it detects the <code>virtual</code> keyword. It then understands that it cannot freeze the method&rsquo;s address at compile time, because the variable <code>animal</code> could point to any derived instance (a Cat, a Dog, and so on) at execution time.</p><p>Instead of writing a direct jump to a fixed code address (as for <code>SayHello</code>), the compiler sets up a <strong>dynamic resolution</strong> mechanism. It asks the runtime to go and find the right method based on the actual object in memory. This is where the <strong>Vtable</strong> comes into play.</p><h4 id=memory-layout-of-a-net-object>Memory layout of a .NET object<a class=anchor href=#memory-layout-of-a-net-object>#</a></h4><p>Every object on the Heap has a hidden header containing a <strong>TypeHandle</strong>. This pointer leads to the <strong>MethodTable</strong> (the class&rsquo;s identity card). This table contains the <strong>Vtable</strong> (Virtual Method Table): an array of pointers to the methods.</p><pre class=mermaid>flowchart LR
+    %% Style definitions to distinguish the zones
+    classDef heapObject fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:black;
+    classDef metaData fill:#fff3e0,stroke:#ef6c00,stroke-width:2px,color:black;
+    classDef invisible fill:none,stroke:none;
+
+    %% ZONE 1: THE HEAP (where instances live)
+    subgraph HEAP [&#34;&lt;b&gt;GC Heap (Managed Heap)&lt;/b&gt;&#34;]
+        direction TB
+        
+        %% Instance 1
+        dog1[&#34;&lt;b&gt;Instance: Dog #1&lt;/b&gt;&lt;br/&gt;-----------------------&lt;br/&gt;Header: &lt;b&gt;TypeHandle&lt;/b&gt; ⏺&lt;br/&gt;Data: Age = 5&#34;]:::heapObject
+        
+        %% Instance 2
+        dog2[&#34;&lt;b&gt;Instance: Dog #2&lt;/b&gt;&lt;br/&gt;-----------------------&lt;br/&gt;Header: &lt;b&gt;TypeHandle&lt;/b&gt; ⏺&lt;br/&gt;Data: Age = 3&#34;]:::heapObject
+    end
+
+    %% ZONE 2: THE LOADER HEAP (where types live)
+    subgraph LOADER [&#34;&lt;b&gt;Loader Heap (Metadata)&lt;/b&gt;&#34;]
+        direction TB
+        
+        %% The single MethodTable
+        mtDog[&#34;&lt;b&gt;MethodTable (Dog)&lt;/b&gt;&lt;br/&gt;-----------------------&lt;br/&gt;GC info &lt;br/&gt;Implemented interfaces&lt;br/&gt;Instance size&lt;br/&gt;...&lt;br/&gt;&lt;b&gt;VTABLE (Method list)&lt;/b&gt;&lt;br/&gt;&lt;i&gt;[Slot 1] Animal.ToString&lt;/i&gt;&lt;br/&gt;&lt;i&gt;[Slot 2] Dog.Speak&lt;/i&gt;&#34;]:::metaData
+    end
+
+    %% RELATIONS (the pointers)
+    %% Arrows go from the objects to the shared table
+    dog1 -.-&gt; mtDog
+    dog2 -.-&gt; mtDog
+
+    %% Explanatory legend on the link
+    linkStyle 0,1 stroke:#1565c0,stroke-width:2px,dasharray: 5 5;</pre><script src=/mermaid.min.js></script><script>mermaid.initialize({flowchart:{useMaxWidth:!0},theme:"default"})</script><h4 id=step-by-step-execution-dynamic-binding>Step-by-step execution (Dynamic Binding)<a class=anchor href=#step-by-step-execution-dynamic-binding>#</a></h4><p>Let&rsquo;s take the first loop iteration, where the object is a <strong>Dog</strong>.</p><ol><li><strong>Dereferencing:</strong> The runtime follows the <code>animal</code> reference to find the object on the Heap.</li><li><strong>Inspection (TypeHandle):</strong> It reads the object&rsquo;s header and understands: &ldquo;This is an instance of <code>Dog</code>&rdquo;. It goes and consults <code>Dog</code>&rsquo;s MethodTable.</li><li><strong>Lookup in the Vtable:</strong><ul><li>The <code>Speak</code> method occupies a fixed index (say slot #4) in the <code>Animal</code> hierarchy.</li><li>The runtime looks at slot #4 of <code>Dog</code>&rsquo;s table.</li><li>Since <code>Dog</code> performed an <code>override</code>, the address stored in that slot is that of <code>Dog.Speak</code> (and not <code>Animal.Speak</code>).</li></ul></li><li><strong>Jump (Indirection):</strong> The runtime retrieves that address (for example <code>0x3000</code>) and executes the code.</li></ol><h2 id=how-it-works-diagram>How it works (diagram)<a class=anchor href=#how-it-works-diagram>#</a></h2><p>The diagram below illustrates the fundamental difference. Notice how <code>Dog.SayHello</code> (Address D) does exist, but is bypassed by the red arrow.</p><pre class=mermaid>flowchart TD
+    %% --- STACK ---
+    subgraph STACK [&#34;Stack&#34;]
+        direction TB
+        varRef[&#34;var animal&lt;br/&gt;(Type: Animal)&#34;]
+    end
+
+    %% --- HEAP ---
+    subgraph HEAP [&#34;Heap&#34;]
+        direction TB
+        objDog[&#34;Instance: Dog&lt;br/&gt;Header: Ptr to Dog VTable&#34;]
+    end
+
+    %% --- METADATA ---
+    subgraph METADATA [&#34;Vtables (Metadata)&#34;]
+        direction TB
+        mtAnimal[&#34;&lt;b&gt;Animal VTable&lt;/b&gt;&lt;br/&gt;SayHello: @Addr_A&lt;br/&gt;Speak: @Addr_B&#34;]
+        
+        mtDog[&#34;&lt;b&gt;Dog VTable&lt;/b&gt;&lt;br/&gt;(Inherits from Animal)&lt;br/&gt;SayHello: @Addr_A&lt;br/&gt;SayHello (New): @Addr_D&lt;br/&gt;Speak (Override): @Addr_C&#34;]
+    end
+
+    %% --- CODE ---
+    subgraph CODE [&#34;Methods&#34;]
+        direction TB
+        codeAnimal[&#34;@Addr_A&lt;br/&gt;Animal.SayHello()&lt;br/&gt;&#39;The animal greets...&#39;&#34;]
+        codeDogNew[&#34;@Addr_D&lt;br/&gt;Dog.SayHello()&lt;br/&gt;&#39;The dog greets...&#39;&#34;]
+        codeAnimalBase[&#34;@Addr_B&lt;br/&gt;Animal.Speak()&lt;br/&gt;&#39;...&#39;&#34;]
+        codeDog[&#34;@Addr_C&lt;br/&gt;Dog.Speak()&lt;br/&gt;&#39;Woof!&#39;&#34;]
+    end
+
+    %% --- RELATIONS ---
+    %% The declaration order defines the indices for linkStyle (0, 1, 2...)
+
+    %% 0. Link var -&gt; object
+    varRef -- &#34;Points to&#34; --&gt; objDog
+    
+    %% 1. Link object -&gt; vtable
+    objDog -. &#34;TypeHandle&#34; .-&gt; mtDog
+
+    %% 2. RED CASE (Index 2)
+    varRef -- &#34;(1) Static Call&lt;br/&gt;SayHello()&#34; --&gt; codeAnimal
+
+    %% 3. BLUE CASE PART 1 (Index 3)
+    varRef -- &#34;(2) Virtual Call&lt;br/&gt;Speak()&#34; --&gt; mtDog
+
+    %% 4. BLUE CASE PART 2 (Index 4)
+    mtDog -- &#34;(3) Vtable Lookup&lt;br/&gt;Finds @Addr_C&#34; --&gt; codeDog
+
+    %% Structural links (grey)
+    mtDog -.-&gt; codeDogNew
+    mtAnimal -.-&gt; codeAnimal
+    mtAnimal -.-&gt; codeAnimalBase
+
+    %% STYLES
+    %% Red for the static call (Index 2)
+    linkStyle 2 stroke:red,stroke-width:3px,color:red;
+    
+    %% Blue for the dynamic path (Index 3 and 4)
+    linkStyle 3,4 stroke:blue,stroke-width:3px,color:blue;</pre><p><strong>Diagram legend</strong></p><ul><li><strong>Red Arrow (Static Binding):</strong> The path is direct. The compiler saw the variable of type <code>Animal</code> and wired the call straight to the <code>Animal.SayHello</code> code (@Addr_A). It completely ignores the fact that the object is a Dog and that the <code>Dog.SayHello</code> method (@Addr_D) exists.</li><li><strong>Blue Arrow (Dynamic Binding):</strong> The path goes through the Vtable. We start from the object -> we go and look at its Vtable (that of the <code>Dog</code> class) -> we retrieve the specific address in the <code>Speak</code> slot -> we execute the <code>Dog.Speak</code> code (@Addr_C).</li></ul><h2 id=summary>Summary<a class=anchor href=#summary>#</a></h2><ul><li><strong>Non-virtual (<code>new</code> keyword):</strong> The method is determined by the <strong>type of the variable</strong>. It is fast, rigid, and it can lead to calling the parent&rsquo;s method even if the child has a &ldquo;new&rdquo; one.</li><li><strong>Virtual (<code>override</code> keyword):</strong> The method is determined by the <strong>type of the object in memory</strong> through an indirection (Vtable). It is flexible and guarantees polymorphic behavior.</li></ul></article><div class=content-after><div><a href=https://github.com/Yanal-Yves/blog/edit/main/content/programmation/polymorphisme/_index.md target=_blank rel=noopener class=content-after-github-link><svg class="content-after-github" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M8 0C3.58.0.0 3.58.0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38.0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95.0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12.0.0.67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15.0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48.0 1.07-.01 1.93-.01 2.2.0.21.15.46.55.38A8.013 8.013.0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+<strong>Suggest an edit</strong></a></div><div><p>By <strong>Yanal-Yves FARGIALLA</strong> • Updated on July 4, 2026 <span class=content-after-ia>(AI-assisted writing, final review by the author)</span><br>Unless otherwise noted, this content is licensed under <a rel=license href=http://creativecommons.org/licenses/by-sa/4.0/ target=_blank>CC BY-SA
+4.0</a>.
+<a rel=license href=http://creativecommons.org/licenses/by-sa/4.0/ target=_blank><img alt="CC BY-SA 4.0" src=https://i.creativecommons.org/l/by-sa/4.0/80x15.png></a></p></div></div><footer class=book-footer><div class="flex flex-wrap justify-between"><div></div><div></div></div><div class="flex flex-wrap justify-between"><span><a href=/en/programmation/ class="flex align-center"><img src=/icons/backward.svg class=book-icon alt=Backward>
+<span>Programming</span>
+</a></span><span><a href=/en/programmation/polymorphisme/quiz-polymorphisme/ class="flex align-center"><span>Quiz: Polymorphism</span>
+<img src=/icons/forward.svg class=book-icon alt=Forward></a></span></div><div class=book-comments></div><script>(function(){document.querySelectorAll("pre:has(code)").forEach(e=>{e.addEventListener("click",e.focus),e.addEventListener("copy",function(t){if(t.preventDefault(),navigator.clipboard){const t=window.getSelection().toString()||e.textContent;navigator.clipboard.writeText(t)}})})})()</script></footer><label for=menu-control class="hidden book-menu-overlay"></label></div></main></body></html>

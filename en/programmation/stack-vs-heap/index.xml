@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>The Stack and the Heap in C# on Technical Notes</title><link>https://yanal.fargialla.com/en/programmation/stack-vs-heap/</link><description>Recent content in The Stack and the Heap in C# on Technical Notes</description><generator>Hugo</generator><language>en-us</language><atom:link href="https://yanal.fargialla.com/en/programmation/stack-vs-heap/index.xml" rel="self" type="application/rss+xml"/><item><title>Quiz: Stack and Heap</title><link>https://yanal.fargialla.com/en/programmation/stack-vs-heap/quiz-stack-heap/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/en/programmation/stack-vs-heap/quiz-stack-heap/</guid><description>&lt;h2 id="-test-your-knowledge"&gt;📝 Test your knowledge&lt;a class="anchor" href="#-test-your-knowledge"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Have you really grasped the nuance? This is the moment of truth. Click &amp;ldquo;See the answer&amp;rdquo; to check your understanding.&lt;/p&gt;
+&lt;h3 id="question-1"&gt;Question 1&lt;a class="anchor" href="#question-1"&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;What is the main characteristic of the Stack compared to the Heap in terms of performance?&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A) It is slower but can store more data.&lt;/li&gt;
+&lt;li&gt;B) It is much faster to access and allocate.&lt;/li&gt;
+&lt;li&gt;C) There is no performance difference.&lt;/li&gt;
+&lt;li&gt;D) It is optimized for large objects only.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;details&gt;
+&lt;summary&gt;🔻 See the answer&lt;/summary&gt;
+&lt;blockquote&gt;
+&lt;strong&gt;Answer B: It is much faster.&lt;/strong&gt;&lt;br&gt;
+Allocation on the Stack is immediate (moving a CPU pointer), whereas the Heap requires finding a free space and managing it later via the Garbage Collector.
+&lt;/blockquote&gt;
+&lt;/details&gt;
+&lt;hr&gt;
+&lt;h3 id="question-2"&gt;Question 2&lt;a class="anchor" href="#question-2"&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;In C#, where is the value of a local variable of type &lt;code&gt;int&lt;/code&gt; stored (for example &lt;code&gt;int age = 25;&lt;/code&gt;)?&lt;/strong&gt;&lt;/p&gt;</description></item></channel></rss>

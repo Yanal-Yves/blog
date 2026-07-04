@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Free software on Technical Notes</title><link>https://yanal.fargialla.com/en/logiciel-libre/</link><description>Recent content in Free software on Technical Notes</description><generator>Hugo</generator><language>en-us</language><atom:link href="https://yanal.fargialla.com/en/logiciel-libre/index.xml" rel="self" type="application/rss+xml"/><item><title>When proprietary software abandons us</title><link>https://yanal.fargialla.com/en/logiciel-libre/01-quand-le-logiciel-privateur-nous-abandonne/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/en/logiciel-libre/01-quand-le-logiciel-privateur-nous-abandonne/</guid><description>&lt;div class="book-toc-inline"&gt;
+ &lt;div class="markdown-inner"&gt;
+ &lt;nav id="TableOfContents"&gt;
+ &lt;ul&gt;
+ &lt;li&gt;&lt;a href="#why-this-article"&gt;Why this article&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#experience-1--the-music-school-and-microsoft-access"&gt;Experience 1 — The music school and Microsoft Access&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#experience-2--homelidays-and-the-millions-of-lines-of-classic-asp"&gt;Experience 2 — Homelidays and the millions of lines of Classic ASP&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#experience-3--visual-studio-and-the-deleted-msi-installer-projects"&gt;Experience 3 — Visual Studio and the deleted MSI installer projects&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#experience-4--the-consignment-shop-and-the-windows-licence"&gt;Experience 4 — The consignment shop and the Windows licence&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#experience-5--windows-7-then-windows-10-imposed-waste"&gt;Experience 5 — Windows 7 then Windows 10: imposed waste&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#experience-6--windows-phone-a-new-phone-with-every-generation"&gt;Experience 6 — Windows Phone: a new phone with every generation&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#experience-7--onedrive-and-our-family-photos"&gt;Experience 7 — OneDrive and our family photos&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#experience-8--balsamiq-and-the-imprisoned-file-format"&gt;Experience 8 — Balsamiq and the imprisoned file format&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#experience-9--pc-soft-changing-the-rules-mid-game"&gt;Experience 9 — PC Soft: changing the rules mid-game&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#the-common-thread-who-really-controls-the-software"&gt;The common thread: who really controls the software?&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#free-software-regaining-room-to-manoeuvre"&gt;Free software: regaining room to manoeuvre&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#and-me-in-all-this-a-path-not-a-posture"&gt;And me, in all this? A path, not a posture&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#conclusion"&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#sources-and-references"&gt;Sources and references&lt;/a&gt;&lt;/li&gt;
+ &lt;/ul&gt;
+&lt;/nav&gt;
+ &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;h2 id="why-this-article"&gt;Why this article&lt;a class="anchor" href="#why-this-article"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;I spent more than twenty years developing and architecting software. Over those years, I watched the same scenario repeat itself: a technology company decides, &lt;strong&gt;alone and unilaterally&lt;/strong&gt;, to abandon a technology, break compatibility, change a price or a licence — and users, freelancers, associations, whole companies find themselves left high and dry. Not by accident, but because the very model of &lt;strong&gt;proprietary software&lt;/strong&gt; allows it.&lt;/p&gt;</description></item><item><title>The flip side of permissive licences — FreeBSD, and freedom for whom?</title><link>https://yanal.fargialla.com/en/logiciel-libre/02-licences-permissives-freebsd/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/en/logiciel-libre/02-licences-permissives-freebsd/</guid><description>&lt;div class="book-toc-inline"&gt;
+ &lt;div class="markdown-inner"&gt;
+ &lt;nav id="TableOfContents"&gt;
+ &lt;ul&gt;
+ &lt;li&gt;&lt;a href="#what-is-a-permissive-licence"&gt;What is a permissive licence?&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#freebsd-a-complete-operating-system-free-and-permissive"&gt;FreeBSD, a complete operating system, free… and permissive&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#how-the-giants-exploit-freebsd"&gt;How the giants exploit FreeBSD&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#the-nuance-what-the-giants-really-give-back"&gt;The nuance: what the giants really give back&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#and-copyleft"&gt;And copyleft?&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#sources-and-references"&gt;Sources and references&lt;/a&gt;&lt;/li&gt;
+ &lt;/ul&gt;
+&lt;/nav&gt;
+ &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;In the &lt;a href="../01-quand-le-logiciel-privateur-nous-abandonne/"&gt;founding article of this series&lt;/a&gt;, I recounted how proprietary software ends up abandoning its users. The answer I champion is free software. But &amp;ldquo;free&amp;rdquo; is not a single block: there are two great families of licences, with opposing philosophies.&lt;/p&gt;</description></item><item><title>Copyleft licences: the freedom that can't be taken back</title><link>https://yanal.fargialla.com/en/logiciel-libre/03-licences-copyleft/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/en/logiciel-libre/03-licences-copyleft/</guid><description>&lt;div class="book-toc-inline"&gt;
+ &lt;div class="markdown-inner"&gt;
+ &lt;nav id="TableOfContents"&gt;
+ &lt;ul&gt;
+ &lt;li&gt;&lt;a href="#what-is-copyleft"&gt;What is copyleft?&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#how-the-gpl-came-to-be"&gt;How the GPL came to be&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#two-axes-to-keep-from-getting-lost"&gt;Two axes to keep from getting lost&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#the-gpl-family-lgpl-gpl-agpl-the-strength-axis"&gt;The GPL family: LGPL, GPL, AGPL (the &amp;ldquo;strength&amp;rdquo; axis)&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#tivoization-and-the-asymmetry-of-power"&gt;Tivoization and the asymmetry of power&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#beyond-tivoization-the-other-contributions-of-gplv3"&gt;Beyond tivoization: the other contributions of GPLv3&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#two-philosophies-one-wish"&gt;Two philosophies, one wish&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#sources-and-references"&gt;Sources and references&lt;/a&gt;&lt;/li&gt;
+ &lt;/ul&gt;
+&lt;/nav&gt;
+ &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;The &lt;a href="../02-licences-permissives-freebsd/"&gt;first instalment of this series&lt;/a&gt; explored &lt;strong&gt;permissive&lt;/strong&gt; licences (BSD, MIT, Apache) through FreeBSD: they leave everyone free to do what they like with the code, &lt;strong&gt;including closing it back up&lt;/strong&gt;. Here is their counterpart: &lt;strong&gt;copyleft&lt;/strong&gt; licences.&lt;/p&gt;</description></item><item><title>Why the Linux kernel stayed on GPLv2: Torvalds versus GPLv3</title><link>https://yanal.fargialla.com/en/logiciel-libre/04-torvalds-gplv3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/en/logiciel-libre/04-torvalds-gplv3/</guid><description>&lt;div class="book-toc-inline"&gt;
+ &lt;div class="markdown-inner"&gt;
+ &lt;nav id="TableOfContents"&gt;
+ &lt;ul&gt;
+ &lt;li&gt;&lt;a href="#a-preliminary-point-gplv2-only-not-v2-or-later"&gt;A preliminary point: &amp;ldquo;GPLv2 only,&amp;rdquo; not &amp;ldquo;v2 or later&amp;rdquo;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#the-core-objection-the-licence-covers-the-software-not-the-hardware"&gt;The core objection: the licence covers the software, not the hardware&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#pro-drm-what-he-actually-said"&gt;&amp;ldquo;Pro-DRM&amp;rdquo;: what he actually said&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#the-real-divide-fsf-ethics-versus-open-source-pragmatism"&gt;The real divide: FSF ethics versus open-source pragmatism&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#in-short"&gt;In short&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#sources-and-references"&gt;Sources and references&lt;/a&gt;&lt;/li&gt;
+ &lt;/ul&gt;
+&lt;/nav&gt;
+ &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;In the &lt;a href="../03-licences-copyleft/"&gt;previous article on copyleft licences&lt;/a&gt;, one detail was worth pausing on properly: &lt;strong&gt;GPLv3&lt;/strong&gt; (2007) added an &lt;strong&gt;anti-tivoization&lt;/strong&gt; clause, and the &lt;strong&gt;Linux kernel&lt;/strong&gt; never moved to GPLv3. The most visible opponent of that version: &lt;strong&gt;Linus Torvalds&lt;/strong&gt;, the creator of Linux.&lt;/p&gt;</description></item></channel></rss>

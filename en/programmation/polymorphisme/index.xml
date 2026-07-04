@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Polymorphism in C# on Technical Notes</title><link>https://yanal.fargialla.com/en/programmation/polymorphisme/</link><description>Recent content in Polymorphism in C# on Technical Notes</description><generator>Hugo</generator><language>en-us</language><atom:link href="https://yanal.fargialla.com/en/programmation/polymorphisme/index.xml" rel="self" type="application/rss+xml"/><item><title>Quiz: Polymorphism</title><link>https://yanal.fargialla.com/en/programmation/polymorphisme/quiz-polymorphisme/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/en/programmation/polymorphisme/quiz-polymorphisme/</guid><description>&lt;h2 id="-test-your-knowledge"&gt;📝 Test your knowledge&lt;a class="anchor" href="#-test-your-knowledge"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Have you really grasped the internal mechanics of polymorphism and Vtables? This is the moment to check whether you have mastered the difference between static and dynamic binding. Click &amp;ldquo;See the answer&amp;rdquo; to confirm.&lt;/p&gt;
+&lt;h3 id="question-1"&gt;Question 1&lt;a class="anchor" href="#question-1"&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;In the code &lt;code&gt;Animal a = new Dog();&lt;/code&gt;, if you call &lt;code&gt;a.SayHello()&lt;/code&gt; (a non-virtual method), which version of the method is executed?&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A) The one from the &lt;code&gt;Dog&lt;/code&gt; class because the object is a Dog.&lt;/li&gt;
+&lt;li&gt;B) The one from the &lt;code&gt;Animal&lt;/code&gt; class because the variable is of type Animal.&lt;/li&gt;
+&lt;li&gt;C) None, it causes a compilation error.&lt;/li&gt;
+&lt;li&gt;D) The &lt;code&gt;Dog&lt;/code&gt;&amp;rsquo;s one, only if it uses the &lt;code&gt;override&lt;/code&gt; keyword.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;details&gt;
+&lt;summary&gt;🔻 See the answer&lt;/summary&gt;
+&lt;blockquote&gt;
+&lt;strong&gt;Answer B: The one from the `Animal` class.&lt;/strong&gt;&lt;br&gt;
+Since the method is not virtual, the compiler uses static binding. It relies solely on the type of the &lt;strong&gt;variable&lt;/strong&gt; (`Animal`) and sets in stone the call to `Animal.SayHello` as early as compile time.
+&lt;/blockquote&gt;
+&lt;/details&gt;
+&lt;hr&gt;
+&lt;h3 id="question-2"&gt;Question 2&lt;a class="anchor" href="#question-2"&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Which C# keyword enables dynamic binding (a call via the Vtable) in the base class?&lt;/strong&gt;&lt;/p&gt;</description></item></channel></rss>
