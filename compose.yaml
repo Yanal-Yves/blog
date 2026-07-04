@@ -27,9 +27,11 @@ services:
       args:
         UID: ${UID:-1000}
         GID: ${GID:-1000}
-        # Version de Claude Code figée dans l'image ; défaut = celui du Dockerfile.
-        # Pour mettre à jour Claude : bumper ici (ou dans le Dockerfile) puis rebuild.
-        CLAUDE_CODE_VERSION: ${CLAUDE_CODE_VERSION:-2.1.201}
+        # Version de Claude Code. Défaut `latest` : chaque `docker compose build`
+        # installe la dernière version publiée (cache-busté côté Dockerfile via un
+        # ADD du manifeste npm — rien à passer). Pour épingler ponctuellement une
+        # version, renseigne CLAUDE_CODE_VERSION dans .env (ou en variable).
+        CLAUDE_CODE_VERSION: ${CLAUDE_CODE_VERSION:-latest}
     image: ghcr.io/yanal-yves/blog-dev:latest
     init: true
     stdin_open: true

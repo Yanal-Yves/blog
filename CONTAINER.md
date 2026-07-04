@@ -296,22 +296,35 @@ et la CI suit automatiquement. Local et CI restent alignés.
 
 ## Mettre à jour Claude Code
 
-Comme Hugo et Neovim, **Claude Code est épinglé dans l'image** (`ARG
-CLAUDE_CODE_VERSION` dans le `Dockerfile`) et se met à jour en **reconstruisant
-l'image**, pas au runtime :
+**La mise à jour se fait en reconstruisant l'image**, jamais au runtime :
 
 ```bash
-# bumper la version puis reconstruire
-sed -i 's/^ARG CLAUDE_CODE_VERSION=.*/ARG CLAUDE_CODE_VERSION=2.1.201/' Dockerfile
-docker compose build dev
-# ou, ponctuel, sans toucher au Dockerfile :
-CLAUDE_CODE_VERSION=2.1.201 docker compose build dev
+docker compose build dev     # installe la DERNIÈRE version publiée de Claude Code
 ```
+
+Par défaut `CLAUDE_CODE_VERSION=latest` (`Dockerfile` / `compose.yaml`) : chaque
+build tire la dernière version. Un `ADD` du manifeste npm juste avant le
+`npm install` sert de **cache-bust** — tant que `latest` ne bouge pas, la couche
+reste en cache (rebuild instantané) ; dès qu'une nouvelle version sort, la couche
+`npm install` se ré-exécute toute seule. **Rien à passer en variable.**
+
+Pour **épingler** une version précise (ponctuel, ou pour figer local + CI) :
+
+```bash
+CLAUDE_CODE_VERSION=2.1.201 docker compose build dev   # ou dans .env
+```
+
+> **Contrepartie du `latest`** : deux builds à des dates différentes peuvent
+> installer des versions différentes — l'image n'est plus strictement
+> reproductible, et le dev local peut diverger de l'image CI (`image.yml`) selon
+> le moment où chacune est reconstruite. C'est un choix assumé ici (toujours la
+> dernière version) ; épingle `CLAUDE_CODE_VERSION` si tu veux au contraire les
+> aligner au commit près.
 
 L'**auto-updater est volontairement coupé** (`DISABLE_AUTOUPDATER=1` dans
 `compose.yaml`). C'est pourquoi `claude` affiche *« Can't auto-update: npm global
 folder isn't writable »* si on le réactive : le paquet est installé en `root`
 sous `/usr/local`, alors que le conteneur tourne en `node`. Et même en corrigeant
 les droits, toute mise à jour écrite au runtime vivrait dans la couche jetable du
-conteneur et serait **perdue à la recréation**. Le rebuild est le seul chemin qui
-garde l'image reproductible — local et CI alignés.
+conteneur et serait **perdue à la recréation**. Le rebuild est le seul chemin
+propre.
