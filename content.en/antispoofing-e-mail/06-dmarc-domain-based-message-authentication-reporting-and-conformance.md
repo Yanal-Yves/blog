@@ -84,5 +84,5 @@ You may have noticed that some email forwarding works despite SPF's limitations.
 1. **SRS (Sender Rewriting Scheme):** The relay server rewrites the envelope (Return-Path) so that SPF passes with its own IP. This fixes SPF but breaks DMARC alignment.
 2. **ARC (Authenticated Received Chain):** The relay server signs the authentication state (SPF/DKIM) before modifying the message. This allows the final recipient (such as Gmail) to validate the email through a chain of trust, even if SPF and DKIM technically fail on arrival.
 
-# A few useful URLs
+## A few useful URLs
 - https://easydmarc.com/tools/dmarc-lookup : Checks the DMARC syntax and provides information about the DMARC of the checked domain.
