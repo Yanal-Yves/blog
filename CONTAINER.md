@@ -314,12 +314,14 @@ Pour **épingler** une version précise (ponctuel, ou pour figer local + CI) :
 CLAUDE_CODE_VERSION=2.1.201 docker compose build dev   # ou dans .env
 ```
 
-> **Contrepartie du `latest`** : deux builds à des dates différentes peuvent
-> installer des versions différentes — l'image n'est plus strictement
-> reproductible, et le dev local peut diverger de l'image CI (`image.yml`) selon
-> le moment où chacune est reconstruite. C'est un choix assumé ici (toujours la
-> dernière version) ; épingle `CLAUDE_CODE_VERSION` si tu veux au contraire les
-> aligner au commit près.
+> **Contrepartie du `latest`** : deux builds de l'image **`dev`** à des dates
+> différentes peuvent embarquer des versions de Claude différentes (idem entre un
+> build local frais et l'image `blog-dev:latest` publiée sur ghcr). L'image dev
+> n'est donc plus strictement reproductible. Mais cela ne concerne que
+> **l'outillage de dev** : la CI de déploiement tourne sur `blog-ci` (étage
+> `build`, **Hugo seul, sans Claude Code**), donc la version de Claude n'a
+> **aucun** effet sur le site construit et déployé. Épingle `CLAUDE_CODE_VERSION`
+> si tu veux figer l'outillage au commit près.
 
 L'**auto-updater est volontairement coupé** (`DISABLE_AUTOUPDATER=1` dans
 `compose.yaml`). C'est pourquoi `claude` affiche *« Can't auto-update: npm global
