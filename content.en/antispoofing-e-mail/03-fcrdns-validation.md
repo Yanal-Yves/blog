@@ -104,12 +104,12 @@ sequenceDiagram
   else Consistency or DNS failure
       Note over Receiver, Sender: DECISION BASED ON POLICY
       
-      %% Zone Rouge (Transparence 0.15)
+      %% Red zone (Transparency 0.15)
       rect rgba(255, 0, 0, 0.15)
           Receiver-->>Sender: Strict case: 4xx/5xx Reject
       end
       
-      %% Zone Or/Jaune (Transparence 0.15)
+      %% Gold/Yellow zone (Transparency 0.15)
       rect rgba(255, 165, 0, 0.15)
         Receiver-->>Sender: Tolerant case: Accepted (but Spam Score++)
   end

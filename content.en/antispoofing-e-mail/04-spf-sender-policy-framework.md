@@ -21,24 +21,24 @@ When an email arrives, the receiving server checks the sending IP against this l
 ```mermaid
 sequenceDiagram
   autonumber
-  %% --- Acteurs ---
+  %% --- Actors ---
   participant Sender as Sending server<br/>(IP: 1.2.3.4)
   participant Receiver as Recipient server<br/>(b.com)
   participant DNS as DNS<br/>(Zone a.com)
- %% --- Étape 1 : Le transport ---
+ %% --- Step 1: The transport ---
   Note over Sender, Receiver: 1. THE ENVELOPE (SMTP)
   Sender->>Receiver: TCP connection (Source IP: 1.2.3.4)
   Sender->>Receiver: EHLO mail.serveur.com
   Sender->>Receiver: MAIL FROM: <alice@a.com>
   Note right of Receiver: This MAIL FROM becomes the Return-Path<br/>upon receipt. It is this domain (a.com)<br/>that SPF verifies, not the visible From.
   
-  %% --- Le déclencheur ---
+  %% --- The trigger ---
   Note right of Receiver: Server B notes two things:<br/>1. The IP knocking at the door: 1.2.3.4<br/>2. The claimed domain: a.com
- %% --- Étape 2 : La consultation ---
+ %% --- Step 2: The lookup ---
   Note over Receiver, DNS: 2. THE LOOKUP
   Receiver->>DNS: Give me the TXT (SPF) record of "a.com"
   DNS-->>Receiver: "v=spf1 ip4:1.2.3.4 ip4:203.0.113.5 -all"
- %% --- Étape 3 : La décision ---
+ %% --- Step 3: The decision ---
   Note over Receiver: 3. THE COMPARISON
   Note right of Receiver: Server B checks its list:<br/>"Is IP 1.2.3.4 in the list that DNS gave me?"
  alt The IP is in the list

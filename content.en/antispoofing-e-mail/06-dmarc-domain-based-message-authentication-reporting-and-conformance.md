@@ -35,16 +35,16 @@ graph TD
   classDef pass fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px,color:#000
   classDef fail fill:#ffcdd2,stroke:#c62828,stroke-width:2px,color:#000
   classDef policy fill:#e1bee7,stroke:#8e24aa,stroke-width:2px,color:#000
-  %% --- ETAPE 1 : LES PREUVES ---
+  %% --- STEP 1: THE EVIDENCE ---
   subgraph INPUTS ["1 - THE AVAILABLE EVIDENCE"]
       HeaderFrom["👤 Header FROM<br/>(What the user sees)"]:::input
       
       SPF_Res["🚚 SPF result<br/>(Return-Path domain)"]:::input
       DKIM_Res["🛡️ DKIM result<br/>(Signature domain d=)"]:::input
   end
-  %% --- ETAPE 2 : LE TEST D'ALIGNEMENT ---
+  %% --- STEP 2: THE ALIGNMENT TEST ---
   subgraph ALIGNMENT ["2 - ALIGNMENT CHECK"]
-      %% Liens invisibles pour forcer la structure
+      %% Invisible links to force the structure
       HeaderFrom --> CompareSPF
       HeaderFrom --> CompareDKIM
       
@@ -54,7 +54,7 @@ graph TD
       SPF_Res --> CompareSPF
       DKIM_Res --> CompareDKIM
   end
-  %% --- ETAPE 3 : LE VERDICT DMARC ---
+  %% --- STEP 3: THE DMARC VERDICT ---
   subgraph VERDICT ["3 - OVERALL VERDICT"]
       FinalDecision{"At least ONE<br/>match?"}:::check
       
@@ -64,7 +64,7 @@ graph TD
       FinalDecision -- YES --> DMARC_OK["✅ DMARC PASS<br/>(Inbox)"]:::pass
       FinalDecision -- NO --> DMARC_FAIL["❌ DMARC FAIL<br/>(Not aligned)"]:::fail
   end
-  %% --- ETAPE 4 : APPLICATION POLITIQUE ---
+  %% --- STEP 4: POLICY ENFORCEMENT ---
   subgraph ENFORCEMENT ["4 - POLICY"]
       PolicyCheck["👮 Reading p=..."]:::policy
       

@@ -48,31 +48,31 @@ The following diagram shows the various RFCs that shaped the SMTP protocol:
 
 ```mermaid
 graph TD
-  %% --- Définition des Styles ---
+  %% --- Style definitions ---
   classDef base fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#000;
   classDef esmtp fill:#fff9c4,stroke:#fbc02d,stroke-width:2px,color:#000;
   classDef merge fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#000;
   classDef current fill:#c8e6c9,stroke:#1b5e20,stroke-width:4px,color:#000;
-  %% --- 1982 : L'origine ---
+  %% --- 1982: The origin ---
   R821("<b>RFC 821</b><br/><i>August 1982</i><br/>Foundation of SMTP."):::base
-  %% --- La branche ESMTP (Années 90) ---
+  %% --- The ESMTP branch (1990s) ---
   R1425("<b>RFC 1425</b><br/><i>Feb 1993</i><br/>ESMTP invented (EHLO)."):::esmtp
   R1651("<b>RFC 1651</b><br/><i>Jul 1994</i><br/>ESMTP fixes."):::esmtp
   R1869("<b>RFC 1869</b><br/><i>Nov 1995</i><br/>Stable ESMTP standard."):::esmtp
-  %% --- La Fusion (Années 2000) ---
+  %% --- The merge (2000s) ---
   R2821("<b>RFC 2821</b><br/><i>April 2001</i><br/>Merge of SMTP + ESMTP."):::merge
   R5321("<b>RFC 5321</b><br/><i>Oct 2008</i><br/>Current standard."):::current
-  %% --- Relations Chronologiques (Verticales) ---
+  %% --- Chronological relations (vertical) ---
   
-  %% Astuce : Lien invisible pour forcer 821 au-dessus de 1425
+  %% Tip: invisible link to force 821 above 1425
   R821 ~~~ R1425
-  %% Évolution de la branche ESMTP
+  %% Evolution of the ESMTP branch
   R1425 -->|Replaces| R1651
   R1651 -->|Replaces| R1869
-  %% La Fusion des deux branches
+  %% The merge of the two branches
   R821 -->|Merged into| R2821
   R1869 -->|Merged into| R2821
-  %% Le Standard Final
+  %% The final standard
   R2821 -->|Superseded by| R5321
 ```
 
@@ -85,26 +85,26 @@ The following diagram shows the various RFCs that shaped the structure of an ema
 
 ```mermaid
 graph TD
-  %% --- Définition des Styles (Identiques au schéma SMTP) ---
+  %% --- Style definitions (identical to the SMTP diagram) ---
   classDef base fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#000;
   classDef mime fill:#fff9c4,stroke:#fbc02d,stroke-width:2px,color:#000;
   classDef update fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#000;
   classDef current fill:#c8e6c9,stroke:#1b5e20,stroke-width:4px,color:#000;
-  %% --- 1982 : L'origine ---
+  %% --- 1982: The origin ---
   R822("<b>RFC 822</b><br/><i>August 1982</i><br/>Standard text format.<br/>(ASCII only)"):::base
-  %% --- 1996 : La Révolution Multimédia (MIME) ---
-  %% Note: MIME est une extension, pas un remplacement
+  %% --- 1996: The multimedia revolution (MIME) ---
+  %% Note: MIME is an extension, not a replacement
   R2045("<b>RFC 2045</b><br/><i>Nov 1996</i><br/>MIME standards.<br/>(HTML, attachments...)"):::mime
-  %% --- 2001 : La Modernisation ---
+  %% --- 2001: Modernization ---
   R2822("<b>RFC 2822</b><br/><i>April 2001</i><br/>Syntax update."):::update
-  %% --- 2008 : Le Standard Actuel ---
+  %% --- 2008: The current standard ---
   R5322("<b>RFC 5322</b><br/><i>Oct 2008</i><br/>Current standard<br/>(Message Format)."):::current
-  %% --- Relations Chronologiques ---
+  %% --- Chronological relations ---
   
-  %% Lignée principale (Le format du texte)
+  %% Main lineage (the text format)
   R822 -->|Superseded by| R2822
   R2822 -->|Superseded by| R5322
-  %% L'apport de MIME (Extension latérale)
+  %% The contribution of MIME (lateral extension)
   R822 -.->|Extended by| R2045
   R2045 -.->|Still used with| R5322
 ```
@@ -152,12 +152,12 @@ MUA (Sender) ➔ MTA (Sending server) ➔ Internet ➔ MTA (Receiving server) �
 
 ```mermaid
 graph TD
-  %% --- Définition des Styles ---
+  %% --- Style definitions ---
   classDef client fill:#f8bbd0,stroke:#c2185b,stroke-width:2px,color:#000;
   classDef server fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#000;
   classDef storage fill:#fff9c4,stroke:#fbc02d,stroke-width:2px,color:#000;
   classDef internet fill:#f5f5f5,stroke:#9e9e9e,stroke-width:2px,stroke-dasharray: 5 5,color:#000;
-  %% --- Domaine A (Expéditeur) ---
+  %% --- Domain A (Sender) ---
   subgraph "Domain A (a.com)"
       Alice(Alice):::client -->|Writes| MUA_A[MUA<br/>Thunderbird]:::client
       MUA_A -->|SMTP<br/>Auth| MTA_A[MTA<br/>Mail carrier<br/>Postfix]:::server
@@ -168,7 +168,7 @@ graph TD
       DNS -.->|IP response| MTA_A
       MTA_A -->|SMTP<br/>Transmission| MTA_B[MTA<br/>Mail carrier<br/>Postfix]:::server
   end
-  %% --- Domaine B (Destinataire) ---
+  %% --- Domain B (Recipient) ---
   subgraph "Domain B (b.com)"
       MTA_B -->|Delivery| MDA_B[("MDA<br/>Sorter<br/>Dovecot/Imap")]:::storage
       MDA_B -.->|IMAP / POP<br/>Retrieval| MUA_B[MUA<br/>Webmail]:::client

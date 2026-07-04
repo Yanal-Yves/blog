@@ -39,9 +39,9 @@ graph TD
   classDef policy fill:#c8e6c9,stroke:#1b5e20,stroke-width:2px,color:#000
   classDef human fill:#f8bbd0,stroke:#c2185b,stroke-width:2px,color:#000
   classDef outcome fill:#e0e0e0,stroke:#757575,stroke-width:1px,color:#000
-  %% --- Entrée ---
+  %% --- Input ---
   Mail["📧 Incoming email"]
-  %% --- Couches ---
+  %% --- Layers ---
   subgraph "Layer 1: Network"
       L1["FCrDNS<br/>IP/Domain validation"]:::network
   end
@@ -55,23 +55,23 @@ graph TD
   subgraph "Layer 4: Human"
       L4["User<br/>Typosquatting vigilance"]:::human
   end
-  %% --- Sorties ---
+  %% --- Outputs ---
   Inbox["📥 Inbox"]:::outcome
   Spam["🚫 Spam / Rejection"]:::outcome
-  %% --- Flux ---
+  %% --- Flow ---
   Mail --> L1
   
-  %% Du réseau vers l'auth
+  %% From the network to auth
   L1 --> L2_SPF
   Mail --> L2_DKIM
-  %% De l'auth vers DMARC
+  %% From auth to DMARC
   L2_SPF --> L3
   L2_DKIM --> L3
   L1 -.->|PTR info| L3
-  %% Décision DMARC
+  %% DMARC decision
   L3 -->|Success| L4
   L3 -->|Failure| Spam
-  %% Décision Humaine
+  %% Human decision
   L4 -->|Legitimate| Inbox
   L4 -->|Phishing detected| Spam
 ```

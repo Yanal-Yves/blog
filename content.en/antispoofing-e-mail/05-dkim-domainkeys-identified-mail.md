@@ -29,33 +29,33 @@ graph TD
   classDef public fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px,color:#000
   classDef email fill:#fff9c4,stroke:#fbc02d,stroke-width:2px,color:#000
   classDef action fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#000
-  %% --- BLOC 1 : EXPÉDITEUR ---
-  %% J'ai remplacé "1. " par "ETAPE 1 -" pour éviter le bug de liste
+  %% --- BLOCK 1: SENDER ---
+  %% I replaced "1. " with "STEP 1 -" to avoid the list bug
   subgraph SENDER ["1 -  SENDER (a.com)"]
       PrivKey["🔑 Private key<br/>(Secret)"]:::private
       Email_Original["📄 Original email"]:::email
       Sign_Process["⚙️ Signing<br/>(Hashing + Encryption)"]:::action
       
-      %% Flux
+      %% Flow
       PrivKey --> Sign_Process
       Email_Original --> Sign_Process
   end
   %% Transition
   Sign_Process -->|Sent over the Internet| Email_In
-  %% --- BLOC 2 : DESTINATAIRE ---
+  %% --- BLOCK 2: RECIPIENT ---
   subgraph RECEIVER ["2 - RECIPIENT (b.com)"]
       Email_In["📨 Received email<br/>(With DKIM-Signature)"]:::email
       Read_Header["🔍 Reading the selector<br/>(s=..., d=a.com)"]:::action
   end
   %% Transition
   Read_Header -->|Public query| DNSRecord
-  %% --- BLOC 3 : DNS ---
+  %% --- BLOCK 3: DNS ---
   subgraph DNSZONE ["3 - PUBLIC DNS (a.com)"]
       DNSRecord["📖 TXT record<br/>(Contains the 🗝️ public key)"]:::public
   end
-  %% Retour
+  %% Return
   DNSRecord -->|Provides the key| Verify_Process
-  %% --- BLOC 4 : VERDICT ---
+  %% --- BLOCK 4: VERDICT ---
   subgraph VERDICT ["4 - VALIDATION"]
       Verify_Process["🧮 Verification<br/>(Recomputing the hash)"]:::action
       Result{"Match?"}

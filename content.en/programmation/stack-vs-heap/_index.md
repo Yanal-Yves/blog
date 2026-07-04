@@ -115,35 +115,35 @@ graph TB
     subgraph STACK ["THE STACK"]
         direction TB
         Note1[/"Memory area private to the thread"/]
-        %% 1. Entier simple
+        %% 1. Simple integer
         Case1["Case 1 - int Age = 42<br/>[ Value: 42 ]"]
-        %% 2. Entier Nullable (Null)
+        %% 2. Nullable integer (Null)
         Case2["Case 2 - int? Bonus = null<br/>[ HasValue: ❌ | Val: 0 ]"]
-        %% 3. Entier Nullable (Valeur)
+        %% 3. Nullable integer (Value)
         Case3["Case 3 - int? Note = 18<br/>[ HasValue: ✅ | Val: 18 ]"]
-        %% 4. Objet Null
+        %% 4. Null object
         Case4["Case 4 - User Unknown = null<br/>[ Address: 0x000000 ]"]
-        %% 5. Objet Valide
+        %% 5. Valid object
         Case5["Case 5 - User Admin = new...<br/>[ Address: 0x9F2A01 ]"]
-        %% Alignement vertical forcé
+        %% Forced vertical alignment
         Note1 ~~~ Case1 ~~~ Case2 ~~~ Case3 ~~~ Case4 ~~~ Case5
     end
 
     subgraph HEAP ["THE HEAP"]
         direction TB
         Note2[/"Memory area global to the application and managed by the GC"/]
-        %% Représentation de l'objet
+        %% Representation of the object
         HeapObj["User object (at 0x9F2A01)<br/>{ Name: 'Alice', Role: 'Admin' }"]
     end
 
     %% RELATIONS
 
-    %% Les Value Types ne sortent pas de la stack
+    %% Value Types never leave the stack
     
-    %% Reference Null pointe vers le vide
+    %% Null reference points to nothing
     Case4 -.-x|Points to nothing| HEAP
 
-    %% Reference Valide pointe vers l'objet
+    %% Valid reference points to the object
     Case5 -->|Points to| HeapObj
 
     %% STYLES
