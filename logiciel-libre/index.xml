@@ -30,7 +30,13 @@
  &lt;ul&gt;
  &lt;li&gt;&lt;a href="#quest-ce-quune-licence-permissive-"&gt;Qu&amp;rsquo;est-ce qu&amp;rsquo;une licence permissive ?&lt;/a&gt;&lt;/li&gt;
  &lt;li&gt;&lt;a href="#freebsd-un-système-dexploitation-complet-libre-et-permissif"&gt;FreeBSD, un système d&amp;rsquo;exploitation complet, libre… et permissif&lt;/a&gt;&lt;/li&gt;
- &lt;li&gt;&lt;a href="#comment-les-géants-exploitent-freebsd"&gt;Comment les géants exploitent FreeBSD&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#comment-les-géants-exploitent-freebsd"&gt;Comment les géants exploitent FreeBSD&lt;/a&gt;
+ &lt;ul&gt;
+ &lt;li&gt;&lt;a href="#netflix--linfrastructure-invisible"&gt;Netflix : l&amp;rsquo;infrastructure invisible&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#sony-playstation--la-forteresse-verrouillée"&gt;Sony PlayStation : la forteresse verrouillée&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#apple--le-frankenstein-technologique"&gt;Apple : le Frankenstein technologique&lt;/a&gt;&lt;/li&gt;
+ &lt;/ul&gt;
+ &lt;/li&gt;
  &lt;li&gt;&lt;a href="#la-nuance--ce-que-les-géants-rendent-vraiment"&gt;La nuance : ce que les géants rendent vraiment&lt;/a&gt;&lt;/li&gt;
  &lt;li&gt;&lt;a href="#et-le-copyleft-"&gt;Et le copyleft ?&lt;/a&gt;&lt;/li&gt;
  &lt;li&gt;&lt;a href="#sources-et-références"&gt;Sources et références&lt;/a&gt;&lt;/li&gt;
