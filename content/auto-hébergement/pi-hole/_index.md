@@ -53,7 +53,7 @@ sequenceDiagram
 
 C'est l'étape la plus importante pour la longévité d'un Raspberry Pi 1. Les cartes SD détestent les écritures répétées. Or, un serveur DNS écrit des journaux (logs) en permanence.
 
-Nous allons utiliser **[Log2Ram](https://github.com/azlux/log2ram/)**, un outil qui crée un disque virtuel en mémoire vive (RAM) pour y stocker les logs (`/var/log`). Ils ne sont écrits sur la carte SD qu'une fois par jour ou à l'extinction.
+Nous allons utiliser [Log2Ram](https://github.com/azlux/log2ram/), un outil qui crée un disque virtuel en mémoire vive (RAM) pour y stocker les logs (`/var/log`). Ils ne sont écrits sur la carte SD qu'une fois par jour ou à l'extinction.
 
 Cela nous permet d'activer le *Query Logging* de Pi-hole (pour voir les statistiques) sans tuer la carte SD. Sans Log2Ram, une carte SD standard peut tenir entre 6 mois et 2 ans selon sa qualité.
 

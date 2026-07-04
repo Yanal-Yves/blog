@@ -95,7 +95,7 @@ Le serveur de Bob transfère l'e-mail vers `c.com`.
 Le problème : Du point de vue du serveur `c.com`, l'e-mail provient de l'adresse IP du serveur de Bob (`b.com`), mais l'adresse d'expéditeur (`Return-Path`) indique toujours `a.com`.  
 Le serveur `c.com` va vérifier le SPF. Deux cas de figure se présentent :
 **1. Sans réécriture :** C'est le comportement natif du protocole SPF. Le serveur vérifie si l'IP de Bob (`b.com`) est autorisée à envoyer des e-mails pour le domaine d'Alice (`a.com`). La réponse est NON, le SPF échoue.
-**2. Avec SRS (Sender Rewriting Scheme) :** Le serveur de Bob réécrit l'enveloppe technique pour que le SPF passe. Cependant, cela change le domaine vérifié (qui devient b.com) et brise l'alignement avec le domaine visible (a.com). On dit que l'**alignement SPF échoue**. Ce désalignement peut être un problème pour valider l'authenticité d'un e-mail que nous aborderons dans la section consacrée à [DMARC](06-dmarc-domain-based-message-authentication-reporting-and-conformance.md).
+**2. Avec SRS (Sender Rewriting Scheme) :** Le serveur de Bob réécrit l'enveloppe technique pour que le SPF passe. Cependant, cela change le domaine vérifié (qui devient b.com) et brise l'alignement avec le domaine visible (a.com). On dit que l'**alignement SPF échoue**. Ce désalignement peut être un problème pour valider l'authenticité d'un e-mail que nous aborderons dans la section consacrée à [DMARC](/antispoofing-e-mail/06-dmarc-domain-based-message-authentication-reporting-and-conformance/).
 
 Le SRS a été inventé pour empêcher que les mails légitimes ne soient rejetés (bounce) lors d'un transfert. La plupart des gros hébergeurs (OVH, Gmail, Outlook) appliquent le SRS. Il "répare" la couche transport (SMTP) au détriment de l'alignement SPF.
 

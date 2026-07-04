@@ -9,18 +9,18 @@ draft: false
 Have you really grasped the internal mechanics of polymorphism and Vtables? This is the moment to check whether you have mastered the difference between static and dynamic binding. Click "See the answer" to confirm.
 
 ### Question 1
-**In the code `Animal a = new Chien();`, if you call `a.DitBonjour()` (a non-virtual method), which version of the method is executed?**
+**In the code `Animal a = new Dog();`, if you call `a.SayHello()` (a non-virtual method), which version of the method is executed?**
 
-* A) The one from the `Chien` class because the object is a Chien.
+* A) The one from the `Dog` class because the object is a Dog.
 * B) The one from the `Animal` class because the variable is of type Animal.
 * C) None, it causes a compilation error.
-* D) The `Chien`'s one, only if it uses the `override` keyword.
+* D) The `Dog`'s one, only if it uses the `override` keyword.
 
 <details>
 <summary>🔻 See the answer</summary>
 <blockquote>
 <strong>Answer B: The one from the `Animal` class.</strong><br>
-Since the method is not virtual, the compiler uses static binding. It relies solely on the type of the <strong>variable</strong> (`Animal`) and sets in stone the call to `Animal.DitBonjour` as early as compile time.
+Since the method is not virtual, the compiler uses static binding. It relies solely on the type of the <strong>variable</strong> (`Animal`) and sets in stone the call to `Animal.SayHello` as early as compile time.
 </blockquote>
 </details>
 
@@ -92,25 +92,25 @@ The compiler knows the type of the variable. It therefore generates a direct jum
 <summary>🔻 See the answer</summary>
 <blockquote>
 <strong>Answer C: Via the object's header (TypeHandle).</strong><br>
-Every object on the Heap has an invisible header that points to its "identity card" (the MethodTable), which contains the Vtable. This is how the Runtime knows it is dealing with a `Chien` and not an `Animal`.
+Every object on the Heap has an invisible header that points to its "identity card" (the MethodTable), which contains the Vtable. This is how the Runtime knows it is dealing with a `Dog` and not an `Animal`.
 </blockquote>
 </details>
 
 ---
 
 ### Question 6
-**If the `Chat` class defines `public new void DitBonjour()`, what happens at the level of the Vtable inherited from `Animal`?**
+**If the `Cat` class defines `public new void SayHello()`, what happens at the level of the Vtable inherited from `Animal`?**
 
-* A) The address of `Animal.DitBonjour` is replaced by that of `Chat.DitBonjour`.
+* A) The address of `Animal.SayHello` is replaced by that of `Cat.SayHello`.
 * B) A critical error occurs.
-* C) Nothing, the `Chat.DitBonjour` method is ignored in `Animal`'s slot.
+* C) Nothing, the `Cat.SayHello` method is ignored in `Animal`'s slot.
 * D) The Vtable is deleted to optimize memory.
 
 <details>
 <summary>🔻 See the answer</summary>
 <blockquote>
 <strong>Answer C: Nothing, the method is ignored in the parent slot.</strong><br>
-The `new` keyword (hiding) does not use the Vtable mechanism to override the parent. The address in the Vtable slot remains that of `Animal`. The `Chat.DitBonjour` method exists "alongside" it but is not accessible through an `Animal` reference.
+The `new` keyword (hiding) does not use the Vtable mechanism to override the parent. The address in the Vtable slot remains that of `Animal`. The `Cat.SayHello` method exists "alongside" it but is not accessible through an `Animal` reference.
 </blockquote>
 </details>
 
@@ -140,7 +140,7 @@ Instead of jumping directly to the code (a direct call), the processor must firs
 * A) Because it is a bug in the diagram.
 * B) Because the static call is slower.
 * C) Because the compiler already hard-wired the `@Addr_A` (Animal) address.
-* D) Because the `DitBonjour` method does not exist on the Chien.
+* D) Because the `SayHello` method does not exist on the Dog.
 
 <details>
 <summary>🔻 See the answer</summary>
@@ -182,6 +182,6 @@ It is `override` that instructs the system to replace the parent method's addres
 <summary>🔻 See the answer</summary>
 <blockquote>
 <strong>Answer B: It adapts to the actual type of the object.</strong><br>
-No matter that the variable is of type `Animal`, if the object is a `Chat`, it is the `Chat`'s behavior that will be triggered thanks to dynamic resolution.
+No matter that the variable is of type `Animal`, if the object is a `Cat`, it is the `Cat`'s behavior that will be triggered thanks to dynamic resolution.
 </blockquote>
 </details>
