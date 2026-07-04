@@ -71,6 +71,12 @@ services:
         target: /home/node/.ssh/deploy_key
         read_only: true
     environment:
+      # Terminal 256 couleurs pour les shells interactifs (`docker compose exec dev
+      # bash`) : sans ça, `docker exec -t` retombe sur son défaut `TERM=xterm`
+      # (8 couleurs) et neovim/less/etc. n'ont pas la coloration syntaxique. Le
+      # terminfo `xterm-256color` est fourni par ncurses-base (déjà dans l'image
+      # Debian). Réglé sur le conteneur → hérité par tout `exec`.
+      TERM: xterm-256color
       # Token GitHub fine-grained limité au repo du blog (depuis .env, gitignoré).
       # gh le lit automatiquement ; pour git push en HTTPS, lance `gh auth setup-git`
       # une fois dans le conteneur (voir CONTAINER.md).
