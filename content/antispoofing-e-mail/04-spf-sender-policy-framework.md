@@ -11,7 +11,12 @@ weight: 4
 Standardisé en 2006 ([RFC 4408](https://www.rfc-editor.org/rfc/rfc4408)), mis à jour en 2014 ([RFC 7208](https://www.rfc-editor.org/rfc/rfc7208)).
 
 Le SPF agit comme un annuaire de confiance. Le propriétaire du domaine `a.com` publie dans son DNS (enregistrement `TXT`) la liste des IPs autorisées à envoyer des e-mails en son nom.  
-Lorsqu'un e-mail arrive, le serveur de réception vérifie l'IP d'envoi par rapport à cette liste. Attention : Le SPF vérifie le domaine indiqué dans le `Return-Path` (l'enveloppe), et non le `From` (l'en-tête visible).
+Lorsqu'un e-mail arrive, le serveur de réception vérifie l'IP d'envoi par rapport à cette liste. Attention : le SPF vérifie le domaine annoncé dans la commande `MAIL FROM` de l'enveloppe — celui-là même qui sera recopié dans le `Return-Path` à la réception —, et **non** le `From` (l'en-tête visible par l'utilisateur).
+
+> **Rappel — `MAIL FROM` et `Return-Path` sont la même adresse, à deux moments différents.**  
+> Comme détaillé dans l'[article 1/9](../01-architecture-concepts/#lenveloppe-the-envelope---protocole-smtp), le `MAIL FROM` est l'adresse de l'expéditeur *de l'enveloppe*, annoncée pendant la transaction SMTP (le transport). Une fois le message reçu, le serveur destinataire recopie cette valeur dans un champ d'en-tête nommé `Return-Path`. C'est donc **une seule et même adresse**, vue à deux instants : on parle de `MAIL FROM` pendant l'acheminement, et de `Return-Path` une fois l'e-mail stocké. Aucune des deux n'est le `From` affiché dans votre logiciel de messagerie — et c'est précisément ce décalage entre l'adresse contrôlée par SPF et l'adresse visible qui rend l'usurpation possible (voir les [limites](#limites) plus bas).
+>
+> *Cas particulier :* lorsque le `MAIL FROM` est vide — c'est le cas des messages de rebond (bounces), qui utilisent une enveloppe sans expéditeur (`<>`) —, SPF n'a aucun domaine d'enveloppe à contrôler et se rabat alors sur le domaine annoncé dans la commande `HELO`/`EHLO` du serveur émetteur.
 
 ```mermaid
 sequenceDiagram
@@ -25,6 +30,7 @@ sequenceDiagram
   Sender->>Receiver: Connexion TCP (Source IP: 1.2.3.4)
   Sender->>Receiver: EHLO mail.serveur.com
   Sender->>Receiver: MAIL FROM: <alice@a.com>
+  Note right of Receiver: Ce MAIL FROM deviendra le Return-Path<br/>à la réception. C'est ce domaine (a.com)<br/>que SPF vérifie, pas le From visible.
   
   %% --- Le déclencheur ---
   Note right of Receiver: Le serveur B note deux choses :<br/>1. L'IP qui frappe à la porte : 1.2.3.4<br/>2. Le domaine prétendu : a.com
@@ -95,7 +101,7 @@ Le serveur de Bob transfère l'e-mail vers `c.com`.
 Le problème : Du point de vue du serveur `c.com`, l'e-mail provient de l'adresse IP du serveur de Bob (`b.com`), mais l'adresse d'expéditeur (`Return-Path`) indique toujours `a.com`.  
 Le serveur `c.com` va vérifier le SPF. Deux cas de figure se présentent :
 **1. Sans réécriture :** C'est le comportement natif du protocole SPF. Le serveur vérifie si l'IP de Bob (`b.com`) est autorisée à envoyer des e-mails pour le domaine d'Alice (`a.com`). La réponse est NON, le SPF échoue.
-**2. Avec SRS (Sender Rewriting Scheme) :** Le serveur de Bob réécrit l'enveloppe technique pour que le SPF passe. Cependant, cela change le domaine vérifié (qui devient b.com) et brise l'alignement avec le domaine visible (a.com). On dit que l'**alignement SPF échoue**. Ce désalignement peut être un problème pour valider l'authenticité d'un e-mail que nous aborderons dans la section consacrée à [DMARC](06-dmarc-domain-based-message-authentication-reporting-and-conformance.md).
+**2. Avec SRS (Sender Rewriting Scheme) :** Le serveur de Bob réécrit l'enveloppe technique pour que le SPF passe. Cependant, cela change le domaine vérifié (qui devient b.com) et brise l'alignement avec le domaine visible (a.com). On dit que l'**alignement SPF échoue**. Ce désalignement peut être un problème pour valider l'authenticité d'un e-mail que nous aborderons dans la section consacrée à [DMARC](/antispoofing-e-mail/06-dmarc-domain-based-message-authentication-reporting-and-conformance/).
 
 Le SRS a été inventé pour empêcher que les mails légitimes ne soient rejetés (bounce) lors d'un transfert. La plupart des gros hébergeurs (OVH, Gmail, Outlook) appliquent le SRS. Il "répare" la couche transport (SMTP) au détriment de l'alignement SPF.
 

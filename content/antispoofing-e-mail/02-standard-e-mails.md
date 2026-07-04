@@ -24,7 +24,7 @@ Créez les alias suivants (redirigés vers votre adresse d'administration) pour 
 Ces e-mails permettent de mettre en place des boucles de rétroaction (FBL Feed Back Loop).
 
 **⚠️ Point d'attention sur les redirections :**
-L'adresse finale de destination doit idéalement être hébergée sur le même domaine. Si vous redirigez ces alias vers une boîte externe (ex: Gmail), le mécanisme **SPF** échouera souvent (car [le SPF ne résiste pas à la redirection](/content/antispoofing-e-mail/03-spf-sender-policy-framework.md#le-spf-ne-résiste-pas-au-forward-de-mail)). Dans ce cas de figure, seul le **DKIM** permettra de prouver l'authenticité de l'e-mail transféré.
+L'adresse finale de destination doit idéalement être hébergée sur le même domaine. Si vous redirigez ces alias vers une boîte externe (ex: Gmail), le mécanisme **SPF** échouera souvent (car [le SPF ne résiste pas à la redirection](/antispoofing-e-mail/04-spf-sender-policy-framework/#le-spf-ne-résiste-pas-au-forward-de-mail)). Dans ce cas de figure, seul le **DKIM** permettra de prouver l'authenticité de l'e-mail transféré.
 
 ## Explication détaillée
 
@@ -47,7 +47,7 @@ Ces adresses sont critiques. Si elles n'existent pas, vous risquez d'être bloqu
 
 ### 2. Les Standards de Service ([RFC 2142](https://www.ietf.org/rfc/rfc2142.txt))
 
-La **[RFC 2142](https://www.ietf.org/rfc/rfc2142.txt)** uniformise les contacts pour éviter d'avoir à deviner l'adresse du responsable d'un service.
+La [RFC 2142](https://www.ietf.org/rfc/rfc2142.txt) uniformise les contacts pour éviter d'avoir à deviner l'adresse du responsable d'un service.
 
 | Adresse | Service | Fonction / Justification ([RFC 2142](https://www.ietf.org/rfc/rfc2142.txt)) |
 | :--- | :--- | :--- |

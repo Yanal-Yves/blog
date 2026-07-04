@@ -1,1 +1,8 @@
 <h1 class="book-article-title">{{ .Title }}</h1>
+{{- /* Bannière de traduction : uniquement sur les pages anglaises (le FR est la langue de référence relue par l'auteur). */ -}}
+{{- if eq .Site.Language.Lang "en" -}}
+<div class="translation-notice" role="note">
+  <strong>{{ T "aiTranslationTitle" }}</strong>
+  <p>{{ T "aiTranslationBody" }}</p>
+</div>
+{{- end -}}

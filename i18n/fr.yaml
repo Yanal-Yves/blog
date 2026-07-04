@@ -1,0 +1,10 @@
+# Clés personnalisées utilisées par layouts/partials/docs/inject/content-after.html
+editThisPage: "Proposer une modification"
+authoredByPrefix: "Par"
+updatedOnPrefix: "Mis à jour le"
+aiAssistedNotice: "(Rédaction assistée par IA, révision finale par l'auteur)"
+licensePrefix: "Sauf mention contraire, ce contenu est placé sous licence"
+
+# Note de traduction (affichée uniquement sur les pages en anglais — inutile côté FR)
+aiTranslationTitle: ""
+aiTranslationBody: ""

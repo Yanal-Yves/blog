@@ -12,3 +12,16 @@
     justify-content: center;
   }
 </style>
+{{- /* hreflang recommandés par Google, en complément des alternats émis par le thème
+       (themes/hugo-book/layouts/_partials/docs/html-head.html : range .Translations, qui
+       n'émet que les AUTRES langues). On ajoute ici l'auto-référence de la page courante
+       et un x-default pointant vers la version dans la langue par défaut (FR). */ -}}
+{{- if hugo.IsMultilingual -}}
+  {{- $defaultLang := "fr" -}}
+  <link rel="alternate" hreflang="{{ default .Site.LanguageCode .Language.Lang }}" href="{{ .Permalink }}" title="{{ partial "docs/title" . }}">
+  {{- range .AllTranslations -}}
+    {{- if eq .Language.Lang $defaultLang -}}
+  <link rel="alternate" hreflang="x-default" href="{{ .Permalink }}">
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
