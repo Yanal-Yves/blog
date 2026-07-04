@@ -101,9 +101,10 @@ RUN curl -fsSL "https://github.com/neovim/neovim/releases/download/v${NVIM_VERSI
 # identique → la couche est mise en cache et npm ne réinstalle rien ; dès qu'une
 # nouvelle version sort, le contenu change → la couche `npm install` ci-dessous
 # se ré-exécute et installe la nouvelle. Aucune variable à passer.
+# Le manifeste téléchargé (quelques Ko) reste dans la couche ADD ; inutile de le
+# `rm` ensuite (ça ne récupère rien, la couche ADD précède le RUN).
 ADD https://registry.npmjs.org/@anthropic-ai/claude-code/${CLAUDE_CODE_VERSION} /tmp/claude-code.json
-RUN npm install -g @anthropic-ai/claude-code@${CLAUDE_CODE_VERSION} \
-    && rm -f /tmp/claude-code.json
+RUN npm install -g @anthropic-ai/claude-code@${CLAUDE_CODE_VERSION}
 
 # Aligne l'utilisateur `node` (uid/gid 1000 par défaut dans l'image node) sur
 # l'uid/gid de l'hôte. On pré-crée ~/.claude pour que le volume nommé qui s'y
