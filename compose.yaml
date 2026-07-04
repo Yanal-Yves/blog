@@ -27,6 +27,11 @@ services:
       args:
         UID: ${UID:-1000}
         GID: ${GID:-1000}
+        # Version de Claude Code. Défaut `latest` : chaque `docker compose build`
+        # installe la dernière version publiée (cache-busté côté Dockerfile via un
+        # ADD du manifeste npm — rien à passer). Pour épingler ponctuellement une
+        # version, renseigne CLAUDE_CODE_VERSION dans .env (ou en variable).
+        CLAUDE_CODE_VERSION: ${CLAUDE_CODE_VERSION:-latest}
     image: ghcr.io/yanal-yves/blog-dev:latest
     init: true
     stdin_open: true
@@ -77,6 +82,12 @@ services:
       # terminfo `xterm-256color` est fourni par ncurses-base (déjà dans l'image
       # Debian). Réglé sur le conteneur → hérité par tout `exec`.
       TERM: xterm-256color
+      # Claude Code est épinglé dans l'image (cf. CLAUDE_CODE_VERSION du Dockerfile)
+      # et se met à jour en reconstruisant l'image, pas au runtime. On coupe donc
+      # l'auto-updater : il échouerait (paquet installé en root sous /usr/local,
+      # conteneur lancé en `node` → "npm global folder isn't writable") et toute
+      # màj écrite au runtime serait perdue à la recréation du conteneur.
+      DISABLE_AUTOUPDATER: "1"
       # Token GitHub fine-grained limité au repo du blog (depuis .env, gitignoré).
       # gh le lit automatiquement ; pour git push en HTTPS, lance `gh auth setup-git`
       # une fois dans le conteneur (voir CONTAINER.md).

@@ -10,6 +10,7 @@
 # Cible : linux/amd64.
 ARG HUGO_VERSION=0.159.0
 ARG NVIM_VERSION=0.10.2
+ARG CLAUDE_CODE_VERSION=latest
 
 # --------------------------------------------------------------------------
 # Étage build — image CI minimale (Hugo seul)
@@ -40,6 +41,7 @@ RUN git config --system --add safe.directory '*'
 # --------------------------------------------------------------------------
 FROM node:22-bookworm-slim AS dev
 ARG NVIM_VERSION
+ARG CLAUDE_CODE_VERSION
 # uid/gid de l'utilisateur du conteneur. Par défaut 1000 (= 1er utilisateur Linux
 # courant, et géré par Docker Desktop sur macOS/Windows). Sur un hôte Linux dont
 # l'uid ≠ 1000, construire avec `--build-arg UID=$(id -u) --build-arg GID=$(id -g)`
@@ -86,8 +88,23 @@ RUN curl -fsSL "https://github.com/neovim/neovim/releases/download/v${NVIM_VERSI
     && ln -s /opt/nvim-linux64/bin/nvim /usr/local/bin/nvim \
     && rm /tmp/nvim.tar.gz
 
-# Claude Code.
-RUN npm install -g @anthropic-ai/claude-code
+# Claude Code. Par défaut CLAUDE_CODE_VERSION=latest → chaque build installe la
+# DERNIÈRE version publiée. La mise à jour se fait donc en reconstruisant l'image,
+# jamais au runtime : l'auto-updater est coupé (DISABLE_AUTOUPDATER, cf.
+# compose.yaml) — il échouerait de toute façon (paquet installé en root sous
+# /usr/local, conteneur lancé en `node`) et toute màj runtime serait perdue à la
+# recréation du conteneur. On peut aussi épingler une version précise en passant
+# --build-arg CLAUDE_CODE_VERSION=2.1.201 (ou via .env, cf. compose.yaml).
+#
+# Cache-bust : `ADD` re-télécharge à chaque build le manifeste de la version
+# ciblée depuis le registre npm. Tant que `latest` ne bouge pas, ce JSON est
+# identique → la couche est mise en cache et npm ne réinstalle rien ; dès qu'une
+# nouvelle version sort, le contenu change → la couche `npm install` ci-dessous
+# se ré-exécute et installe la nouvelle. Aucune variable à passer.
+# Le manifeste téléchargé (quelques Ko) reste dans la couche ADD ; inutile de le
+# `rm` ensuite (ça ne récupère rien, la couche ADD précède le RUN).
+ADD https://registry.npmjs.org/@anthropic-ai/claude-code/${CLAUDE_CODE_VERSION} /tmp/claude-code.json
+RUN npm install -g @anthropic-ai/claude-code@${CLAUDE_CODE_VERSION}
 
 # Aligne l'utilisateur `node` (uid/gid 1000 par défaut dans l'image node) sur
 # l'uid/gid de l'hôte. On pré-crée ~/.claude pour que le volume nommé qui s'y

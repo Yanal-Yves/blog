@@ -293,3 +293,40 @@ et la CI suit automatiquement. Local et CI restent alignés.
 > Un commit mixte (contenu + Dockerfile) déclenche un déploiement immédiat qui
 > tire l'ancienne image avant qu'`image.yml` ait publié la nouvelle ; le
 > déploiement suivant (via `workflow_run`) corrige, mais évite-toi ce transitoire.
+
+## Mettre à jour Claude Code
+
+**La mise à jour se fait en reconstruisant l'image**, jamais au runtime :
+
+```bash
+docker compose build dev     # installe la DERNIÈRE version publiée de Claude Code
+```
+
+Par défaut `CLAUDE_CODE_VERSION=latest` (`Dockerfile` / `compose.yaml`) : chaque
+build tire la dernière version. Un `ADD` du manifeste npm juste avant le
+`npm install` sert de **cache-bust** — tant que `latest` ne bouge pas, la couche
+reste en cache (rebuild instantané) ; dès qu'une nouvelle version sort, la couche
+`npm install` se ré-exécute toute seule. **Rien à passer en variable.**
+
+Pour **épingler** une version précise (ponctuel, ou pour figer local + CI) :
+
+```bash
+CLAUDE_CODE_VERSION=2.1.201 docker compose build dev   # ou dans .env
+```
+
+> **Contrepartie du `latest`** : deux builds de l'image **`dev`** à des dates
+> différentes peuvent embarquer des versions de Claude différentes (idem entre un
+> build local frais et l'image `blog-dev:latest` publiée sur ghcr). L'image dev
+> n'est donc plus strictement reproductible. Mais cela ne concerne que
+> **l'outillage de dev** : la CI de déploiement tourne sur `blog-ci` (étage
+> `build`, **Hugo seul, sans Claude Code**), donc la version de Claude n'a
+> **aucun** effet sur le site construit et déployé. Épingle `CLAUDE_CODE_VERSION`
+> si tu veux figer l'outillage au commit près.
+
+L'**auto-updater est volontairement coupé** (`DISABLE_AUTOUPDATER=1` dans
+`compose.yaml`). C'est pourquoi `claude` affiche *« Can't auto-update: npm global
+folder isn't writable »* si on le réactive : le paquet est installé en `root`
+sous `/usr/local`, alors que le conteneur tourne en `node`. Et même en corrigeant
+les droits, toute mise à jour écrite au runtime vivrait dans la couche jetable du
+conteneur et serait **perdue à la recréation**. Le rebuild est le seul chemin
+propre.
