@@ -11,7 +11,10 @@ weight: 4
 Standardized in 2006 ([RFC 4408](https://www.rfc-editor.org/rfc/rfc4408)), updated in 2014 ([RFC 7208](https://www.rfc-editor.org/rfc/rfc7208)).
 
 SPF acts as a trust directory. The owner of domain `a.com` publishes in its DNS (a `TXT` record) the list of IPs authorized to send email on its behalf.  
-When an email arrives, the receiving server checks the sending IP against this list. Note: SPF verifies the domain indicated in the `Return-Path` (the envelope), not the `From` (the visible header).
+When an email arrives, the receiving server checks the sending IP against this list. Note: SPF verifies the domain announced in the envelope's `MAIL FROM` command — the very one that will be copied into the `Return-Path` upon receipt —, and **not** the `From` (the header visible to the user).
+
+> **Reminder — `MAIL FROM` and `Return-Path` are the same address, at two different moments.**  
+> As detailed in [article 1/9](../01-architecture-concepts/#the-envelope---smtp-protocol), the `MAIL FROM` is the *envelope* sender address, announced during the SMTP transaction (the transport). Once the message is received, the recipient server copies this value into a header field named `Return-Path`. It is therefore **one and the same address**, seen at two moments: we speak of `MAIL FROM` during delivery, and of `Return-Path` once the email is stored. Neither of them is the `From` displayed in your mail client — and it is precisely this gap between the address SPF checks and the visible address that makes spoofing possible (see the [limits](#limits) below).
 
 ```mermaid
 sequenceDiagram
@@ -25,6 +28,7 @@ sequenceDiagram
   Sender->>Receiver: TCP connection (Source IP: 1.2.3.4)
   Sender->>Receiver: EHLO mail.serveur.com
   Sender->>Receiver: MAIL FROM: <alice@a.com>
+  Note right of Receiver: This MAIL FROM becomes the Return-Path<br/>upon receipt. It is this domain (a.com)<br/>that SPF verifies, not the visible From.
   
   %% --- Le déclencheur ---
   Note right of Receiver: Server B notes two things:<br/>1. The IP knocking at the door: 1.2.3.4<br/>2. The claimed domain: a.com

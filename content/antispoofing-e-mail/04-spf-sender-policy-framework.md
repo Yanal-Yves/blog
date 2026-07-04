@@ -11,7 +11,10 @@ weight: 4
 Standardisé en 2006 ([RFC 4408](https://www.rfc-editor.org/rfc/rfc4408)), mis à jour en 2014 ([RFC 7208](https://www.rfc-editor.org/rfc/rfc7208)).
 
 Le SPF agit comme un annuaire de confiance. Le propriétaire du domaine `a.com` publie dans son DNS (enregistrement `TXT`) la liste des IPs autorisées à envoyer des e-mails en son nom.  
-Lorsqu'un e-mail arrive, le serveur de réception vérifie l'IP d'envoi par rapport à cette liste. Attention : Le SPF vérifie le domaine indiqué dans le `Return-Path` (l'enveloppe), et non le `From` (l'en-tête visible).
+Lorsqu'un e-mail arrive, le serveur de réception vérifie l'IP d'envoi par rapport à cette liste. Attention : le SPF vérifie le domaine annoncé dans la commande `MAIL FROM` de l'enveloppe — celui-là même qui sera recopié dans le `Return-Path` à la réception —, et **non** le `From` (l'en-tête visible par l'utilisateur).
+
+> **Rappel — `MAIL FROM` et `Return-Path` sont la même adresse, à deux moments différents.**  
+> Comme détaillé dans l'[article 1/9](../01-architecture-concepts/#lenveloppe-the-envelope---protocole-smtp), le `MAIL FROM` est l'adresse de l'expéditeur *de l'enveloppe*, annoncée pendant la transaction SMTP (le transport). Une fois le message reçu, le serveur destinataire recopie cette valeur dans un champ d'en-tête nommé `Return-Path`. C'est donc **une seule et même adresse**, vue à deux instants : on parle de `MAIL FROM` pendant l'acheminement, et de `Return-Path` une fois l'e-mail stocké. Aucune des deux n'est le `From` affiché dans votre logiciel de messagerie — et c'est précisément ce décalage entre l'adresse contrôlée par SPF et l'adresse visible qui rend l'usurpation possible (voir les [limites](#limites) plus bas).
 
 ```mermaid
 sequenceDiagram
@@ -25,6 +28,7 @@ sequenceDiagram
   Sender->>Receiver: Connexion TCP (Source IP: 1.2.3.4)
   Sender->>Receiver: EHLO mail.serveur.com
   Sender->>Receiver: MAIL FROM: <alice@a.com>
+  Note right of Receiver: Ce MAIL FROM deviendra le Return-Path<br/>à la réception. C'est ce domaine (a.com)<br/>que SPF vérifie, pas le From visible.
   
   %% --- Le déclencheur ---
   Note right of Receiver: Le serveur B note deux choses :<br/>1. L'IP qui frappe à la porte : 1.2.3.4<br/>2. Le domaine prétendu : a.com
