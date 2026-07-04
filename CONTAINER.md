@@ -293,3 +293,25 @@ et la CI suit automatiquement. Local et CI restent alignés.
 > Un commit mixte (contenu + Dockerfile) déclenche un déploiement immédiat qui
 > tire l'ancienne image avant qu'`image.yml` ait publié la nouvelle ; le
 > déploiement suivant (via `workflow_run`) corrige, mais évite-toi ce transitoire.
+
+## Mettre à jour Claude Code
+
+Comme Hugo et Neovim, **Claude Code est épinglé dans l'image** (`ARG
+CLAUDE_CODE_VERSION` dans le `Dockerfile`) et se met à jour en **reconstruisant
+l'image**, pas au runtime :
+
+```bash
+# bumper la version puis reconstruire
+sed -i 's/^ARG CLAUDE_CODE_VERSION=.*/ARG CLAUDE_CODE_VERSION=2.1.201/' Dockerfile
+docker compose build dev
+# ou, ponctuel, sans toucher au Dockerfile :
+CLAUDE_CODE_VERSION=2.1.201 docker compose build dev
+```
+
+L'**auto-updater est volontairement coupé** (`DISABLE_AUTOUPDATER=1` dans
+`compose.yaml`). C'est pourquoi `claude` affiche *« Can't auto-update: npm global
+folder isn't writable »* si on le réactive : le paquet est installé en `root`
+sous `/usr/local`, alors que le conteneur tourne en `node`. Et même en corrigeant
+les droits, toute mise à jour écrite au runtime vivrait dans la couche jetable du
+conteneur et serait **perdue à la recréation**. Le rebuild est le seul chemin qui
+garde l'image reproductible — local et CI alignés.

@@ -10,6 +10,7 @@
 # Cible : linux/amd64.
 ARG HUGO_VERSION=0.159.0
 ARG NVIM_VERSION=0.10.2
+ARG CLAUDE_CODE_VERSION=2.1.201
 
 # --------------------------------------------------------------------------
 # Étage build — image CI minimale (Hugo seul)
@@ -40,6 +41,7 @@ RUN git config --system --add safe.directory '*'
 # --------------------------------------------------------------------------
 FROM node:22-bookworm-slim AS dev
 ARG NVIM_VERSION
+ARG CLAUDE_CODE_VERSION
 # uid/gid de l'utilisateur du conteneur. Par défaut 1000 (= 1er utilisateur Linux
 # courant, et géré par Docker Desktop sur macOS/Windows). Sur un hôte Linux dont
 # l'uid ≠ 1000, construire avec `--build-arg UID=$(id -u) --build-arg GID=$(id -g)`
@@ -86,8 +88,13 @@ RUN curl -fsSL "https://github.com/neovim/neovim/releases/download/v${NVIM_VERSI
     && ln -s /opt/nvim-linux64/bin/nvim /usr/local/bin/nvim \
     && rm /tmp/nvim.tar.gz
 
-# Claude Code.
-RUN npm install -g @anthropic-ai/claude-code
+# Claude Code, version épinglée (comme Hugo et Neovim) : l'image est reproductible
+# et on met à jour en la reconstruisant (bumper CLAUDE_CODE_VERSION), pas via
+# l'auto-updater. Ce dernier est d'ailleurs coupé (DISABLE_AUTOUPDATER, cf.
+# compose.yaml) : il échouerait de toute façon (paquet installé en root sous
+# /usr/local, conteneur lancé en `node`) et toute màj runtime serait perdue à la
+# recréation du conteneur.
+RUN npm install -g @anthropic-ai/claude-code@${CLAUDE_CODE_VERSION}
 
 # Aligne l'utilisateur `node` (uid/gid 1000 par défaut dans l'image node) sur
 # l'uid/gid de l'hôte. On pré-crée ~/.claude pour que le volume nommé qui s'y
