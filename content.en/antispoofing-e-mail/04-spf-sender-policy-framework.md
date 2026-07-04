@@ -113,5 +113,5 @@ Each mechanism that asks the receiving server to query DNS counts as 1: this inc
 
 **The danger:** If you accumulate too many providers (e.g. Google + Salesforce + Mailjet + Zendesk), you will exceed this limit. The result will be an immediate `PermError`, causing your emails to be rejected or classified as spam, even if the sending IP was technically authorized.
 
-# A few useful URLs
+## A few useful URLs
 - https://easydmarc.com/tools/spf-lookup : Checks the SPF syntax, counts the number of DNS lookups, and details the SPF recursively.

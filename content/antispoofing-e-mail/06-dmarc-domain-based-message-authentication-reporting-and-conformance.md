@@ -84,5 +84,5 @@ Vous avez peut-être constaté que certains transferts d'e-mails fonctionnent ma
 1. **SRS (Sender Rewriting Scheme) :** Le serveur de relais réécrit l'enveloppe (Return-Path) pour que le SPF passe avec sa propre IP. Cela corrige le SPF mais casse l'alignement DMARC.
 2. **ARC (Authenticated Received Chain) :** Le serveur de relais signe l'état de l'authentification (SPF/DKIM) avant de modifier le message. Cela permet au destinataire final (comme Gmail) de valider l'e-mail via une chaîne de confiance, même si SPF et DKIM échouent techniquement à l'arrivée.
 
-# Quelques URL utiles
+## Quelques URL utiles
 - https://easydmarc.com/tools/dmarc-lookup : Vérifie la syntaxe du DMARC et donne des informations relatives au DMARC du domaine vérifié.

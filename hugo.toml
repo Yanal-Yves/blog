@@ -42,4 +42,4 @@ title = "Notes Techniques" # Le nom de votre site en haut à gauche
       unsafe = true # Autorise un peu de HTML dans le markdown si besoin
     [markup.tableOfContents]
       startLevel = 2
-      endLevel = 2
+      endLevel = 6 # 6 = maximum HTML (pas de h7) : tous les niveaux de titre, sans limite pratique
