@@ -15,6 +15,8 @@ When an email arrives, the receiving server checks the sending IP against this l
 
 > **Reminder — `MAIL FROM` and `Return-Path` are the same address, at two different moments.**  
 > As detailed in [article 1/9](../01-architecture-concepts/#the-envelope---smtp-protocol), the `MAIL FROM` is the *envelope* sender address, announced during the SMTP transaction (the transport). Once the message is received, the recipient server copies this value into a header field named `Return-Path`. It is therefore **one and the same address**, seen at two moments: we speak of `MAIL FROM` during delivery, and of `Return-Path` once the email is stored. Neither of them is the `From` displayed in your mail client — and it is precisely this gap between the address SPF checks and the visible address that makes spoofing possible (see the [limits](#limits) below).
+>
+> *Special case:* when the `MAIL FROM` is empty — as with bounce messages, which use a null envelope sender (`<>`) — SPF has no envelope domain to check and instead falls back to the domain announced in the sending server's `HELO`/`EHLO` command.
 
 ```mermaid
 sequenceDiagram

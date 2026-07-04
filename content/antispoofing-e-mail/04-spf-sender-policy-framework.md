@@ -15,6 +15,8 @@ Lorsqu'un e-mail arrive, le serveur de réception vérifie l'IP d'envoi par rapp
 
 > **Rappel — `MAIL FROM` et `Return-Path` sont la même adresse, à deux moments différents.**  
 > Comme détaillé dans l'[article 1/9](../01-architecture-concepts/#lenveloppe-the-envelope---protocole-smtp), le `MAIL FROM` est l'adresse de l'expéditeur *de l'enveloppe*, annoncée pendant la transaction SMTP (le transport). Une fois le message reçu, le serveur destinataire recopie cette valeur dans un champ d'en-tête nommé `Return-Path`. C'est donc **une seule et même adresse**, vue à deux instants : on parle de `MAIL FROM` pendant l'acheminement, et de `Return-Path` une fois l'e-mail stocké. Aucune des deux n'est le `From` affiché dans votre logiciel de messagerie — et c'est précisément ce décalage entre l'adresse contrôlée par SPF et l'adresse visible qui rend l'usurpation possible (voir les [limites](#limites) plus bas).
+>
+> *Cas particulier :* lorsque le `MAIL FROM` est vide — c'est le cas des messages de rebond (bounces), qui utilisent une enveloppe sans expéditeur (`<>`) —, SPF n'a aucun domaine d'enveloppe à contrôler et se rabat alors sur le domaine annoncé dans la commande `HELO`/`EHLO` du serveur émetteur.
 
 ```mermaid
 sequenceDiagram
