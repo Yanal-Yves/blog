@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <!--
+    Bannière Open Graph du site (og:image / twitter:image).
+    Source éditable. Pour régénérer le PNG publié dans static/ :
+      inkscape design/og-default.svg --export-type=png \
+        --export-filename=static/og-default.png --export-width=1200 --export-height=630
+    Police utilisée : DejaVu Sans (Bold). Format social recommandé : 1200x630.
+  -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3a424b"/>
+      <stop offset="1" stop-color="#20252b"/>
+    </linearGradient>
+    <radialGradient id="surface" cx="50%" cy="45%" r="65%">
+      <stop offset="0" stop-color="#e7f5ff"/>
+      <stop offset="35%" stop-color="#74c0fc"/>
+      <stop offset="100%" stop-color="#1c4f7c"/>
+    </radialGradient>
+    <linearGradient id="stone" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#616c77"/>
+      <stop offset="1" stop-color="#333a41"/>
+    </linearGradient>
+    <linearGradient id="wisp" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#74c0fc" stop-opacity="0"/>
+      <stop offset="45%" stop-color="#a5d8ff" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#e7f5ff" stop-opacity="0.2"/>
+    </linearGradient>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="7"/>
+    </filter>
+    <filter id="soft" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="26"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1200" height="7" fill="#4dabf7"/>
+
+  <!-- ===================== PENSINE (bassin) — décalée à droite pour dégager le titre ===================== -->
+  <g transform="translate(78,0)">
+    <!-- halo de lumière -->
+    <ellipse cx="860" cy="340" rx="230" ry="150" fill="#4dabf7" opacity="0.30" filter="url(#soft)"/>
+
+    <!-- corps du bassin -->
+    <path d="M 665 388 C 690 470, 1030 470, 1055 388 L 1040 388 C 1015 462, 705 462, 680 388 Z" fill="url(#stone)"/>
+    <path d="M 672 392 C 700 500, 1020 500, 1048 392 C 1010 452, 710 452, 672 392 Z" fill="#2b3138"/>
+    <!-- pied -->
+    <path d="M 800 470 L 920 470 L 945 545 L 775 545 Z" fill="url(#stone)"/>
+    <ellipse cx="860" cy="547" rx="120" ry="16" fill="#20252b"/>
+
+    <!-- surface lumineuse (l'ouverture) -->
+    <ellipse cx="860" cy="386" rx="200" ry="60" fill="url(#stone)"/>
+    <ellipse cx="860" cy="382" rx="178" ry="50" fill="url(#surface)"/>
+    <ellipse cx="860" cy="382" rx="178" ry="50" fill="#e7f5ff" opacity="0.35" filter="url(#glow)"/>
+
+    <!-- volutes de pensées qui s'élèvent -->
+    <g fill="none" stroke="url(#wisp)" stroke-linecap="round" filter="url(#glow)">
+      <path d="M 820 380 C 780 300, 900 250, 840 170 C 800 120, 870 90, 900 60" stroke-width="7" opacity="0.95"/>
+      <path d="M 880 382 C 930 300, 820 250, 900 175 C 950 130, 890 95, 940 70" stroke-width="6" opacity="0.8"/>
+      <path d="M 860 384 C 860 320, 860 260, 870 210 C 878 165, 850 130, 870 95" stroke-width="5" opacity="0.7"/>
+      <path d="M 800 384 C 750 320, 800 270, 760 220" stroke-width="4" opacity="0.55"/>
+      <path d="M 918 384 C 970 330, 930 285, 980 235" stroke-width="4" opacity="0.55"/>
+    </g>
+    <!-- particules -->
+    <g fill="#e7f5ff" filter="url(#glow)">
+      <circle cx="900" cy="60" r="6" opacity="0.95"/>
+      <circle cx="940" cy="70" r="4" opacity="0.8"/>
+      <circle cx="870" cy="95" r="4" opacity="0.8"/>
+      <circle cx="760" cy="220" r="3.5" opacity="0.7"/>
+      <circle cx="980" cy="235" r="3.5" opacity="0.7"/>
+      <circle cx="845" cy="150" r="3" opacity="0.6"/>
+    </g>
+  </g>
+
+  <!-- ===================== TEXTE ===================== -->
+  <g font-family="DejaVu Sans" fill="#f8f9fa">
+    <text x="80" y="290" font-size="90" font-weight="bold" letter-spacing="-1">Notes</text>
+    <text x="80" y="386" font-size="90" font-weight="bold" letter-spacing="-1">Techniques</text>
+    <rect x="84" y="424" width="150" height="8" rx="4" fill="#4dabf7"/>
+  </g>
+  <text x="84" y="494" font-family="DejaVu Sans" font-size="36" font-weight="bold" fill="#4dabf7" letter-spacing="0.5">yanal.fargialla.com</text>
+</svg>
