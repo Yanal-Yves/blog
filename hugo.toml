@@ -30,6 +30,11 @@ title = "Notes Techniques" # Le nom de votre site en haut à gauche
   BookTheme = "auto" # Active le mode sombre automatique selon les préférences du visiteur
   BookToC = false # Désactive le sommaire partout
   DateFormat = "2 Jan 2006" # Format de date français
+  # Image de prévisualisation (og:image / twitter:image) émise par le template Open Graph
+  # intégré de Hugo sur chaque page. Sans cela, les scrapers (LinkedIn, Google…) tombent
+  # sur la seule <img> de la page : le badge CC BY-SA du pied de page. Surchargeable par
+  # page via le front matter `images = ["..."]`.
+  images = ["og-default.png"]
 
 # Configuration pour que les URLs soient propres
 [server]
