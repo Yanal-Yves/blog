@@ -225,6 +225,9 @@ Lorsqu&amp;rsquo;un e-mail arrive, le serveur de réception vérifie l&amp;rsquo
  &lt;li&gt;&lt;a href="#les-3-piliers-de-dmarc"&gt;Les 3 piliers de DMARC&lt;/a&gt;&lt;/li&gt;
  &lt;li&gt;&lt;a href="#pour-aller-plus-loin"&gt;Pour aller plus loin&lt;/a&gt;
  &lt;ul&gt;
+ &lt;li&gt;&lt;a href="#les-deux-modes-dalignement--relaxed-et-strict"&gt;Les deux modes d’alignement : &lt;code&gt;relaxed&lt;/code&gt; et &lt;code&gt;strict&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#aligner-spf--le-return-path-personnalisé-custom-return-path"&gt;Aligner SPF : le return-path personnalisé (custom Return-Path)&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#où-publier-ou-non-le-spf-dun-prestataire"&gt;Où publier (ou non) le SPF d&amp;rsquo;un prestataire&lt;/a&gt;&lt;/li&gt;
  &lt;li&gt;&lt;a href="#note-sur-le-transfert-et-les-mailing-lists-srs--arc"&gt;Note sur le transfert et les Mailing Lists (SRS &amp;amp; ARC)&lt;/a&gt;&lt;/li&gt;
  &lt;/ul&gt;
  &lt;/li&gt;

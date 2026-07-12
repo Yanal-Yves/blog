@@ -143,6 +143,9 @@ When an email arrives, the receiving server checks the sending IP against this l
  &lt;li&gt;&lt;a href="#the-3-pillars-of-dmarc"&gt;The 3 pillars of DMARC&lt;/a&gt;&lt;/li&gt;
  &lt;li&gt;&lt;a href="#going-further"&gt;Going further&lt;/a&gt;
  &lt;ul&gt;
+ &lt;li&gt;&lt;a href="#the-two-alignment-modes-relaxed-and-strict"&gt;The two alignment modes: &lt;code&gt;relaxed&lt;/code&gt; and &lt;code&gt;strict&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#aligning-spf-the-custom-return-path"&gt;Aligning SPF: the custom Return-Path&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#where-to-publish-or-not-a-providers-spf"&gt;Where to publish (or not) a provider&amp;rsquo;s SPF&lt;/a&gt;&lt;/li&gt;
  &lt;li&gt;&lt;a href="#a-note-on-forwarding-and-mailing-lists-srs--arc"&gt;A note on forwarding and Mailing Lists (SRS &amp;amp; ARC)&lt;/a&gt;&lt;/li&gt;
  &lt;/ul&gt;
  &lt;/li&gt;
