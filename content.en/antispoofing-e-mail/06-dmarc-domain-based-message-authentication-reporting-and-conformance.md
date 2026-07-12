@@ -78,6 +78,45 @@ graph TD
 
 ## Going further
 
+### The two alignment modes: `relaxed` and `strict`
+
+The alignment described above can be more or less tolerant. DMARC defines two modes, configurable independently for SPF and for DKIM via the `aspf` and `adkim` tags of the DMARC record:
+
+- **`relaxed` (default mode, value `r`):** alignment is validated as long as the two domains share the same **organizational domain** (the registrable "root" domain, for example `a.com` for both `bnc3.a.com` and `mail.a.com`). A subdomain is therefore enough to align with its root domain.
+- **`strict` (value `s`):** alignment requires an **exact** match of the domains. `bnc3.a.com` is then *not* considered aligned with `a.com`.
+
+In the absence of the `aspf=`/`adkim=` tags, the `relaxed` mode applies. This is the most common behavior, and it is what makes the custom Return-Path technique described below possible.
+
+### Aligning SPF: the custom Return-Path
+
+Recall that SPF is evaluated on the envelope domain (the `Return-Path`), not on the `From`. For DMARC, it is therefore not enough for SPF to be `PASS`: the domain thus validated must also be **aligned** with the `From`.
+
+Now, by default, an ESP handles bounces under its own domain. Take Mailjet:
+
+- The default `Return-Path` is of the form `…@bnc3.mailjet.com`.
+- SPF is `PASS` there (the IP is indeed authorized by `mailjet.com`), but the validated organizational domain is `mailjet.com`, whereas the `From` is `…@a.com`.
+- **SPF alignment fails:** `mailjet.com` ≠ `a.com`.
+
+The workaround is to configure a **custom Return-Path**: you publish a subdomain of your own domain (for example `bnc3.a.com`) as a `CNAME` to the ESP's bounce infrastructure (`bnc3.mailjet.com`). The envelope then carries `…@bnc3.a.com`, whose organizational domain is `a.com`: **SPF alignment passes** (in `relaxed` mode).
+
+| | Default Return-Path | Custom Return-Path |
+| --- | --- | --- |
+| Envelope domain | `bnc3.mailjet.com` | `bnc3.a.com` (`CNAME` → `bnc3.mailjet.com`) |
+| SPF result (RFC 7208) | `PASS` | `PASS` |
+| Validated organizational domain | `mailjet.com` | `a.com` |
+| SPF alignment (`relaxed`) with `From: …@a.com` | ❌ fails | ✅ passes |
+
+Note: this custom Return-Path is not strictly required for DMARC to pass. ESPs also delegate the DKIM signature under your domain (via selector `CNAME`s), which provides **DKIM alignment**. Since DMARC is satisfied with the alignment of *just one* of the two protocols, an aligned DKIM is enough. The custom Return-Path therefore mainly adds **robustness** (DMARC then rests on two aligned channels instead of one), and some also like it for having their own domain appear in the `Return-Path`.
+
+### Where to publish (or not) a provider's SPF
+
+Everything above boils down to a simple rule, which often puzzles people:
+
+- If the bounces of a mailing are handled under **your** domain — a subdomain actually present in your DNS zone, with its own `TXT` record (this is the case with Amazon SES in "custom MAIL FROM domain") — then it is **there**, on that subdomain, that you must publish the provider's SPF `include`.
+- If the bounces are handled under the **provider's domain** — its own domain, or a subdomain on your side as a mere `CNAME` to its infrastructure (the case of Mailjet with `bnc3.a.com` → `bnc3.mailjet.com`) — then the SPF actually consulted is the provider's. Publishing its `include` on the apex of your domain (`a.com`) **is useless for authentication**: that record is never queried for those mailings.
+
+This last point is counterintuitive: the interface of some ESPs (Mailjet, for example) nonetheless demands this `include` on your root domain and shows a warning in its absence, even though it is **purely cosmetic**. Mailjet support explicitly confirmed this to us (exchange of Friday 10 July 2026): this `include` serves only to display a green check in the interface, and its absence does not affect deliverability as long as the return-path is correctly configured. It therefore has no effect on deliverability, but it consumes one of your [10 DNS queries allowed by SPF](04-spf-sender-policy-framework.md). Keep it if you are far from that limit (to avoid an administrator being alarmed by a false alert), remove it if you are running out of room.
+
 ### A note on forwarding and Mailing Lists (SRS & ARC)
 
 You may have noticed that some email forwarding works despite SPF's limitations. This is thanks to two mechanisms handled by intermediate servers (over which you have no control):

@@ -78,6 +78,45 @@ graph TD
 
 ## Pour aller plus loin
 
+### Les deux modes d'alignement : `relaxed` et `strict`
+
+L'alignement décrit plus haut peut être plus ou moins tolérant. DMARC définit deux modes, configurables indépendamment pour SPF et pour DKIM via les balises `aspf` et `adkim` de l'enregistrement DMARC :
+
+- **`relaxed` (mode par défaut, valeur `r`)** : l'alignement est validé dès lors que les deux domaines partagent le même **domaine organisationnel** (le domaine « racine » enregistrable, par exemple `a.com` pour `bnc3.a.com` comme pour `mail.a.com`). Un sous-domaine suffit donc à s'aligner avec son domaine racine.
+- **`strict` (valeur `s`)** : l'alignement exige une correspondance **exacte** des domaines. `bnc3.a.com` n'est alors *pas* considéré comme aligné avec `a.com`.
+
+En l'absence des balises `aspf=`/`adkim=`, c'est le mode `relaxed` qui s'applique. C'est le comportement le plus courant, et c'est lui qui rend possible la technique du return-path personnalisé décrite ci-dessous.
+
+### Aligner SPF : le return-path personnalisé (custom Return-Path)
+
+Rappelons que SPF s'évalue sur le domaine de l'enveloppe (le `Return-Path`), et non sur le `From`. Pour DMARC, il ne suffit donc pas que SPF soit `PASS` : encore faut-il que le domaine ainsi validé soit **aligné** avec le `From`.
+
+Or, par défaut, un ESP gère les rebonds sous son propre domaine. Prenons Mailjet :
+
+- Le `Return-Path` par défaut est du type `…@bnc3.mailjet.com`.
+- SPF y est `PASS` (l'IP est bien autorisée par `mailjet.com`), mais le domaine organisationnel validé est `mailjet.com`, alors que le `From` est `…@a.com`.
+- **L'alignement SPF échoue** : `mailjet.com` ≠ `a.com`.
+
+La parade consiste à configurer un **return-path personnalisé** : on publie un sous-domaine de son propre domaine (par exemple `bnc3.a.com`) en `CNAME` vers l'infrastructure de rebond de l'ESP (`bnc3.mailjet.com`). L'enveloppe porte alors `…@bnc3.a.com`, dont le domaine organisationnel est `a.com` : **l'alignement SPF passe** (en mode `relaxed`).
+
+| | Return-path par défaut | Return-path personnalisé |
+| --- | --- | --- |
+| Domaine de l'enveloppe | `bnc3.mailjet.com` | `bnc3.a.com` (`CNAME` → `bnc3.mailjet.com`) |
+| Résultat SPF (RFC 7208) | `PASS` | `PASS` |
+| Domaine organisationnel validé | `mailjet.com` | `a.com` |
+| Alignement SPF (`relaxed`) avec `From: …@a.com` | ❌ échoue | ✅ passe |
+
+À noter : ce return-path personnalisé n'est pas strictement indispensable pour que DMARC passe. Les ESP délèguent aussi la signature DKIM sous votre domaine (via des `CNAME` de sélecteur), ce qui procure un **alignement DKIM**. Comme DMARC se satisfait de l'alignement d'*un seul* des deux protocoles, un DKIM aligné suffit. Le return-path personnalisé apporte donc surtout de la **robustesse** (DMARC repose alors sur deux canaux alignés au lieu d'un seul), et certains l'apprécient aussi pour faire figurer leur propre domaine dans le `Return-Path`.
+
+### Où publier (ou non) le SPF d'un prestataire
+
+Tout ce qui précède se résume à une règle simple, qui déroute souvent :
+
+- Si les rebonds (bounces) d'un envoi sont gérés sous **votre** domaine — un sous-domaine réellement présent dans votre zone DNS, avec son propre enregistrement `TXT` (c'est le cas d'Amazon SES en « custom MAIL FROM domain ») — alors c'est **là**, sur ce sous-domaine, que vous devez publier l'`include` SPF du prestataire.
+- Si les rebonds sont gérés sous le **domaine du prestataire** — son propre domaine, ou un sous-domaine chez vous en simple `CNAME` vers son infrastructure (le cas de Mailjet avec `bnc3.a.com` → `bnc3.mailjet.com`) — alors le SPF réellement consulté est celui du prestataire. Publier son `include` sur l'apex de votre domaine (`a.com`) **ne sert à rien pour l'authentification** : cet enregistrement n'est jamais interrogé pour ces envois.
+
+Ce dernier point est contre-intuitif : l'interface de certains ESP (Mailjet, par exemple) réclame malgré tout cet `include` sur votre domaine racine et affiche une alerte en son absence, alors qu'il est **purement cosmétique**. Le support de Mailjet nous l'a confirmé explicitement (échange du vendredi 10 juillet 2026) : cet `include` sert uniquement à afficher une coche verte dans l'interface, et son absence n'affecte pas la délivrabilité dès lors que le return-path est correctement configuré. Il n'a donc aucun effet sur la délivrabilité, mais il consomme l'une de vos [10 requêtes DNS autorisées par SPF](04-spf-sender-policy-framework.md). À conserver si vous êtes loin de cette limite (pour éviter qu'un administrateur ne s'alarme d'une fausse alerte), à retirer si vous manquez de place.
+
 ### Note sur le transfert et les Mailing Lists (SRS & ARC)
 
 Vous avez peut-être constaté que certains transferts d'e-mails fonctionnent malgré les limitations de SPF. C'est grâce à deux mécanismes gérés par les serveurs intermédiaires (sur lesquels vous n'avez pas la main) :
