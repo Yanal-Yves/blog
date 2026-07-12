@@ -36,8 +36,10 @@ To get the most out of this article and secure your domain, you need to:
 ## Concepts specific to email
 
 Throughout this series of articles, we consider an email leaving domain `a.com` (the sending domain) bound for domain `b.com` (the receiving domain). E.g. `alice@a.com` to `bob@b.com`.  
-In the article, we talk about an **ESP**. An ESP (Email Service Provider) is a company or platform that provides services to help individuals or, more commonly, businesses manage and send bulk email campaigns (email marketing, newsletters, etc.) or transactional emails.  
+In the article, we talk about an **ESP**. An ESP (Email Service Provider) is a company or platform that provides services to help individuals or, more commonly, businesses manage and send bulk email campaigns (email marketing, newsletters, etc.) or transactional emails. Mailjet, Mailchimp, SendGrid, Brevo or Amazon SES are common examples.  
 A transactional email (also called a service/system email) is an automated, non-promotional message sent to a user following a specific action that the user initiated on a website or in an application (e.g. the email you receive when you click "forgot password").
+
+An ESP should not be confused with a **mailbox provider** (email hosting), which hosts your mailboxes themselves: it stores, sends and receives your day-to-day mail under your own domain. Google Workspace, Microsoft 365, OVH or Proton Mail are examples, as is a mail server you administer yourself. The difference is simple: an ESP sends *on your behalf* from its own infrastructure, whereas a mailbox provider hosts the mailbox you write from. We will see that this distinction is decisive for correctly configuring email authentication (in particular, knowing where to publish — or not — an SPF record).
 
 ### The mail-sending protocol: SMTP
 

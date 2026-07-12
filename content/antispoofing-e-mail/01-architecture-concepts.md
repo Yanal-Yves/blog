@@ -36,8 +36,10 @@ Pour tirer pleinement profit de cet article et sécuriser votre domaine, vous de
 ## Concepts spécifiques au mail
 
 Tout au long de cette série d'articles, on considère un e-mail partant du domaine `a.com` (domaine expéditeur) à destination du domaine `b.com` (domaine de réception). Ex : `alice@a.com` vers `bob@b.com`.  
-Dans l'article, on parle d'**ESP**. Un ESP (pour Email Service Provider, ou Fournisseur de Services de Messagerie en français) est une entreprise ou une plateforme qui fournit des services pour aider les particuliers ou, plus couramment, les entreprises à gérer et envoyer des campagnes d'e-mails en masse (e-mail marketing, newsletters, etc.) ou des e-mails transactionnels.  
+Dans l'article, on parle d'**ESP**. Un ESP (pour Email Service Provider, ou Fournisseur de Services de Messagerie en français) est une entreprise ou une plateforme qui fournit des services pour aider les particuliers ou, plus couramment, les entreprises à gérer et envoyer des campagnes d'e-mails en masse (e-mail marketing, newsletters, etc.) ou des e-mails transactionnels. Mailjet, Mailchimp, SendGrid, Brevo ou Amazon SES en sont des exemples courants.  
 Un e-mail transactionnel (ou e-mail de service/système) est un message automatisé et non promotionnel qui est envoyé à un utilisateur suite à une action spécifique que cet utilisateur a initiée sur un site web ou dans une application (ex : le mail qu'on reçoit quand on clique sur "mot de passe oublié").
+
+Il ne faut pas confondre un ESP avec un **hébergeur de messagerie** (ou fournisseur de boîtes aux lettres, *mailbox provider*), qui héberge vos boîtes elles-mêmes : il stocke, envoie et reçoit votre courrier quotidien sous votre propre domaine. Google Workspace, Microsoft 365, OVH ou Proton Mail en sont des exemples, au même titre qu'un serveur de messagerie que vous administrez vous-même. La différence est simple : un ESP envoie *à votre place* depuis sa propre infrastructure, tandis qu'un hébergeur héberge la boîte d'où vous écrivez. Nous verrons que cette distinction est déterminante pour configurer correctement l'authentification des e-mails (notamment savoir où publier — ou non — un enregistrement SPF).
 
 ### Le protocole d'envoi de mails : SMTP
 
