@@ -75,6 +75,12 @@ services:
         source: ${DEPLOY_KEY:-/dev/null}
         target: /home/node/.ssh/deploy_key
         read_only: true
+        # Comme pour les screenshots ci-dessus : si DEPLOY_KEY pointe sur un chemin
+        # inexistant, échouer franchement au lieu de créer en douce un dossier vide
+        # possédé par root (que ssh -i verrait comme "Is a directory"). Le défaut
+        # /dev/null, lui, existe toujours → l'état neutre reste valable.
+        bind:
+          create_host_path: false
     environment:
       # Terminal 256 couleurs pour les shells interactifs (`docker compose exec dev
       # bash`) : sans ça, `docker exec -t` retombe sur son défaut `TERM=xterm`
