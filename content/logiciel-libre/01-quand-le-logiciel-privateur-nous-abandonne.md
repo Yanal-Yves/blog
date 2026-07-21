@@ -1,6 +1,6 @@
 ---
 title: "Quand le logiciel privateur nous abandonne"
-description: "Article fondateur : vingt-cinq ans d'expériences vécues avec le logiciel propriétaire (Access, Classic ASP, Visual Studio, Windows, Windows Phone, OneDrive, Balsamiq, PC Soft) qui mènent à une conviction — se tourner vers le logiciel libre et des modèles économiques respectueux des utilisateurs."
+description: "Article fondateur : vingt-cinq ans d'expériences vécues avec le logiciel propriétaire (Access, Classic ASP, Visual Studio, Windows, Windows Phone, OneDrive, Balsamiq, PC Soft, Azure DevOps) qui mènent à une conviction — se tourner vers le logiciel libre et des modèles économiques respectueux des utilisateurs."
 weight: 1
 ---
 
@@ -130,9 +130,25 @@ Pour qui développe avec une petite équipe mais **déploie massivement**, le ch
 
 > Sur ce changement et la réaction de la communauté, voir l'article de Next, [« Les développeurs WinDev s'alarment d'une possible redevance par installation client »](https://next.ink/241694/les-developpeurs-windev-salarment-dune-possible-redevance-par-installation-client/).
 
+## Expérience 10 — Azure DevOps : des projets prisonniers de leur collection
+
+Cet exemple-là, je le tire de mon quotidien d'architecte. Azure DevOps organise le travail en **Team Project Collections** (collections de projets d'équipe) : chaque collection regroupe les projets d'une équipe ou d'une entité, et le schéma de départ est simple — **une équipe = une collection**. Mais les organisations vivent : les équipes fusionnent, se scindent, se réorganisent ; les projets changent de main, les *backlogs* sont transférés. Et là, le mur : **une fois un projet placé dans une collection, il est impossible de le déplacer** vers une autre. Aucun outil intégré ne permet à la structure des projets Azure DevOps de suivre la réalité des équipes de développement.
+
+Le besoin n'a rien d'exotique — c'est le quotidien de n'importe quelle organisation qui grandit. Il a d'ailleurs été formalisé publiquement : sur la plateforme de retours de Microsoft (Developer Community), la demande [« make it possible to move a Team Project between Team Project Collections »](https://developercommunity.visualstudio.com/idea/365365/make-it-possible-to-move-a-team-project-between-te-1.html) a été ouverte le **24 octobre 2018**. Au moment où j'écris (21 juillet 2026), elle totalise **1 158 votes** et **209 commentaires** — et son statut affiché reste « en cours d'examen » (*Under Review*).
+
+![Capture de la demande sur la Developer Community de Microsoft : « make it possible to move a Team Project between Team Project Collections », statut « Under Review », 1 158 votes et 209 commentaires, ouverte le 24 octobre 2018 par Feedback Bot, migrée depuis le forum UserVoice d'Azure DevOps (étiquette « uservoice votes 4385 »).](/images/logiciel-libre/azure-devops-deplacer-projet.png)
+
+*La demande sur la Developer Community de Microsoft, telle qu'affichée le 21 juillet 2026 : 1 158 votes, 209 commentaires, statut « Under Review », et l'étiquette « uservoice votes 4385 » héritée de l'ancien forum UserVoice.*
+
+Mais la demande est en réalité **bien plus ancienne** que cette date. Elle a été **migrée depuis l'ancien forum UserVoice** d'Azure DevOps, où elle avait déjà recueilli **4 385 votes** avant même d'atterrir sur la Developer Community — un chiffre que Microsoft a conservé sous forme d'étiquette (`uservoice votes 4385`) sur la demande, [visible dès 2019 sur une capture d'archive](http://web.archive.org/web/20191021020915/https://developercommunity.visualstudio.com/idea/365365/make-it-possible-to-move-a-team-project-between-te-1.html). Et le problème lui-même est plus vieux encore : la notion de *Team Project Collection* vient de **Team Foundation Server** (TFS), le produit sur lequel Azure DevOps est bâti. TFS existe depuis 2005 ; il a été renommé **Visual Studio Team Services** puis **Azure DevOps** (2018) côté cloud, et **Azure DevOps Server** (2019) côté sur site. Autrement dit, cela fait **près de huit ans** que la demande est formellement enregistrée — et le blocage existait déjà des années auparavant, sous TFS.
+
+La réponse officielle de Microsoft ? Le déplacement est **architecturalement difficile** : dans la conception héritée de TFS, certains identifiants clés — les numéros de *changeset* TFVC, les identifiants de *work items* — sont **séquentiels et rattachés à la collection**, et référencés partout (code source, tâches, tableaux de bord, requêtes, builds, tests…). Les renuméroter en changeant de collection casserait tous ces liens. Microsoft en conclut qu'il n'y a **« pas de plan pour livrer cette fonctionnalité »** et renvoie vers des contournements partiels (scission de collection, outils de migration tiers) qui ne réalisent jamais un déplacement complet et fidèle.
+
+Le raisonnement est peut-être techniquement fondé. Mais c'est justement le cœur du problème : **la dette de conception d'un éditeur devient la prison de ses utilisateurs**. Un choix d'architecture vieux de vingt ans — rattacher des identifiants à une collection — est aujourd'hui subi par toutes les équipes qui ne peuvent pas faire coïncider leurs projets avec la réalité de leur organisation, et qui n'ont, encore une fois, aucune prise pour le corriger elles-mêmes. Avec un système fermé, huit ans de votes ne pèsent rien face à une décision d'architecture qu'on n'a pas le droit de toucher.
+
 ## Le point commun : qui contrôle réellement le logiciel ?
 
-Neuf histoires, une même mécanique. À chaque fois, **une décision — ou une défaillance — de l'éditeur** détruit l'investissement de l'utilisateur, sans qu'il ait son mot à dire :
+Dix histoires, une même mécanique. À chaque fois, **une décision — ou une défaillance — de l'éditeur** détruit l'investissement de l'utilisateur, sans qu'il ait son mot à dire :
 
 - Access : compatibilité cassée, code à réécrire et à retester intégralement ;
 - Classic ASP / Web Forms : technologie abandonnée, sans alternative indolore ;
@@ -142,7 +158,8 @@ Neuf histoires, une même mécanique. À chaque fois, **une décision — ou une
 - Windows Phone : deux ruptures matérielles en deux ans, des téléphones encore fonctionnels rendus obsolètes par le seul logiciel ;
 - OneDrive : synchronisation locale rompue, organisation familiale cassée, aucun correctif possible de notre côté ;
 - Balsamiq : produit déprécié, migration forcée, données prisonnières d'un format privateur ;
-- PC Soft : modèle économique retourné, viabilité détruite.
+- PC Soft : modèle économique retourné, viabilité détruite ;
+- Azure DevOps : projets impossibles à déplacer, huit ans de votes ignorés au nom d'une dette de conception héritée de TFS.
 
 C'est exactement ce que décrit Richard Stallman : avec le logiciel privateur, **le développeur a un pouvoir sur les utilisateurs** qu'aucune bonne intention ne suffit à rendre acceptable, parce que ce pouvoir est **structurel**. L'utilisateur n'a pas le code. Il ne peut pas le corriger, le prolonger, le confier à quelqu'un d'autre. Il ne peut que subir — ou tout recommencer.
 
@@ -160,7 +177,7 @@ Quelques illustrations, vérifiées :
 
 - **net2ftp**, un client FTP en PHP que j'ai connu au tout début des années 2000. Sa dernière version stable (1.3) date de **juillet 2019**, sans changement de technologie de fond sur toute cette durée. Un outil libre peut traverser deux décennies parce que personne ne décrète sa mort. *(Je n'ai pas pu confirmer publiquement la date exacte de sa toute première version ; je la situe « au début des années 2000 » de mémoire.)*
 
-- **Python 2 → Python 3**, l'exemple le plus parlant. Python 3.0 sort en **décembre 2008**, en cassant volontairement la compatibilité. Mais comme l'écosystème est libre et piloté par la communauté, **Python 2.7 a été maintenu en parallèle jusqu'au 1ᵉʳ janvier 2020** — plus de onze ans. (La date de fin de vie a même été repoussée de 2015 à 2020 pour laisser à tout le monde le temps de migrer.) Personne n'a été mis devant le fait accompli : chacun a pu migrer **à son rythme**. C'est exactement ce qu'aucune des neuf histoires précédentes n'a permis.
+- **Python 2 → Python 3**, l'exemple le plus parlant. Python 3.0 sort en **décembre 2008**, en cassant volontairement la compatibilité. Mais comme l'écosystème est libre et piloté par la communauté, **Python 2.7 a été maintenu en parallèle jusqu'au 1ᵉʳ janvier 2020** — plus de onze ans. (La date de fin de vie a même été repoussée de 2015 à 2020 pour laisser à tout le monde le temps de migrer.) Personne n'a été mis devant le fait accompli : chacun a pu migrer **à son rythme**. C'est exactement ce qu'aucune des dix histoires précédentes n'a permis.
 
 La différence est là : avec le libre, une rupture reste **gérable**, parce que le pouvoir de décision n'est pas confisqué par un seul acteur.
 
@@ -184,7 +201,7 @@ Et puis il y a la contradiction que je ne veux pas cacher : **je suis salarié d
 
 On entend parfois que les entreprises « exploitent » le logiciel libre. Je crois l'inverse : **rien qu'en l'utilisant et en le faisant connaître, on sert la cause** — on élargit sa base d'utilisateurs, on remonte des bugs, on aide d'autres développeurs, on finance les mainteneurs.
 
-Mais si ces neuf histoires enseignent une chose, c'est que **migrer vers le libre après coup est lent, fragile et coûteux**. Cinq personnes sur soixante, une direction qui refuse le matériel, des années pour défaire des dépendances accumulées. D'où la vraie leçon, surtout pour celles et ceux qui débutent : **commencez libre dès le départ**. Le logiciel privateur a souvent de bonnes raisons d'attirer — il est parfois plus abouti, mieux intégré ou mieux accompagné, et c'est un choix qui peut être parfaitement rationnel sur le moment. Mais, après toutes ces années, ma conviction est qu'il reste le plus souvent bien plus facile de bâtir sur du logiciel libre dès le premier jour que de s'extraire, des années plus tard, d'un écosystème privateur dans lequel on s'est enfermé sans même s'en rendre compte.
+Mais si ces dix histoires enseignent une chose, c'est que **migrer vers le libre après coup est lent, fragile et coûteux**. Cinq personnes sur soixante, une direction qui refuse le matériel, des années pour défaire des dépendances accumulées. D'où la vraie leçon, surtout pour celles et ceux qui débutent : **commencez libre dès le départ**. Le logiciel privateur a souvent de bonnes raisons d'attirer — il est parfois plus abouti, mieux intégré ou mieux accompagné, et c'est un choix qui peut être parfaitement rationnel sur le moment. Mais, après toutes ces années, ma conviction est qu'il reste le plus souvent bien plus facile de bâtir sur du logiciel libre dès le premier jour que de s'extraire, des années plus tard, d'un écosystème privateur dans lequel on s'est enfermé sans même s'en rendre compte.
 
 ## Conclusion
 
@@ -207,6 +224,7 @@ J'invite donc tout le monde, partout, à **se tourner vers le logiciel libre** c
 - Règles UE sur les mises à jour et la réparabilité des smartphones — [Commission européenne : nouvelles règles écoconception (règlement (UE) 2023/1670), applicables depuis le 20 juin 2025](https://single-market-economy.ec.europa.eu/news/new-eu-rules-durable-energy-efficient-and-repairable-smartphones-and-tablets-start-applying-2025-06-20_en)
 - Fin de support de Windows 10 — [Microsoft Support : Windows 10 support has ended on October 14, 2025](https://support.microsoft.com/en-us/windows/windows-10-support-has-ended-on-october-14-2025-2ca8b313-1946-43d3-b55c-2b95b107f281)
 - PC Soft / WinDev, rachat et nouveau modèle — [Next, « Les développeurs WinDev s'alarment… »](https://next.ink/241694/les-developpeurs-windev-salarment-dune-possible-redevance-par-installation-client/) · [Programmez, « PC Soft : après le rachat… »](https://www.programmez.com/actualites/pc-soft-apres-le-rachat-une-grogne-des-developpeurs-windev-39590)
+- Azure DevOps, projet impossible à déplacer entre collections — [Developer Community, « make it possible to move a Team Project between Team Project Collections »](https://developercommunity.visualstudio.com/idea/365365/make-it-possible-to-move-a-team-project-between-te-1.html) (ouverte le 24 octobre 2018) · [capture d'archive 2019 montrant l'étiquette « uservoice votes 4385 »](http://web.archive.org/web/20191021020915/https://developercommunity.visualstudio.com/idea/365365/make-it-possible-to-move-a-team-project-between-te-1.html) · [Microsoft Learn, « TFS is now Azure DevOps Server »](https://learn.microsoft.com/en-us/azure/devops/server/tfs-is-now-azure-devops-server?view=azure-devops)
 - OneDrive, dossiers partagés transformés en raccourcis web — [Neowin, « Microsoft confirms OneDrive shared folders are indeed turning into internet shortcuts »](https://www.neowin.net/news/microsoft-confirms-onedrive-shared-folders-are-indeed-turning-into-internet-shortcuts/) · [Windows Latest, « Microsoft confirms Windows 11 OneDrive internet shortcut bug »](https://www.windowslatest.com/2024/07/03/microsoft-confirms-windows-11-onedrive-internet-shortcut-bug/)
 - Balsamiq pour Google Drive, arrêt et migration — [Balsamiq, « Looking back at Balsamiq's 2024 »](https://balsamiq.com/blog/looking-back-2024/) (la page d'annonce dédiée n'est plus en ligne)
 - net2ftp — [Wikipédia (EN)](https://en.wikipedia.org/wiki/Net2ftp)

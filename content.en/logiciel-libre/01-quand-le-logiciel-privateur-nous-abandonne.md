@@ -1,6 +1,6 @@
 ---
 title: "When proprietary software abandons us"
-description: "Founding article: twenty-five years of lived experience with proprietary software (Access, Classic ASP, Visual Studio, Windows, Windows Phone, OneDrive, Balsamiq, PC Soft) leading to one conviction — turning to free software and to business models that respect their users."
+description: "Founding article: twenty-five years of lived experience with proprietary software (Access, Classic ASP, Visual Studio, Windows, Windows Phone, OneDrive, Balsamiq, PC Soft, Azure DevOps) leading to one conviction — turning to free software and to business models that respect their users."
 weight: 1
 ---
 
@@ -130,9 +130,25 @@ For anyone who develops with a small team but **deploys massively**, the change 
 
 > On this change and the community's reaction, see the article by Next, ["Les développeurs WinDev s'alarment d'une possible redevance par installation client"](https://next.ink/241694/les-developpeurs-windev-salarment-dune-possible-redevance-par-installation-client/).
 
+## Experience 10 — Azure DevOps: projects trapped in their collection
+
+This example I draw from my daily work as an architect. Azure DevOps organises work into **Team Project Collections**: each collection groups the projects of a team or an entity, and the starting model is simple — **one team = one collection**. But organisations are living things: teams merge, split, reorganise; projects change hands, backlogs are transferred. And there, the wall: **once a project has been placed in a collection, it is impossible to move it** to another. No built-in tool lets the structure of Azure DevOps projects follow the reality of the development teams.
+
+The need is nothing exotic — it is the daily lot of any organisation that grows. It has, in fact, been formalised publicly: on Microsoft's feedback platform (Developer Community), the request ["make it possible to move a Team Project between Team Project Collections"](https://developercommunity.visualstudio.com/idea/365365/make-it-possible-to-move-a-team-project-between-te-1.html) was opened on **24 October 2018**. As I write (21 July 2026), it totals **1,158 votes** and **209 comments** — and its displayed status remains "Under Review".
+
+![Screenshot of the request on Microsoft's Developer Community: "make it possible to move a Team Project between Team Project Collections", status "Under Review", 1,158 votes and 209 comments, opened on 24 October 2018 by Feedback Bot, migrated from the Azure DevOps UserVoice forum (tag "uservoice votes 4385").](/images/logiciel-libre/azure-devops-deplacer-projet.png)
+
+*The request on Microsoft's Developer Community, as displayed on 21 July 2026: 1,158 votes, 209 comments, status "Under Review", and the "uservoice votes 4385" tag inherited from the old UserVoice forum.*
+
+But the request is in fact **far older** than that date. It was **migrated from the old UserVoice forum** of Azure DevOps, where it had already gathered **4,385 votes** before ever landing on the Developer Community — a figure Microsoft preserved as a tag (`uservoice votes 4385`) on the request, [visible as early as 2019 in an archive snapshot](http://web.archive.org/web/20191021020915/https://developercommunity.visualstudio.com/idea/365365/make-it-possible-to-move-a-team-project-between-te-1.html). And the problem itself is older still: the notion of a *Team Project Collection* comes from **Team Foundation Server** (TFS), the product Azure DevOps is built on. TFS has existed since 2005; it was renamed **Visual Studio Team Services** and then **Azure DevOps** (2018) on the cloud side, and **Azure DevOps Server** (2019) on-premises. In other words, the request has been formally on record for **nearly eight years** — and the blocker already existed years earlier, under TFS.
+
+Microsoft's official answer? Moving is **architecturally difficult**: in the design inherited from TFS, certain key identifiers — TFVC changeset numbers, work item IDs — are **sequential and scoped to the collection**, and referenced everywhere (source code, tasks, dashboards, queries, builds, tests…). Renumbering them when changing collection would break all those links. Microsoft concludes there is **"no plan to deliver this feature"** and points to partial workarounds (collection split, third-party migration tools) that never perform a complete, high-fidelity move.
+
+The reasoning may be technically sound. But that is precisely the heart of the problem: **a vendor's design debt becomes its users' prison**. An architectural choice twenty years old — scoping identifiers to a collection — is today endured by every team that cannot make its projects match the reality of its organisation, and that has, once again, no hold to fix it itself. With a closed system, eight years of votes count for nothing against an architectural decision no one is allowed to touch.
+
 ## The common thread: who really controls the software?
 
-Nine stories, one and the same mechanics. Each time, **a decision — or a failure — by the vendor** destroys the user's investment, without them having any say:
+Ten stories, one and the same mechanics. Each time, **a decision — or a failure — by the vendor** destroys the user's investment, without them having any say:
 
 - Access: broken compatibility, code to rewrite and retest entirely;
 - Classic ASP / Web Forms: abandoned technology, with no painless alternative;
@@ -142,7 +158,8 @@ Nine stories, one and the same mechanics. Each time, **a decision — or a failu
 - Windows Phone: two hardware breaks in two years, still-functional phones made obsolete by software alone;
 - OneDrive: local sync broken, family organisation broken, no fix possible on our side;
 - Balsamiq: product deprecated, forced migration, data imprisoned in a proprietary format;
-- PC Soft: business model turned upside down, viability destroyed.
+- PC Soft: business model turned upside down, viability destroyed;
+- Azure DevOps: projects impossible to move, eight years of votes ignored in the name of a design debt inherited from TFS.
 
 This is exactly what Richard Stallman describes: with proprietary software, **the developer has a power over users** that no good intention is enough to make acceptable, because that power is **structural**. The user does not have the code. They cannot fix it, extend it, or entrust it to someone else. They can only endure — or start all over again.
 
@@ -160,7 +177,7 @@ A few illustrations, verified:
 
 - **net2ftp**, an FTP client written in PHP that I first encountered in the very early 2000s. Its last stable version (1.3) dates from **July 2019**, with no fundamental change of technology over all that time. A free tool can span two decades because no one decrees its death. *(I could not publicly confirm the exact date of its very first version; I place it "in the early 2000s" from memory.)*
 
-- **Python 2 → Python 3**, the most telling example. Python 3.0 comes out in **December 2008**, deliberately breaking compatibility. But because the ecosystem is free and community-driven, **Python 2.7 was maintained in parallel until 1 January 2020** — more than eleven years. (The end-of-life date was even pushed back from 2015 to 2020 to give everyone time to migrate.) No one was faced with a fait accompli: everyone was able to migrate **at their own pace**. That is exactly what none of the nine previous stories allowed.
+- **Python 2 → Python 3**, the most telling example. Python 3.0 comes out in **December 2008**, deliberately breaking compatibility. But because the ecosystem is free and community-driven, **Python 2.7 was maintained in parallel until 1 January 2020** — more than eleven years. (The end-of-life date was even pushed back from 2015 to 2020 to give everyone time to migrate.) No one was faced with a fait accompli: everyone was able to migrate **at their own pace**. That is exactly what none of the ten previous stories allowed.
 
 The difference is there: with free software, a break stays **manageable**, because the power of decision is not confiscated by a single actor.
 
@@ -184,7 +201,7 @@ And then there is the contradiction I don't want to hide: **I am an employee of 
 
 You sometimes hear that companies "exploit" free software. I believe the opposite: **just by using it and making it known, you serve the cause** — you broaden its user base, you report bugs, you help other developers, you fund the maintainers.
 
-But if these nine stories teach one thing, it is that **migrating to free software after the fact is slow, fragile and costly**. Five people out of sixty, a management that refuses the hardware, years to undo accumulated dependencies. Hence the real lesson, especially for those just starting out: **start free from the outset**. Proprietary software often has good reasons to appeal — it is sometimes more polished, better integrated or better supported, and it can be a perfectly rational choice at the time. But, after all these years, my conviction is that it most often remains far easier to build on free software from day one than to extract yourself, years later, from a proprietary ecosystem you locked yourself into without even realising it.
+But if these ten stories teach one thing, it is that **migrating to free software after the fact is slow, fragile and costly**. Five people out of sixty, a management that refuses the hardware, years to undo accumulated dependencies. Hence the real lesson, especially for those just starting out: **start free from the outset**. Proprietary software often has good reasons to appeal — it is sometimes more polished, better integrated or better supported, and it can be a perfectly rational choice at the time. But, after all these years, my conviction is that it most often remains far easier to build on free software from day one than to extract yourself, years later, from a proprietary ecosystem you locked yourself into without even realising it.
 
 ## Conclusion
 
@@ -207,6 +224,7 @@ I therefore invite everyone, everywhere, to **turn to free software** whenever p
 - EU rules on smartphone updates and repairability — [European Commission: new ecodesign rules (regulation (EU) 2023/1670), applicable since 20 June 2025](https://single-market-economy.ec.europa.eu/news/new-eu-rules-durable-energy-efficient-and-repairable-smartphones-and-tablets-start-applying-2025-06-20_en)
 - End of Windows 10 support — [Microsoft Support: Windows 10 support has ended on October 14, 2025](https://support.microsoft.com/en-us/windows/windows-10-support-has-ended-on-october-14-2025-2ca8b313-1946-43d3-b55c-2b95b107f281)
 - PC Soft / WinDev, acquisition and new model — [Next, "Les développeurs WinDev s'alarment…"](https://next.ink/241694/les-developpeurs-windev-salarment-dune-possible-redevance-par-installation-client/) · [Programmez, "PC Soft: après le rachat…"](https://www.programmez.com/actualites/pc-soft-apres-le-rachat-une-grogne-des-developpeurs-windev-39590)
+- Azure DevOps, project impossible to move between collections — [Developer Community, "make it possible to move a Team Project between Team Project Collections"](https://developercommunity.visualstudio.com/idea/365365/make-it-possible-to-move-a-team-project-between-te-1.html) (opened on 24 October 2018) · [2019 archive snapshot showing the "uservoice votes 4385" tag](http://web.archive.org/web/20191021020915/https://developercommunity.visualstudio.com/idea/365365/make-it-possible-to-move-a-team-project-between-te-1.html) · [Microsoft Learn, "TFS is now Azure DevOps Server"](https://learn.microsoft.com/en-us/azure/devops/server/tfs-is-now-azure-devops-server?view=azure-devops)
 - OneDrive, shared folders turned into web shortcuts — [Neowin, "Microsoft confirms OneDrive shared folders are indeed turning into internet shortcuts"](https://www.neowin.net/news/microsoft-confirms-onedrive-shared-folders-are-indeed-turning-into-internet-shortcuts/) · [Windows Latest, "Microsoft confirms Windows 11 OneDrive internet shortcut bug"](https://www.windowslatest.com/2024/07/03/microsoft-confirms-windows-11-onedrive-internet-shortcut-bug/)
 - Balsamiq for Google Drive, shutdown and migration — [Balsamiq, "Looking back at Balsamiq's 2024"](https://balsamiq.com/blog/looking-back-2024/) (the dedicated announcement page is no longer online)
 - net2ftp — [Wikipedia (EN)](https://en.wikipedia.org/wiki/Net2ftp)
