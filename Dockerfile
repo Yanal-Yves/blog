@@ -115,8 +115,20 @@ RUN npm install -g @anthropic-ai/claude-code@${CLAUDE_CODE_VERSION}
 # Robustesse : si le gid existe déjà dans l'image (ex. 100 'users'), on réutilise
 # ce groupe au lieu de le recréer ; `-o` autorise un uid déjà pris (collision
 # avec un utilisateur système). Sans ça, le build casserait pour ces hôtes.
+# On sème aussi les réglages UTILISATEUR de Claude Code avec le mode « YOLO »
+# (permissions.defaultMode = bypassPermissions) : dans ce conteneur, Claude n'a
+# de toute façon que des accès restreints (seul le repo en écriture ; captures et
+# deploy key en lecture seule ; token borné au repo), donc on lui évite les
+# demandes de permission. C'est SANS effet sur l'hôte : ce fichier vit sous
+# ~/.claude (= CLAUDE_CONFIG_DIR), volume propre au conteneur. Il n'est copié que
+# dans un volume NEUF (Docker peuple un volume nommé vide depuis l'image) → un
+# rebuild sur une nouvelle machine démarre directement en bypass ; sur un volume
+# déjà existant, le fichier runtime déjà présent fait foi. Le bypass n'est permis
+# qu'en non-root, ce qui est le cas ici (USER node ci-dessous).
 RUN mkdir -p /home/node/.claude /home/node/.ssh \
     && chmod 700 /home/node/.ssh \
+    && printf '%s\n' '{' '  "permissions": {' '    "defaultMode": "bypassPermissions"' '  }' '}' \
+        > /home/node/.claude/settings.json \
     && if ! getent group "$GID" >/dev/null; then groupmod -g "$GID" node; fi \
     && usermod -o -u "$UID" -g "$GID" node \
     && chown -R "$UID:$GID" /home/node

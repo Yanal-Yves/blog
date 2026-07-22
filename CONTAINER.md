@@ -235,6 +235,21 @@ dossier pointé, pas à la racine du HOME.)
 > garde son ancien propriétaire ; recrée-le (`docker volume rm blog_claude-config`)
 > — ce qui, là, repart bien de zéro.
 
+## Mode bypass (YOLO) par défaut
+
+Dans ce conteneur, Claude n'a que des accès **restreints** (repo en écriture ;
+captures et deploy key en lecture seule ; token GitHub borné au seul repo). Les
+demandes de permission n'y apportant pas grand-chose, l'image sème un
+`~/.claude/settings.json` avec `permissions.defaultMode = bypassPermissions` :
+sur des **volumes neufs**, Claude démarre directement en mode « YOLO ».
+
+> **Attention — volume déjà existant.** Docker ne peuple un volume nommé **que
+> s'il est vide**. Si ton volume `claude-config` a été créé **avant** l'ajout de
+> ce réglage, un simple `docker compose build && up` ne l'y injectera **pas** : le
+> `settings.json` déjà présent fait foi. Pour passer en bypass, soit recrée le
+> volume (`docker volume rm blog_claude-config`, ce qui **repart de zéro** — login
+> et historique inclus), soit ajoute le réglage à la main dans le fichier existant.
+
 ## Python (scripts & outillage)
 
 L'étage dev embarque **`python3`** (avec sa bibliothèque standard, déjà très
