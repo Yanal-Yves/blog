@@ -11,6 +11,15 @@
 .DS_Store
 Thumbs.db
 
+# Réglages Claude Code locaux (autorisations d'outils propres à la machine).
+# On n'ignore que le fichier .local ; une éventuelle config partagée
+# (.claude/settings.json, agents, hooks) reste, elle, versionnable.
+.claude/settings.local.json
+
+# Brouillons d'articles : notes de travail hors de content/, non publiées par
+# Hugo et gardées hors du dépôt.
+/drafts/
+
 # Token GitHub local du conteneur (ne JAMAIS committer)
 .env
 
