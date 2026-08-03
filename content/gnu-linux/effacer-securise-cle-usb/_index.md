@@ -157,13 +157,28 @@ sudo dd if=/dev/zero of=/dev/sdX bs=4M status=progress conv=fsync
 | `status=progress` | Affiche la progression et le débit réel. |
 | `conv=fsync` | Force l'écriture effective sur la clé avant de rendre la main. Sans cela, `dd` peut se terminer alors que des mégaoctets sont encore dans le cache du noyau. |
 
-Comptez **20 à 30 minutes par passe** pour une clé de 64 Go : ces clés écrivent souvent 30 à 60 Mo/s en soutenu, la mention « USB 3.2 Gen 1 » qualifiant le bus et non le NAND. `status=progress` vous donnera le débit réel au bout de quelques secondes.
+> ⚠️ **`dd` se terminera sur une erreur, et c'est normal** : `dd: error writing '/dev/sdX': No space left on device`. Faute de `count=`, `dd` écrit jusqu'à saturer le périphérique — le dernier bloc de 4 Mio ne rentre pas. Ce n'est pas un échec. Vérifiez plutôt la ligne `records out` : le nombre de blocs écrits multiplié par 4 Mio doit égaler la taille exacte du périphérique.
+
+Prévoyez du temps. Sur une clé SanDisk Ultra de 64 Go, mesuré de bout en bout :
+
+| Étape | Durée réelle |
+|---|---|
+| Passe 1 (aléatoire) | 80 min, à 15,3 Mo/s |
+| Passe 2 (zéros) | 80 min, à 15,3 Mo/s |
+| Vérification `cmp` | 25 min, à 40 Mo/s en lecture |
+| **Total** | **plus de 3 heures** |
+
+La mention « USB 3.2 Gen 1 » qualifie le bus, pas le NAND : le débit d'écriture réel de ces clés est souvent situé entre 10 et 30 Mo/s. `status=progress` vous donnera votre chiffre au bout de quelques secondes.
+
+> **La barre de progression n'est pas la fin de l'opération.** Sur la mesure ci-dessus, `status=progress` affichait la totalité copiée au bout de 4 026 s, mais `dd` n'a rendu la main qu'à 4 817 s : **13 minutes** passées dans `conv=fsync` à vider le cache du noyau vers la clé. Le silence final est normal, ne débranchez rien.
 
 ### Pourquoi de l'aléatoire à la première passe
 
 Parce que certains contrôleurs compressent ou dédupliquent les données à la volée. Une passe de zéros peut alors être enregistrée comme une simple annotation « cette plage est à zéro » dans les métadonnées, **sans consommer de blocs physiques**. Aucune pression sur le réservoir libre, aucun recyclage déclenché, et vos anciennes données intactes.
 
 Des données aléatoires sont incompressibles : le contrôleur est obligé de faire de vraies écritures. C'est la passe 1 qui produit l'effet utile ; la passe 2 en zéros sert surtout à rendre le résultat **vérifiable**.
+
+Vous pouvez d'ailleurs vérifier si votre contrôleur compresse, en comparant les débits des deux passes. Sur la clé mesurée plus haut, les deux ont tourné à 15,3 Mo/s — strictement identiques. Un contrôleur qui aurait absorbé les zéros sans les écrire aurait rendu la passe 2 spectaculairement plus rapide. L'égalité des débits indique donc que les zéros ont bien provoqué de vraies écritures physiques.
 
 ### Pourquoi deux passes, et pas trente-cinq
 
@@ -235,13 +250,18 @@ secteur     = (position_rapportée - 1) / 512
 
 Le diagnostic dépend de l'endroit : une différence tout à la fin suggère une dernière écriture partielle ; une différence en pleine zone utile signifie que `dd` a été interrompu — relancez-le.
 
-Contrôle complémentaire, qui ne remplace pas `cmp` mais attrape d'autres cas :
+### Patience, et comment suivre la progression
+
+`cmp` lit l'intégralité du périphérique — comptez **25 minutes** sur la clé mesurée plus haut, la lecture à 40 Mo/s étant environ 2,5 fois plus rapide que l'écriture. L'opération est strictement en lecture, donc sans aucun risque pour la clé.
+
+Surtout, `cmp` n'affiche **rien** pendant tout son parcours. Le silence n'est pas un blocage : ne l'interrompez pas. Pour suivre la progression depuis un autre terminal, interrogez les compteurs du noyau — c'est lisible sans droits particuliers :
 
 ```bash
-sudo strings -n 8 /dev/sdX | head
+read -r _ _ secteurs _ < /sys/block/sdX/stat
+echo "$(( secteurs * 512 / 1000000 )) Mo lus"
 ```
 
-Cette commande ne doit rien renvoyer. Comptez 8 à 15 minutes pour `cmp` : il lit l'intégralité du périphérique, mais la lecture est plus rapide que l'écriture. Ces deux opérations sont strictement en lecture, donc sans risque.
+> **Et `strings` ?** On lit souvent qu'il faut compléter par `sudo strings -n 8 /dev/sdX | head`. Après une vérification `cmp` réussie contre `/dev/zero`, c'est **inutile par construction** : si tous les octets valent zéro, il ne peut subsister aucune chaîne de caractères. Cette commande n'a d'intérêt que si vous vous êtes arrêté à la passe aléatoire, cas où la comparaison avec un flux de zéros ne s'applique pas.
 
 ---
 
@@ -409,16 +429,17 @@ lsblk -D /dev/sdX
 # 2. Démonter toutes les partitions
 sudo umount /dev/sdX1
 
-# 3. Passe 1 : aléatoire sur le disque entier (~20-30 min)
+# 3. Passe 1 : aléatoire sur le disque entier (~80 min pour 64 Go)
+#    se termine sur "No space left on device" : c'est normal
 sudo dd if=/dev/urandom of=/dev/sdX bs=4M status=progress conv=fsync
 
-# 4. Passe 2 : zéros, pour rendre le résultat vérifiable (~20-30 min)
+# 4. Passe 2 : zéros, pour rendre le résultat vérifiable (~80 min)
 sudo dd if=/dev/zero of=/dev/sdX bs=4M status=progress conv=fsync
 
-# 5. Vérifier — attendu : "EOF on /dev/sdX after byte <taille exacte>"
+# 5. Vérifier (~25 min, aucun affichage pendant l'exécution)
+#    attendu : "EOF on /dev/sdX after byte <taille exacte du device>"
 #    (le code retour vaut 1 même en cas de succès : fiez-vous au message)
 sudo cmp /dev/zero /dev/sdX
-sudo strings -n 8 /dev/sdX | head     # doit ne rien renvoyer
 
 # 6. Reconstruire une clé utilisable
 sudo parted -s /dev/sdX mklabel msdos mkpart primary 1MiB 100%

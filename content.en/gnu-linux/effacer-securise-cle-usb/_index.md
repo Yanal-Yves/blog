@@ -157,13 +157,28 @@ sudo dd if=/dev/zero of=/dev/sdX bs=4M status=progress conv=fsync
 | `status=progress` | Shows progress and actual throughput. |
 | `conv=fsync` | Forces the data to actually reach the stick before returning. Without it, `dd` can finish while megabytes are still in the kernel cache. |
 
-Expect **20 to 30 minutes per pass** for a 64 GB stick: these devices often sustain 30 to 60 MB/s, the "USB 3.2 Gen 1" label describing the bus rather than the NAND. `status=progress` will show you the real throughput within seconds.
+> ⚠️ **`dd` will end on an error, and that is normal**: `dd: error writing '/dev/sdX': No space left on device`. With no `count=`, `dd` writes until the device is full — the last 4 MiB block does not fit. This is not a failure. Check the `records out` line instead: the number of blocks written times 4 MiB must equal the exact device size.
+
+Plan for the time. On a 64 GB SanDisk Ultra, measured end to end:
+
+| Step | Actual duration |
+|---|---|
+| Pass 1 (random) | 80 min, at 15.3 MB/s |
+| Pass 2 (zeros) | 80 min, at 15.3 MB/s |
+| `cmp` verification | 25 min, at 40 MB/s reading |
+| **Total** | **over 3 hours** |
+
+The "USB 3.2 Gen 1" label describes the bus, not the NAND: the real write throughput of these sticks is often between 10 and 30 MB/s. `status=progress` will show you your own figure within seconds.
+
+> **The progress bar is not the end of the operation.** In the measurement above, `status=progress` reported everything copied after 4,026 s, but `dd` only returned at 4,817 s: **13 minutes** spent in `conv=fsync` flushing the kernel cache to the stick. The final silence is normal — do not unplug anything.
 
 ### Why random data on the first pass
 
 Because some controllers compress or deduplicate data on the fly. A pass of zeros may then be recorded as a mere "this range is all zeros" annotation in the metadata, **without consuming physical blocks**. No pressure on the free pool, no reclamation triggered, and your old data intact.
 
 Random data is incompressible: the controller is forced to perform real writes. Pass 1 is what produces the useful effect; pass 2 in zeros mainly serves to make the result **verifiable**.
+
+You can in fact check whether your controller compresses, by comparing the throughput of the two passes. On the stick measured above, both ran at 15.3 MB/s — strictly identical. A controller that had absorbed the zeros without writing them would have made pass 2 dramatically faster. Equal throughput therefore indicates that the zeros did trigger real physical writes.
 
 ### Why two passes, and not thirty-five
 
@@ -235,13 +250,18 @@ sector        = (reported_position - 1) / 512
 
 The diagnosis depends on the location: a difference right at the end suggests a final partial write; a difference in the middle of the useful area means `dd` was interrupted — run it again.
 
-A complementary check, which does not replace `cmp` but catches other cases:
+### Patience, and how to follow progress
+
+`cmp` reads the entire device — expect **25 minutes** on the stick measured above, reading at 40 MB/s being roughly 2.5 times faster than writing. The operation is strictly read-only, and therefore carries no risk for the stick.
+
+Above all, `cmp` prints **nothing** for its whole run. The silence is not a hang: do not interrupt it. To follow progress from another terminal, query the kernel counters — readable without any special privileges:
 
 ```bash
-sudo strings -n 8 /dev/sdX | head
+read -r _ _ sectors _ < /sys/block/sdX/stat
+echo "$(( sectors * 512 / 1000000 )) MB read"
 ```
 
-This command must return nothing. Expect 8 to 15 minutes for `cmp`: it reads the whole device, but reading is faster than writing. Both operations are strictly read-only, and therefore safe.
+> **What about `strings`?** You often read that you should add `sudo strings -n 8 /dev/sdX | head` as a complementary check. After a successful `cmp` against `/dev/zero`, this is **redundant by construction**: if every byte is zero, no character string can possibly remain. That command is only useful if you stopped at the random pass, where comparing against a stream of zeros does not apply.
 
 ---
 
@@ -409,16 +429,17 @@ lsblk -D /dev/sdX
 # 2. Unmount every partition
 sudo umount /dev/sdX1
 
-# 3. Pass 1: random data across the whole disk (~20-30 min)
+# 3. Pass 1: random data across the whole disk (~80 min for 64 GB)
+#    ends on "No space left on device": this is normal
 sudo dd if=/dev/urandom of=/dev/sdX bs=4M status=progress conv=fsync
 
-# 4. Pass 2: zeros, to make the result verifiable (~20-30 min)
+# 4. Pass 2: zeros, to make the result verifiable (~80 min)
 sudo dd if=/dev/zero of=/dev/sdX bs=4M status=progress conv=fsync
 
-# 5. Verify — expected: "EOF on /dev/sdX after byte <exact size>"
+# 5. Verify (~25 min, no output at all while running)
+#    expected: "EOF on /dev/sdX after byte <exact device size>"
 #    (the exit status is 1 even on success: trust the message)
 sudo cmp /dev/zero /dev/sdX
-sudo strings -n 8 /dev/sdX | head     # must return nothing
 
 # 6. Rebuild a usable stick
 sudo parted -s /dev/sdX mklabel msdos mkpart primary 1MiB 100%
