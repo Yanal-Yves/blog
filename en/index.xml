@@ -36,7 +36,21 @@
 &lt;li&gt;Domain administrators&lt;/li&gt;
 &lt;li&gt;Email infrastructure maintainers&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;This series of articles is aimed at domain administrators who need to configure email mailboxes in a way that prevents identity spoofing.&lt;/p&gt;</description></item><item><title>When proprietary software abandons us</title><link>https://yanal.fargialla.com/en/logiciel-libre/01-quand-le-logiciel-privateur-nous-abandonne/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/en/logiciel-libre/01-quand-le-logiciel-privateur-nous-abandonne/</guid><description>&lt;div class="book-toc-inline"&gt;
+&lt;p&gt;This series of articles is aimed at domain administrators who need to configure email mailboxes in a way that prevents identity spoofing.&lt;/p&gt;</description></item><item><title>Introduction and method - 1/6</title><link>https://yanal.fargialla.com/en/systemes-exploitation/01-introduction/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/en/systemes-exploitation/01-introduction/</guid><description>&lt;div class="book-toc-inline"&gt;
+ &lt;div class="markdown-inner"&gt;
+ &lt;nav id="TableOfContents"&gt;
+ &lt;ul&gt;
+ &lt;li&gt;&lt;a href="#what-this-is-about"&gt;What this is about&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#how-to-read-these-figures"&gt;How to read these figures&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#overview"&gt;Overview&lt;/a&gt;&lt;/li&gt;
+ &lt;/ul&gt;
+&lt;/nav&gt;
+ &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;h2 id="what-this-is-about"&gt;What this is about&lt;a class="anchor" href="#what-this-is-about"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Ask &amp;ldquo;which operating system dominates the market?&amp;rdquo; and the conversation almost always slides toward a single arena: Windows versus macOS on the desktop. That is a narrow view. The software that really runs the world mostly executes elsewhere — in the billions of connected devices (internet boxes, televisions, cars, surveillance cameras, industrial sensors…), in the billions of phones, in the servers that answer every web page, in game consoles, cash machines, and all the way up to supercomputers.&lt;/p&gt;</description></item><item><title>When proprietary software abandons us</title><link>https://yanal.fargialla.com/en/logiciel-libre/01-quand-le-logiciel-privateur-nous-abandonne/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/en/logiciel-libre/01-quand-le-logiciel-privateur-nous-abandonne/</guid><description>&lt;div class="book-toc-inline"&gt;
  &lt;div class="markdown-inner"&gt;
  &lt;nav id="TableOfContents"&gt;
  &lt;ul&gt;
@@ -108,7 +122,25 @@
 &lt;/div&gt;
 
 
-&lt;p&gt;In the &lt;a href="../01-quand-le-logiciel-privateur-nous-abandonne/"&gt;founding article of this series&lt;/a&gt;, I recounted how proprietary software ends up abandoning its users. The answer I champion is free software. But &amp;ldquo;free&amp;rdquo; is not a single block: there are two great families of licences, with opposing philosophies.&lt;/p&gt;</description></item><item><title>Copyleft licences: the freedom that can't be taken back</title><link>https://yanal.fargialla.com/en/logiciel-libre/03-licences-copyleft/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/en/logiciel-libre/03-licences-copyleft/</guid><description>&lt;div class="book-toc-inline"&gt;
+&lt;p&gt;In the &lt;a href="../01-quand-le-logiciel-privateur-nous-abandonne/"&gt;founding article of this series&lt;/a&gt;, I recounted how proprietary software ends up abandoning its users. The answer I champion is free software. But &amp;ldquo;free&amp;rdquo; is not a single block: there are two great families of licences, with opposing philosophies.&lt;/p&gt;</description></item><item><title>Where Windows retreated or never broke through - 2/6</title><link>https://yanal.fargialla.com/en/systemes-exploitation/02-windows-remplace/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/en/systemes-exploitation/02-windows-remplace/</guid><description>&lt;div class="book-toc-inline"&gt;
+ &lt;div class="markdown-inner"&gt;
+ &lt;nav id="TableOfContents"&gt;
+ &lt;ul&gt;
+ &lt;li&gt;&lt;a href="#smartphones"&gt;Smartphones&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#tablets"&gt;Tablets&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#smartwatches"&gt;Smartwatches&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#virtual--and-augmented-reality-headsets"&gt;Virtual- and augmented-reality headsets&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#televisions-and-tv-boxes"&gt;Televisions and TV boxes&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#network-firewalls"&gt;Network firewalls&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#nas-network-storage"&gt;NAS (network storage)&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#automotive"&gt;Automotive&lt;/a&gt;&lt;/li&gt;
+ &lt;/ul&gt;
+&lt;/nav&gt;
+ &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Let&amp;rsquo;s start with the segments where Windows eventually vanished. They cover two distinct realities. In some cases, Windows held a &lt;strong&gt;real position&lt;/strong&gt; before being supplanted: the smartphone (Windows Mobile peaked at ~42% of the US smartphone market in 2007), the enterprise firewall, automotive infotainment. In others, it is a &lt;strong&gt;failed foray&lt;/strong&gt; — Microsoft tried to enter without ever taking root: the tablet, the smartwatch, the virtual-reality headset, network storage. In both cases the dates are precise, because a software retirement can be dated — to an end of sales, to an end of support.&lt;/p&gt;</description></item><item><title>Copyleft licences: the freedom that can't be taken back</title><link>https://yanal.fargialla.com/en/logiciel-libre/03-licences-copyleft/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/en/logiciel-libre/03-licences-copyleft/</guid><description>&lt;div class="book-toc-inline"&gt;
  &lt;div class="markdown-inner"&gt;
  &lt;nav id="TableOfContents"&gt;
  &lt;ul&gt;
@@ -150,7 +182,28 @@
 
 &lt;h2 id="how-it-works"&gt;How it works&lt;a class="anchor" href="#how-it-works"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;This technique emerged as a best practice in the 1990s.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;The security principle:&lt;/strong&gt; The robustness of this technique relies on the need to control both the IP infrastructure (the hosting side) and the DNS zone (the domain side). An attacker who holds only one of the two accesses will not be able to pass the test.&lt;/p&gt;</description></item><item><title>SPF (Sender Policy Framework) - 4/9</title><link>https://yanal.fargialla.com/en/antispoofing-e-mail/04-spf-sender-policy-framework/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/en/antispoofing-e-mail/04-spf-sender-policy-framework/</guid><description>&lt;div class="book-toc-inline"&gt;
+&lt;p&gt;&lt;strong&gt;The security principle:&lt;/strong&gt; The robustness of this technique relies on the need to control both the IP infrastructure (the hosting side) and the DNS zone (the domain side). An attacker who holds only one of the two accesses will not be able to pass the test.&lt;/p&gt;</description></item><item><title>Where Windows never reigned - 3/6</title><link>https://yanal.fargialla.com/en/systemes-exploitation/03-windows-jamais-regne/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/en/systemes-exploitation/03-windows-jamais-regne/</guid><description>&lt;div class="book-toc-inline"&gt;
+ &lt;div class="markdown-inner"&gt;
+ &lt;nav id="TableOfContents"&gt;
+ &lt;ul&gt;
+ &lt;li&gt;&lt;a href="#web-servers"&gt;Web servers&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#supercomputers"&gt;Supercomputers&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#cdns-content-delivery-networks"&gt;CDNs (content delivery networks)&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#the-public-cloud"&gt;The public cloud&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#containers-and-kubernetes"&gt;Containers and Kubernetes&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#network-equipment"&gt;Network equipment&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#mainframes"&gt;Mainframes&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#ai-training-servers"&gt;AI training servers&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#film-visual-effects-and-animation"&gt;Film, visual effects, and animation&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#chip-design-eda"&gt;Chip design (EDA)&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#certified-avionics"&gt;Certified avionics&lt;/a&gt;&lt;/li&gt;
+ &lt;/ul&gt;
+&lt;/nav&gt;
+ &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Second category: the segments where Windows was never the dominant system — there was no Windows to replace. These markets were already held by &lt;strong&gt;Unix&lt;/strong&gt; (often proprietary: Solaris, AIX, HP-UX, IRIX), and it is &lt;strong&gt;Linux&lt;/strong&gt; and &lt;strong&gt;BSD&lt;/strong&gt; that took over from Unix. On this ground, the real loser is not Windows: it is yesterday&amp;rsquo;s proprietary Unix.&lt;/p&gt;</description></item><item><title>SPF (Sender Policy Framework) - 4/9</title><link>https://yanal.fargialla.com/en/antispoofing-e-mail/04-spf-sender-policy-framework/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/en/antispoofing-e-mail/04-spf-sender-policy-framework/</guid><description>&lt;div class="book-toc-inline"&gt;
  &lt;div class="markdown-inner"&gt;
  &lt;nav id="TableOfContents"&gt;
  &lt;ul&gt;
@@ -178,7 +231,25 @@
 &lt;h2 id="how-it-works"&gt;How it works&lt;a class="anchor" href="#how-it-works"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Standardized in 2006 (&lt;a href="https://www.rfc-editor.org/rfc/rfc4408" target="_blank" rel="noopener"&gt;RFC 4408&lt;/a&gt;), updated in 2014 (&lt;a href="https://www.rfc-editor.org/rfc/rfc7208" target="_blank" rel="noopener"&gt;RFC 7208&lt;/a&gt;).&lt;/p&gt;
 &lt;p&gt;SPF acts as a trust directory. The owner of domain &lt;code&gt;a.com&lt;/code&gt; publishes in its DNS (a &lt;code&gt;TXT&lt;/code&gt; record) the list of IPs authorized to send email on its behalf.&lt;br&gt;
-When an email arrives, the receiving server checks the sending IP against this list. Note: SPF verifies the domain announced in the envelope&amp;rsquo;s &lt;code&gt;MAIL FROM&lt;/code&gt; command — the very one that will be copied into the &lt;code&gt;Return-Path&lt;/code&gt; upon receipt —, and &lt;strong&gt;not&lt;/strong&gt; the &lt;code&gt;From&lt;/code&gt; (the header visible to the user).&lt;/p&gt;</description></item><item><title>Why the Linux kernel stayed on GPLv2: Torvalds versus GPLv3</title><link>https://yanal.fargialla.com/en/logiciel-libre/04-torvalds-gplv3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/en/logiciel-libre/04-torvalds-gplv3/</guid><description>&lt;div class="book-toc-inline"&gt;
+When an email arrives, the receiving server checks the sending IP against this list. Note: SPF verifies the domain announced in the envelope&amp;rsquo;s &lt;code&gt;MAIL FROM&lt;/code&gt; command — the very one that will be copied into the &lt;code&gt;Return-Path&lt;/code&gt; upon receipt —, and &lt;strong&gt;not&lt;/strong&gt; the &lt;code&gt;From&lt;/code&gt; (the header visible to the user).&lt;/p&gt;</description></item><item><title>The strongholds Windows still holds - 4/6</title><link>https://yanal.fargialla.com/en/systemes-exploitation/04-bastions-windows/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/en/systemes-exploitation/04-bastions-windows/</guid><description>&lt;div class="book-toc-inline"&gt;
+ &lt;div class="markdown-inner"&gt;
+ &lt;nav id="TableOfContents"&gt;
+ &lt;ul&gt;
+ &lt;li&gt;&lt;a href="#the-enterprise-directory-active-directory"&gt;The enterprise directory (Active Directory)&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#industrial-supervision-scada"&gt;Industrial supervision (SCADA)&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#cad-workstations-engineering-and-architecture"&gt;CAD workstations (engineering and architecture)&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#audio-and-music-production"&gt;Audio and music production&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#cash-machines-terminals-and-kiosks"&gt;Cash machines, terminals and kiosks&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#enterprise-servers-windows-server"&gt;Enterprise servers (Windows Server)&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#a-more-nuanced-case-hypervisors"&gt;A more nuanced case: hypervisors&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#a-common-thread-these-are-old-conquests"&gt;A common thread: these are old conquests&lt;/a&gt;&lt;/li&gt;
+ &lt;/ul&gt;
+&lt;/nav&gt;
+ &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Third category: the segments where Windows is still dominant. They share a common trait, which we will come back to — most of them are old &lt;strong&gt;conquests&lt;/strong&gt;, won twenty to thirty years ago against Unix, OS/2 or Novell.&lt;/p&gt;</description></item><item><title>Why the Linux kernel stayed on GPLv2: Torvalds versus GPLv3</title><link>https://yanal.fargialla.com/en/logiciel-libre/04-torvalds-gplv3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/en/logiciel-libre/04-torvalds-gplv3/</guid><description>&lt;div class="book-toc-inline"&gt;
  &lt;div class="markdown-inner"&gt;
  &lt;nav id="TableOfContents"&gt;
  &lt;ul&gt;
@@ -218,7 +289,28 @@ When an email arrives, the receiving server checks the sending IP against this l
 
 &lt;h2 id="how-it-works-the-police-evidence-seal"&gt;How it works: the police evidence seal&lt;a class="anchor" href="#how-it-works-the-police-evidence-seal"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Standardized in 2007 (&lt;a href="https://www.rfc-editor.org/rfc/rfc4871" target="_blank" rel="noopener"&gt;RFC 4871&lt;/a&gt;), updated in 2011 (&lt;a href="https://www.rfc-editor.org/rfc/rfc6376" target="_blank" rel="noopener"&gt;RFC 6376&lt;/a&gt;).&lt;/p&gt;
-&lt;p&gt;Whereas SPF protects the envelope (the sending server), DKIM (DomainKeys Identified Mail) protects the message itself. It is the digital equivalent of a police evidence seal:&lt;/p&gt;</description></item><item><title>DMARC (Domain-based Message Authentication) - 6/9</title><link>https://yanal.fargialla.com/en/antispoofing-e-mail/06-dmarc-domain-based-message-authentication-reporting-and-conformance/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/en/antispoofing-e-mail/06-dmarc-domain-based-message-authentication-reporting-and-conformance/</guid><description>&lt;div class="book-toc-inline"&gt;
+&lt;p&gt;Whereas SPF protects the envelope (the sending server), DKIM (DomainKeys Identified Mail) protects the message itself. It is the digital equivalent of a police evidence seal:&lt;/p&gt;</description></item><item><title>The breaches: where Windows is receding - 5/6</title><link>https://yanal.fargialla.com/en/systemes-exploitation/05-breche-poste-de-travail/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/en/systemes-exploitation/05-breche-poste-de-travail/</guid><description>&lt;div class="book-toc-inline"&gt;
+ &lt;div class="markdown-inner"&gt;
+ &lt;nav id="TableOfContents"&gt;
+ &lt;ul&gt;
+ &lt;li&gt;&lt;a href="#the-desktop-the-last-great-stronghold-and-it-is-cracking"&gt;The desktop: the last great stronghold, and it is cracking&lt;/a&gt;
+ &lt;ul&gt;
+ &lt;li&gt;&lt;a href="#the-desktop-and-the-trap-in-the-numbers"&gt;The desktop, and the trap in the numbers&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#the-uses-that-crack-the-desktop"&gt;The uses that crack the desktop&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#hardware-makers-that-sell-linux"&gt;Hardware: makers that sell Linux&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#the-public-sector-a-single-truly-durable-migration"&gt;The public sector: a single truly durable migration&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#the-second-life-of-abandoned-pcs"&gt;The second life of abandoned PCs&lt;/a&gt;&lt;/li&gt;
+ &lt;/ul&gt;
+ &lt;/li&gt;
+ &lt;li&gt;&lt;a href="#databases-a-2000s-conquest-in-reflux"&gt;Databases: a 2000s conquest in reflux&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#game-consoles-the-breach-that-is-closing"&gt;Game consoles: the breach that is closing&lt;/a&gt;&lt;/li&gt;
+ &lt;/ul&gt;
+&lt;/nav&gt;
+ &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;The three segments gathered in this article share one thing: Windows was &lt;strong&gt;genuinely present there, often dominant&lt;/strong&gt;, but its position is &lt;strong&gt;receding&lt;/strong&gt;. So these are neither lands where Windows never reigned, nor strongholds it holds firmly — they are &lt;strong&gt;breaches&lt;/strong&gt;. The most emblematic is its last great stronghold, the &lt;strong&gt;desktop&lt;/strong&gt;; then come two older conquests in reflux, &lt;strong&gt;databases&lt;/strong&gt; and &lt;strong&gt;game consoles&lt;/strong&gt;.&lt;/p&gt;</description></item><item><title>DMARC (Domain-based Message Authentication) - 6/9</title><link>https://yanal.fargialla.com/en/antispoofing-e-mail/06-dmarc-domain-based-message-authentication-reporting-and-conformance/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/en/antispoofing-e-mail/06-dmarc-domain-based-message-authentication-reporting-and-conformance/</guid><description>&lt;div class="book-toc-inline"&gt;
  &lt;div class="markdown-inner"&gt;
  &lt;nav id="TableOfContents"&gt;
  &lt;ul&gt;
@@ -246,7 +338,58 @@ When an email arrives, the receiving server checks the sending IP against this l
 &lt;li&gt;SPF validates the IP but verifies the &lt;code&gt;Return-Path&lt;/code&gt;, not the &lt;code&gt;From&lt;/code&gt;.&lt;/li&gt;
 &lt;li&gt;DKIM validates the content and verifies the signature domain (&lt;code&gt;d=&lt;/code&gt;). It does not verify the &lt;code&gt;From&lt;/code&gt;.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;DMARC (Domain-based Message Authentication, Reporting, and Conformance)&lt;/strong&gt; does not offer a new technical authentication method, but a policy layer that builds on SPF and DKIM to solve the &lt;strong&gt;alignment&lt;/strong&gt; problem.&lt;/p&gt;</description></item><item><title>BIMI and an analysis of its limits - 7/9</title><link>https://yanal.fargialla.com/en/antispoofing-e-mail/07-bimi-brand-indicators-for-message-identification-analyse-des-limites/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/en/antispoofing-e-mail/07-bimi-brand-indicators-for-message-identification-analyse-des-limites/</guid><description>&lt;div class="book-toc-inline"&gt;
+&lt;p&gt;&lt;strong&gt;DMARC (Domain-based Message Authentication, Reporting, and Conformance)&lt;/strong&gt; does not offer a new technical authentication method, but a policy layer that builds on SPF and DKIM to solve the &lt;strong&gt;alignment&lt;/strong&gt; problem.&lt;/p&gt;</description></item><item><title>How many systems in the world, and conclusion - 6/6</title><link>https://yanal.fargialla.com/en/systemes-exploitation/06-combien-systemes-conclusion/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/en/systemes-exploitation/06-combien-systemes-conclusion/</guid><description>&lt;div class="book-toc-inline"&gt;
+ &lt;div class="markdown-inner"&gt;
+ &lt;nav id="TableOfContents"&gt;
+ &lt;ul&gt;
+ &lt;li&gt;&lt;a href="#how-many-systems-in-the-world-and-what-share-for-windows"&gt;How many systems in the world, and what share for Windows?&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#conclusion"&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
+ &lt;/ul&gt;
+&lt;/nav&gt;
+ &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;h2 id="how-many-systems-in-the-world-and-what-share-for-windows"&gt;How many systems in the world, and what share for Windows?&lt;a class="anchor" href="#how-many-systems-in-the-world-and-what-share-for-windows"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;One last exercise, openly &lt;strong&gt;speculative&lt;/strong&gt; but illuminating. One cannot census every system deployed on Earth; one can, however, set orders of magnitude, clearly separating the sourced from the assumed.&lt;/p&gt;
+&lt;p&gt;Four &lt;strong&gt;sourced anchors&lt;/strong&gt; (primary figures):&lt;/p&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;Population&lt;/th&gt;
+ &lt;th&gt;Number&lt;/th&gt;
+ &lt;th&gt;Kernel family&lt;/th&gt;
+ &lt;th&gt;Source&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Active Android devices&lt;/td&gt;
+ &lt;td&gt;&amp;gt; 3 billion&lt;/td&gt;
+ &lt;td&gt;Linux&lt;/td&gt;
+ &lt;td&gt;Google, 2025&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Active Apple devices&lt;/td&gt;
+ &lt;td&gt;~2.5 billion&lt;/td&gt;
+ &lt;td&gt;BSD/Darwin&lt;/td&gt;
+ &lt;td&gt;Apple, 2026&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Active Windows devices&lt;/td&gt;
+ &lt;td&gt;~1.6 billion&lt;/td&gt;
+ &lt;td&gt;NT&lt;/td&gt;
+ &lt;td&gt;Microsoft, 2026&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Connected objects (IoT)&lt;/td&gt;
+ &lt;td&gt;~21 billion&lt;/td&gt;
+ &lt;td&gt;Linux / RTOS&lt;/td&gt;
+ &lt;td&gt;IoT Analytics, 2025&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;To this we add &lt;strong&gt;estimates&lt;/strong&gt;, for lack of recent public figures. &lt;strong&gt;Servers&lt;/strong&gt;, first: the fleet numbers in the &lt;strong&gt;tens of millions of physical machines&lt;/strong&gt; (worldwide shipments run at around &lt;strong&gt;12 to 13 million a year&lt;/strong&gt;), and far more virtual instances; system-side, Linux is largely dominant there — a 2017 IDC report already gave, across all deployments, &lt;strong&gt;Linux ~68% against Windows ~32%&lt;/strong&gt; (Windows remaining No. 1 only in the &lt;em&gt;paid&lt;/em&gt; market). Then the detail of the desktop (Mac, ChromeOS, Linux).&lt;/p&gt;</description></item><item><title>BIMI and an analysis of its limits - 7/9</title><link>https://yanal.fargialla.com/en/antispoofing-e-mail/07-bimi-brand-indicators-for-message-identification-analyse-des-limites/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/en/antispoofing-e-mail/07-bimi-brand-indicators-for-message-identification-analyse-des-limites/</guid><description>&lt;div class="book-toc-inline"&gt;
  &lt;div class="markdown-inner"&gt;
  &lt;nav id="TableOfContents"&gt;
  &lt;ul&gt;

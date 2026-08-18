@@ -36,7 +36,21 @@
 &lt;li&gt;Les administrateurs des domaines&lt;/li&gt;
 &lt;li&gt;Les mainteneurs de l&amp;rsquo;infrastructure e-mail&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Cette série d&amp;rsquo;articles s&amp;rsquo;adresse aux administrateurs de domaines qui ont besoin de configurer des boîtes e-mail de façon à empêcher l&amp;rsquo;usurpation d&amp;rsquo;identité.&lt;/p&gt;</description></item><item><title>Quand le logiciel privateur nous abandonne</title><link>https://yanal.fargialla.com/logiciel-libre/01-quand-le-logiciel-privateur-nous-abandonne/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/logiciel-libre/01-quand-le-logiciel-privateur-nous-abandonne/</guid><description>&lt;div class="book-toc-inline"&gt;
+&lt;p&gt;Cette série d&amp;rsquo;articles s&amp;rsquo;adresse aux administrateurs de domaines qui ont besoin de configurer des boîtes e-mail de façon à empêcher l&amp;rsquo;usurpation d&amp;rsquo;identité.&lt;/p&gt;</description></item><item><title>Introduction et méthode - 1/6</title><link>https://yanal.fargialla.com/systemes-exploitation/01-introduction/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/systemes-exploitation/01-introduction/</guid><description>&lt;div class="book-toc-inline"&gt;
+ &lt;div class="markdown-inner"&gt;
+ &lt;nav id="TableOfContents"&gt;
+ &lt;ul&gt;
+ &lt;li&gt;&lt;a href="#de-quoi-parle-t-on"&gt;De quoi parle-t-on&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#comment-lire-ces-chiffres"&gt;Comment lire ces chiffres&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#vue-densemble"&gt;Vue d&amp;rsquo;ensemble&lt;/a&gt;&lt;/li&gt;
+ &lt;/ul&gt;
+&lt;/nav&gt;
+ &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;h2 id="de-quoi-parle-t-on"&gt;De quoi parle-t-on&lt;a class="anchor" href="#de-quoi-parle-t-on"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Demandez « quel système d&amp;rsquo;exploitation domine le marché ? » et la conversation glisse presque toujours vers un seul terrain : Windows contre macOS sur l&amp;rsquo;ordinateur de bureau. C&amp;rsquo;est une vue étroite. Le logiciel qui fait réellement tourner le monde s&amp;rsquo;exécute surtout ailleurs — dans les milliards d&amp;rsquo;objets connectés (box internet, téléviseurs, voitures, caméras de surveillance, capteurs industriels…), dans les milliards de téléphones, dans les serveurs qui répondent à chaque page web, dans les consoles de jeu, les distributeurs de billets et jusqu&amp;rsquo;aux superordinateurs.&lt;/p&gt;</description></item><item><title>Quand le logiciel privateur nous abandonne</title><link>https://yanal.fargialla.com/logiciel-libre/01-quand-le-logiciel-privateur-nous-abandonne/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/logiciel-libre/01-quand-le-logiciel-privateur-nous-abandonne/</guid><description>&lt;div class="book-toc-inline"&gt;
  &lt;div class="markdown-inner"&gt;
  &lt;nav id="TableOfContents"&gt;
  &lt;ul&gt;
@@ -85,7 +99,25 @@
 &lt;/div&gt;
 
 
-&lt;p&gt;Dans l&amp;rsquo;&lt;a href="../01-quand-le-logiciel-privateur-nous-abandonne/"&gt;article fondateur de cette série&lt;/a&gt;, je racontais comment le logiciel privateur finit par abandonner ses utilisateurs. La réponse que je défends, c&amp;rsquo;est le logiciel libre. Mais « libre » n&amp;rsquo;est pas un bloc : il existe deux grandes familles de licences, aux philosophies opposées.&lt;/p&gt;</description></item><item><title>Les e-mails standards - 2/9</title><link>https://yanal.fargialla.com/antispoofing-e-mail/02-standard-e-mails/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/antispoofing-e-mail/02-standard-e-mails/</guid><description>&lt;div class="book-toc-inline"&gt;
+&lt;p&gt;Dans l&amp;rsquo;&lt;a href="../01-quand-le-logiciel-privateur-nous-abandonne/"&gt;article fondateur de cette série&lt;/a&gt;, je racontais comment le logiciel privateur finit par abandonner ses utilisateurs. La réponse que je défends, c&amp;rsquo;est le logiciel libre. Mais « libre » n&amp;rsquo;est pas un bloc : il existe deux grandes familles de licences, aux philosophies opposées.&lt;/p&gt;</description></item><item><title>Là où Windows a reculé ou n'a jamais percé - 2/6</title><link>https://yanal.fargialla.com/systemes-exploitation/02-windows-remplace/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/systemes-exploitation/02-windows-remplace/</guid><description>&lt;div class="book-toc-inline"&gt;
+ &lt;div class="markdown-inner"&gt;
+ &lt;nav id="TableOfContents"&gt;
+ &lt;ul&gt;
+ &lt;li&gt;&lt;a href="#les-smartphones"&gt;Les smartphones&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#les-tablettes"&gt;Les tablettes&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#les-montres-connectées"&gt;Les montres connectées&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#les-casques-de-réalité-virtuelle-et-augmentée"&gt;Les casques de réalité virtuelle et augmentée&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#les-téléviseurs-et-box-tv"&gt;Les téléviseurs et box TV&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#les-pare-feu-réseau"&gt;Les pare-feu réseau&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#les-nas-stockage-réseau"&gt;Les NAS (stockage réseau)&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#lautomobile"&gt;L&amp;rsquo;automobile&lt;/a&gt;&lt;/li&gt;
+ &lt;/ul&gt;
+&lt;/nav&gt;
+ &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Commençons par les segments où Windows a fini par disparaître. Ils recouvrent deux réalités distinctes. Dans certains cas, Windows tenait une &lt;strong&gt;position réelle&lt;/strong&gt; avant d&amp;rsquo;être supplanté : le smartphone (Windows Mobile culminait à ~42 % du marché américain des smartphones en 2007), le pare-feu d&amp;rsquo;entreprise, l&amp;rsquo;infoloisir automobile. Dans d&amp;rsquo;autres, il s&amp;rsquo;agit d&amp;rsquo;une &lt;strong&gt;percée ratée&lt;/strong&gt; — Microsoft a tenté d&amp;rsquo;entrer sans jamais s&amp;rsquo;implanter : la tablette, la montre connectée, le casque de réalité virtuelle, le stockage en réseau. Dans les deux cas, les dates sont précises, car un abandon logiciel se date — à une fin de commercialisation, à une fin de support.&lt;/p&gt;</description></item><item><title>Les e-mails standards - 2/9</title><link>https://yanal.fargialla.com/antispoofing-e-mail/02-standard-e-mails/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/antispoofing-e-mail/02-standard-e-mails/</guid><description>&lt;div class="book-toc-inline"&gt;
  &lt;div class="markdown-inner"&gt;
  &lt;nav id="TableOfContents"&gt;
  &lt;ul&gt;
@@ -132,7 +164,28 @@
 
 &lt;h2 id="principe-de-fonctionnement"&gt;Principe de fonctionnement&lt;a class="anchor" href="#principe-de-fonctionnement"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Cette technique est apparue comme une bonne pratique dans les années 90.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Le principe de sécurité :&lt;/strong&gt; La robustesse de cette technique repose sur la nécessité de contrôler à la fois l&amp;rsquo;infrastructure IP (Côté Hébergeur) et la zone DNS (Côté Domaine). Un usurpateur ne possédant que l&amp;rsquo;un des deux accès ne pourra pas valider le test.&lt;/p&gt;</description></item><item><title>Les licences copyleft : la liberté qu'on ne peut pas reprendre</title><link>https://yanal.fargialla.com/logiciel-libre/03-licences-copyleft/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/logiciel-libre/03-licences-copyleft/</guid><description>&lt;div class="book-toc-inline"&gt;
+&lt;p&gt;&lt;strong&gt;Le principe de sécurité :&lt;/strong&gt; La robustesse de cette technique repose sur la nécessité de contrôler à la fois l&amp;rsquo;infrastructure IP (Côté Hébergeur) et la zone DNS (Côté Domaine). Un usurpateur ne possédant que l&amp;rsquo;un des deux accès ne pourra pas valider le test.&lt;/p&gt;</description></item><item><title>Là où Windows n'a jamais régné - 3/6</title><link>https://yanal.fargialla.com/systemes-exploitation/03-windows-jamais-regne/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/systemes-exploitation/03-windows-jamais-regne/</guid><description>&lt;div class="book-toc-inline"&gt;
+ &lt;div class="markdown-inner"&gt;
+ &lt;nav id="TableOfContents"&gt;
+ &lt;ul&gt;
+ &lt;li&gt;&lt;a href="#les-serveurs-web"&gt;Les serveurs web&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#les-superordinateurs"&gt;Les superordinateurs&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#les-cdn-réseaux-de-diffusion-de-contenu"&gt;Les CDN (réseaux de diffusion de contenu)&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#le-cloud-public"&gt;Le cloud public&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#les-conteneurs-et-kubernetes"&gt;Les conteneurs et Kubernetes&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#les-équipements-réseau"&gt;Les équipements réseau&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#les-mainframes"&gt;Les mainframes&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#les-serveurs-dentraînement-des-ia"&gt;Les serveurs d&amp;rsquo;entraînement des IA&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#le-cinéma-les-effets-visuels-et-lanimation"&gt;Le cinéma, les effets visuels et l&amp;rsquo;animation&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#la-conception-de-puces-eda"&gt;La conception de puces (EDA)&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#lavionique-certifiée"&gt;L&amp;rsquo;avionique certifiée&lt;/a&gt;&lt;/li&gt;
+ &lt;/ul&gt;
+&lt;/nav&gt;
+ &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Deuxième catégorie : les segments où Windows n&amp;rsquo;a jamais été le système dominant : il n&amp;rsquo;y avait rien de Windows à remplacer. Ces marchés étaient déjà tenus par &lt;strong&gt;Unix&lt;/strong&gt; (souvent propriétaire : Solaris, AIX, HP-UX, IRIX), et ce sont &lt;strong&gt;Linux&lt;/strong&gt; et &lt;strong&gt;BSD&lt;/strong&gt; qui ont pris la relève d&amp;rsquo;Unix. Le vrai perdant, sur ces terrains, n&amp;rsquo;est pas Windows : c&amp;rsquo;est l&amp;rsquo;Unix propriétaire d&amp;rsquo;hier.&lt;/p&gt;</description></item><item><title>Les licences copyleft : la liberté qu'on ne peut pas reprendre</title><link>https://yanal.fargialla.com/logiciel-libre/03-licences-copyleft/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/logiciel-libre/03-licences-copyleft/</guid><description>&lt;div class="book-toc-inline"&gt;
  &lt;div class="markdown-inner"&gt;
  &lt;nav id="TableOfContents"&gt;
  &lt;ul&gt;
@@ -150,7 +203,25 @@
 &lt;/div&gt;
 
 
-&lt;p&gt;Le &lt;a href="../02-licences-permissives-freebsd/"&gt;premier volet de cette série&lt;/a&gt; explorait les licences &lt;strong&gt;permissives&lt;/strong&gt; (BSD, MIT, Apache) à travers FreeBSD : elles laissent chacun libre de faire ce qu&amp;rsquo;il veut du code, &lt;strong&gt;y compris le refermer&lt;/strong&gt;. Voici leur pendant : les licences &lt;strong&gt;copyleft&lt;/strong&gt;.&lt;/p&gt;</description></item><item><title>Pourquoi le noyau Linux est resté en GPLv2 : Torvalds face à la GPLv3</title><link>https://yanal.fargialla.com/logiciel-libre/04-torvalds-gplv3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/logiciel-libre/04-torvalds-gplv3/</guid><description>&lt;div class="book-toc-inline"&gt;
+&lt;p&gt;Le &lt;a href="../02-licences-permissives-freebsd/"&gt;premier volet de cette série&lt;/a&gt; explorait les licences &lt;strong&gt;permissives&lt;/strong&gt; (BSD, MIT, Apache) à travers FreeBSD : elles laissent chacun libre de faire ce qu&amp;rsquo;il veut du code, &lt;strong&gt;y compris le refermer&lt;/strong&gt;. Voici leur pendant : les licences &lt;strong&gt;copyleft&lt;/strong&gt;.&lt;/p&gt;</description></item><item><title>Les bastions que Windows tient encore - 4/6</title><link>https://yanal.fargialla.com/systemes-exploitation/04-bastions-windows/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/systemes-exploitation/04-bastions-windows/</guid><description>&lt;div class="book-toc-inline"&gt;
+ &lt;div class="markdown-inner"&gt;
+ &lt;nav id="TableOfContents"&gt;
+ &lt;ul&gt;
+ &lt;li&gt;&lt;a href="#lannuaire-dentreprise-active-directory"&gt;L&amp;rsquo;annuaire d&amp;rsquo;entreprise (Active Directory)&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#la-supervision-industrielle-scada"&gt;La supervision industrielle (SCADA)&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#les-stations-de-cao-ingénierie-et-architecture"&gt;Les stations de CAO (ingénierie et architecture)&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#la-production-audio-et-musicale"&gt;La production audio et musicale&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#les-distributeurs-de-billets-bornes-et-kiosques"&gt;Les distributeurs de billets, bornes et kiosques&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#les-serveurs-dentreprise-windows-server"&gt;Les serveurs d&amp;rsquo;entreprise (Windows Server)&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#un-cas-plus-nuancé--les-hyperviseurs"&gt;Un cas plus nuancé : les hyperviseurs&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#un-point-commun--ce-sont-danciennes-conquêtes"&gt;Un point commun : ce sont d&amp;rsquo;anciennes conquêtes&lt;/a&gt;&lt;/li&gt;
+ &lt;/ul&gt;
+&lt;/nav&gt;
+ &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Troisième catégorie : les segments où Windows reste dominant. Ils ont un trait commun, sur lequel on reviendra — ce sont, pour la plupart, d&amp;rsquo;anciennes &lt;strong&gt;conquêtes&lt;/strong&gt;, gagnées il y a vingt à trente ans contre Unix, OS/2 ou Novell.&lt;/p&gt;</description></item><item><title>Pourquoi le noyau Linux est resté en GPLv2 : Torvalds face à la GPLv3</title><link>https://yanal.fargialla.com/logiciel-libre/04-torvalds-gplv3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/logiciel-libre/04-torvalds-gplv3/</guid><description>&lt;div class="book-toc-inline"&gt;
  &lt;div class="markdown-inner"&gt;
  &lt;nav id="TableOfContents"&gt;
  &lt;ul&gt;
@@ -218,7 +289,79 @@ Lorsqu&amp;rsquo;un e-mail arrive, le serveur de réception vérifie l&amp;rsquo
 
 &lt;h2 id="principe-de-fonctionnement--le-scellé-de-preuves-de-la-police"&gt;Principe de fonctionnement : Le scellé de preuves de la police&lt;a class="anchor" href="#principe-de-fonctionnement--le-scell%c3%a9-de-preuves-de-la-police"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Standardisé en 2007 (&lt;a href="https://www.rfc-editor.org/rfc/rfc4871" target="_blank" rel="noopener"&gt;RFC 4871&lt;/a&gt;), mis à jour en 2011 (&lt;a href="https://www.rfc-editor.org/rfc/rfc6376" target="_blank" rel="noopener"&gt;RFC 6376&lt;/a&gt;).&lt;/p&gt;
-&lt;p&gt;Si le SPF protège l&amp;rsquo;enveloppe (le serveur d&amp;rsquo;envoi), DKIM (DomainKeys Identified Mail) protège le message lui-même. C&amp;rsquo;est l&amp;rsquo;équivalent numérique d&amp;rsquo;un scellé de preuves de la police :&lt;/p&gt;</description></item><item><title>DMARC (Domain-based Message Authentication) - 6/9</title><link>https://yanal.fargialla.com/antispoofing-e-mail/06-dmarc-domain-based-message-authentication-reporting-and-conformance/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/antispoofing-e-mail/06-dmarc-domain-based-message-authentication-reporting-and-conformance/</guid><description>&lt;div class="book-toc-inline"&gt;
+&lt;p&gt;Si le SPF protège l&amp;rsquo;enveloppe (le serveur d&amp;rsquo;envoi), DKIM (DomainKeys Identified Mail) protège le message lui-même. C&amp;rsquo;est l&amp;rsquo;équivalent numérique d&amp;rsquo;un scellé de preuves de la police :&lt;/p&gt;</description></item><item><title>Les brèches : là où Windows recule - 5/6</title><link>https://yanal.fargialla.com/systemes-exploitation/05-breche-poste-de-travail/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/systemes-exploitation/05-breche-poste-de-travail/</guid><description>&lt;div class="book-toc-inline"&gt;
+ &lt;div class="markdown-inner"&gt;
+ &lt;nav id="TableOfContents"&gt;
+ &lt;ul&gt;
+ &lt;li&gt;&lt;a href="#le-poste-de-travail--le-dernier-grand-bastion-qui-se-fissure"&gt;Le poste de travail : le dernier grand bastion qui se fissure&lt;/a&gt;
+ &lt;ul&gt;
+ &lt;li&gt;&lt;a href="#le-bureau-et-le-piège-des-chiffres"&gt;Le bureau, et le piège des chiffres&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#les-usages-qui-fissurent-le-bureau"&gt;Les usages qui fissurent le bureau&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#le-matériel--des-constructeurs-qui-vendent-linux"&gt;Le matériel : des constructeurs qui vendent Linux&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#le-secteur-public--une-seule-migration-vraiment-durable"&gt;Le secteur public : une seule migration vraiment durable&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#la-seconde-vie-des-pc-abandonnés"&gt;La seconde vie des PC abandonnés&lt;/a&gt;&lt;/li&gt;
+ &lt;/ul&gt;
+ &lt;/li&gt;
+ &lt;li&gt;&lt;a href="#les-bases-de-données--une-conquête-des-années-2000-en-reflux"&gt;Les bases de données : une conquête des années 2000 en reflux&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#les-consoles-de-jeu--la-brèche-qui-se-referme"&gt;Les consoles de jeu : la brèche qui se referme&lt;/a&gt;&lt;/li&gt;
+ &lt;/ul&gt;
+&lt;/nav&gt;
+ &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Les trois segments réunis dans cet article ont un point commun : Windows y a été &lt;strong&gt;réellement présent, souvent dominant&lt;/strong&gt;, mais sa position &lt;strong&gt;recule&lt;/strong&gt;. Ce ne sont donc ni des terres où Windows n&amp;rsquo;a jamais régné, ni des bastions qu&amp;rsquo;il tient fermement — ce sont des &lt;strong&gt;brèches&lt;/strong&gt;. La plus emblématique est son dernier grand bastion, le &lt;strong&gt;poste de travail&lt;/strong&gt; ; viennent ensuite deux conquêtes plus anciennes en reflux, les &lt;strong&gt;bases de données&lt;/strong&gt; et les &lt;strong&gt;consoles de jeu&lt;/strong&gt;.&lt;/p&gt;</description></item><item><title>Combien de systèmes dans le monde, et conclusion - 6/6</title><link>https://yanal.fargialla.com/systemes-exploitation/06-combien-systemes-conclusion/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/systemes-exploitation/06-combien-systemes-conclusion/</guid><description>&lt;div class="book-toc-inline"&gt;
+ &lt;div class="markdown-inner"&gt;
+ &lt;nav id="TableOfContents"&gt;
+ &lt;ul&gt;
+ &lt;li&gt;&lt;a href="#combien-de-systèmes-dans-le-monde-et-quelle-part-pour-windows-"&gt;Combien de systèmes dans le monde, et quelle part pour Windows ?&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#conclusion"&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
+ &lt;/ul&gt;
+&lt;/nav&gt;
+ &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;h2 id="combien-de-systèmes-dans-le-monde-et-quelle-part-pour-windows-"&gt;Combien de systèmes dans le monde, et quelle part pour Windows ?&lt;a class="anchor" href="#combien-de-syst%c3%a8mes-dans-le-monde-et-quelle-part-pour-windows-"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Un dernier exercice, ouvertement &lt;strong&gt;spéculatif&lt;/strong&gt; mais éclairant. On ne peut pas recenser tous les systèmes déployés sur Terre ; on peut toutefois poser des ordres de grandeur, en séparant nettement le sourcé du supposé.&lt;/p&gt;
+&lt;p&gt;Quatre &lt;strong&gt;ancres sourcées&lt;/strong&gt; (chiffres primaires) :&lt;/p&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;Population&lt;/th&gt;
+ &lt;th&gt;Nombre&lt;/th&gt;
+ &lt;th&gt;Famille de noyau&lt;/th&gt;
+ &lt;th&gt;Source&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Appareils Android actifs&lt;/td&gt;
+ &lt;td&gt;&amp;gt; 3 milliards&lt;/td&gt;
+ &lt;td&gt;Linux&lt;/td&gt;
+ &lt;td&gt;Google, 2025&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Appareils Apple actifs&lt;/td&gt;
+ &lt;td&gt;~2,5 milliards&lt;/td&gt;
+ &lt;td&gt;BSD/Darwin&lt;/td&gt;
+ &lt;td&gt;Apple, 2026&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Appareils Windows actifs&lt;/td&gt;
+ &lt;td&gt;~1,6 milliard&lt;/td&gt;
+ &lt;td&gt;NT&lt;/td&gt;
+ &lt;td&gt;Microsoft, 2026&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Objets connectés (IoT)&lt;/td&gt;
+ &lt;td&gt;~21 milliards&lt;/td&gt;
+ &lt;td&gt;Linux / RTOS&lt;/td&gt;
+ &lt;td&gt;IoT Analytics, 2025&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;À cela s&amp;rsquo;ajoutent des &lt;strong&gt;estimations&lt;/strong&gt;, faute de chiffres publics récents. Les &lt;strong&gt;serveurs&lt;/strong&gt;, d&amp;rsquo;abord : le parc se compte en &lt;strong&gt;dizaines de millions de machines physiques&lt;/strong&gt; (les livraisons mondiales tournent autour de &lt;strong&gt;12 à 13 millions par an&lt;/strong&gt;), et en bien davantage d&amp;rsquo;instances virtuelles ; côté système, Linux y est largement majoritaire — un rapport IDC de 2017 donnait déjà, tous déploiements confondus, &lt;strong&gt;Linux ~68 % contre Windows ~32 %&lt;/strong&gt; (Windows ne restant nº 1 que du marché &lt;em&gt;payant&lt;/em&gt;). Puis le détail du poste de travail (Mac, ChromeOS, Linux).&lt;/p&gt;</description></item><item><title>DMARC (Domain-based Message Authentication) - 6/9</title><link>https://yanal.fargialla.com/antispoofing-e-mail/06-dmarc-domain-based-message-authentication-reporting-and-conformance/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yanal.fargialla.com/antispoofing-e-mail/06-dmarc-domain-based-message-authentication-reporting-and-conformance/</guid><description>&lt;div class="book-toc-inline"&gt;
  &lt;div class="markdown-inner"&gt;
  &lt;nav id="TableOfContents"&gt;
  &lt;ul&gt;
