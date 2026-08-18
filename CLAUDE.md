@@ -56,10 +56,25 @@ Front matter conventions used across the site:
 
 - **Never put a link inside bold text** (no `**[label](url)**`). The rendering is poor. Use a plain link `[label](url)`, or bold a separate word — but never both on the same text.
 
+## Fetching web sources (fact-checking)
+
+Articles cite dated primary sources, so links should be verified before use. `WebFetch` is the default, but some sites (distributors, trade press, a few gov/vendor pages) return **HTTP 403** to it — that is bot-blocking, **not** a dead link (the URL is usually fine for a human reader). When `WebFetch` 403s, fall back to `curl` in Bash with a browser User-Agent, which often gets through:
+
+```bash
+curl -sSL -A 'Mozilla/5.0 (X11; Linux x86_64; rv:128.0) Gecko/20100101 Firefox/128.0' \
+  --max-time 40 '<url>' -o /tmp/page.html
+# then strip tags and grep for the fact (e.g. a small python3 snippet, or `grep -o -i`)
+```
+
+Caveats: it is not universal (some sites still 403 — e.g. RS Online); PDFs come back as binary (extract text separately); JS-rendered docs may return only a navigation shell. Also treat search-engine result *summaries* as unreliable — verify the claim against the fetched page itself (a snippet once paraphrased "Linux-based" for a page that never used the word).
+
+**Hard rule — figures and source attribution.** Never write a numeric figure (percentage, market share, sales/unit count, ranking score, revenue, year) or a named-source attribution ("according to IDC", "Gartner says…") into an article unless you have **opened that exact page this session** (WebFetch, or curl on 403) and **seen the figure in the page's body**. A WebSearch or WebFetch *summary* is **never** sufficient evidence for a figure or an attribution — summaries routinely invent numbers or misattribute them to the wrong source or year. Also confirm the figure's **date and context**: an old figure presented as current (e.g. a 2010 Gartner share quoted as today's) is as wrong as a fabricated one. If you cannot open the page and locate the figure, do not use it — drop the number and state the claim qualitatively, or leave it out. Corollary: every source link added to an article must have been opened in-session and confirmed to support the exact claim it backs.
+
 ## Mermaid diagrams
 
 - **Line breaks**: use `<br/>`, **never** `\n`. Hugo renders `\n` literally instead of interpreting it as a line break.
 - **No numbered prefixes in node labels** (e.g. `"1. ..."`): Mermaid's Markdown parser treats them as ordered lists (`Unsupported markdown: list` error).
+- **Never use `end` as a node id or `classDef` name** — `end` is a reserved Mermaid keyword (it closes `subgraph`/blocks), so `classDef end …` or a node called `end` triggers a client-side `Syntax error in text`. This is **not** caught by `hugo` build (the error is rendered in the browser); test diagrams in the running site. Use a different name (`abandon`, `stop`, …) or capitalize (`End`).
 
 ## Theme customizations (the non-obvious parts)
 
