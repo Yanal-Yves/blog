@@ -164,19 +164,55 @@ graph TD
       Alice(Alice):::client -->|Writes| MUA_A[MUA<br/>Thunderbird]:::client
       MUA_A -->|SMTP<br/>Auth| MTA_A[MTA<br/>Mail carrier<br/>Postfix]:::server
   end
-  %% --- Internet ---
-  subgraph "Internet"
-      MTA_A -->|DNS MX query?| DNS((DNS)):::internet
-      DNS -.->|IP response| MTA_A
-      MTA_A -->|SMTP<br/>Transmission| MTA_B[MTA<br/>Mail carrier<br/>Postfix]:::server
-  end
+  %% --- DNS (in the Internet, side query) ---
+  DNS((DNS)):::internet
   %% --- Domain B (Recipient) ---
   subgraph "Domain B (b.com)"
-      MTA_B -->|Delivery| MDA_B[("MDA<br/>Sorter<br/>Dovecot/Imap")]:::storage
+      MTA_B[MTA<br/>Mail carrier<br/>Postfix]:::server -->|Delivery| MDA_B[("MDA<br/>Sorter<br/>Dovecot/Imap")]:::storage
       MDA_B -.->|IMAP / POP<br/>Retrieval| MUA_B[MUA<br/>Webmail]:::client
       MUA_B -->|Reads| Bob(Bob):::client
-end
+  end
+  %% --- Cross-domain links (transiting the Internet) ---
+  MTA_A -->|① DNS MX query?| DNS
+  DNS -.->|② IP response| MTA_A
+  MTA_A -->|③ SMTP<br/>Transmission| MTA_B
 ```
+
+#### Example: an end-to-end SMTP session
+
+To make all of this concrete, here is what the SMTP dialogue looks like when the sending MTA (`MTA_A`) hands the message to the receiving MTA (`MTA_B`). Lines prefixed with `S:` are sent by the server that **receives** (`MTA_B`), and those prefixed with `C:` by the client that **sends** (`MTA_A`):
+
+```smtp
+S: 220 mail.b.com ESMTP Postfix
+C: EHLO mail.a.com
+S: 250 mail.b.com
+C: MAIL FROM:<alice@a.com>
+S: 250 2.1.0 Ok
+C: RCPT TO:<bob@b.com>
+S: 250 2.1.5 Ok
+C: DATA
+S: 354 End data with <CR><LF>.<CR><LF>
+C: From: Alice <alice@a.com>
+C: To: Bob <bob@b.com>
+C: Subject: Lunch tomorrow?
+C: DKIM-Signature: v=1; a=rsa-sha256; d=a.com; s=selector1; h=from:to:subject; b=Xa7c9...
+C:
+C: Hi Bob, shall we have lunch tomorrow?
+C: .
+S: 250 2.0.0 Ok: queued
+```
+
+Two important things are happening here:
+
+- **The envelope** (`MAIL FROM` / `RCPT TO`) is distinct from **the header** (`From:` / `To:`): these are two independent layers, and nothing technically forces `MAIL FROM` to match `From:`. It is precisely this mismatch that spoofing exploits, and that SPF, DKIM and DMARC are there to control.
+- The `DKIM-Signature` is added by the sender (`d=a.com` indicates the signing domain). The receiving MTA will verify it using the public key published in `a.com`'s DNS. We detail this mechanism in the [article dedicated to DKIM](/en/antispoofing-e-mail/05-dkim-domainkeys-identified-mail/).
+
+When `MTA_B` accepts the message (`250 ... queued`), **it is the one that writes the technical headers** (the ones we find in our MUA as users) from what it has just received, in particular:
+
+- `Return-Path: <alice@a.com>` — copied from the envelope's `MAIL FROM`;
+- the results of the authentication checks (`Authentication-Results`, etc.).
+
+The MDA (`MDA_B`) only comes into play afterwards, solely to **store** the message in Bob's mailbox; it does not receive the SMTP connection and does not create these headers.
 
 ## The postal analogy
 
