@@ -165,7 +165,7 @@ graph TD
       MUA_A -->|SMTP<br/>Auth| MTA_A[MTA<br/>Facteur<br/>Postfix]:::server
   end
   %% --- DNS (dans Internet, requête annexe) ---
-  DNS(("DNS<br/>(Internet)")):::internet
+  DNS((DNS)):::internet
   %% --- Domaine B (Destinataire) ---
   subgraph "Domaine B (b.com)"
       MTA_B[MTA<br/>Facteur<br/>Postfix]:::server -->|Livraison| MDA_B[("MDA<br/>Trieur<br/>Dovecot/Imap")]:::storage
