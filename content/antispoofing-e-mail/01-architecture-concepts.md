@@ -173,9 +173,9 @@ graph TD
       MUA_B -->|Lit| Bob(Bob):::client
   end
   %% --- Liens inter-domaines (transitant par Internet) ---
-  MTA_A -->|Requête DNS MX ?| DNS
-  DNS -.->|Réponse IP| MTA_A
-  MTA_A -->|SMTP<br/>Transmission| MTA_B
+  MTA_A -->|① Requête DNS MX ?| DNS
+  DNS -.->|② Réponse IP| MTA_A
+  MTA_A -->|③ SMTP<br/>Transmission| MTA_B
 ```
 
 #### Exemple : une session SMTP de bout en bout
