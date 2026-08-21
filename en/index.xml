@@ -17,6 +17,7 @@
  &lt;li&gt;&lt;a href="#the-header---rfc-5322"&gt;The Header - RFC 5322&lt;/a&gt;&lt;/li&gt;
  &lt;li&gt;&lt;a href="#the-body"&gt;The Body&lt;/a&gt;&lt;/li&gt;
  &lt;li&gt;&lt;a href="#the-journey-of-an-email"&gt;The journey of an email&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#example-an-end-to-end-smtp-session"&gt;Example: an end-to-end SMTP session&lt;/a&gt;&lt;/li&gt;
  &lt;/ul&gt;
  &lt;/li&gt;
  &lt;/ul&gt;

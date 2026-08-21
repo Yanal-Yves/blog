@@ -17,6 +17,7 @@
  &lt;li&gt;&lt;a href="#len-tête-the-header---rfc-5322"&gt;L’En-tête (The Header) - RFC 5322&lt;/a&gt;&lt;/li&gt;
  &lt;li&gt;&lt;a href="#le-corps-du-message-the-body"&gt;Le Corps du Message (The Body)&lt;/a&gt;&lt;/li&gt;
  &lt;li&gt;&lt;a href="#le-voyage-dun-e-mail"&gt;Le voyage d&amp;rsquo;un e-mail&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#exemple--une-session-smtp-de-bout-en-bout"&gt;Exemple : une session SMTP de bout en bout&lt;/a&gt;&lt;/li&gt;
  &lt;/ul&gt;
  &lt;/li&gt;
  &lt;/ul&gt;
