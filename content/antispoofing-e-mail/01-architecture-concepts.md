@@ -178,6 +178,8 @@ graph TD
   MTA_A -->|Requête DNS MX ?| DNS
   DNS -.->|Réponse IP| MTA_A
   MTA_A -->|SMTP<br/>Transmission| MTA_B
+  %% Lien invisible pour empiler Domaine B sous Internet
+  DNS ~~~ MTA_B
 ```
 
 #### Exemple : une session SMTP de bout en bout
