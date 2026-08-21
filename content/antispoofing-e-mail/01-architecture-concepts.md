@@ -164,10 +164,8 @@ graph TD
       Alice(Alice):::client -->|Rédige| MUA_A[MUA<br/>Thunderbird]:::client
       MUA_A -->|SMTP<br/>Auth| MTA_A[MTA<br/>Facteur<br/>Postfix]:::server
   end
-  %% --- Internet ---
-  subgraph "Internet"
-      DNS((DNS)):::internet
-  end
+  %% --- DNS (dans Internet, requête annexe) ---
+  DNS(("DNS<br/>(Internet)")):::internet
   %% --- Domaine B (Destinataire) ---
   subgraph "Domaine B (b.com)"
       MTA_B[MTA<br/>Facteur<br/>Postfix]:::server -->|Livraison| MDA_B[("MDA<br/>Trieur<br/>Dovecot/Imap")]:::storage
@@ -178,8 +176,6 @@ graph TD
   MTA_A -->|Requête DNS MX ?| DNS
   DNS -.->|Réponse IP| MTA_A
   MTA_A -->|SMTP<br/>Transmission| MTA_B
-  %% Lien invisible pour empiler Domaine B sous Internet
-  DNS ~~~ MTA_B
 ```
 
 #### Exemple : une session SMTP de bout en bout
