@@ -166,17 +166,55 @@ graph TD
   end
   %% --- Internet ---
   subgraph "Internet"
-      MTA_A -->|Requête DNS MX?| DNS((DNS)):::internet
-      DNS -.->|Réponse IP| MTA_A
-      MTA_A -->|SMTP<br/>Transmission| MTA_B[MTA<br/>Facteur<br/>Postfix]:::server
+      DNS((DNS)):::internet
   end
   %% --- Domaine B (Destinataire) ---
   subgraph "Domaine B (b.com)"
-      MTA_B -->|Livraison| MDA_B[("MDA<br/>Trieur<br/>Dovecot/Imap")]:::storage
+      MTA_B[MTA<br/>Facteur<br/>Postfix]:::server -->|Livraison| MDA_B[("MDA<br/>Trieur<br/>Dovecot/Imap")]:::storage
       MDA_B -.->|IMAP / POP<br/>Récupération| MUA_B[MUA<br/>Webmail]:::client
       MUA_B -->|Lit| Bob(Bob):::client
-end
+  end
+  %% --- Liens inter-domaines (transitant par Internet) ---
+  MTA_A -->|Requête DNS MX ?| DNS
+  DNS -.->|Réponse IP| MTA_A
+  MTA_A -->|SMTP<br/>Transmission| MTA_B
 ```
+
+#### Exemple : une session SMTP de bout en bout
+
+Pour rendre tout cela concret, voici à quoi ressemble le dialogue SMTP lorsque le MTA de départ (`MTA_A`) transmet le message au MTA de réception (`MTA_B`). Les lignes préfixées par `S:` sont émises par le serveur qui **réceptionne** (`MTA_B`), celles préfixées par `C:` par le client qui **émet** (`MTA_A`) :
+
+```smtp
+S: 220 mail.b.com ESMTP Postfix
+C: EHLO mail.a.com
+S: 250 mail.b.com
+C: MAIL FROM:<alice@a.com>
+S: 250 2.1.0 Ok
+C: RCPT TO:<bob@b.com>
+S: 250 2.1.5 Ok
+C: DATA
+S: 354 End data with <CR><LF>.<CR><LF>
+C: From: Alice <alice@a.com>
+C: To: Bob <bob@b.com>
+C: Subject: Déjeuner demain ?
+C: DKIM-Signature: v=1; a=rsa-sha256; d=a.com; s=selector1; h=from:to:subject; b=Xa7c9...
+C:
+C: Salut Bob, on déjeune demain ?
+C: .
+S: 250 2.0.0 Ok: queued
+```
+
+Deux choses importantes se jouent ici :
+
+- **L'enveloppe** (`MAIL FROM` / `RCPT TO`) est distincte de **l'en-tête** (`From:` / `To:`) : ce sont deux couches indépendantes, et rien n'oblige techniquement `MAIL FROM` à correspondre au `From:`. C'est précisément ce décalage qu'exploite l'usurpation, et que SPF, DKIM et DMARC servent à contrôler.
+- La signature `DKIM-Signature` est apposée par l'émetteur (`d=a.com` indique le domaine signataire). Le MTA de réception la vérifiera avec la clé publique publiée dans le DNS de `a.com`. Nous détaillons ce mécanisme dans l'[article consacré à DKIM](/antispoofing-e-mail/05-dkim-domainkeys-identified-mail/).
+
+Quand `MTA_B` accepte le message (`250 ... queued`), **c'est lui qui écrit les en-têtes techniques** (celles que l'on retrouve dans notre MUA en tant qu'utilisateur) à partir de ce qu'il vient de recevoir, notamment :
+
+- `Return-Path: <alice@a.com>` — recopié depuis le `MAIL FROM` de l'enveloppe ;
+- les résultats des vérifications d'authentification (`Authentication-Results`, etc.).
+
+Le MDA (`MDA_B`) n'intervient qu'ensuite, uniquement pour **stocker** le message dans la boîte de Bob ; il ne réceptionne pas la connexion SMTP et ne crée pas ces en-têtes.
 
 ## L'analogie postale
 
