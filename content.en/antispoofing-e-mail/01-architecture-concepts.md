@@ -173,7 +173,7 @@ graph TD
       MUA_B -->|Reads| Bob(Bob):::client
   end
   %% --- Cross-domain links (transiting the Internet) ---
-  MTA_A -->|① DNS MX query ?| DNS
+  MTA_A -->|① DNS MX query?| DNS
   DNS -.->|② IP response| MTA_A
   MTA_A -->|③ SMTP<br/>Transmission| MTA_B
 ```

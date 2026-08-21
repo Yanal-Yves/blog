@@ -207,7 +207,7 @@ Deux choses importantes se jouent ici :
 - **L'enveloppe** (`MAIL FROM` / `RCPT TO`) est distincte de **l'en-tête** (`From:` / `To:`) : ce sont deux couches indépendantes, et rien n'oblige techniquement `MAIL FROM` à correspondre au `From:`. C'est précisément ce décalage qu'exploite l'usurpation, et que SPF, DKIM et DMARC servent à contrôler.
 - La signature `DKIM-Signature` est apposée par l'émetteur (`d=a.com` indique le domaine signataire). Le MTA de réception la vérifiera avec la clé publique publiée dans le DNS de `a.com`. Nous détaillons ce mécanisme dans l'[article consacré à DKIM](/antispoofing-e-mail/05-dkim-domainkeys-identified-mail/).
 
-Quand `MTA_B` accepte le message (`250 ... queued`), **c'est lui qui écrit les en-têtes techniques** (celles que l'on retrouve dans notre MUA en tant qu'utilisateur) à partir de ce qu'il vient de recevoir, notamment :
+Quand `MTA_B` accepte le message (`250 ... queued`), **c'est lui qui écrit les en-têtes techniques** (ceux que l'on retrouve dans notre MUA en tant qu'utilisateur) à partir de ce qu'il vient de recevoir, notamment :
 
 - `Return-Path: <alice@a.com>` — recopié depuis le `MAIL FROM` de l'enveloppe ;
 - les résultats des vérifications d'authentification (`Authentication-Results`, etc.).
