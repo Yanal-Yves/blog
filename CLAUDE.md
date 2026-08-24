@@ -55,6 +55,7 @@ Front matter conventions used across the site:
 ## Writing conventions
 
 - **Never put a link inside bold text** (no `**[label](url)**`). The rendering is poor. Use a plain link `[label](url)`, or bold a separate word — but never both on the same text.
+- **Limit the em dash (`—`) in French prose.** The `—` (tiret cadratin, a punctuation mark — not the hyphen `-`, which only joins words) is overused and makes French text read as translated from English. In French, in order of preference: (1) split the sentence into shorter sentences; (2) where it fits the context better, use parentheses; use `—` only for a genuine parenthetical incise where nothing else reads as well. **In English, keep the em dash** — it is idiomatic there. Do not mechanically carry French `—`-removal over to the English versions.
 
 ## Fetching web sources (fact-checking)
 
