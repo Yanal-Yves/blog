@@ -2,6 +2,9 @@
 title: "Installation de Pi-hole sur un Raspberry Pi 1"
 description: "Guide d'installation de Pi-hole sur un Raspberry Pi 1 derrière une Freebox Révolution : blocage DNS des publicités et traceurs pour tout le réseau domestique."
 draft: false
+# Redirige l'ancienne URL accentuée (déjà indexée par Google) vers la nouvelle.
+aliases:
+  - /auto-hébergement/pi-hole/
 ---
 
 {{< toc >}}

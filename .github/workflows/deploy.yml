@@ -39,6 +39,23 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      # Garde-fou : refuse tout chemin non-ASCII sous content/ (cf. CLAUDE.md).
+      # Avec enableGitInfo, Hugo apparie chaque fichier à son commit via `git log`,
+      # dont le défaut core.quotepath=true échappe les chemins accentués
+      # (content/auto-h\303\251bergement/…) : Hugo ne les retrouve plus, n'obtient
+      # aucune date et le footer affiche "1 janvier 1" (date zéro de Go). On fait
+      # donc PLANTER le build plutôt que de déployer un site à la date erronée.
+      # -P : classe POSIX \P{ASCII} = tout octet non-ASCII.
+      - name: Vérifie l'absence de chemins non-ASCII sous content/
+        run: |
+          bad=$(git -c core.quotepath=false ls-files 'content/' 'content.en/' \
+                | grep -nP '[^\x00-\x7F]' || true)
+          if [ -n "$bad" ]; then
+            echo "::error::Chemins non-ASCII interdits sous content/ (voir CLAUDE.md) :"
+            echo "$bad"
+            exit 1
+          fi
+
       # On construit le site DANS l'image CI (Hugo figé à la même version qu'en
       # local) → build reproductible, fini les écarts de version. Image légère :
       # elle ne contient que Hugo, pas les outils de dev (Claude, gh, nvim).
