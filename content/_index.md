@@ -15,7 +15,7 @@ Une série d'articles pour les administrateurs de domaines qui ont besoin de con
 
 ---
 
-#### 🏠 [Auto-hébergement](/auto-hébergement/)
+#### 🏠 [Auto-hébergement](/auto-hebergement/)
 Tutoriels et guides pour l'auto-hébergement de services (Pi-hole, Raspberry Pi, etc.).
 
 ---

@@ -15,7 +15,7 @@ A series of articles for domain administrators who need to configure mailboxes s
 
 ---
 
-#### 🏠 [Self-hosting](/en/auto-hébergement/)
+#### 🏠 [Self-hosting](/en/auto-hebergement/)
 Tutorials and guides for self-hosting services (Pi-hole, Raspberry Pi, etc.).
 
 ---
