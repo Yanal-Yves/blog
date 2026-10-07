@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Lis les nombres !</title>
+<style>
+  :root {
+    --bg: #fff8e7;
+    --card: #ffffff;
+    --ink: #2b2d42;
+    --muted: #6c757d;
+    --accent: #ff7b00;
+    --ok: #2a9d8f;
+    --ko: #e63946;
+    --shadow: 0 6px 20px rgba(0,0,0,.08);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh;
+    font-family: "Comic Sans MS", "Chalkboard SE", "Segoe UI", system-ui, sans-serif;
+    background: var(--bg); color: var(--ink);
+    display: flex; flex-direction: column; align-items: center;
+    padding: 16px;
+  }
+  h1 { margin: 8px 0 16px; font-size: clamp(1.8rem, 5vw, 2.6rem); color: var(--accent); text-align: center; }
+  .card {
+    background: var(--card); border-radius: 24px; box-shadow: var(--shadow);
+    padding: 24px; width: 100%; max-width: 720px; margin-bottom: 16px;
+  }
+  .hidden { display: none !important; }
+  label { font-size: 1.3rem; display: block; margin-bottom: 8px; }
+  input[type=text] {
+    font: inherit; font-size: 1.6rem; padding: 10px 14px; width: 100%;
+    border: 3px solid #ddd; border-radius: 14px;
+  }
+  input[type=text]:focus { outline: none; border-color: var(--accent); }
+  button {
+    font: inherit; font-size: 1.4rem; cursor: pointer;
+    border: none; border-radius: 16px; padding: 12px 24px;
+    background: var(--accent); color: #fff; box-shadow: var(--shadow);
+  }
+  button:hover { filter: brightness(1.08); }
+  button:disabled { opacity: .5; cursor: default; }
+  button.secondary { background: #adb5bd; font-size: 1.1rem; padding: 8px 16px; }
+  .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; justify-content: center; margin-top: 16px; }
+
+  /* Jeu */
+  #game { text-align: center; }
+  .top { display: flex; justify-content: space-between; font-size: 1.3rem; color: var(--muted); }
+  .progress { display: flex; gap: 6px; justify-content: center; margin: 12px 0; }
+  .dot { width: 22px; height: 22px; border-radius: 50%; background: #e9ecef; }
+  .dot.done { background: var(--ok); }
+  .dot.skip { background: #adb5bd; }
+  .dot.current { background: var(--accent); transform: scale(1.2); }
+  #number {
+    font-size: clamp(8rem, 35vw, 14rem); font-weight: bold; line-height: 1.1;
+    margin: 8px 0; transition: transform .15s, color .15s;
+  }
+  #number.ok { color: var(--ok); transform: scale(1.1); }
+  #number.ko { animation: shake .3s; }
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    25% { transform: translateX(-12px); }
+    75% { transform: translateX(12px); }
+  }
+  #mic { font-size: 1.3rem; min-height: 1.6em; }
+  #mic.listening::before { content: "🎤 "; animation: pulse 1s infinite; }
+  @keyframes pulse { 50% { opacity: .3; } }
+  #heard { color: var(--muted); font-size: 1.1rem; min-height: 1.4em; }
+
+  /* Résultat */
+  #result { text-align: center; }
+  #finalTime { font-size: clamp(3rem, 12vw, 5rem); color: var(--accent); font-weight: bold; margin: 8px 0; }
+  #resultMsg { font-size: 1.3rem; }
+
+  /* Palmarès */
+  table { width: 100%; border-collapse: collapse; font-size: 1.1rem; }
+  th, td { padding: 6px 8px; text-align: left; border-bottom: 1px solid #eee; }
+  th { color: var(--muted); font-weight: normal; }
+  td.num, th.num { text-align: right; }
+  tr.me td { background: #fff1d6; font-weight: bold; }
+  .palmares-wrap { max-height: 420px; overflow-y: auto; }
+  .warn { background: #ffe3e3; color: #a4161a; padding: 12px; border-radius: 12px; margin-top: 12px; }
+</style>
+</head>
+<body>
+<h1>🔢 Lis les nombres !</h1>
+
+<!-- Accueil -->
+<section id="home" class="card">
+  <label for="name">Quel est ton prénom ?</label>
+  <input type="text" id="name" autocomplete="off" maxlength="20" placeholder="Ton prénom">
+  <p style="font-size:1.15rem">Lis à voix haute les <b>10 nombres</b> le plus vite possible !</p>
+  <div class="row"><button id="startBtn">C'est parti ! 🚀</button></div>
+  <div id="noSpeech" class="warn hidden">
+    Ce navigateur ne sait pas écouter la voix. Utilise <b>Google Chrome</b> ou <b>Microsoft Edge</b>.
+  </div>
+  <div id="micError" class="warn hidden"></div>
+</section>
+
+<!-- Jeu -->
+<section id="game" class="card hidden">
+  <div class="top"><span id="who"></span><span id="timer">0,0 s</span></div>
+  <div class="progress" id="progress"></div>
+  <div id="number">–</div>
+  <div id="mic"></div>
+  <div id="heard"></div>
+  <div class="row">
+    <button class="secondary" id="skipBtn" title="Passer ce nombre (5 secondes de pénalité)">Passer (+5 s)</button>
+    <button class="secondary" id="stopBtn">Arrêter</button>
+  </div>
+</section>
+
+<!-- Résultat -->
+<section id="result" class="card hidden">
+  <div id="resultTitle" style="font-size:1.6rem"></div>
+  <div id="finalTime"></div>
+  <div id="resultMsg"></div>
+  <div class="row"><button id="againBtn">Rejouer 🔁</button><button class="secondary" id="homeBtn">Changer de prénom</button></div>
+</section>
+
+<!-- Palmarès -->
+<section id="board" class="card">
+  <h2 style="margin-top:0">🏆 Palmarès (50 meilleurs temps)</h2>
+  <div class="palmares-wrap">
+    <table>
+      <thead><tr><th class="num">#</th><th>Prénom</th><th class="num">Temps</th><th>Date</th></tr></thead>
+      <tbody id="boardBody"></tbody>
+    </table>
+  </div>
+  <p id="boardEmpty" style="color:var(--muted)">Pas encore de score. À toi de jouer !</p>
+  <div class="row"><button class="secondary" id="resetBtn">Effacer le palmarès</button></div>
+</section>
+
+<script>
+/* ---------- Lecture des nombres en français ---------- */
+// PARSER-START
+const WORDS = {
+  zero: 0, un: 1, une: 1, deux: 2, trois: 3, quatre: 4, cinq: 5, six: 6, sept: 7,
+  huit: 8, neuf: 9, dix: 10, onze: 11, douze: 12, treize: 13, quatorze: 14,
+  quinze: 15, seize: 16, vingt: 20, vingts: 20, trente: 30, quarante: 40,
+  cinquante: 50, soixante: 60,
+};
+// Mots que la reconnaissance vocale confond souvent avec des nombres
+const HOMOPHONES = {
+  hein: 'un', in: 'un', de: 'deux', deu: 'deux', troi: 'trois', quatres: 'quatre', katre: 'quatre',
+  sank: 'cinq', cinque: 'cinq', saint: 'cinq', sain: 'cinq', sein: 'cinq',
+  si: 'six', scie: 'six', cis: 'six', sis: 'six',
+  cette: 'sept', set: 'sept', sete: 'sept', seth: 'sept', sets: 'sept',
+  oui: 'huit', huitre: 'huit', neuve: 'neuf',
+  dis: 'dix', dit: 'dix', dits: 'dix',
+  vin: 'vingt', vins: 'vingt', vint: 'vingt', vain: 'vingt',
+  onz: 'onze', seizes: 'seize', trentes: 'trente',
+};
+
+function normalize(text) {
+  return text.toLowerCase()
+    .normalize('NFD').replace(/[̀-ͯ]/g, '')
+    .replace(/[-'’.,!?;:]/g, ' ')
+    .replace(/(\d)\s+(?=\d{3})/g, '$1')
+    .trim();
+}
+
+// Valeur numérique d'un mot (ou null)
+function tokenValue(tok) {
+  if (/^\d+$/.test(tok)) return parseInt(tok, 10);
+  if (tok in WORDS) return WORDS[tok];
+  if (tok in HOMOPHONES) return WORDS[HOMOPHONES[tok]];
+  return null;
+}
+
+// Renvoie tous les nombres "candidats" qu'on peut lire dans une phrase.
+function numbersIn(text) {
+  const toks = normalize(text).split(/\s+/).filter(Boolean);
+  const found = new Set();
+  let run = []; // suite de valeurs consécutives
+  const flush = () => {
+    if (run.length) {
+      found.add(combine(run));
+      // chaque nombre écrit en chiffres compte aussi seul
+      run.forEach(r => { if (r.digits) found.add(r.v); });
+    }
+    run = [];
+  };
+  for (const tok of toks) {
+    if (tok === 'et' && run.length) continue;      // vingt ET un
+    const v = tokenValue(tok);
+    if (v === null) { flush(); continue; }
+    run.push({ v, tok, digits: /^\d+$/.test(tok) });
+  }
+  flush();
+  return [...found];
+}
+
+// "quatre vingt dix sept" -> 97, "soixante et onze" -> 71, "20 3" -> 23
+function combine(run) {
+  let total = 0, prev = null;
+  for (const r of run) {
+    if (r.v === 20 && prev && prev.v === 4 && !prev.digits) {
+      total += 80 - 4; // quatre-vingt
+    } else {
+      total += r.v;
+    }
+    prev = r;
+  }
+  return total;
+}
+// PARSER-END
+
+/* ---------- Palmarès (stocké dans le navigateur) ---------- */
+const KEY = 'lis-les-nombres-palmares';
+function loadBoard() {
+  try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch { return []; }
+}
+function saveBoard(b) {
+  try { localStorage.setItem(KEY, JSON.stringify(b)); } catch {}
+}
+function addScore(name, ms) {
+  const entry = { name, ms, date: new Date().toISOString(), id: Math.random().toString(36).slice(2) };
+  const b = loadBoard();
+  b.push(entry);
+  b.sort((x, y) => x.ms - y.ms);
+  const top = b.slice(0, 50);
+  saveBoard(top);
+  return { entry, rank: top.findIndex(e => e.id === entry.id) + 1 };
+}
+const fmt = ms => (ms / 1000).toFixed(1).replace('.', ',') + ' s';
+
+function renderBoard(highlightId) {
+  const b = loadBoard();
+  const body = document.getElementById('boardBody');
+  body.innerHTML = '';
+  b.forEach((e, i) => {
+    const tr = document.createElement('tr');
+    if (e.id === highlightId) tr.className = 'me';
+    const medal = ['🥇', '🥈', '🥉'][i] || (i + 1);
+    const d = new Date(e.date).toLocaleDateString('fr-FR');
+    [medal, e.name, fmt(e.ms), d].forEach((txt, j) => {
+      const td = document.createElement('td');
+      td.textContent = txt;
+      if (j === 0 || j === 2) td.className = 'num';
+      tr.appendChild(td);
+    });
+    body.appendChild(tr);
+  });
+  document.getElementById('boardEmpty').classList.toggle('hidden', b.length > 0);
+}
+
+/* ---------- Jeu ---------- */
+const $ = id => document.getElementById(id);
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+const COUNT = 10, PENALTY = 5000;
+
+let player = '', numbers = [], index = 0, states = [];
+let startTime = 0, penalty = 0, timerHandle = null, playing = false;
+let rec = null, locked = false;
+
+function draw10() {
+  const pool = Array.from({ length: 100 }, (_, i) => i);
+  for (let i = pool.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [pool[i], pool[j]] = [pool[j], pool[i]];
+  }
+  return pool.slice(0, COUNT);
+}
+
+function show(section) {
+  ['home', 'game', 'result'].forEach(s => $(s).classList.toggle('hidden', s !== section));
+  $('board').classList.toggle('hidden', section === 'game');
+}
+
+function renderProgress() {
+  $('progress').innerHTML = states.map((s, i) =>
+    `<span class="dot ${s || (i === index ? 'current' : '')}"></span>`).join('');
+}
+
+function elapsed() { return performance.now() - startTime + penalty; }
+
+function startGame() {
+  player = $('name').value.trim();
+  if (!player) { $('name').focus(); return; }
+  if (!SR) return;
+  try { localStorage.setItem(KEY + '-last', player); } catch {}
+  numbers = draw10(); index = 0; penalty = 0;
+  states = Array(COUNT).fill('');
+  $('who').textContent = player;
+  $('number').textContent = '…';
+  $('heard').textContent = '';
+  $('mic').textContent = 'Prépare-toi…';
+  $('timer').textContent = fmt(0);
+  show('game');
+  playing = true;
+  startTime = 0;
+  startRecognition();
+}
+
+function beginTimer() {
+  if (startTime) return;
+  startTime = performance.now();
+  timerHandle = setInterval(() => { $('timer').textContent = fmt(elapsed()); }, 100);
+  showNumber();
+}
+
+function showNumber() {
+  const n = $('number');
+  n.className = '';
+  n.textContent = numbers[index];
+  $('heard').textContent = '';
+  renderProgress();
+  locked = false;
+}
+
+function next(state) {
+  if (locked) return;
+  locked = true;
+  states[index] = state;
+  $('number').className = state === 'done' ? 'ok' : '';
+  index++;
+  renderProgress();
+  if (index >= COUNT) { setTimeout(endGame, 250); return; }
+  setTimeout(showNumber, state === 'done' ? 350 : 0);
+}
+
+function onHeard(transcripts) {
+  if (!playing || locked || !startTime) return;
+  const target = numbers[index];
+  for (const t of transcripts) {
+    if (numbersIn(t).includes(target)) { next('done'); return; }
+  }
+  return transcripts[0];
+}
+
+function endGame() {
+  playing = false;
+  clearInterval(timerHandle);
+  stopRecognition();
+  const ms = elapsed();
+  const { entry, rank } = addScore(player, ms);
+  const mine = loadBoard().filter(e => e.name.toLowerCase() === player.toLowerCase());
+  $('resultTitle').textContent = `Bravo ${player} ! 🎉`;
+  $('finalTime').textContent = fmt(ms);
+  const skipped = states.filter(s => s === 'skip').length;
+  let msg = rank ? `Tu es ${rank === 1 ? '1er' : rank + 'e'} au palmarès !` : `Pas encore dans les 50 meilleurs, continue !`;
+  if (rank && mine.length && mine[0].id === entry.id && mine.length > 1) msg += ' C’est ton meilleur temps ! ⭐';
+  if (skipped) msg += ` (${skipped} nombre${skipped > 1 ? 's' : ''} passé${skipped > 1 ? 's' : ''} : +${skipped * 5} s)`;
+  $('resultMsg').textContent = msg;
+  renderBoard(rank ? entry.id : null);
+  show('result');
+}
+
+function stopGame() {
+  playing = false;
+  clearInterval(timerHandle);
+  stopRecognition();
+  show('home');
+}
+
+/* ---------- Reconnaissance vocale ---------- */
+function startRecognition() {
+  rec = new SR();
+  rec.lang = 'fr-FR';
+  rec.continuous = true;
+  rec.interimResults = true;
+  rec.maxAlternatives = 5;
+  rec.onstart = () => { $('mic').textContent = 'Je t’écoute'; $('mic').className = 'listening'; beginTimer(); };
+  rec.onresult = ev => {
+    for (let i = ev.resultIndex; i < ev.results.length; i++) {
+      const res = ev.results[i];
+      const alts = Array.from(res, a => a.transcript);
+      const miss = onHeard(alts);
+      if (miss && res.isFinal && !locked) {
+        $('heard').textContent = `J'ai entendu : « ${miss.trim()} »`;
+        $('number').className = '';
+        void $('number').offsetWidth;
+        $('number').className = 'ko';
+      }
+    }
+  };
+  rec.onerror = ev => {
+    if (ev.error === 'not-allowed' || ev.error === 'service-not-allowed') {
+      playing = false;
+      clearInterval(timerHandle);
+      $('micError').textContent = 'Le micro est bloqué. Autorise le micro pour cette page puis réessaie.';
+      $('micError').classList.remove('hidden');
+      show('home');
+    } else if (ev.error === 'network') {
+      $('mic').textContent = 'Problème de connexion internet (la reconnaissance vocale en a besoin).';
+    }
+  };
+  // Chrome coupe l'écoute après un silence : on relance tant que la partie continue
+  rec.onend = () => { if (playing) { try { rec.start(); } catch {} } else { $('mic').className = ''; } };
+  rec.start();
+}
+function stopRecognition() {
+  if (rec) { rec.onend = null; try { rec.abort(); } catch {} rec = null; }
+  $('mic').className = '';
+}
+
+/* ---------- Boutons ---------- */
+$('startBtn').onclick = startGame;
+$('name').addEventListener('keydown', e => { if (e.key === 'Enter') startGame(); });
+$('skipBtn').onclick = () => { if (playing && startTime && !locked) { penalty += PENALTY; next('skip'); } };
+$('stopBtn').onclick = stopGame;
+$('againBtn').onclick = startGame;
+$('homeBtn').onclick = () => { show('home'); $('name').select(); };
+$('resetBtn').onclick = () => {
+  if (confirm('Effacer tout le palmarès ?')) { saveBoard([]); renderBoard(); }
+};
+
+if (!SR) { $('noSpeech').classList.remove('hidden'); $('startBtn').disabled = true; }
+try { $('name').value = localStorage.getItem(KEY + '-last') || ''; } catch {}
+renderBoard();
+</script>
+</body>
+</html>
