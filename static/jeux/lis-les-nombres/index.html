@@ -98,8 +98,9 @@
   <div id="noSpeech" class="warn hidden">
     Ce navigateur ne sait pas écouter la voix. Utilise un navigateur basé sur <b>Chromium</b> ou sur <b>WebKit</b>.
   </div>
-  <div id="micError" class="warn hidden"></div>
-  <div id="privacy" class="hidden"></div>
+  <div id="micError" class="warn hidden" role="alert"></div>
+  <div id="privacy" class="hidden" role="status"></div>
+  <div class="row hidden" id="onlineRow"><button class="secondary" id="onlineBtn">Jouer quand même (voix envoyée sur internet)</button></div>
 </section>
 
 <!-- Jeu -->
@@ -268,14 +269,28 @@ const LOCAL_OPTS = { langs: ['fr-FR'], processLocally: true };
 let localMode = 'unsupported';
 let localReady = Promise.resolve();  // résolue quand checkLocal() a répondu
 let starting = false;                // un lancement de partie est en cours
+let allowOnline = false;             // l'adulte a choisi « Jouer quand même »
+const CHECK_TIMEOUT = 5000, INSTALL_TIMEOUT = 180000;
+
+// Résout `fallback` si la promesse ne répond pas à temps (ne bloque jamais le jeu)
+function withTimeout(promise, ms, fallback) {
+  return Promise.race([promise, new Promise(r => setTimeout(() => r(fallback), ms))]);
+}
 
 async function checkLocal() {
-  if (!SR || typeof SR.available !== 'function') { localMode = 'unsupported'; }
-  else {
-    try { localMode = await SR.available(LOCAL_OPTS); } catch { localMode = 'unavailable'; }
+  // Il faut à la fois SR.available() ET l'attribut processLocally sur les
+  // instances : sans lui, l'option serait ignorée et la voix partirait sur internet.
+  if (!SR || typeof SR.available !== 'function' || !('processLocally' in SR.prototype)) {
+    localMode = 'unsupported';
+  } else {
+    try { localMode = await withTimeout(SR.available(LOCAL_OPTS), CHECK_TIMEOUT, 'unavailable'); }
+    catch { localMode = 'unavailable'; }
   }
   renderPrivacy();
 }
+
+// Propose de jouer en envoyant la voix sur internet (après un échec du mode local)
+function offerOnline(show) { $('onlineRow').classList.toggle('hidden', !show); }
 
 function renderPrivacy(text) {
   const el = $('privacy');
@@ -292,17 +307,20 @@ function renderPrivacy(text) {
 
 // Télécharge le pack de langue français si besoin. Renvoie true si on peut jouer.
 async function ensureLocal() {
+  if (allowOnline) return true;
   if (localMode !== 'downloadable' && localMode !== 'downloading') return true;
   show('home');
+  offerOnline(false);
   $('startBtn').disabled = true;
   renderPrivacy('⏳ Téléchargement du français sur cet appareil… (une seule fois)');
   let ok = false;
-  try { ok = await SR.install(LOCAL_OPTS); } catch {}
+  try { ok = await withTimeout(SR.install(LOCAL_OPTS), INSTALL_TIMEOUT, false); } catch {}
   $('startBtn').disabled = false;
   if (ok) { localMode = 'available'; renderPrivacy(); return true; }
-  // Échec : on prévient et on laisse l'adulte décider de relancer
-  localMode = 'unavailable';
-  renderPrivacy('⚠️ Le téléchargement du français a échoué. Si tu lances le jeu, ta voix peut être envoyée sur internet pour être reconnue.');
+  // Échec (ou trop long) : on reste en « à télécharger » pour pouvoir réessayer,
+  // et l'adulte peut choisir de jouer quand même en ligne.
+  renderPrivacy('⚠️ Le téléchargement du français a échoué. Clique sur « C’est parti » pour réessayer, ou joue quand même : ta voix sera alors envoyée sur internet.');
+  offerOnline(true);
   return false;
 }
 
@@ -339,7 +357,11 @@ async function startGame() {
     await localReady;
     if (!(await ensureLocal())) return;
   } finally { starting = false; }
+  // Le prénom a pu être corrigé pendant le téléchargement
+  player = $('name').value.trim();
+  if (!player) { show('home'); $('name').focus(); return; }
   $('micError').classList.add('hidden');
+  offerOnline(false);
   try { localStorage.setItem(KEY + '-last', player); } catch {}
   numbers = draw10(); index = 0; penalty = 0;
   states = Array(COUNT).fill('');
@@ -422,7 +444,7 @@ function startRecognition() {
   rec.continuous = true;
   rec.interimResults = true;
   rec.maxAlternatives = 5;
-  if (localMode === 'available') rec.processLocally = true;
+  if (localMode === 'available' && !allowOnline) rec.processLocally = true;
   rec.onstart = () => { $('mic').textContent = 'Je t’écoute'; $('mic').className = 'listening'; beginTimer(); };
   rec.onresult = ev => {
     for (let i = ev.resultIndex; i < ev.results.length; i++) {
@@ -440,25 +462,40 @@ function startRecognition() {
   rec.onerror = ev => {
     if (ev.error === 'not-allowed' || ev.error === 'service-not-allowed') {
       stopGame();
-      $('micError').textContent = 'Le micro est bloqué. Autorise le micro pour cette page puis réessaie.';
-      $('micError').classList.remove('hidden');
+      showMicError('Le micro est bloqué. Autorise le micro pour cette page puis réessaie.');
     } else if (ev.error === 'language-not-supported' && rec && rec.processLocally) {
       // Le français n'est finalement pas disponible sur l'appareil
       stopGame();
       localMode = 'unavailable';
       renderPrivacy('⚠️ Le français n’est pas disponible sur cet appareil. Si tu relances le jeu, ta voix peut être envoyée sur internet pour être reconnue.');
+    } else if (ev.error === 'network' && rec && rec.processLocally) {
+      // Panne de la reconnaissance sur l'appareil : relancer en boucle ne sert à rien
+      stopGame();
+      showMicError('La reconnaissance vocale sur cet appareil a eu un problème. Réessaie, ou joue quand même en envoyant ta voix sur internet.');
+      offerOnline(true);
+    } else if (ev.error === 'language-not-supported') {
+      stopGame();
+      showMicError('Ce navigateur ne sait pas reconnaître le français. Essaie un autre navigateur.');
+    } else if (ev.error === 'audio-capture') {
+      stopGame();
+      showMicError('Aucun micro trouvé. Branche un micro puis réessaie.');
     } else if (ev.error === 'network') {
-      $('mic').textContent = rec && rec.processLocally
-        ? 'Problème de reconnaissance vocale. Arrête puis relance la partie.'
-        : 'Problème de connexion internet (la reconnaissance vocale en a besoin).';
+      $('mic').textContent = 'Problème de connexion internet (la reconnaissance vocale en a besoin).';
     }
   };
   // Chrome coupe l'écoute après un silence : on relance tant que la partie continue
   rec.onend = () => { if (playing) { try { rec.start(); } catch {} } else { $('mic').className = ''; } };
   rec.start();
 }
+function showMicError(msg) { $('micError').textContent = msg; $('micError').classList.remove('hidden'); }
 function stopRecognition() {
-  if (rec) { rec.onend = null; try { rec.abort(); } catch {} rec = null; }
+  if (rec) {
+    // Détacher tous les gestionnaires : un événement tardif de l'ancienne
+    // reconnaissance ne doit pas toucher la partie suivante
+    rec.onend = rec.onerror = rec.onresult = rec.onstart = null;
+    try { rec.abort(); } catch {}
+    rec = null;
+  }
   $('mic').className = '';
 }
 
@@ -467,6 +504,7 @@ $('startBtn').onclick = startGame;
 $('name').addEventListener('keydown', e => { if (e.key === 'Enter') startGame(); });
 $('skipBtn').onclick = () => { if (playing && startTime && !locked) { penalty += PENALTY; next('skip'); } };
 $('stopBtn').onclick = stopGame;
+$('onlineBtn').onclick = () => { allowOnline = true; renderPrivacy('⚠️ Ta voix sera envoyée sur internet pour être reconnue.'); startGame(); };
 $('againBtn').onclick = startGame;
 $('homeBtn').onclick = () => { show('home'); $('name').select(); };
 $('resetBtn').onclick = () => {
