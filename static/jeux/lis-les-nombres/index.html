@@ -82,6 +82,7 @@
   td.num, th.num { text-align: right; }
   tr.me td { background: #fff1d6; font-weight: bold; }
   .palmares-wrap { max-height: 420px; overflow-y: auto; }
+  .info { background: #e3f6f3; color: #1d6b61; padding: 12px; border-radius: 12px; margin-top: 12px; }
   .warn { background: #ffe3e3; color: #a4161a; padding: 12px; border-radius: 12px; margin-top: 12px; }
 </style>
 </head>
@@ -95,9 +96,10 @@
   <p style="font-size:1.15rem">Lis à voix haute les <b>10 nombres</b> le plus vite possible !</p>
   <div class="row"><button id="startBtn">C'est parti ! 🚀</button></div>
   <div id="noSpeech" class="warn hidden">
-    Ce navigateur ne sait pas écouter la voix. Utilise <b>Google Chrome</b> ou <b>Microsoft Edge</b>.
+    Ce navigateur ne sait pas écouter la voix. Utilise un navigateur basé sur <b>Chromium</b> ou sur <b>WebKit</b>.
   </div>
   <div id="micError" class="warn hidden"></div>
+  <div id="privacy" class="hidden"></div>
 </section>
 
 <!-- Jeu -->
@@ -257,6 +259,51 @@ let player = '', numbers = [], index = 0, states = [];
 let startTime = 0, penalty = 0, timerHandle = null, playing = false;
 let rec = null, locked = false;
 
+/* ---------- Reconnaissance sur l'appareil (sans internet) ----------
+   Quand le navigateur sait reconnaître la voix sur l'appareil (option
+   processLocally), on l'impose : la voix n'est alors jamais envoyée sur
+   internet. Sinon on prévient que le navigateur peut l'envoyer. */
+const LOCAL_OPTS = { langs: ['fr-FR'], processLocally: true };
+// 'available' | 'downloadable' | 'downloading' | 'unavailable' | 'unsupported'
+let localMode = 'unsupported';
+
+async function checkLocal() {
+  if (!SR || typeof SR.available !== 'function') { localMode = 'unsupported'; }
+  else {
+    try { localMode = await SR.available(LOCAL_OPTS); } catch { localMode = 'unavailable'; }
+  }
+  renderPrivacy();
+}
+
+function renderPrivacy(text) {
+  const el = $('privacy');
+  if (!SR) { el.classList.add('hidden'); return; }
+  const local = localMode === 'available';
+  const toInstall = localMode === 'downloadable' || localMode === 'downloading';
+  el.className = local || toInstall ? 'info' : 'warn';
+  el.textContent = text || (local
+    ? '🔒 Ta voix est reconnue sur cet appareil : elle n’est pas envoyée sur internet.'
+    : toInstall
+      ? '🔒 Au premier lancement, le français sera téléchargé sur cet appareil. Ensuite, ta voix ne sera plus envoyée sur internet.'
+      : '⚠️ Sur ce navigateur, ta voix peut être envoyée sur internet pour être reconnue.');
+}
+
+// Télécharge le pack de langue français si besoin. Renvoie true si on peut jouer.
+async function ensureLocal() {
+  if (localMode !== 'downloadable' && localMode !== 'downloading') return true;
+  show('home');
+  $('startBtn').disabled = true;
+  renderPrivacy('⏳ Téléchargement du français sur cet appareil… (une seule fois)');
+  let ok = false;
+  try { ok = await SR.install(LOCAL_OPTS); } catch {}
+  $('startBtn').disabled = false;
+  if (ok) { localMode = 'available'; renderPrivacy(); return true; }
+  // Échec : on prévient et on laisse l'adulte décider de relancer
+  localMode = 'unavailable';
+  renderPrivacy('⚠️ Le téléchargement du français a échoué. Si tu lances le jeu, ta voix peut être envoyée sur internet pour être reconnue.');
+  return false;
+}
+
 function draw10() {
   const pool = Array.from({ length: 100 }, (_, i) => i);
   for (let i = pool.length - 1; i > 0; i--) {
@@ -278,10 +325,11 @@ function renderProgress() {
 
 function elapsed() { return performance.now() - startTime + penalty; }
 
-function startGame() {
+async function startGame() {
   player = $('name').value.trim();
-  if (!player) { $('name').focus(); return; }
+  if (!player) { show('home'); $('name').focus(); return; }
   if (!SR) return;
+  if (!(await ensureLocal())) return;
   try { localStorage.setItem(KEY + '-last', player); } catch {}
   numbers = draw10(); index = 0; penalty = 0;
   states = Array(COUNT).fill('');
@@ -364,6 +412,7 @@ function startRecognition() {
   rec.continuous = true;
   rec.interimResults = true;
   rec.maxAlternatives = 5;
+  if (localMode === 'available') rec.processLocally = true;
   rec.onstart = () => { $('mic').textContent = 'Je t’écoute'; $('mic').className = 'listening'; beginTimer(); };
   rec.onresult = ev => {
     for (let i = ev.resultIndex; i < ev.results.length; i++) {
@@ -385,6 +434,11 @@ function startRecognition() {
       $('micError').textContent = 'Le micro est bloqué. Autorise le micro pour cette page puis réessaie.';
       $('micError').classList.remove('hidden');
       show('home');
+    } else if (ev.error === 'language-not-supported' && rec && rec.processLocally) {
+      // Le français n'est finalement pas disponible sur l'appareil
+      stopGame();
+      localMode = 'unavailable';
+      renderPrivacy('⚠️ Le français n’est pas disponible sur cet appareil. Si tu relances le jeu, ta voix peut être envoyée sur internet pour être reconnue.');
     } else if (ev.error === 'network') {
       $('mic').textContent = 'Problème de connexion internet (la reconnaissance vocale en a besoin).';
     }
@@ -412,6 +466,7 @@ $('resetBtn').onclick = () => {
 if (!SR) { $('noSpeech').classList.remove('hidden'); $('startBtn').disabled = true; }
 try { $('name').value = localStorage.getItem(KEY + '-last') || ''; } catch {}
 renderBoard();
+checkLocal();
 </script>
 </body>
 </html>
