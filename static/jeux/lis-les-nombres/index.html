@@ -266,6 +266,8 @@ let rec = null, locked = false;
 const LOCAL_OPTS = { langs: ['fr-FR'], processLocally: true };
 // 'available' | 'downloadable' | 'downloading' | 'unavailable' | 'unsupported'
 let localMode = 'unsupported';
+let localReady = Promise.resolve();  // résolue quand checkLocal() a répondu
+let starting = false;                // un lancement de partie est en cours
 
 async function checkLocal() {
   if (!SR || typeof SR.available !== 'function') { localMode = 'unsupported'; }
@@ -326,10 +328,18 @@ function renderProgress() {
 function elapsed() { return performance.now() - startTime + penalty; }
 
 async function startGame() {
+  if (starting || playing) return;  // évite deux parties (Entrée + clic, double Entrée…)
   player = $('name').value.trim();
   if (!player) { show('home'); $('name').focus(); return; }
   if (!SR) return;
-  if (!(await ensureLocal())) return;
+  starting = true;
+  try {
+    // Attendre de savoir si la reconnaissance sur l'appareil est possible,
+    // sinon un lancement rapide partirait en reconnaissance sur internet
+    await localReady;
+    if (!(await ensureLocal())) return;
+  } finally { starting = false; }
+  $('micError').classList.add('hidden');
   try { localStorage.setItem(KEY + '-last', player); } catch {}
   numbers = draw10(); index = 0; penalty = 0;
   states = Array(COUNT).fill('');
@@ -429,18 +439,18 @@ function startRecognition() {
   };
   rec.onerror = ev => {
     if (ev.error === 'not-allowed' || ev.error === 'service-not-allowed') {
-      playing = false;
-      clearInterval(timerHandle);
+      stopGame();
       $('micError').textContent = 'Le micro est bloqué. Autorise le micro pour cette page puis réessaie.';
       $('micError').classList.remove('hidden');
-      show('home');
     } else if (ev.error === 'language-not-supported' && rec && rec.processLocally) {
       // Le français n'est finalement pas disponible sur l'appareil
       stopGame();
       localMode = 'unavailable';
       renderPrivacy('⚠️ Le français n’est pas disponible sur cet appareil. Si tu relances le jeu, ta voix peut être envoyée sur internet pour être reconnue.');
     } else if (ev.error === 'network') {
-      $('mic').textContent = 'Problème de connexion internet (la reconnaissance vocale en a besoin).';
+      $('mic').textContent = rec && rec.processLocally
+        ? 'Problème de reconnaissance vocale. Arrête puis relance la partie.'
+        : 'Problème de connexion internet (la reconnaissance vocale en a besoin).';
     }
   };
   // Chrome coupe l'écoute après un silence : on relance tant que la partie continue
@@ -466,7 +476,7 @@ $('resetBtn').onclick = () => {
 if (!SR) { $('noSpeech').classList.remove('hidden'); $('startBtn').disabled = true; }
 try { $('name').value = localStorage.getItem(KEY + '-last') || ''; } catch {}
 renderBoard();
-checkLocal();
+localReady = checkLocal();
 </script>
 </body>
 </html>
