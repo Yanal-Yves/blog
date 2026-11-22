@@ -3,6 +3,9 @@ title: "Self-hosting"
 description: "Tutorials and guides for self-hosting services on a Raspberry Pi: Pi-hole, DNS, ad blocking and network administration."
 weight: 1
 bookCollapseSection: true
+# Redirects the old accented URL (already indexed) to the new one.
+aliases:
+  - /auto-hébergement/
 ---
 
 Tutorials and guides for taking back control of your services by hosting them yourself on dedicated hardware (Raspberry Pi, personal server, etc.). These articles cover installation, configuration and day-to-day maintenance:

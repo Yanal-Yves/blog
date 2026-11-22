@@ -44,6 +44,8 @@ Either way, the `gh` CLI and the GitHub API (creating PRs, `gh api`) always auth
 
 Articles live in `content/<section>/`. Each section has an `_index.md` (with `bookCollapseSection: true` for collapsible nav) and ordered article files. Page ordering everywhere is controlled by the `weight` front matter field, not filename.
 
+**ASCII-only file and directory names under `content/` and `content.en/`.** No accents or other non-ASCII characters (use `auto-hebergement`, not `auto-hébergement`). Reason: with `enableGitInfo = true`, Hugo matches each file to its last commit via `git log`, whose default `core.quotepath=true` escapes non-ASCII paths (`content/auto-h\303\251bergement/…`). Hugo then fails to match the file, gets no date, and the footer shows the Go zero date ("1 janvier 1"). This rule is enforced at build time — the deploy workflow fails if a non-ASCII path is found. To change a URL that is already indexed, rename the directory to ASCII and keep the old URL working with an `aliases` front-matter entry (Hugo generates a redirect stub).
+
 Front matter conventions used across the site:
 - `title` — for numbered series, follows the `"SPF (Sender Policy Framework) - 4/9"` pattern
 - `description` — set on every page; used for SEO meta tags
@@ -55,6 +57,7 @@ Front matter conventions used across the site:
 ## Writing conventions
 
 - **Never put a link inside bold text** (no `**[label](url)**`). The rendering is poor. Use a plain link `[label](url)`, or bold a separate word — but never both on the same text.
+- **Limit the em dash (`—`) in French prose.** The `—` (tiret cadratin, a punctuation mark — not the hyphen `-`, which only joins words) is overused and makes French text read as translated from English. In French, in order of preference: (1) split the sentence into shorter sentences; (2) where it fits the context better, use parentheses; use `—` only for a genuine parenthetical incise where nothing else reads as well. **In English, keep the em dash** — it is idiomatic there. Do not mechanically carry French `—`-removal over to the English versions.
 
 ## Fetching web sources (fact-checking)
 
